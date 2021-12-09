@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+/* base.css */
+#contents .location{padding-top:1px;}
+#contents .location .arrow {margin:0 6px 0 6px; background:url(../../images/layout/icon_arrlo.png) no-repeat; width:7px; height:22px;}
+#changeWrap dl.hiddens { display:none !important;}
+
+#changeWrapEmpty  {position:relative; margin:60px 0;}
+
+#relatesite {position:absolute; top:13px; right:0;}
+.wamark{position:absolute; top:0px; right:0;}
+/* board.css */
+/*.bdSearch .btnbdSearch {height:35px; padding:0 15px 0 14px; font-weight:bold; color:#ffffff !important; line-height:28px; text-decoration:none !important; border:1px solid #898989; background:#898989;float:left;}*/
+.bdSearch .divTool {padding-left:230px;}
+.bdSearch .divTool div {float:left;}
+.bdSearch dl dt { display:none;}
+.bdSearch dl dd select{ height:35px;width:85px;padding-left:10px;color:#747474;border:1px solid #dbdbdb;}
+.bdSearch dl dd .search_text{ height:33px;width:238px;border:1px solid #dbdbdb;margin:0 5px 0 5px;}
+
+/* .tabType2 2´Ü */
+.tabType2 {overflow:hidden; margin-bottom:30px;}
+.tabType2 > li {float:left; width:50%; box-sizing: border-box;}
+.tabType2 > li:first-child {margin-left:0;}
+.tabType2 > li:nth-child(2n) { border-left:1px solid #fff;}
+.tabType2 > li > a {display:block; height:50px; line-height:50px; ; font-weight:bold; color:#fff; text-align:center; text-decoration:none; background:#a6a6a6;}
+.tabType2 > li.on > a, .tabType2 > li > a:hover {color:#fff; background:#09a9bb;}
+.tabType2.twoRows li .vertical {height:43px;}
+.tabType2.twoRows li a {line-height:18px;}
+
+/* .tabType3 3´Ü */
+.tabType3 {overflow:hidden; margin-bottom:30px;}
+.tabType3 > li {float:left; width:33%; box-sizing: border-box; border-left:1px solid #fff;}
+.tabType3 > li:first-child {margin-left:0; width:34%}
+.tabType3 > li:nth-child(3n+1) { border:none; width:34%}
+.tabType3 > li > a {display:block; height:50px; line-height:50px; ; font-weight:bold; color:#fff; text-align:center; text-decoration:none; background:#a6a6a6;}
+.tabType3 > li.on > a, .tabType3 > li > a:hover {color:#fff; background:#09a9bb;}
+
+/* .tabType4 4´Ü */
+.tabType4 {overflow:hidden; margin-bottom:30px;}
+.tabType4 > li {float:left; width:25%; box-sizing: border-box; border-left:1px solid #fff;}
+.tabType4 > li:first-child {margin-left:0;}
+.tabType4 > li:nth-child(4n+1) { border:none; }
+.tabType4 > li > a {display:block; height:50px; line-height:50px; ; font-weight:bold; color:#fff; text-align:center; text-decoration:none; background:#a6a6a6;}
+.tabType4 > li.on > a, .tabType4 > li > a:hover {color:#fff; background:#09a9bb;}
+
+/*contents.css*/
+div.workBox:nth-child(3n) { width:32.4%; margin:0 0 13px 0; }
+div.workBox:nth-child(3n+1) { width:32.3%; margin:0 0 13px 1.5%; }
+div.workBox:nth-child(3n+2) { width:32.3%; margin:0 0 13px 1.5%; }
+
+/* board.css */
+.bbsViewA > tbody > tr > td > div > p {font: 12px/16.8px µ¸¿ò, Dotum, ±¼¸², Gulim; text-align: left; color: rgb(67, 67, 67); text-transform: none; text-indent: 0px; letter-spacing: normal; word-spacing: 0px; white-space: normal; widows: 1; font-size-adjust: none; font-stretch: normal; -webkit-text-stroke-width: 0px;}
+.bbsViewA > tbody > tr > td > div > br {font: 12px/16.8px µ¸¿ò, Dotum, ±¼¸², Gulim; text-align: left; color: rgb(67, 67, 67); text-transform: none; text-indent: 0px; letter-spacing: normal; word-spacing: 0px; white-space: normal; widows: 1; font-size-adjust: none; font-stretch: normal; -webkit-text-stroke-width: 0px; }<div></div>

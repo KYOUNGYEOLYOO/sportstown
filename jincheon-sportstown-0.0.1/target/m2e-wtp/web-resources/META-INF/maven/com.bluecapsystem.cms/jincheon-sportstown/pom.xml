@@ -1,0 +1,371 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0; http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.bluecapsystem.cms</groupId>
+	<artifactId>jincheon-sportstown</artifactId>
+	<version>0.0.1</version>
+	<!-- <packaging>jar</packaging> -->
+	<packaging>war</packaging>
+
+
+	<name>jincheon-sportstown</name>
+	<description>진천 선수촌 Contents Management System</description>
+	<url>http://www.bluecapsystem.com</url>
+
+	<properties>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
+		<java-version>1.8</java-version>
+		<org.springframework-version>4.2.6.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.8.6</org.aspectj-version>
+		<org.slf4j-version>1.7.20</org.slf4j-version>
+		<maven.test.skip>true</maven.test.skip>
+	</properties>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.21.RELEASE</version>
+		<relativePath />
+	</parent>
+
+
+	<dependencies>
+		<!-- Springframework Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!-- Exclude Commons Logging in favor of SLF4j -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+				<!-- <exclusion> -->
+				<!-- <groupId>ch.qos.logback</groupId> -->
+				<!-- <artifactId>logback-classic</artifactId> -->
+				<!-- </exclusion> -->
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.mchange/mchange-commons-java -->
+		<dependency>
+		    <groupId>com.mchange</groupId>
+		    <artifactId>mchange-commons-java</artifactId>
+		    <version>0.2.11</version>
+		</dependency>
+		
+
+		<!-- jsp view 설정 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Logging -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+		</dependency>
+
+		<!-- @Inject -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<!-- Test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
+		<!-- apache -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.3.5</version>
+		</dependency>
+
+
+
+
+		<!-- json -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.7.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<!-- // json -->
+
+		<!-- gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+		<!--// gson -->
+
+		<!-- jpa -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+
+		<!-- jdbc : postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+
+		</dependency>
+
+
+		<!-- c3p0 : hibernate connection pool-->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>5.3.6.Final</version>
+		</dependency>
+
+
+		<!-- bluecapsystem projects -->
+		<dependency>
+			<groupId>com.bluecapsystem</groupId>
+			<artifactId>cms-core</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		
+	    <dependency>
+		    <groupId>javax.xml.bind</groupId>
+		    <artifactId>jaxb-api</artifactId>
+		    <version>2.3.0</version>
+		</dependency>
+
+
+
+	</dependencies>
+
+	<build>
+
+		<finalName>jincheon-sportstown</finalName>
+		<resources>
+		<resource>
+			<directory>src/main/config</directory>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+					<jvmArguments>-Dfile.encoding=UTF8</jvmArguments>
+				</configuration>
+			</plugin>
+
+			<!-- <plugin> -->
+			<!-- <artifactId>maven-eclipse-plugin</artifactId> -->
+			<!-- <configuration> -->
+			<!-- <additionalProjectnatures> -->
+			<!-- <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature> -->
+			<!-- </additionalProjectnatures> -->
+			<!-- <additionalBuildcommands> -->
+			<!-- <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand> -->
+			<!-- </additionalBuildcommands> -->
+			<!-- <downloadSources>true</downloadSources> -->
+			<!-- <downloadJavadocs>true</downloadJavadocs> -->
+			<!-- </configuration> -->
+			<!-- </plugin> -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-dependency-plugin</artifactId> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>copy-lib</id> -->
+			<!-- <phase>install</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>copy-dependencies</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <outputDirectory> -->
+			<!-- ${project.build.directory}/lib -->
+			<!-- </outputDirectory> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<!--<phase>install</phase> -->
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.directory}/lib
+							</outputDirectory>
+							<includeScope>runtime</includeScope>
+							<excludeScope>provided</excludeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<finalName>${jar.name}</finalName>
+					<outputDirectory>${deploy.target.dir}</outputDirectory>
+					<archive>
+						<manifest>
+							<mainClass>com.bluecapsystem.cms.jincheon.sportstown.App</mainClass>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+						<manifestEntries>
+							<Built-By>Me</Built-By>
+							<Class-Path>./</Class-Path>
+						</manifestEntries>
+					</archive>
+
+					<excludes>
+						<exclude>resources/**</exclude>
+						<exclude>bluecap/**</exclude>
+						<exclude>spring/**</exclude>
+						<exclude>WEB-INF/views/**</exclude>
+						<exclude>application.yml</exclude>
+						<exclude>hibernate.properties</exclude>
+						<exclude>logback.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.bluecapsystem.cms.jincheon.sportstown.App</mainClass>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+					</archive>
+					<warSourceExcludes>spring/**,application.yml,logback.xml</warSourceExcludes>
+					<webResources>
+						<webResource>
+							<directory>src/main/config</directory>
+							<filtering>true</filtering>
+							<excludes>
+								<!-- <exclude>spring/**</exclude> -->
+								<exclude>application.yml</exclude>
+								<exclude>hibernate.properties</exclude>
+								<exclude>logback.xml</exclude>
+							</excludes>
+						</webResource>
+					</webResources>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+</project>

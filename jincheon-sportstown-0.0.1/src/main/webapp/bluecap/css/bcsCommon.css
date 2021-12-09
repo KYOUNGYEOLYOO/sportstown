@@ -1,0 +1,19 @@
+
+
+.bcs_dialog_hide { display: none; }
+
+.ui-jqgrid .ui-jqgrid-bdiv { overflow-y: scroll !important; }
+
+.ui-dialog {z-index : 9999; }
+
+/* select box 목록 관련 css 처리 */
+.UlSelectize { max-height : 362px; overflow-y : auto }
+
+.btn_typeA {
+	cursor : pointer;
+}
+
+/* 버튼 링크 범위 확장 */
+.btn_typeA a {
+	width : 100%;
+}

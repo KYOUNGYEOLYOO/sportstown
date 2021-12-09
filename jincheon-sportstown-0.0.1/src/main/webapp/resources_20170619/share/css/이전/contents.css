@@ -1,0 +1,172 @@
+@charset "utf-8";
+
+/* �����ȭ */
+.cameraBox { width:100%;}
+.camera1pt {}
+.videobox {width:100%;}
+.videobox .videohead {background:url(../../images/contents/cameratop.png) no-repeat 50% 0; height:40px; }
+.videobox .videohead .videotitle {float:left; padding-left:20px; width:49%; line-height:40px; height:40px; color:#fff; font-size:15px;}
+.videobox .videohead .videoicons {float:right; padding:4px 10px 0; margin:0; text-align:right; width:49%; }
+.videobox .videohead .videoicons a {display:inline;}
+
+.camera2pt {}
+.camera2pt li { width:430px; float:left; margin-left:15px; margin-bottom:10px;}
+.camera2pt li:nth-child(2n+1) { margin-left:0px; margin-bottom:0px;}
+
+.camera3pt {}
+.camera3pt li { width:280px; float:left; margin-left:15px; margin-bottom:10px;}
+.camera3pt li:nth-child(3n+1) { margin-left:0px; margin-bottom:0px;}
+.camera3pt li:nth-child(3n+2) {margin-bottom:0px;}
+
+/*수정*/
+.camera4pt {}
+.camera4pt li { width:200px; float:left; margin-left:15px; margin-bottom:10px;}
+.camera4pt li:nth-child(4n+1) { margin-left:0px; margin-bottom:0px;}
+.camera4pt li:nth-child(4n+2) {margin-bottom:0px;}
+.camera4pt .videobox .videohead .videoicons{padding:8px 5px 0}
+.camera4pt .videobox .videohead .videoicons a img{width:25px; height:25px}
+
+
+/* LIST */
+.list_type1 {width:100%; border-top:2px solid #6b6b6b; border-bottom:1px solid #6b6b6b; border-collapse:collapse; border-spacing:0; table-layout:fixed;}
+.list_type1 thead tr th {padding:17px 0 15px; font-weight:bold; color:#3e3e3e; text-align:center; vertical-align:middle; border-bottom:1px solid #6b6b6b; background:#fbfbfb;}
+.list_type1 tbody tr td {height:19px; padding:14px 5px 13px; color:#3e3e3e; vertical-align:middle; border-top:1px solid #e4e4e4;}
+
+
+
+table.write_type1 { width:100%; background:#fff; border:0; border-top:2px solid #4887d1; border-bottom:1px solid #6b6b6b; border-right:1px hidden #fff; border-collapse:collapse; table-layout:fixed;}
+table.write_type1 tbody.tc td { text-align:center}
+table.write_type1 th { text-align:left; background:#f5f5f5; vertical-align:middle; border-bottom:1px solid #e4e4e4; color:#3e3e3e; font-weight:bold; padding-left:50px;}
+table.write_type1 td { text-align:left; padding:10px 5px 10px; border-bottom:1px solid #e4e4e4; border-width:0 0 1px 0; color:#747474;}
+
+input[type="text"] { }
+input[type="text"].type_1 {width:200px; border:solid 1px #dbdbdb; padding:7px 10px;}
+input[type="text"].type_2 {width:100%; border:solid 1px #dbdbdb; padding:8px 10px ;}
+input[type="password"].type_2 {width:100%; border:solid 1px #dbdbdb; padding:6px 10px;}
+
+textarea.ta_type_1 {border:solid 1px #dbdbdb; padding:5px 10px; width:100%; height:100px;} 
+select.td { border:solid 1px #dbdbdb; padding:8px 10px ; width:100%;}
+
+
+.btnbox {min-height:50px;}
+.btnbox .btn_typeA { display:inline-block;  background:#4887d1; width:120px; line-height:48px; height:50px; font-size:15px; text-align:center; color:#fff; border-radius:4px; font-weight:bold;}
+.btnbox .btn_typeA.t1 { background:#00a8cc;}
+.btnbox .btn_typeA.t2 { background:#878787;}
+.btnbox .btn_typeA.t3 { background:#d3222a;}
+.btnbox .btn_typeA.t4 { background:#7c7662;}
+
+.btnbox .btn_typeB { background:#5d5d5d; width:106px; line-height:37px; font-size:13px; text-align:center; }
+
+.btn_typeA a, .btn_typeB a, .btn_typeC a, .btn_typeD a {color:#fff;}
+
+.datepickerBox {}
+.datepickerBox p { margin-bottom:10px;}
+.datepickerBox label { display:inline-block; width:65px; line-height:45px; height:45px; font-size:15px; color:#3e3e3e; font-weight:bold; text-align:center;}
+.datepickerBox input.inputTxt { line-height:45px; height:45px; width:410px; padding:0 40px 0 10px;}/*수정*/
+.datepickerBox .ui-datepicker-trigger { position:absolute; top:1px; right:0;}
+
+/* popupWindow */
+.popupheader {background:#5a79ba url(../../images/contents/poptitlebg.png) no-repeat 50% 0; height:40px; line-height:40px; height:40px; color:#fff; font-size:15px; text-align:center;}
+.popupcontents {padding:30px; }
+.popupclose {position:absolute; top:3px; right:15px;}
+
+/*
+	<div class="popupheader">
+		
+	</div>
+	<div class="popupcontents">
+*/
+
+/* TAB */
+/* .tabTypeA 2�� */
+.tabTypeA {overflow:hidden; margin-bottom:30px; }
+.tabTypeA > li {float:left; box-sizing: border-box; border:1px solid #ddd; border-left:none}
+.tabTypeA > li:first-child {margin-left:0; border-left:1px solid #ddd}
+.tabTypeA > li > a {display:block; padding:0 17px;  height:45px; line-height:45px; ; font-weight:bold; color:#666; text-align:center; text-decoration:none; background:#fff;}
+.tabTypeA > li.on > a, .tabTypeA > li > a:hover {color:#fff; background:#ff6800;}
+
+
+.tabTypeA.twoRows li .vertical {height:43px;}
+.tabTypeA.twoRows li a {line-height:18px;}
+
+/* .tabTypeB 3�� */
+.tabTypeB {overflow:hidden; margin-bottom:30px;}
+.tabTypeB > li {float:left; width:33%; box-sizing: border-box; border-left:1px solid #fff;}
+.tabTypeB > li:first-child {margin-left:0; width:34%}
+.tabTypeB > li:nth-child(3n+1) { border:none; width:34%}
+.tabTypeB > li > a {display:block; height:50px; line-height:50px; ; font-weight:bold; color:#fff; text-align:center; text-decoration:none; background:#a6a6a6;}
+.tabTypeB > li.on > a, .tabTypeB > li > a:hover {color:#fff; background:#09a9bb; }
+
+
+/* .tabTypeC 4�� */
+.tabWrap{ position: relative; border-bottom: 5px solid #4887d1; margin-top:50px}
+.tabW{  margin: 0; padding: 0; min-height: 50px;}
+.tabTypeC { list-style: none; float: left;  margin: 0 0 0 0px; padding: 0;}
+.tabTypeC > li { float: left; margin: 0 0px 0 0;  padding: 0; background: transparent; text-align: justify; width: 195px;}
+.tabTypeC > li:first-child {margin-left:0;}
+.tabTypeC > li:nth-child(4n+1) { border:none; }
+.tabTypeC > li > a { font-weight: bold;    background: #dddfe1;  display: inline-block;  color: #333;  font-size: 16px;  line-height: 50px; height: 50px;   text-align: center;  margin: 0; width: 100%;}
+.tabTypeC > li:first-child > a {}
+.tabTypeC > li.on > a{ border-bottom: none;  display: inline-block; color: #fff;  background: #4887d1; line-height: 50px; height: 50px;}
+.tabTypeC > li{margin:0 3px}
+.tabTypeC > li:first-child{margin-left:0;}
+.tabTypeC > li:last-child{margin-right:0; width:198px}
+.tabTypeC > li.on:last-child{margin-right:0}
+
+
+/* TAB Content */
+/* .tabContentTypeA */
+.tabContentTypeA { position:absolute; z-index:2;}
+.tabContentTypeA > li {float:left; box-sizing: border-box; border:2px solid #cecece; margin-left:3px; border-bottom:#09a9bb; background:#fff;}
+.tabContentTypeA > li:first-child {margin-left:0;}
+.tabContentTypeA > li > a {display:block; height:38px; padding:0 45px;line-height:38px; ; font-weight:bold; color:#666; text-align:center; text-decoration:none;}
+.tabContentTypeA > li.on > a {color:#000; height:40px;  }
+.tabContentTypeA > li > a:hover {color:#000;   }
+.tabContentTypeA > li.on {border:2px solid #09a9bb;  border-bottom:none;}
+
+.tabContentTypeAbox {position:relative; z-index:1; border:2px solid #09a9bb; padding:40px 50px; top:40px; margin:0 0 80px;}
+
+
+/*�Ұ�*/
+#info_01, #info_02, #info_03{margin-top:50px}
+
+.infoWrap.ex{border-bottom:1px solid #6b6b6b; margin-bottom:35px; padding-bottom:0px}
+.infoWrap{border-bottom:1px solid #6b6b6b; margin-bottom:35px; padding-bottom:65px}
+.infoWrap h3{font-size:32px; text-align:center; padding-bottom:50px}
+.infoWrap h3.ex{padding-bottom:0px}
+.infoWrap .tip{font-size:14px; color:#666; margin-left:135px }
+/* ie10�̻� select�ڽ� ȭ��ǥ ������ ���� */
+select::-ms-expand{opacity:0}
+
+
+.S_btn{text-align: center;background:#6b5c52; width: 100%;  color: #fff !important; font-weight: bolder; padding: 15px 0; margin-top:20px; -webkit-appearance: none; -webkit-border-radius: 0; }
+.G_btn{text-align: center;background:#666; width: 100%;  color: #fff !important; font-weight: bolder; padding: 15px 0; margin-top:20px; -webkit-appearance: none; -webkit-border-radius: 0;}
+
+.sns_btn_O{display:inline-block; padding:0 10px; min-width:40px; text-align:center; height:27px; line-height:27px; color:#fff !important; background:#ff6800; border:1px solid #e45d00;-webkit-appearance: none; -webkit-border-radius: 0;}
+.sns_btn_G{display:inline-block; padding:0 10px; min-width:40px; text-align:center; height:27px; line-height:27px; color:#fff !important; background:#555; border:1px solid #000; -webkit-appearance: none; -webkit-border-radius: 0;}
+.sns_btn_G2{display:inline-block; padding:0 10px; min-width:40px; text-align:center; height:27px; line-height:27px; color:#fff !important; background:#666; border:1px solid #555; -webkit-appearance: none; -webkit-border-radius: 0;}
+.sns_btn_R{display:inline-block; padding:0 10px; min-width:40px; text-align:center; height:27px; line-height:27px; color:#fff !important; background:#ff4200; border:1px solid #e63c00; -webkit-appearance: none; -webkit-border-radius: 0;}
+
+input + .sns_btn_G{margin-left:10px}
+input + .sns_btn_G2{margin-left:10px}
+.sns_btn_G2 + .sns_btn_G2{margin-left:5px}
+
+
+
+.btn_right{position: absolute; top: 50px; right: 0;}
+
+/*�α���*/
+.loginWrap{width:600px; margin:190px auto 150px;}
+.loginWrap h1 .img_logo{margin:auto; width:168px;; height:50px; display: block;}
+
+.login_input { position: relative; }
+.login_input .tit {border:0; -webkit-appearance: none; position: absolute; font-size:18px; right: 0; top: 0; width: 140px; height: 110px; background:#4887d1 !important; color: #fff; text-align: center;}
+.login_input .tit2 {border:0; -webkit-appearance: none; position: absolute; font-size:18px; right: 0; top: 0; width: 140px; height: 171px; background:#4887d1 !important; color: #fff; text-align: center;}
+.login_input .inp { overflow: hidden; padding-right: 12%;}
+.login_input .inp label{float:left;width:20%; font-size: 16px; font-weight: bold; color: #555; line-height:50px; }
+.login_input .inp input {float:left; width:65%; height:50px; border:1px solid #c0c0c0; margin:0 0 10px 0 ; padding-left:15px;box-sizing: border-box; font-size: 16px;}
+.login_input .inp select {float:left; width:65%; height:50px; border:1px solid #c0c0c0; margin:0 0 10px 0 ; padding-left:15px;box-sizing: border-box; font-size: 16px;}
+
+.login_input .result  { font-size:28px; text-align:center; padding-bottom:30px;}
+.login_input .result .fitxt { color:#bf1419;}
+

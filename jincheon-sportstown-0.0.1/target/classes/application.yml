@@ -1,0 +1,107 @@
+server:
+ port: 8092
+ contextPath: /
+
+spring:
+
+ #multi part setting
+ http:
+  multipart:
+   max-file-size: -1
+   max-request-size: -1
+
+ # db setting
+ datasource:
+  platform: postgresql
+  driver-class-name: org.postgresql.Driver
+  #url: jdbc:postgresql://127.0.0.1:5432/jincheon_cmsdb
+  url: jdbc:postgresql://svr.bluecapsystem.com:5432/jincheon_cmsdb
+  username: bcs
+  password: blue8871
+
+  initialization-mode: never
+ 
+ # jpa setting
+ jpa:
+  dialect: org.hibernate.dialect.SQLServerDialect
+  #dialect: org.hibernate.dialect.PostgreSQLDialect
+  show-sql: true
+  format_sql: false
+  hibernate:
+   ddl-auto: update
+   # ddl-auto: validate
+
+logging:
+ level:
+  org.springframework.web: INFO
+  org.hibernate: INFO
+  com.bluecapsystem.cms: DEBUG
+  
+com.bluecapsystem.cms.jincheon.sportstown.scheduler:
+ FileIngestScheduler.enable: true
+  
+---
+
+spring:
+ profiles: dev
+ 
+ # db setting
+ datasource:
+  platform: postgresql
+  driver-class-name: org.postgresql.Driver
+  #url: jdbc:postgresql://127.0.0.1:5432/jincheon_cmsdb
+  url: jdbc:postgresql://svr.bluecapsystem.com:5432/jincheon_cmsdb
+  username: bcs
+  password: blue8871
+
+ 
+ # jpa setting
+ jpa:
+  dialect: org.hibernate.dialect.SQLServerDialect
+  #dialect: org.hibernate.dialect.PostgreSQLDialect
+  show-sql: true
+  format_sql: true
+  hibernate:
+   ddl-auto: update
+   # ddl-auto: validate
+  
+server:
+ port: 8080
+ contextPath: /
+ 
+com.bluecapsystem.cms.jincheon.sportstown.scheduler:
+ FileIngestScheduler.enable: false
+
+---
+
+spring:
+ profiles: release
+ 
+ # db setting
+ datasource:
+  platform: postgresql
+  driver-class-name: org.postgresql.Driver
+  #url: jdbc:postgresql://localhost:5432/jincheon_cmsdb
+  url: jdbc:postgresql://svr.bluecapsystem.com:5432/jincheon_cmsdb
+  username: bcs
+  password: blue8871
+
+
+ 
+ # jpa setting
+ jpa:
+  dialect: org.hibernate.dialect.SQLServerDialect
+  #dialect: org.hibernate.dialect.PostgreSQLDialect
+  show-sql: true
+  hibernate:
+   ddl-auto: validate
+   # ddl-auto: validate
+ 
+server:
+ port: 80
+ contextpath: /
+
+
+ server:
+  tomcat:
+   additional-tld-skip-patterns: "*.jar"

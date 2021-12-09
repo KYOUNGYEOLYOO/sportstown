@@ -1,0 +1,168 @@
+@charset "utf-8";
+
+/**********************************************************
+commnet : default
+*************************************************/
+
+/*@import url("http://fonts.googleapis.com/earlyaccess/nanumgothic.css");*/
+
+body {margin:0;padding:0;font-size:14px;line-height:1.714em;color:#333;font-family: 'Malgun Gothic', '맑은 고딕', '돋움', dotum, sans-serif;}
+h1,h2,h3,h4,h5,h6,input,button,textarea {font-size:14px;line-height:1.1;font-family: 'Malgun Gothic', '맑은 고딕', '돋움', dotum, sans-serif;}
+* { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+img {display:inline-block;border:0 none;vertical-align:top;}
+/*a, label, span, strong, button {display:inline-block;vertical-align:middle;}*/
+a {display:inline-block}
+h1, h2, h3, h4, h5, h6 {margin:0;font-size:1em;font-weight:normal;}
+address, em {font-style:normal;}
+p {margin:0;}
+hr {display:none;}
+
+table {border-collapse:collapse;border-spacing:0;}
+caption {padding:0;width:0;height:0;overflow:hidden;visibility:hidden;font-size:0;line-height:0;}
+th, td {padding:0;vertical-align:top;text-align:left;font-weight:normal;}
+
+dd, dl, ol, ul, form {margin:0;padding:0;}
+li {list-style-type:none;}
+
+form {margin:0;padding:0;}
+fieldset {margin:0;padding:0;border:0 none;}
+legend {position:absolute;top:0;left:0;width:0;height:0;overflow:hidden;visibility:hidden;font-size:0;line-height:0;padding:0;}
+input, select,textarea { padding:0;margin:0;vertical-align:top; line-height:1.1}
+label, button {cursor:pointer;}
+button {overflow:visible;margin:0;padding:0;border:none;background:none;vertical-align:top;cursor:pointer;}
+button::-moz-focus-inner {border:0;padding:0;}
+.inputTxt {height:25px; padding:0 5px; border:1px solid #dbdbdb;}
+.inputChk {width:13px; height:13px; margin:0 5px}
+.hyphen {width:7px; height:1px; margin:0 4px; font-size:0; line-height:0; background:url(../../images/common/bg_hyphen.gif) no-repeat 0 0;}
+.swungDash {margin:0 7px;}
+.select {height:27px; padding-left:10px; font-family: 'Malgun Gothic', '맑은 고딕', '돋움', dotum, sans-serif; color:#747474; border:1px solid #dbdbdb;}
+.textarea {padding:10px; font-size:14px; color:#333; line-height:20px; border:1px solid #dbdbdb;}
+.inputFile {height:27px;}
+
+a {text-decoration:none !important;cursor:pointer;}
+a:link {color:#333;}
+a:visited {color:#333;}
+a:active {color:#333;}
+
+/* basic */
+.hidden {display:none;/* position:absolute;visibility:hidden;left:-9000px; */}
+.blind {position:absolute !important;left:-9000px !important;}
+.dspn {display:none;}
+
+/* align */
+.alignC {text-align:center !important;}
+.alignL {text-align:left !important;}
+.alignR {text-align:right !important;}
+.alignT {vertical-align:top !important;}
+.alignM {vertical-align:middle !important;}
+.alignM td {vertical-align:middle !important;}
+.alignB {vertical-align:bottom !important;}
+.para {line-height:24px !important;text-align:justify !important;}
+.dspil {display:inline-block;}
+.psa {position:absolute;}
+.psr {position:relative;}
+
+/* float */
+.fl {float:left !important;}
+.fr {float:right !important;}
+.flN {float:none !important;}
+.clear:after{content:".";height:0;font-size:0;visibility:hidden;display:block;clear:both;}
+.clear{display:inline-block;}
+* html .clear {height:0;}
+.clearDiv{content:"";height:0;font-size:0;visibility:hidden;display:block;clear:both; float:none;}
+
+/* .clear{display:block;} 위와 같은 클래스 네임 */
+.cboth{clear:both;}
+.clearBlock:after {content:"";display:block;clear:both;}
+
+.fwb {font-weight:bold;}
+.bc_edf4fa {background:#edf4fa;}
+
+/* none */
+.bg0 {background:none !important;}
+.bd0 {border:none !important;}
+
+/* margin */
+.mgt0 {margin-top:0 !important;}
+.mgl0 {margin-left:0 !important;}
+.mgb0 {margin-bottom:0 !important;}
+
+.mgtb20 {margin:20px 0 !important;}
+
+.pdl20 {padding-left:20px !important;}
+.pdl30 {padding-left:30px !important;}
+.pdr10 {padding-right:10px !important;}
+.pdb30 {padding-bottom:30px !important;}
+.mgt3 {margin-top:3px !important;}
+.mgt5 {margin-top:5px !important;}
+.mgt10 {margin-top:10px !important;}
+.mgt15 {margin-top:15px !important;}
+.mgt20 {margin-top:20px !important;}
+.mgt25 {margin-top:25px !important;}
+.mgt30 {margin-top:30px !important;}
+.mgt35 {margin-top:35px !important;}
+.mgt40 {margin-top:40px !important;}
+.mgt45 {margin-top:45px !important;}
+.mgt50 {margin-top:50px !important;}
+.mgt55 {margin-top:55px !important;}
+.mgt60 {margin-top:60px !important;}
+.mgt65 {margin-top:65px !important;}
+.mgt70 {margin-top:70px !important;}
+.mgt75 {margin-top:75px !important;}
+.mgt80 {margin-top:80px !important;}
+.mgt90 {margin-top:90px !important;}
+.mgt130 {margin-top:130px !important;}
+
+.mgl3 {margin-left:3px !important;}
+.mgl5 {margin-left:5px !important;}
+.mgl10 {margin-left:10px !important;}
+.mgl15 {margin-left:15px !important;}
+.mgl20 {margin-left:20px !important;}
+.mgl25 {margin-left:25px !important;}
+.mgl30 {margin-left:30px !important;}
+.mgl35 {margin-left:35px !important;}
+.mgl45 {margin-left:45px !important;}
+.mgl80 {margin-left:80px !important;}
+.mgl125 {margin-left:125px !important;}
+
+.mglm25 {margin-left:-25px !important;}
+
+.mgr10 {margin-right:10px !important;}
+
+.mgb10 {margin-bottom:10px !important;}
+.mgb15 {margin-bottom:15px !important;}
+.mgb20 {margin-bottom:20px !important;}
+.mgb30 {margin-bottom:30px !important;}
+.mgb40 {margin-bottom:40px !important;}
+.mgb60 {margin-bottom:60px !important;}
+
+.lh180 {line-height:180%;}
+.lh200 {line-height:200%;}
+
+/* padding */
+.pd0 {padding:0 !important;}
+.noBgPd {padding:0 !important;background:none !important;}
+
+.cursor {cursor:pointer;}
+
+.dotLine {width:100%;height:1px;background:url(../../images/contents/dotLineBg.png) 0 0 repeat-x;}
+
+#skipToContent, #returnToPageTop {position:relative;}
+#skipToContent a, #returnToPageTop a {width:1px;height:1px;display:block;padding:0;margin-bottom:-1px;overflow:hidden;text-align:center;background:#353535;color:#fff;white-space:nowrap;font-size:0;line-height:0;}
+#skipToContent a:focus,
+#skipToContent a:active,
+#returnToPageTop a:focus,
+#returnToPageTop a:active {height:auto;width:auto;padding:10px;font-size:12px;}
+#skiptoContent{position:fixed;top:0;left:0;width:100%;z-index:99999;}
+#skiptoContent a {width:100%;display:block;position:absolute;top:0;left:-99999px;padding:10px 0;background:#00355d;color:#fff;font-size:12px;text-align:center}
+#skiptoContent a:focus, #skiptoContent a:active {left:0;text-decoration:none}
+#skiptoContent a:hover{text-decoration:underline}
+
+/* skip navi 
+#skipNavi {position:absolute; top:0; left:0; width:100%; height:0; text-indent:-9999px; z-index:10000;}
+#skipNavi li {width:0px; height:0px;}
+#skipNavi a {display:inline-block; width:0; height:30px; font-weight:bold; text-align:center;}
+#skipNavi a:hover, #skipNavi a:focus, #skipNavi a:active {display:block; position:absolute; top:0; left:0; width:100%; height:25px; padding:10px 0 0 0; background:#fff; font-size:12px; color:#666; text-indent:0;}
+*/
+

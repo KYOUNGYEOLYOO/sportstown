@@ -1,0 +1,156 @@
+@charset "utf-8";
+
+/* headerNotice */
+.headerNotice { height:0px; background:#c5dcef; position:relative; z-index:999;}
+.headerNotice .headerNoticeList {height:140px;display:none;}
+.headerNotice .headerNoticeList li {width:33%; position:relative;height:140px; border-left:1px solid #fff; overflow:hidden; float:left; color:#333;}
+.headerNotice .headerNoticeList li .txt1 {font-size:2.143em; color:#2a57aa; padding:30px 10px 5px 95px; line-height:1.2em; letter-spacing:-0.09em;}
+.headerNotice .headerNoticeList li .txt2 { padding:0px 20px 0px 98px; letter-spacing:-0.07em;}
+.headerNotice .headerNoticeList li:first-child {border-left:none;} 
+.headerNotice .imgBox { position:absolute; bottom:0; left:10px; }
+.headerNotice .checktoday {position:absolute; right:35px; top:6px; color:#fff;}
+.headerNotice .checktoday input { display: inline-block;  width: 16px;  height: 16px;  border: 2px solid #bcbcbc;  cursor: pointer; vertical-align:center;}
+.headerNotice .btn_mainclose {position:absolute; right:0; top:11px;}
+.headerNotice .btn_mainclose2 { width:29px; height:25px; position:absolute; left:50%; top:165px; margin-left:-15px;}
+.headerNotice .btnBox {color:#444a61; font-weight:bold; width:40px; padding:0 37px 0 23px; height:30px; line-height:30px; position:absolute; left:0; background:#c5dcef url(../../images/main/btnBoxbg.png) no-repeat 75px 0;}
+.headerNotice .btnBox.on { background:#c5dcef url(../../images/main/btnBoxbgon.png) no-repeat 75px 0;}
+
+
+
+
+/* visual */
+.mainVisual {position:relative; overflow:hidden; width:100%;}
+.bx-viewport  {height:470px; overflow:hidden; width:100%; }
+.mainVisual img.visImg {height:646px; width:1600px; position:relative; left:50%; margin-left:-50%;} 
+.bx-viewport,.slideVisual, .bx-clone, .bx-viewport {height:100%;}
+
+#mainContainer {position:relative;  z-index:1; padding:40px 0 15px; background:#f7f7f9}
+#mainContents { width:1200px; position:relative; margin:auto; }
+
+.slideVisual .conBox {height:397px;}
+
+/*.slideVisual .conBox .defaultbox img {padding:150px 0 0 10%;}테스트 수정*/
+
+.mainQuick {position:relative; top:0px; width:100%; background:#fff; padding:40px 0; overflow:hidden}
+.mainQuick ul li {float:left; width:16.5%; text-align:center; background:url(../../images/main/ico_line.png) no-repeat 0 5px; height:102px}
+.mainQuick ul li a {padding:84px 0 0; display:block; font-weight:bold; line-height:1; font-size:18px}
+.mainQuick ul li.micon1 a {background:url(../../images/main/icon_01.png) no-repeat top center;}
+.mainQuick ul li.micon2 a {background:url(../../images/main/icon_02.png) no-repeat top center;}
+.mainQuick ul li.micon3 a {background:url(../../images/main/icon_03.png) no-repeat top center;}
+.mainQuick ul li.micon4 a {background:url(../../images/main/icon_04.png) no-repeat top center;}
+.mainQuick ul li.micon5 a {background:url(../../images/main/icon_05.png) no-repeat top center;}
+.mainQuick ul li.micon6 a {background:url(../../images/main/icon_06.png) no-repeat top center;}
+.mainQuick ul li.micon7 a {background:url(../../images/main/icon_07.png) no-repeat top center;}
+.mainQuick ul li.micon8 a {background:url(../../images/main/icon_08.png) no-repeat top center;}
+.mainQuick ul li.micon9 a {background:url(../../images/main/icon_09.png) no-repeat top center;}
+/* .mainQuick ul li:nth-child(4n+1) { background:none; } */
+.mainQuick ul li:first-child { background:none;}
+
+
+/*로그인*/
+#noticebox { height:210px; border:1px solid #ddd; width:248px; box-sizing: border-box; background:#fff}
+#tab1 { position: relative;}
+#tab1 .tabmenu { width: 100%; margin:0; padding:0; min-height:38px;}
+#tab1 .tabmenu > ul { list-style: none;  float: left; margin: 0 0 0 0px; padding: 0; width:100% }
+#tab1 .tabmenu > ul > li { float:left; margin:0 0px 0 0; padding: 0; background: transparent; text-align: justify; width:50%;  }
+#tab1 .tabmenu ul > li > a {font-weight:bold; background:#fbfbfb; display:inline-block; color:#666;  font-size:13px; line-height:37px; height:37px;  text-align:center; margin:0; margin-right:2px; border-bottom:1px solid #ddd; width:100% }
+#tab1 .tabmenu > ul > li:first-child > a { border-right:solid 1px #ddd; }
+#tab1 .tabmenu ul > li > a.on { border-bottom: none; display:inline-block;color:#333; background:#fff; line-height:38px; height:38px; border-top:2px solid #ff6800; border-left:1px solid #ddd; box-sizing: border-box; }
+#tab1 .tabmenu ul > li:first-child > a.on{border-left:none}
+#tab1 .tabcontent { display: none; position: absolute; left: 0; top:55px; margin: 0; padding: 0 0px; width:100%;}
+#tab1 .tabcontent .login_int{padding:0 20px 15px 20px}
+#tab1 .tabcontent .login_int p span a, #tab1 .tabcontent .login_int p span label{font-size:11px; color:#666}
+#tab1 .tabcontent .login_int p span a{background: url(../../images/layout/search_line.gif) 100% 60% no-repeat; padding:0 5px;}
+#tab1 .tabcontent .login_int p span:first-child {padding-right:8px}
+#tab1 .tabcontent .login_int p span:last-child a{padding:0px; background:none}
+#tab1 .tabcontent .login_int p span a:hover{text-decoration: underline !important; color:#333}
+#tab1 .tabcontent .login_int .btn_nlogin{color:#666; font-size:11px; border:1px solid #ddd; height:30px; width:183px; line-height:30px; text-align:center; background:#f8f9fa url(../../images/layout/ico_naver.gif) 15% 8px no-repeat; padding-left:20px; margin-top:14px}
+#tab1 .tabcontent .login_int .inputTxt{ position: relative; height:30px; color:#666; font-size:11px; width:132px}
+#tab1 .tabcontent .login_int span.ex .inputTxt{border-bottom:none}
+#tab1 .tabcontent .login_int p .tit{background:red; width:50px; height:50px; position: absolute; top:0; right:20px;-webkit-appearance: none; border: 0; color:#fff; background:#ff6800; width:63px; height:63px;border-right:1px solid #db6413; border-bottom:1px solid #db6413; -webkit-appearance: none; -webkit-border-radius:0;}
+
+/*로그인후*/
+#tab1 .tabcontent .member{padding:0 20px 15px 20px; }
+#tab1 .tabcontent .member .tit_member{font-weight: bolder;color:#333}
+#tab1 .tabcontent .member .btn_nlogout{color:#666; font-size:11px; border:1px solid #ddd; height:30px; width:203px; line-height:30px; text-align:center; margin-top:14px; background:#f8f9fa}
+#tab1 .tabcontent .member p span a{font-size:11px; color:#666}
+#tab1 .tabcontent .member p span a{background: url(../../images/layout/search_line.gif) 100% 60% no-repeat; padding:0 5px;}
+#tab1 .tabcontent .member p span:first-child {padding-right:3px}
+#tab1 .tabcontent .member p span:last-child a{padding:0px; background:none}
+#tab1 .tabcontent .member p span a:hover{text-decoration: underline !important; color:#333}
+
+.popupClose01{color:#333; position: absolute; right:10px; top:112px}
+.popupClose02{color:#fff; position: absolute; left:110px; top:142px}
+
+
+/*메인컨텐츠*/
+.main_con{clear: both; }
+.main_con .grand_banner_wrap{overflow:hidden;margin-top: 20px; position: relative; padding-top:10px}
+/*.main_con .grand_banner_wrap.ex{position: relative;}*/
+.main_con .grand_banner_wrap h3{font-size:18px; margin-bottom:20px}
+.main_con .grand_banner_wrap .btn_register{padding-left:20px; background:#555 url(../../images/layout/btn_register.png) 20% 50% no-repeat; text-align:center; border:1px solid #000; width:110px; height:35px; color:#fff;box-sizing: border-box; line-height:30px; position: absolute; right: 0; top: 5px;}
+
+.main_con .grand_banner_wrap .info{position: absolute; top:0; left:150px; margin-top:10px}
+.main_con .grand_banner_wrap .info dd{float:left; color:#666}
+.main_con .grand_banner_wrap .info dd .pay_month{; background:url(../../images/contents/bg_pay_month.png) no-repeat; color:#fff; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px; margin-right:5px}
+.main_con .grand_banner_wrap .info dd .pay_hup{; background:url(../../images/contents/bg_pay_hup.png) no-repeat;color:#fff; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px; margin-right:5px}
+.main_con .grand_banner_wrap .info dd.ico_info{margin-right:5px}
+.main_con .grand_banner_wrap .info dd .female{; background:url(../../images/contents/ico_female.png) no-repeat; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;color: transparent;margin-right:5px}
+.main_con .grand_banner_wrap .info dd .male{; background:url(../../images/contents/ico_male.png) no-repeat; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;color: transparent;margin-right:5px}
+
+.main_con .grand_banner_wrap .banner01 li{margin:0 10px 10px 0; float:left; overflow:hidden; border:1px solid #ddd;  box-sizing:border-box; width:240px; height:200px;}
+.main_con .grand_banner_wrap .banner01 li:hover{border:1px solid #ff6000}
+.main_con .grand_banner_wrap .banner01 li:hover.ex{border:1px solid #ddd}
+.main_con .grand_banner_wrap .banner01 li:hover .company.new{background:#ff6000 url(../../images/contents/ico_new.png) 4px 0 no-repeat;}
+.main_con .grand_banner_wrap .banner01 li .company{font-weight: bolder; font-size:15px; background:#a29287; height:50px; border-bottom:1px solid #7d7168; line-height:50px; text-align:center}
+.main_con .grand_banner_wrap .banner01 li .company a{color:#fff; width:100%; height:100%}
+.main_con .grand_banner_wrap .banner01 li .company.new{background:#a29287 url(../../images/contents/ico_new.png) 4px 0 no-repeat;}
+.main_con .grand_banner_wrap .banner01 li:hover .company{background:#ff6000; border-bottom:1px solid #ff6000}
+.main_con .grand_banner_wrap .banner01 li .description{height:88px;; padding:20px 20px 0 20px}
+.main_con .grand_banner_wrap .banner01 li .description .point01{line-height:17px; font-size:13px;}
+.main_con .grand_banner_wrap .banner01 li .description .memo{line-height:17px; font-size:13px; padding-bottom:5px; height: 35px;}
+.main_con .grand_banner_wrap .banner01 li .description .btn{ color:#fff; width:60px; height:27px; box-sizing: border-box; line-height:27px; text-align:center; }
+.main_con .grand_banner_wrap .banner01 li .description .btn.orange{background:#ff6800; border:1px solid #e45d00;}
+.main_con .grand_banner_wrap .banner01 li .description .btn.red{background:#ff4200; border:1px solid #e63c00;}
+.main_con .grand_banner_wrap .banner01 li .description .btn.gray{background:#555; border:1px solid #000;}
+.main_con .grand_banner_wrap .banner01 li .extra{border-top:1px solid #eee; background:#fbfbfb; height:40px; line-height:40px; padding: 0 20px;}
+.main_con .grand_banner_wrap .banner01 li .extra .location{display: inline-block; height:20px; background:url(../../images/contents/ico_location.png) 0  no-repeat; padding-left:20px; color:#999; margin:0 15px 0 0; line-height: 40px; height: 100%;}
+.main_con .grand_banner_wrap .banner01 li .extra .male{ background:url(../../images/contents/ico_male.png) no-repeat; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;color: transparent;}
+.main_con .grand_banner_wrap .banner01 li .extra .female{ background:url(../../images/contents/ico_female.png) no-repeat; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;color: transparent;}
+.main_con .grand_banner_wrap .banner01 li .extra .pay_month{background:url(../../images/contents/bg_pay_month.png) no-repeat; color:#fff; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;}
+.main_con .grand_banner_wrap .banner01 li .extra .pay_hup{ background:url(../../images/contents/bg_pay_hup.png) no-repeat;color:#fff; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;}
+.main_con .grand_banner_wrap .banner01 li .extra .tit{}
+.main_con .grand_banner_wrap .banner01 li .extra .pay{float:right}
+
+
+.main_con .grand_banner_wrap .banner02 li{padding:17px 20px 30px 20px; margin:0 10px 10px 0; float:left; overflow:hidden; border:1px solid #ddd; border-top:2px solid #ff6800;  box-sizing:border-box; width:190px; height:160px;}
+.main_con .grand_banner_wrap .banner02 li:hover{border:1px solid #ff6800; border-top:2px solid #ff6800;}
+.main_con .grand_banner_wrap .banner02 li:hover.ex{border:1px solid #ddd;}
+.main_con .grand_banner_wrap .banner02 li .gender{overflow:hidden}
+.main_con .grand_banner_wrap .banner02 li .gender .male{float:right; ; background:url(../../images/contents/ico_male.png) no-repeat; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;color: transparent;}
+.main_con .grand_banner_wrap .banner02 li .gender .female{float:right; ; background:url(../../images/contents/ico_female.png) no-repeat; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;color: transparent;}
+.main_con .grand_banner_wrap .banner02 li .description .point02{font-size:14px; padding-bottom:5px}
+.main_con .grand_banner_wrap .banner02 li .description .memo{font-size:13px; line-height:16px; color:#666}
+.main_con .grand_banner_wrap .banner02 li .extra{margin-top:20px;}
+.main_con .grand_banner_wrap .banner02 li .extra .location{color:#999; margin: 0 15px 0 0;}
+.main_con .grand_banner_wrap .banner02 li .extra .pay_month{ background:url(../../images/contents/bg_pay_month.png) no-repeat; color:#fff; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;}
+.main_con .grand_banner_wrap .banner02 li .extra .pay_hup{ background:url(../../images/contents/bg_pay_hup.png) no-repeat; color:#fff; width:20px; height:20px; display: inline-block; text-align: center;line-height: 20px;}
+.main_con .grand_banner_wrap .banner02 li .extra .tit{}
+.main_con .grand_banner_wrap .banner02 li .extra .pay{float:right}
+.main_con .grand_banner_wrap .banner02 li .stand_by{background:url(../../images/contents/stand_by.png) 50% 40% no-repeat; text-align:center; padding-top:60px}
+.main_con .grand_banner_wrap .banner02 li .stand_by p{font-size:13px; color:#666}
+.main_con .grand_banner_wrap .banner02 li .stand_by p a{font-size:12px; color:#333;}
+.main_con .grand_banner_wrap .banner02 li .stand_by p a:hover{text-decoration: underline !important; }
+
+.main_con .grand_banner_wrap .tbTypeA tbody .location, .main_con .grand_banner_wrap .tbTypeA tbody .business{color:#666;font-size:13px}
+.main_con .grand_banner_wrap .tbTypeA tbody .company{color:#333;font-size:14px; font-weight: bold; text-align:left}
+.main_con .grand_banner_wrap .tbTypeA tbody .title{color:#333;font-size:14px;text-align:left;}
+.main_con .grand_banner_wrap .tbTypeA tbody .title a{text-overflow:ellipsis; white-space:nowrap; overflow:hidden; max-width:360px; line-height:20px}
+.main_con .grand_banner_wrap .tbTypeA tbody .title img{margin-left:10px}
+.main_con .grand_banner_wrap .tbTypeA tbody .pay{text-align:left; ;}
+.main_con .grand_banner_wrap .tbTypeA tbody .pay_month{display: inline-block; ; background:url(../../images/contents/bg_pay_month.png) 20% no-repeat; color:#fff; width:20px; height:20px; text-align: center;line-height: 20px; margin-right:5px}
+.main_con .grand_banner_wrap .tbTypeA tbody .pay_hup{display: inline-block; ; background:url(../../images/contents/bg_pay_hup.png) no-repeat;color:#fff; width:20px; height:20px; text-align: center;line-height: 20px;margin-right:5px }
+.main_con .grand_banner_wrap .tbTypeA tbody .male{; background:url(../../images/contents/ico_male.png) 50% no-repeat; width:20px; height:20px; text-align: center;line-height: 20px;color: transparent;}
+.main_con .grand_banner_wrap .tbTypeA tbody .female{; background:url(../../images/contents/ico_female.png) 50% no-repeat; width:20px; height:20px; text-align: center;line-height: 20px;color: transparent;}
+.main_con .grand_banner_wrap .tbTypeA tbody tr:hover .title a:hover{text-decoration: underline !important; color:#000}
+.main_con .grand_banner_wrap .tbTypeA tbody tr:hover {background:#fbfbfb}
