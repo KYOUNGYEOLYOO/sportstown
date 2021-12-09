@@ -31,6 +31,7 @@ public class ContentInstanceDao
 		instance.setInstanceId(instanceId);
 		
 		logger.debug("컨텐츠인스턴스를 등록 합니다 [instance = {}]", instance);
+		
 		em.persist(instance);
 	}
 
