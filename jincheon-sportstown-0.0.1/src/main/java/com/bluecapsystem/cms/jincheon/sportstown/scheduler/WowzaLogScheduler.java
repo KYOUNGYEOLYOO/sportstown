@@ -24,7 +24,7 @@ public class WowzaLogScheduler
 	
 	
 	//jhjh
-
+    // jhjh222
 	
 	
 	/** 활성 여부 설정 */
