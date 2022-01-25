@@ -1,0 +1,61 @@
+Manifest-Version: 1.0
+Build-Jdk: 15.0.2
+Class-Path: ./ lib/spring-boot-starter-web-1.5.21.RELEASE.jar lib/spring
+ -boot-starter-1.5.21.RELEASE.jar lib/spring-boot-1.5.21.RELEASE.jar lib
+ /spring-boot-autoconfigure-1.5.21.RELEASE.jar lib/snakeyaml-1.17.jar li
+ b/spring-boot-starter-tomcat-1.5.21.RELEASE.jar lib/tomcat-embed-websoc
+ ket-8.5.40.jar lib/hibernate-validator-5.3.6.Final.jar lib/validation-a
+ pi-1.1.0.Final.jar lib/classmate-1.3.4.jar lib/spring-web-4.3.24.RELEAS
+ E.jar lib/spring-aop-4.3.24.RELEASE.jar lib/spring-beans-4.3.24.RELEASE
+ .jar lib/spring-webmvc-4.3.24.RELEASE.jar lib/spring-expression-4.3.24.
+ RELEASE.jar lib/spring-boot-starter-logging-1.5.21.RELEASE.jar lib/logb
+ ack-classic-1.1.11.jar lib/logback-core-1.1.11.jar lib/jul-to-slf4j-1.7
+ .26.jar lib/log4j-over-slf4j-1.7.26.jar lib/mchange-commons-java-0.2.11
+ .jar lib/jstl-1.2.jar lib/tomcat-embed-core-8.5.40.jar lib/tomcat-annot
+ ations-api-8.5.40.jar lib/tomcat-embed-el-8.5.40.jar lib/slf4j-api-1.7.
+ 26.jar lib/jcl-over-slf4j-1.7.26.jar lib/slf4j-log4j12-1.7.26.jar lib/l
+ og4j-1.2.17.jar lib/janino-2.7.8.jar lib/commons-compiler-2.7.8.jar lib
+ /javax.inject-1.jar lib/spring-core-4.3.24.RELEASE.jar lib/commons-lang
+ -2.4.jar lib/commons-io-1.4.jar lib/httpclient-4.3.5.jar lib/httpcore-4
+ .4.11.jar lib/commons-codec-1.10.jar lib/jackson-core-2.7.4.jar lib/jac
+ kson-databind-2.7.4.jar lib/jackson-annotations-2.7.4.jar lib/json-simp
+ le-1.1.jar lib/gson-2.8.5.jar lib/spring-boot-starter-data-jpa-1.5.21.R
+ ELEASE.jar lib/spring-boot-starter-aop-1.5.21.RELEASE.jar lib/aspectjwe
+ aver-1.8.14.jar lib/spring-boot-starter-jdbc-1.5.21.RELEASE.jar lib/tom
+ cat-jdbc-8.5.40.jar lib/tomcat-juli-8.5.40.jar lib/spring-jdbc-4.3.24.R
+ ELEASE.jar lib/hibernate-core-5.0.12.Final.jar lib/javassist-3.21.0-GA.
+ jar lib/antlr-2.7.7.jar lib/jandex-2.0.0.Final.jar lib/dom4j-1.6.1.jar 
+ lib/hibernate-commons-annotations-5.0.1.Final.jar lib/hibernate-entitym
+ anager-5.0.12.Final.jar lib/javax.transaction-api-1.2.jar lib/spring-da
+ ta-jpa-1.11.22.RELEASE.jar lib/spring-data-commons-1.13.22.RELEASE.jar 
+ lib/spring-orm-4.3.24.RELEASE.jar lib/spring-tx-4.3.24.RELEASE.jar lib/
+ spring-aspects-4.3.24.RELEASE.jar lib/postgresql-9.4.1212.jre7.jar lib/
+ hibernate-c3p0-5.3.6.Final.jar lib/jboss-logging-3.3.2.Final.jar lib/c3
+ p0-0.9.5.2.jar lib/cms-core-1.0.1.jar lib/maven-compiler-plugin-3.1.jar
+  lib/maven-plugin-api-2.0.9.jar lib/maven-artifact-2.0.9.jar lib/plexus
+ -utils-1.5.1.jar lib/maven-core-2.0.9.jar lib/maven-settings-2.0.9.jar 
+ lib/maven-plugin-parameter-documenter-2.0.9.jar lib/wagon-webdav-1.0-be
+ ta-2.jar lib/slide-webdavlib-2.1.jar lib/commons-httpclient-2.0.2.jar l
+ ib/jdom-1.0.jar lib/xml-im-exporter-1.1.jar lib/commons-logging-1.0.4.j
+ ar lib/maven-profile-2.0.9.jar lib/maven-model-2.0.9.jar lib/wagon-prov
+ ider-api-1.0-beta-2.jar lib/maven-repository-metadata-2.0.9.jar lib/mav
+ en-error-diagnostics-2.0.9.jar lib/maven-project-2.0.9.jar lib/maven-pl
+ ugin-registry-2.0.9.jar lib/maven-plugin-descriptor-2.0.9.jar lib/maven
+ -artifact-manager-2.0.9.jar lib/maven-monitor-2.0.9.jar lib/maven-toolc
+ hain-1.0.jar lib/maven-shared-utils-0.1.jar lib/jsr305-2.0.1.jar lib/ma
+ ven-shared-incremental-1.1.jar lib/plexus-component-annotations-1.5.5.j
+ ar lib/plexus-compiler-api-2.2.jar lib/plexus-compiler-manager-2.2.jar 
+ lib/plexus-compiler-javac-2.2.jar lib/plexus-container-default-1.5.5.ja
+ r lib/plexus-classworlds-2.2.2.jar lib/xbean-reflect-3.4.jar lib/common
+ s-logging-api-1.1.jar lib/google-collections-1.0.jar lib/spring-context
+ -4.3.24.RELEASE.jar lib/hibernate-jpa-2.1-api-1.0.0.Final.jar lib/commo
+ ns-collections-3.2.2.jar lib/jaxb-api-2.3.0.jar
+Implementation-Title: jincheon-sportstown
+Implementation-Version: 0.0.1
+Implementation-Vendor-Id: com.bluecapsystem.cms
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: http://www.bluecapsystem.com
+Main-Class: com.bluecapsystem.cms.jincheon.sportstown.App
+Built-By: Me
+Created-By: Maven Integration for Eclipse
+
