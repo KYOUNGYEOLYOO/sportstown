@@ -35,6 +35,12 @@ public class Code
 	@Column(nullable = false)
 	private Boolean isPartition;
 	
+	
+	
+	
+	
+	
+	
 	public Code()
 	{
 		isDeleted = false;
