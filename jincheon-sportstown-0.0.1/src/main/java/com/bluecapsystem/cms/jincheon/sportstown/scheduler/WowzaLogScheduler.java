@@ -22,6 +22,11 @@ public class WowzaLogScheduler
 	@Autowired
 	private FileInstanceService fileServ;
 	
+	
+	
+	//yooo
+	
+	
 	/** 활성 여부 설정 */
 	@Value("${com.bluecapsystem.cms.jincheon.sportstown.scheduler.WowzaLogScheduler.enable}")
 	private final boolean enableTask = true;
