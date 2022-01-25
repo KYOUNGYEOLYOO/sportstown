@@ -66,7 +66,6 @@
 </style>
 
 
-
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -449,6 +448,8 @@ function onClick_liveRecordAll()
 				data-event-disableCamera="callback_removePlayer">
 				
 			</div>
+			<!-- 캔버스 생성 버튼을 만들어봅세다.. 20211213 -->
+			<div id="canvasBtn" onclick="addCanvas();">캔버스</div>
 			
 			<div class="btnbox alignC" style="text-align: center;">
 				<span class="btn_typeA t1 mgb10"><a href="javascript:onClick_recordAll();">전체녹화</a></span>
@@ -495,6 +496,24 @@ function onClick_liveRecordAll()
 <!-- footer -->
 <jsp:include page="/include/footer" />
 <!-- //footer -->
+</div>
+<%--20211215 --%>
+<div id="styleBtn" style="display: flex; position:absolute; 
+	top: 60px; right: 0px; z-index: 4;">
+	<button style="margin-right:10px" id="drawing"
+	onclick="drawCanvas()">draw</button>
+	<button style="margin-right:10px" id="shape"
+	onclick="drawShape()">shape</button>
+	<button style="margin-right:10px" id="eraser"
+	onclick="eraseCanvas()">eraser</button>
+	<button style="margin-right:10px" id="clear"
+	onclick="clrCanvas(document.getElementById('canvas'))">clear</button>
+	<button style="margin-right:10px" id="color"
+	onclick="changeColor('blue')">color</button>
+	<button style="margin-right:10px" id="thickness"
+	onclick="changeWidth(10)">thickness</button>
+	<button style="margin-right:10px" id="close"
+	onclick="delCanvas($('#canvas'))">close</button>
 </div>
 
 </body>

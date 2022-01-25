@@ -7,6 +7,11 @@
 
 <script type="text/javascript">
 
+var applicationCode_new = "";
+var streamServer = "";
+var streamName = "";
+var streamSourceUrl = "";
+
 $(document).ready(function(){
 	
 	var eventSender = new bcs_ctrl_event($("[data-ctrl-view=camera_modify]"));
@@ -24,7 +29,22 @@ $(document).ready(function(){
 		buttons : {
 			"저장" : function(){
 				var jpPopup = $(this);
+				
+				applicationCode_new = $(this).find("form").find('select[name="streamMetaItems[0].applicationCode"] option:selected').text();
+				streamServer = $(this).find("form").find('select[name="streamMetaItems[0].streamServerCode"] option:selected').text();
+				streamName = $(this).find("form").find('input[name="streamMetaItems[0].streamName"]').val();
+				streamSourceUrl = $(this).find("form").find('input[name="streamMetaItems[0].streamSourceUrl"]').val();
+				
+				console.log("applicationCode_new" + applicationCode_new);
+				console.log("streamServer" + streamServer);
+				console.log("streamName" + streamName);
+				console.log("streamSourceUrl" + streamSourceUrl);
+				
+				
+			
 				console.log($(this).find("form").serialize());
+				
+				return;
 				$.ajax({
 					url : "<c:url value="/service/camera/modifyCamera"/>",
 					async : false,
@@ -54,6 +74,33 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function updateToWowza()
+{
+	var params = {
+		serverName : streamServer
+		, applicationName : applicationCode_new
+		, streamName : streamName
+		, streamSourceUrl : streamSourceUrl
+	}
+	
+	$.ajax({
+		url : "<c:url value="/service/camera/updateCameraW"/>",
+		async : false,
+		dataType : "json",
+		method : "post",
+		data : params,
+		success : function(ajaxData){
+				alert("app : " + ajaxData.applicationName +"\n"+ "streamName : " + ajaxData.streamName +"\n"+
+						"streamServer : " + ajaxData.serverName + "\n"+
+						"final URL : " + ajaxData.finalUrl);	
+			
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){
+			alert("통신 실패"+ "code:"+XMLHttpRequest.status+"\n"+"message:"+XMLHttpRequest.responseText+"\n"+"error:"+errorThrown);								
+			}
+	})
+}
 
 </script>
 

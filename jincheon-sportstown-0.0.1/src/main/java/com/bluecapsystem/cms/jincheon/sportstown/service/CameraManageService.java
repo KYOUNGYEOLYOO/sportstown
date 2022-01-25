@@ -7,12 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bluecapsystem.cms.core.result.CommonResult;
+import com.bluecapsystem.cms.core.result.EmResult;
 import com.bluecapsystem.cms.core.result.IResult;
 import com.bluecapsystem.cms.jincheon.sportstown.dao.CameraDao;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.CameraSelectCondition;
@@ -100,11 +102,13 @@ public class CameraManageService
 	}
 
 
-	public IResult registCamera(Camera camera)
+	/* public IResult registCamera(Camera camera) */
+	public EmResult registCamera(Camera camera)
 	{
 		IResult result = CommonResult.UnknownError;
 		EntityManager em = emf.createEntityManager();
-
+		
+		EmResult emResult = new EmResult();
 		_TRANS :
 		{
 			try
@@ -118,7 +122,8 @@ public class CameraManageService
 				}
 
 				result = CommonResult.Success;
-				em.getTransaction().commit();
+				/* em.getTransaction().commit(); */
+				
 				break _TRANS;
 
 
@@ -128,17 +133,19 @@ public class CameraManageService
 						camera,
 						ExceptionUtils.getFullStackTrace(ex));
 				result = CommonResult.DAOError;
-				em.getTransaction().rollback();
+				/* em.getTransaction().rollback(); */
 				break _TRANS;
 			}finally{
-				em.close();
+				/* em.close(); */
+				emResult.setEm(em);
+				emResult.setResult(result);
 			}
 		}
 
 
 		logger.debug("카메라 등록 결과 [camera={}] => {} ", camera, result);
 
-		return result;
+		return emResult;
 	}
 
 

@@ -69,6 +69,7 @@ var currentRate = 1;
 function initPalyer()
 {
 	console.log("login location ==> ${loginUser.connectLocation}");
+	console.log("streamer ==> ${streamer}");
 	// var  mediaUrl = "${streamer}/${streamMeta.application.name}/${streamMeta.streamName}"
 	var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, streamer)}/${streamMeta.application.name}/${streamMeta.streamName}";
 	// mediaUrl = "<c:url value="/resources/mp4/sample.mp4"/>";

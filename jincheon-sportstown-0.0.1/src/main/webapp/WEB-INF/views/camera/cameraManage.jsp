@@ -5,6 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <jsp:useBean id="now" class="java.util.Date" />
+<jsp:useBean id="ipFilter" class="com.bluecapsystem.cms.jincheon.sportstown.common.define.IPFilterConstant" />
 
 <html lang="ko" xml:lang="ko">
 <head>
@@ -20,7 +21,9 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 
-
+var applicationName = "";
+var serverName = "";
+var streamName = "";
 
 
 function onClick_search()
@@ -88,9 +91,42 @@ function onClick_modify()
 		);	
 }
 
+function deleteFromWowza()
+{
+	var params = {
+		serverName : serverName
+		, applicationName : applicationName
+		, streamName : streamName
+	}
+	
+	$.ajax({
+		url : "<c:url value="/service/camera/deleteCameraW"/>",
+		async : false,
+		dataType : "json",
+		method : "post",
+		data : params,
+		success : function(ajaxData){
+				alert("app : " + ajaxData.applicationName +"\n"+ "streamName : " + ajaxData.streamName +"\n"+
+						"streamServer : " + ajaxData.serverName + "\n"+
+						"final URL : " + ajaxData.finalUrl);	
+			
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){
+			alert("통신 실패"+ "code:"+XMLHttpRequest.status+"\n"+"message:"+XMLHttpRequest.responseText+"\n"+"error:"+errorThrown);								
+			}
+	})
+}
+
+
 function onClick_delete()
 {
 	var camId = $("#cameraList").jqGrid("getGridParam", "selrow");
+	
+	// 와우자 서버에 있는 stream을 지우기 위한 정보
+	applicationName = $('input[name="streamMetaItems[0].applicationCodeName"]').val();
+	serverName = $('input[name="streamMetaItems[0].serverCodeName"]').val();
+	streamName = $('input[name="streamMetaItems[0].streamName"]').val();
+	
 	if(typeof camId == "undefined" || camId == null)
 	{
 		new bcs_messagebox().open("카메라관리", "카메라를 선택해 주세요", null);
@@ -113,6 +149,8 @@ function onClick_delete()
 						$("#cameraList").jqGrid("delRowData", ajaxData.camId);
 						clear_cameraDetail();
 						mb.close();
+						
+						deleteFromWowza();
 					}else{
 						new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 					}
@@ -123,6 +161,75 @@ function onClick_delete()
 	});
 	
 	
+}
+
+function connectToWowza(){
+	var params = {
+			serverName : serverName
+			, applicationName : applicationName
+			, streamName : streamName
+		}
+	
+	$.ajax({
+		url : "<c:url value="/service/camera/connectStreamW"/>",
+		async : false,
+		dataType : "json",
+		method : "post",
+		data : params,
+		success : function(ajaxData){
+				alert("app : " + ajaxData.applicationName +"\n"+ "streamName : " + ajaxData.streamName +"\n"+
+						"streamServer : " + ajaxData.serverName + "\n"+ "finalUrl : " + ajaxData.finalUrl);	
+			
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){
+			alert("통신 실패"+ "code:"+XMLHttpRequest.status+"\n"+"message:"+XMLHttpRequest.responseText+"\n"+"error:"+errorThrown);								
+			}
+	})
+}
+
+
+function onClick_connect()
+{
+	// 와우자 서버에 있는 stream을 연결하기 위한 정보 >> incomingStream으로다가 변경하기 위함
+	applicationName = $('input[name="streamMetaItems[0].applicationCodeName"]').val();
+	serverName = $('input[name="streamMetaItems[0].serverCodeName"]').val();
+	streamName = $('input[name="streamMetaItems[0].streamName"]').val();
+	
+	connectToWowza();
+}
+
+function disconnectFromWowza(){
+	var params = {
+			serverName : serverName
+			, applicationName : applicationName
+			, streamName : streamName
+		}
+	
+	$.ajax({
+		url : "<c:url value="/service/camera/disconnectStreamW"/>",
+		async : false,
+		dataType : "json",
+		method : "post",
+		data : params,
+		success : function(ajaxData){
+				alert("app : " + ajaxData.applicationName +"\n"+ "streamName : " + ajaxData.streamName +"\n"+
+						"streamServer : " + ajaxData.serverName + "\n"+ "finalUrl : " + ajaxData.finalUrl);	
+			
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){
+			alert("통신 실패"+ "code:"+XMLHttpRequest.status+"\n"+"message:"+XMLHttpRequest.responseText+"\n"+"error:"+errorThrown);								
+			}
+	})
+}
+
+function onClick_disconnect()
+{
+	// 와우자 서버에 incomingStream에 있는 내용 빼기
+	applicationName = $('input[name="streamMetaItems[0].applicationCodeName"]').val();
+	serverName = $('input[name="streamMetaItems[0].serverCodeName"]').val();
+	streamName = $('input[name="streamMetaItems[0].streamName"]').val();
+	
+	disconnectFromWowza();
 }
 </script>
 
@@ -202,10 +309,10 @@ function clear_cameraDetail()
 
 <!-- container -->
 <div id="container">
-	<div id="contentsWrap">
+	<div id="contentsWrap" style= "display:flex; justify-content:space-evenly; width:100vw;">
 	
 		<!-- lnbWrap -->
-		<div id="lnbWrap">
+		<div id="lnbWrap" style= "margin:0px">
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="hasNotUsed" value="true" />
 				<div class="lnbWraph2">
@@ -256,26 +363,33 @@ function clear_cameraDetail()
 		<!-- //lnbWrap -->
 
 		<!-- contents -->
-		<div id="contents">
-			<div class="vodlistBox">
+		<div id="contents" style="width: 40vw; min-width: 600px; max-width: 811px">
+			<div class="vodlistBox" style="width:100%;">
 				<jsp:include page="/camera/list">
 					<jsp:param value="cameraList" name="listId"/>
 					<jsp:param value="p_cameraList" name="pagerId"/>
 				</jsp:include>
-				<table id="cameraList" class="list_type1" data-ctrl-view="camera_list" data-event-selectedRow="onSelected_cameraListItem"></table>
+				<table id="cameraList" class="list_type1" data-ctrl-view="camera_list" data-event-selectedRow="onSelected_cameraListItem" style = "min-width: 600px;"></table>
 				<div id="p_cameraList" data-ctrl-view="camera_list_pager"></div>
 			</div>
-
-			<div class="mgt30">
+			<!-- 20220110 여기서부터 수정한 부분 
+				1. rnbWrap 추가함 ( width 35vw, display inline-block )
+				2. class vodlistBox ( style width 40vw 추가 )
+			-->
+		</div>
+		<div id="rnbWrap" style="width:35vw; display: inline-block; height: 100%">
+			<!-- 20220110 여기까지 수정한 부분 -->
+			<div class="mgt30" style = "min-width: 656px;">
 				<form id="frmCameraDetail">
 				</form>
 				<div class="btnbox alignR">
+					<span class="btn_typeA t1"><a href="javascript:onClick_disconnect();">연결 해제</a></span>
+					<span class="btn_typeA t1"><a href="javascript:onClick_connect();">연결</a></span>
 					<span class="btn_typeA t1"><a href="javascript:onClick_regist();">등록</a></span> 
 					<span class="btn_typeA t4"><a href="javascript:onClick_modify();">수정</a></span> 
 					<span class="btn_typeA t2"><a href="javascript:onClick_delete();">삭제</a></span>
 				</div>
 			</div>
-
 		</div>
 
 		<!-- //contents -->

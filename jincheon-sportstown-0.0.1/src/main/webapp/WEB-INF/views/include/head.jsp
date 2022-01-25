@@ -46,6 +46,12 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/bluecap/css/bcsCommon.css"/>"/>
 
+
+<%--
+캔버스 기능 20211213
+ --%>
+<script src="<c:url value="/bluecap/canvas/canvas.js"/>"></script>
+
 <title>대한체육회</title>
 
 

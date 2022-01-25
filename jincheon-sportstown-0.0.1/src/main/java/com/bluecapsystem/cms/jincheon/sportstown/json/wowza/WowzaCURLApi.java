@@ -47,6 +47,122 @@ public class WowzaCURLApi {
 	public String incomingStreams(String baseUrl, String application, String streamName) {
 		return this.incomingStreams(baseUrl, "_defaultServer_", "_defaultVHost_", application, "_definst_", streamName);
 	}
+	
+	/**
+	 * 카메라 등록을 할 때 서버에도 등록
+	 * 
+	 * @param baseUrl
+	 * @param application
+	 * 
+	 * 20211221
+	 */
+	public String addStream(String baseUrl, String application, String streamName, String streamSourceUrl) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		String url = String.format("%s/v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications/%s/streamfiles",
+				baseUrl, application);
+		// sendPut은 뭔지 몰라서 일단 패스
+		
+		parameters.put("name", streamName);
+		parameters.put("serverName", "_defaultServer_");
+		parameters.put("uri", streamSourceUrl);
+		
+		String resp = "Error";
+		try {
+			JSONObject json = new JSONObject();
+			json.putAll(parameters);
+			String strParam = json.toJSONString();
+			resp = sendPost(url, strParam);
+		}catch(Exception ex) {
+			throw new RuntimeException(String.format("addStream Error [url = %s] => %s ", url, ex.getMessage()), ex);
+		}
+		return resp;
+	}
+	/**
+	 * 카메라 삭제할 때 서버에서도 삭제
+	 * 
+	 *  @param baseUrl
+	 *  @param application
+	 *  @param name
+	 */
+	public String deleteStream(String baseUrl, String application, String streamName) {
+		Map<String, Object> parameters =new HashMap<String, Object>();
+		String url = String.format("%s/v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications/%s/streamfiles/%s",
+				baseUrl, application, streamName);
+		
+		try {
+			sendDelete(url);
+		}catch(Exception ex) {
+			throw new RuntimeException(String.format("deleteStream Error [url = %s] => %s ", url, ex.getMessage()), ex); 
+		}
+		return url;
+	}
+	
+	/**
+	 * 카메라 수정할 때 서버에서도 업데이트
+	 * 
+	 *  @param baseUrl
+	 *  @param application
+	 *  @param name
+	 * 
+	 */
+	public String updateStream(String baseUrl, String application, String streamName, String streamSourceUrl) {
+		Map<String, Object> parameters =new HashMap<String, Object>();
+		String url = String.format("%s/v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications/%s/streamfiles/%s",
+				baseUrl, application, streamName);
+		
+		///////////////////////////////////////////// TODO 
+		parameters.put("name", streamName);
+		parameters.put("serverName", "_defaultServer_");
+		parameters.put("uri", streamSourceUrl);
+		
+		String resp = "Error";
+		try {
+			JSONObject json = new JSONObject();
+			json.putAll(parameters);
+			String strParam = json.toJSONString();
+			resp = sendUpdate(url, strParam);
+		}catch(Exception ex) {
+			throw new RuntimeException(String.format("addStream Error [url = %s] => %s ", url, ex.getMessage()), ex);
+		}
+		return resp;
+		
+	}
+	
+	/**
+	 * streamFile에 올라간 데이터가 incomingStream 으로 넘어가게 하는 함수
+	 * 
+	 */
+	public String connectStream(String baseUrl, String application, String streamName) {
+		Map<String, Object> parameters =new HashMap<String, Object>();
+		String url = String.format("%s/v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications/%s/streamfiles/%s"+
+		"/actions/connect?connectAppName=%s&appInstance=_definst_&mediaCasterType=rtp",
+				baseUrl, application, streamName, application);
+		
+		try {
+			sendPut(url);
+		}catch(Exception ex) {
+			throw new RuntimeException(String.format("deleteStream Error [url = %s] => %s ", url, ex.getMessage()), ex); 
+		}
+		return url;
+	}
+	
+	/**
+	 * streamFile에 올라간 데이터가 incomingStream 으로 넘어가게 하는 함수
+	 * 
+	 */
+	public String disconnectStream(String baseUrl, String application, String streamName) {
+		Map<String, Object> parameters =new HashMap<String, Object>();
+		String url = String.format("%s/v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications/%s/instances/_definst_/incomingstreams/%s"+".stream"+
+		"/actions/disconnectStream",
+				baseUrl, application, streamName);
+		
+		try {
+			sendPut(url);
+		}catch(Exception ex) {
+			throw new RuntimeException(String.format("deleteStream Error [url = %s] => %s ", url, ex.getMessage()), ex); 
+		}
+		return url;
+	}
 
 	/**
 	 * 녹화 중지 등 Stream 에 액션을 보내준다
@@ -70,7 +186,7 @@ public class WowzaCURLApi {
 		} catch (Exception ex) {
 			throw new RuntimeException(String.format("actionStream 오류 발생 [url = %s] => %s", url, ex.getMessage()), ex);
 		}
-
+		
 		return resp;
 	}
 
@@ -198,6 +314,22 @@ public class WowzaCURLApi {
 		return buffer.toString().trim();
 
 	}
+	
+	private void sendDelete(String url) throws Exception {
+		
+		// url 객체 생성
+		URL requestUrl = new URL(url);
+		
+		// 해당 url로 연결 생성
+		HttpURLConnection conn = (HttpURLConnection) requestUrl.openConnection();
+		conn.setDoOutput(true);
+		
+		conn.setRequestMethod("DELETE");
+		conn.setRequestProperty("Accept", "application/json; charset=utf-8");
+		
+		conn.connect();
+
+	}
 
 	private String sendPost(String url, String parameter) throws Exception {
 		
@@ -209,6 +341,65 @@ public class WowzaCURLApi {
 
 		logger.info("sendpost return conn : {}", conn);
 		conn.setRequestMethod("POST");												// get은 url을통해서, post는 스트림을 통해서 데이터 전달
+		conn.setRequestProperty("Accept", "application/json; charset=utf-8");
+		conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+		// conn.setRequestProperty("Content-Length", Integer.toString(urlParameter.getBytes().length));
+
+		// 출력/입력스트림 사용설정. post는 데이터 전송시 스트림을 통해서 데이터를 전송함 inputstream에는 헤더와 메세지를, outputstream에는 post데이터를 넘겨주겟다고 정의
+		conn.setDoOutput(true);
+		conn.setDoInput(true);
+
+		logger.info("//////////////////////////// 1.    sendPost             //////////////////////////");
+		OutputStream os = null;
+		try {
+			os = conn.getOutputStream();											// url에 전송할 outputstream 생성
+			os.write(parameter.getBytes("UTF-8"));									// parameter값 utf-8로 인코딩해서 저장
+			logger.info("getoutputstream : {}", conn.getOutputStream() );
+			os.flush();
+			os.close();
+		} catch (Exception ex) {
+			if (os != null)
+				os.close();
+			throw ex;
+		}
+
+
+		logger.info("//////////////////////////// 2.    sendPost             //////////////////////////");
+		// read the response
+		BufferedReader in = null;
+		StringBuffer buffer = new StringBuffer();
+		try {
+			logger.info("getInputStream : {}", conn.getInputStream() );				
+			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));	// url로부터 데이터 읽어와서 변환후 stringbuffer에 저장
+
+			String line = null;
+
+			while ((line = in.readLine()) != null) {
+				buffer.append(line);
+			}
+
+			in.close();
+		} catch (Exception ex) {
+			if (in != null)
+				in.close();
+			throw ex;
+		}
+
+		return buffer.toString().trim();
+
+	}
+	
+private String sendUpdate(String url, String parameter) throws Exception {
+		
+		// url 객체 생성
+		URL requestUrl = new URL(url);
+
+		// 해당 url로 연결 생성
+		HttpURLConnection conn = (HttpURLConnection) requestUrl.openConnection();
+
+		logger.info("sendpost return conn : {}", conn);
+		conn.setRequestMethod("PUT");												// get은 url을통해서, post는 스트림을 통해서 데이터 전달
 		conn.setRequestProperty("Accept", "application/json; charset=utf-8");
 		conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
 
