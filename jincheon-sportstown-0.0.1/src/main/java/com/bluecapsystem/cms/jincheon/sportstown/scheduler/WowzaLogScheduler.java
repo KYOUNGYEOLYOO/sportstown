@@ -24,7 +24,7 @@ public class WowzaLogScheduler
 	
 	
 	
-	//yooo
+
 	
 	
 	/** 활성 여부 설정 */
