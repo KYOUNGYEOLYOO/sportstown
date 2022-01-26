@@ -65,7 +65,11 @@
 
 </style>
 
-
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", (event)=>{
+	document.getElementById("container").webkitRequestFullScreen();
+});
+</script>
 
 <script type="text/javascript">
 $(document).ready(function(){
