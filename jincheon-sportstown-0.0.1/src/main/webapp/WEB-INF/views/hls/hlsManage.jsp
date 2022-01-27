@@ -66,9 +66,48 @@
 </style>
 
 <script type="text/javascript">
-document.addEventListener("DOMContentLoaded", (event)=>{
+
+/* window.onload = maxWindow;
+
+function maxWindow() {
+    window.moveTo(0, 0);
+
+    if (document.all) {
+        top.window.resizeTo(screen.availWidth, screen.availHeight);
+    }
+
+    else if (document.layers || document.getElementById) {
+        if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
+            top.window.outerHeight = screen.availHeight;
+            top.window.outerWidth = screen.availWidth;
+        }
+    }
+} */
+
+function changeContainer(){
+	var container = document.getElementById("container");
+	container.style.width = window.screen.width;
+	container.style.height = window.screen.height;
+}
+</script>
+
+<script type="text/javascript">
+
+window.screen.orientation.onchange = function() {
+
+	console.log("여기는 들어와지나??");
+    if (this.type.startsWith('landscape')) {
+      document.getElementById("container").webkitRequestFullscreen();
+    } else {
+      document.webkitExitFullscreen();
+    }
+
+};
+
+function fullScreen(){
 	document.getElementById("container").webkitRequestFullScreen();
-});
+	console.log("전체화면");
+}
 </script>
 
 <script type="text/javascript">
@@ -84,6 +123,11 @@ $(document).ready(function(){
 		});
 		
 	$("#sportsEvent").trigger("change");
+	/* setTimeout(function(){
+		$("#fullscreen").trigger("click");
+	},4000); */
+	/* window.screen.orientation.onchange(); */
+	changeContainer();
 });
 
 </script>
@@ -505,6 +549,8 @@ function onClick_liveRecordAll()
 <%--20211215 --%>
 <div id="styleBtn" style="display: flex; position:absolute; 
 	top: 60px; right: 0px; z-index: 4;">
+	<button style="margin-right:10px" id="fullscreen"
+	onclick="fullScreen()">screen</button>
 	<button style="margin-right:10px" id="drawing"
 	onclick="drawCanvas()">draw</button>
 	<button style="margin-right:10px" id="shape"
