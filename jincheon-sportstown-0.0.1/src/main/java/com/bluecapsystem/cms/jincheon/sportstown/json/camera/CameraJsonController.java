@@ -163,6 +163,7 @@ public class CameraJsonController {
 		EmResult resultCode = null;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		EntityManager em = null;
+		String finalUrl = "";
 
 		try {
 			_TRANS: {
@@ -206,18 +207,22 @@ public class CameraJsonController {
 				case "Dlive":
 					applicationCode = "Dlive";
 					result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+					finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 					break;
 				case "live":
 					applicationCode = "live";
 					result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+					finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 					break;
 				case "vod":
 					applicationCode = "vod";
 					result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+					finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 					break;
 				default:
 					applicationCode = "Dlive";
 					result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+					finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 					break;
 				}
 
@@ -578,10 +583,13 @@ public class CameraJsonController {
 //		String streamNameBefore = request.getParameter("streamNameBefore");
 		String streamName = camera.getStreamMetaItems().get(0).getStreamName();
 		String streamNameBefore = camera.getStreamMetaItems().get(0).getStreamNameBefore();
+		String applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+		String streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 		String filePath = "Y:\\content\\"+streamNameBefore+".stream";// 파일 형식이 .stream임 ( 텍스트는 .txt )
 		File deleteFile = new File(filePath);
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String ErrorCode = "";
+		String finalUrl = "";
 		
 		try {
 			_TRANS:{
@@ -589,6 +597,34 @@ public class CameraJsonController {
 				resultCode = camServ.modifyCamera(camera);
 				_resultCode = resultCode.getResult();
 				em = resultCode.getEm();
+				
+				Code code = em.find(Code.class, streamServer);
+				streamServer = code.getName();
+				
+				code = em.find(Code.class, applicationCode);
+				applicationCode = code.getName();
+				
+				String baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+				baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+				
+				switch (applicationCode) {
+				case "Dlive":
+					applicationCode = "Dlive";
+					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
+					break;
+				case "live":
+					applicationCode = "live";
+					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
+					break;
+				case "vod":
+					applicationCode = "vod";
+					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
+					break;
+				default:
+					applicationCode = "Dlive";
+					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
+					break;
+				}
 				
 				if(_resultCode != CommonResult.Success) {
 					break _TRANS;
@@ -611,12 +647,13 @@ public class CameraJsonController {
 				// Wowza 등록해야됨...
 				
 				try {
-					String applicationCode = null;
+					applicationCode = null;
 					streamName = null;
 					String streamSourceUrl = null;
-					String streamServer = null;
-
-					String baseUrl = null;
+					streamServer = null;
+					
+					
+					baseUrl = null;
 					String application = null;
 					String streamFile = null;
 					
@@ -627,7 +664,7 @@ public class CameraJsonController {
 					streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 					streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
 
-					Code code = em.find(Code.class, applicationCode);
+					code = em.find(Code.class, applicationCode);
 					applicationCode = code.getName();
 
 					code = em.find(Code.class, streamServer);
@@ -640,18 +677,22 @@ public class CameraJsonController {
 					case "Dlive":
 						applicationCode = "Dlive";
 						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+						finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 						break;
 					case "live":
 						applicationCode = "live";
 						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+						finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 						break;
 					case "vod":
 						applicationCode = "vod";
 						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+						finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 						break;
 					default:
 						applicationCode = "Dlive";
 						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+						finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 						break;
 					}
 					
@@ -683,10 +724,10 @@ public class CameraJsonController {
 					// Wowza에 롤백된 값을 등록해야됨...
 					
 					try {
-						String applicationCode = null;
+						applicationCode = null;
 						streamName = null;
 						String streamSourceUrl = null;
-						String streamServer = null;
+						streamServer = null;
 
 						String baseUrl = null;
 						String application = null;
@@ -712,18 +753,22 @@ public class CameraJsonController {
 						case "Dlive":
 							applicationCode = "Dlive";
 							result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+							finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 							break;
 						case "live":
 							applicationCode = "live";
 							result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+							finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 							break;
 						case "vod":
 							applicationCode = "vod";
 							result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+							finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 							break;
 						default:
 							applicationCode = "Dlive";
 							result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+							finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 							break;
 						}
 						
@@ -764,13 +809,19 @@ public class CameraJsonController {
 	public ModelAndView removeCamera(@PathVariable("camId") String camId) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 //		IResult resultCode = camServ.deleteCamera(camId);
+		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		IResult _resultCode = CommonResult.UnknownError;
 		EmResult resultCode = null;
 		EntityManager em = null;
 		CameraSelectCondition condition = new CameraSelectCondition(camId);
 		condition.setHasStreamMeta(true);
 		Camera camera = camServ.getCamera(condition);
+		String applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+		String streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 		String streamName = camera.getStreamMetaItems().get(0).getStreamName();
+		String finalUrl = "";
+		
+		
 		String filePath = "Y:\\content\\"+streamName+".stream";// 파일 형식이 .stream임 ( 텍스트는 .txt )
 		File deleteFile = new File(filePath);
 		try {
@@ -778,6 +829,35 @@ public class CameraJsonController {
 				resultCode = camServ.deleteCamera(camId);
 				_resultCode = resultCode.getResult();
 				em = resultCode.getEm();
+				
+				Code code = em.find(Code.class, streamServer);
+				streamServer = code.getName();
+				
+				code = em.find(Code.class, applicationCode);
+				applicationCode = code.getName();
+				
+				String baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+				baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+				
+				switch (applicationCode) {
+				case "Dlive":
+					applicationCode = "Dlive";
+					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+					break;
+				case "live":
+					applicationCode = "live";
+					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+					break;
+				case "vod":
+					applicationCode = "vod";
+					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+					break;
+				default:
+					applicationCode = "Dlive";
+					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+					break;
+				}
+				
 				
 				if(_resultCode != CommonResult.Success) {
 					break _TRANS;
@@ -807,6 +887,7 @@ public class CameraJsonController {
 
 		logger.debug("카메라 삭제 요청 결과 [camId={}] => {}", camId, _resultCode);
 
+		mnv.addObject("finalUrl", "/"+ applicationCode +"/"+ streamName);
 		mnv.addObject("camId", camId);
 		mnv.addObject("resultCode", _resultCode);
 		return mnv;

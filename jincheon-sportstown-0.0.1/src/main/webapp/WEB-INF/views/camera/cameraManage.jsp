@@ -147,6 +147,7 @@ function onClick_delete()
 				success : function (ajaxData) {
 					if(ajaxData.resultCode == "Success"){
 						$("#cameraList").jqGrid("delRowData", ajaxData.camId);
+						console.log("finalUrl : ", ajaxData.finalUrl);
 						clear_cameraDetail();
 						mb.close();
 						
