@@ -149,10 +149,12 @@ public class CameraManageService
 	}
 
 
-	public IResult modifyCamera(Camera newCamera)
+//	public IResult modifyCamera(Camera newCamera)
+	public EmResult modifyCamera(Camera newCamera)
 	{
 		IResult result = CommonResult.UnknownError;
 		EntityManager em = emf.createEntityManager();
+		EmResult emResult = new EmResult();
 
 		_TRANS :
 		{
@@ -187,20 +189,24 @@ public class CameraManageService
 
 				break _TRANS;
 			}
+			finally {
+				emResult.setEm(em);
+				emResult.setResult(result);
+			}
 		}
 
-		if(result == CommonResult.Success)
-		{
-			em.getTransaction().commit();
-		}else
-		{
-			em.getTransaction().rollback();
-		}
-
-		em.close();
+//		if(result == CommonResult.Success)
+//		{
+//			em.getTransaction().commit();
+//		}else
+//		{
+//			em.getTransaction().rollback();
+//		}
+//
+//		em.close();
 		logger.debug("카메라 수정 결과 [newCamera={}] => {} ", newCamera, result);
 
-		return result;
+		return emResult;
 	}
 
 
@@ -251,11 +257,13 @@ public class CameraManageService
 		return result;
 	}
 
-	public IResult deleteCamera(String camId)
+//	public IResult deleteCamera(String camId)
+	public EmResult deleteCamera(String camId)
 	{
 		IResult result = CommonResult.UnknownError;
 		EntityManager em = emf.createEntityManager();
-
+		EmResult emResult = new EmResult();
+		
 		_TRANS :
 		{
 			try
@@ -276,7 +284,7 @@ public class CameraManageService
 				// DB 에 사용자를 삭제 한다
 				camDao.updateCamera(em, camera);
 				result = CommonResult.Success;
-				em.getTransaction().commit();
+//				em.getTransaction().commit();
 				break _TRANS;
 			}catch(Exception ex)
 			{
@@ -284,14 +292,17 @@ public class CameraManageService
 						camId,
 						ExceptionUtils.getFullStackTrace(ex));
 				result = CommonResult.DAOError;
-				em.getTransaction().rollback();
+//				em.getTransaction().rollback();
 				break _TRANS;
+			}finally {
+				emResult.setEm(em);
+				emResult.setResult(result);
 			}
 		}
 
-		em.close();
+//		em.close();
 		logger.debug("카메라 삭제 결과 [camId={}] => {} ", camId, result);
 
-		return result;
+		return emResult;
 	}
 }

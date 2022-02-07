@@ -32,7 +32,7 @@
 var videoTag;
 var currentRate = 1;
 
-alert("111");
+//alert("111");
 test();
 //$(document).ready(function(){
 //	alert("tttt");
@@ -97,7 +97,7 @@ function test()
 
 </script>
 	<div class="videoview mgb30">
-		<video id="player"></video>	
+		<video id="player" style="height: 39vh;"></video>	
 	</div>
 	<input type="hidden" name="camId" value="${camera.camId}" />
 	<div id="table_container" style =" overflow: scroll; max-height: 301.5px">

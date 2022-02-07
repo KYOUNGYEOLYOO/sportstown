@@ -564,7 +564,7 @@ function onClick_liveRecordAll()
 	<button style="margin-right:10px" id="thickness"
 	onclick="changeWidth(10)">thickness</button>
 	<button style="margin-right:10px" id="close"
-	onclick="delCanvas($('#canvas'))">close</button>
+	onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>
 </div>
 
 </body>

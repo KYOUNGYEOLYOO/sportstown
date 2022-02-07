@@ -62,6 +62,12 @@ public class CameraStreamMeta {
 	 */
 	@Column(nullable = true)
 	private String streamName;
+	
+	/**
+	 * 이전 스트림 이름
+	 */
+	@Column(nullable = true)
+	private String streamNameBefore;
 
 	/**
 	 * 스트림 소스 url
@@ -119,11 +125,20 @@ public class CameraStreamMeta {
 	}
 
 	public String getStreamName() {
-		return streamName;
+		return streamName.replace(".stream", "");
+//		return streamName;
 	}
 
 	public void setStreamName(String streamName) {
-		this.streamName = streamName;
+		this.streamName = streamName + ".stream";
+	}
+	//// 이전 스트림 이름 삭제하기 위한 용도
+	public String getStreamNameBefore() {
+		return streamNameBefore;
+	}
+
+	public void setStreamNameBefore(String streamNameBefore) {
+		this.streamNameBefore = streamNameBefore;
 	}
 
 	public String getStreamSourceUrl() {

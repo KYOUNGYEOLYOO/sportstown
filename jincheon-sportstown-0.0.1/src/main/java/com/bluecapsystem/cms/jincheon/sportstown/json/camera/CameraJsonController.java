@@ -1,5 +1,6 @@
 package com.bluecapsystem.cms.jincheon.sportstown.json.camera;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -167,7 +168,8 @@ public class CameraJsonController {
 			_TRANS: {
 				resultCode = camServ.registCamera(camera);
 				_resultCode = resultCode.getResult();
-
+//				em = resultCode.getEm();
+				
 				if (_resultCode != CommonResult.Success) {
 					break _TRANS;
 				}
@@ -185,6 +187,7 @@ public class CameraJsonController {
 				String result = "";
 				applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 				streamName = camera.getStreamMetaItems().get(0).getStreamName();
+				streamName = streamName.replace(".stream", "");
 				streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 
 				System.out.println(camera.getStreamMetaItems().get(0).getStreamServer());
@@ -563,30 +566,249 @@ public class CameraJsonController {
 		}
 		return mnv;
 	}
+	
 
 	@RequestMapping(value = "/modifyCamera")
 	public ModelAndView modifyCamera(@ModelAttribute Camera camera) {
 		ModelAndView mnv = new ModelAndView("jsonView");
-		IResult resultCode = camServ.modifyCamera(camera);
+//		IResult resultCode = camServ.modifyCamera(camera);
+		IResult _resultCode = CommonResult.UnknownError;
+		EmResult resultCode = null;
+		EntityManager em = null;
+//		String streamNameBefore = request.getParameter("streamNameBefore");
+		String streamName = camera.getStreamMetaItems().get(0).getStreamName();
+		String streamNameBefore = camera.getStreamMetaItems().get(0).getStreamNameBefore();
+		String filePath = "Y:\\content\\"+streamNameBefore+".stream";// 파일 형식이 .stream임 ( 텍스트는 .txt )
+		File deleteFile = new File(filePath);
+		WowzaCURLApi wowzaApi = new WowzaCURLApi();
+		String ErrorCode = "";
+		
+		try {
+			_TRANS:{
+				
+				resultCode = camServ.modifyCamera(camera);
+				_resultCode = resultCode.getResult();
+				em = resultCode.getEm();
+				
+				if(_resultCode != CommonResult.Success) {
+					break _TRANS;
+				}
+				
+				
+				if(deleteFile.exists()) {
+					deleteFile.delete();
+					_resultCode = CommonResult.Success;
+					logger.debug("1111111111111111111111111111o1");
+					ErrorCode = "success";
+				}else{
+					_resultCode = CommonResult.UnknownError;
+					logger.debug("1111111111111111111111111111o");
+					ErrorCode = "delete error";
+				}
+				// 여기까지가 삭제
+				
+				
+				// Wowza 등록해야됨...
+				
+				try {
+					String applicationCode = null;
+					streamName = null;
+					String streamSourceUrl = null;
+					String streamServer = null;
 
-		logger.debug("카메라 수정 요청 결과 [camera={}] => {}", camera, resultCode);
+					String baseUrl = null;
+					String application = null;
+					String streamFile = null;
+					
+					String result = "";
+					
+					applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+					streamName = camera.getStreamMetaItems().get(0).getStreamName();
+					streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+					streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
+
+					Code code = em.find(Code.class, applicationCode);
+					applicationCode = code.getName();
+
+					code = em.find(Code.class, streamServer);
+					streamServer = code.getName();
+					
+					baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+					baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+					
+					switch (applicationCode) {
+					case "Dlive":
+						applicationCode = "Dlive";
+						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+						break;
+					case "live":
+						applicationCode = "live";
+						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+						break;
+					case "vod":
+						applicationCode = "vod";
+						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+						break;
+					default:
+						applicationCode = "Dlive";
+						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+						break;
+					}
+					
+					Map stopResultMap = new Gson().fromJson(result, Map.class);
+
+					Boolean isSuccess = false;
+
+					isSuccess = (Boolean) stopResultMap.get("success");
+
+					ErrorCode = "add success";
+					if (isSuccess != true) {
+						_resultCode = CommonResult.UnknownError;
+						ErrorCode = "add fail";
+						break _TRANS;
+					}
+				}catch(Exception e) {
+					_resultCode = CommonResult.UnknownError;
+					ErrorCode = "add fail exception";
+				}
+				
+			}
+		}catch(Exception e){
+			_resultCode = CommonResult.SystemError;
+			ErrorCode = "fail exception";
+		}finally {
+			if (_resultCode != CommonResult.Success) {
+				em.getTransaction().rollback();
+				if (_resultCode == CommonResult.UnknownError) {
+					// Wowza에 롤백된 값을 등록해야됨...
+					
+					try {
+						String applicationCode = null;
+						streamName = null;
+						String streamSourceUrl = null;
+						String streamServer = null;
+
+						String baseUrl = null;
+						String application = null;
+						String streamFile = null;
+						
+						String result = "";
+						
+						applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+						streamName = camera.getStreamMetaItems().get(0).getStreamName();
+						streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+						streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
+
+						Code code = em.find(Code.class, applicationCode);
+						applicationCode = code.getName();
+
+						code = em.find(Code.class, streamServer);
+						streamServer = code.getName();
+						
+						baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+						baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+						
+						switch (applicationCode) {
+						case "Dlive":
+							applicationCode = "Dlive";
+							result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+							break;
+						case "live":
+							applicationCode = "live";
+							result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+							break;
+						case "vod":
+							applicationCode = "vod";
+							result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+							break;
+						default:
+							applicationCode = "Dlive";
+							result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+							break;
+						}
+						
+						Map stopResultMap = new Gson().fromJson(result, Map.class);
+
+						Boolean isSuccess = false;
+
+						isSuccess = (Boolean) stopResultMap.get("success");
+
+						if (isSuccess != true) {
+							_resultCode = CommonResult.SystemError;
+							logger.debug("롤백된 값 Wowza에 등록해야되는데 실패함...");
+							ErrorCode = "final add fail";
+						}
+					}catch(Exception e) {
+						_resultCode = CommonResult.SystemError;
+						logger.debug("롤백된 값 Wowza에 등록해야되는데 실패함...222");
+						ErrorCode = "final add fail exception";
+					}
+				}
+			}else {
+				em.getTransaction().commit();
+			}
+			em.close();
+		}
+		
+		logger.debug("카메라 수정 요청 결과 [camera={}] => {}", camera, _resultCode);
 
 		camera = camServ.getCamera(camera.getCamId());
 
+		mnv.addObject("stream", ErrorCode+deleteFile);
 		mnv.addObject("camera", camera);
-		mnv.addObject("resultCode", resultCode);
+		mnv.addObject("resultCode", _resultCode);
 		return mnv;
 	}
 
 	@RequestMapping(value = "/removeCamera/{camId}")
 	public ModelAndView removeCamera(@PathVariable("camId") String camId) {
 		ModelAndView mnv = new ModelAndView("jsonView");
-		IResult resultCode = camServ.deleteCamera(camId);
+//		IResult resultCode = camServ.deleteCamera(camId);
+		IResult _resultCode = CommonResult.UnknownError;
+		EmResult resultCode = null;
+		EntityManager em = null;
+		CameraSelectCondition condition = new CameraSelectCondition(camId);
+		condition.setHasStreamMeta(true);
+		Camera camera = camServ.getCamera(condition);
+		String streamName = camera.getStreamMetaItems().get(0).getStreamName();
+		String filePath = "Y:\\content\\"+streamName+".stream";// 파일 형식이 .stream임 ( 텍스트는 .txt )
+		File deleteFile = new File(filePath);
+		try {
+			_TRANS:{
+				resultCode = camServ.deleteCamera(camId);
+				_resultCode = resultCode.getResult();
+				em = resultCode.getEm();
+				
+				if(_resultCode != CommonResult.Success) {
+					break _TRANS;
+				}
+				
+				
+				
+				if(deleteFile.exists()) {
+					deleteFile.delete();
+					_resultCode = CommonResult.Success;
+					logger.debug("1111111111111111111111111111o1");
+				}else{
+					_resultCode = CommonResult.SystemError;
+					logger.debug("1111111111111111111111111111o");
+				}
+			}
+		}catch(Exception e){
+			_resultCode = CommonResult.SystemError;
+		}finally {
+			if (_resultCode != CommonResult.Success) {
+				em.getTransaction().rollback();
+			}else {
+				em.getTransaction().commit();
+			}
+			em.close();
+		}
 
-		logger.debug("카메라 삭제 요청 결과 [camId={}] => {}", camId, resultCode);
+		logger.debug("카메라 삭제 요청 결과 [camId={}] => {}", camId, _resultCode);
 
 		mnv.addObject("camId", camId);
-		mnv.addObject("resultCode", resultCode);
+		mnv.addObject("resultCode", _resultCode);
 		return mnv;
 	}
 

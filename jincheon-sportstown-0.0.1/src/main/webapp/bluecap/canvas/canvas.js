@@ -88,7 +88,9 @@ function addCanvas(){
 	ctx = canvas.getContext("2d");
 	ctxChange = canvasChange.getContext("2d");
 	
-	// resizeCanvas(canvas); 이유는 모르겠는데 실행 안됨 이 내용들을 setAttribute에서 바로 실행 
+	resizeCanvas(canvas); 
+	// 이유는 모르겠는데 실행 안됨 이 내용들을 setAttribute에서 바로 실행
+	// 사실 실행되는거였는데 이거 코드 자체가 수정이 적용이 안되고 있었음.. >> 인터넷 캐시 삭제후 적용..  
 	window.addEventListener("resize",resizeCanvas(canvas), false);	
 	canvas.addEventListener("mousemove",onMouseMove);
 	canvas.addEventListener("mousedown",startPainting);
@@ -97,9 +99,10 @@ function addCanvas(){
 	
 }
 
-function delCanvas(canvas){
+function delCanvas(canvas, canvasChange){
 	console.log("delCanvas");
-	document.getElementById("canvasChange").remove();
+	console.log("canvasChange1111");
+	canvasChange.remove();
 	canvas.remove();
 	myObj.history = [];
 }

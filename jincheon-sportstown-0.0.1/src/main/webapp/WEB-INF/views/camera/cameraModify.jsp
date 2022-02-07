@@ -41,10 +41,9 @@ $(document).ready(function(){
 				console.log("streamSourceUrl" + streamSourceUrl);
 				
 				
-			
 				console.log($(this).find("form").serialize());
 				
-				return;
+				
 				$.ajax({
 					url : "<c:url value="/service/camera/modifyCamera"/>",
 					async : false,
@@ -57,8 +56,10 @@ $(document).ready(function(){
 						if(ajaxData.resultCode == "Success"){
 							eventSender.send("data-event-modify", ajaxData.camera);
 							jpPopup.dialog("close");
+							console.log(" ajaxData.stream : ", ajaxData.stream );
 						}
 						else{
+							console.log(" ajaxData.stream : ", ajaxData.stream );
 							new bcs_messagebox().openError("카메라수정", "카메라 수정중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 						}
 					}
@@ -105,7 +106,7 @@ function updateToWowza()
 </script>
 
 <form>
-	<input type="hidden" name="camId" value="${camera.camId}" />
+	<input type="hidden" name="camId" value="${camera.camId}" />	
 	<table class="write_type1 mgb20" summary="">
 		<caption></caption>
 		<colgroup>
@@ -169,6 +170,7 @@ function updateToWowza()
 		<h1>${streamMeta.metaClass} 정보 입력</h1>
 		<input type="hidden" name="streamMetaItems[${st.index}].camId" value="${streamMeta.camId}" />
 		<input type="hidden" name="streamMetaItems[${st.index}].metaClass" value="${streamMeta.metaClass}" />
+		<input type="hidden" name="streamMetaItems[${st.index}].streamNameBefore" value="${streamMeta.streamName}" />
 		
 		<table class="write_type1 mgb20" summary="">
 			<caption></caption>
