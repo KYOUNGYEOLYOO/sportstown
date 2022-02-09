@@ -1,6 +1,7 @@
 server:
  port: 8092
  contextPath: /
+ 
 
 spring:
 
@@ -39,6 +40,8 @@ logging:
   
 com.bluecapsystem.cms.jincheon.sportstown.scheduler:
  FileIngestScheduler.enable: true
+ 
+
   
 ---
 

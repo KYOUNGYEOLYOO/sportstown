@@ -200,17 +200,33 @@ function clear_cameraDetail()
 
 <!-- container -->
 <div id="container">
+	<div class="titleWrap">
+		<h2>영상검색</h2>
+		<div class="selectWrap">
+			<!-- 	위치이동 -->
+			<c:choose>					
+				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+					<select class="selectyze" name="sportsEventCode">
+							<option value="">운동종목</option>
+							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
+								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
+							</c:forEach>
+					</select>
+				</c:when>					
+				<c:otherwise>
+					<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
+				</c:otherwise>
+			</c:choose>	
+			<!-- 	//위치이동 -->
+		</div>
+	</div>
 	<div id="contentsWrap">
-	
 		<!-- lnbWrap -->
-		<div id="lnbWrapT">
+		<div id="lnbWrapT" class="searchContainer">
 			<form id="frmSearch" onSubmit="return false;">
-				<input type="hidden" name="hasNotUsed" value="true" />
-				<div class="lnbWraph2">
-					<h2>영상검색</h2>
-				</div>
-				
-				<c:choose>
+				<input type="hidden" name="hasNotUsed" value="true" />		
+				<!-- 	위치이동							
+				<c:choose>					
 					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
 						<div class="">
 							<select class="selectyze psa" name="sportsEventCode">
@@ -221,31 +237,31 @@ function clear_cameraDetail()
 							</select>
 						</div>
 					</c:when>
+					
 					<c:otherwise>
 						<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
 					</c:otherwise>
-				</c:choose>
-				
-				<div class="datepickerBox mgt20">
-					<p>
+				</c:choose>	
+				//위치이동 -->					
+				<ul>
+					<li>
 						<label for="search_keyword">제목</label> 
 						<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
-					</p>
-				</div>
-				<div class="datepickerBox mgt20">
-					<p class="psr">
-						<label for="registFromDate">촬영일</label>
-						<input type="text" id="recordFromDate" name="registFromDate" class="inputTxt date" value="<fmt:formatDate value="${fromDate}" pattern="yyyy-MM-dd"/>"/>
-					</p>
-					<p class="psr">
-						<label for="registToDate">&nbsp;</label>
-						<input type="text" id="recordToDate" name="registToDate" class="inputTxt date" value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>					
-					</p>
-				</div>
-				<div class="datepickerBox">
-					<p>
+					</li>
+					<li>
+						<p>촬영일</p>
+						<div class="datepickerBox">
+							<label for="registFromDate">From</label>
+							<input type="text" id="recordFromDate" name="registFromDate" class="inputTxt date" value="<fmt:formatDate value="${fromDate}" pattern="yyyy-MM-dd"/>"/>
+						</div>
+						<div class="datepickerBox">
+							<label for="registToDate">To</label>
+							<input type="text" id="recordToDate" name="registToDate" class="inputTxt date" value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>					
+						</div>
+					</li>
+					<li>
 						<label for="search_tagUserId">소유자</label> 
-						<select class="selectyze psa" name="tagUserId" id="search_tagUserId">
+						<select class="selectyze" name="tagUserId" id="search_tagUserId">
 							<option value="">선택하세요</option>
 							<c:forEach items="${users}" var="user">
 								<c:choose>
@@ -260,16 +276,13 @@ function clear_cameraDetail()
 								</c:choose>
 							</c:forEach>
 						</select>
-					</p>
-				</div>
-				
-				<div class="datepickerBox">
-					<p>
+					</li>
+					<li>
 						<label for="search_recordUserId">촬영자</label> 
-						<select class="selectyze psa" name="recordUserId" id="search_recordUserId">
+						<select class="selectyze" name="recordUserId" id="search_recordUserId">
 							<option value="">선택하세요</option>
 							<c:forEach items="${users}" var="user">
-	<%-- 							<option value="${user.userId}">${user.userName}</option> --%>
+							<%--	<option value="${user.userId}">${user.userName}</option> --%>
 								<c:choose>
 									<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
 										<option value="${user.userId}">${user.userName}</option>
@@ -283,16 +296,15 @@ function clear_cameraDetail()
 								
 							</c:forEach>
 						</select>
-					</p>
-				</div>
+					</li>
+				</ul>
 			</form>
-			<div class="btnbox alignC" style="text-align: center;">
-				<span class="btn_typeA t3"><a href="javascript:onClick_search();">검색</a></span> 
-				<span class="btn_typeA t2"><a href="javascript:onClick_searchInit();">조건초기화</a></span>
-			</div>
+			<div class="btnWrap">						
+				<a class="btn reset" href="javascript:onClick_searchInit();">초기화</a>
+				<a class="btn search" href="javascript:onClick_search();">검색</a> 
+			</div>				
 		</div>
 		<!-- //lnbWrap -->
-
 		<!-- contents -->
 		<div id="contents">
 			<div class="vodlistBox thum">
@@ -300,7 +312,7 @@ function clear_cameraDetail()
 				<div id="p_contentList" data-ctrl-view="content_list_pager"></div>
 			</div>
 
-			<div class="mgt30">
+			<div>
 				<form id="frmCameraDetail">
 				</form>
 <!-- 				<div class="btnbox alignR"> -->
@@ -313,12 +325,46 @@ function clear_cameraDetail()
 		</div>
 
 		<!-- //contents -->
-
+		<div class="detailContainer">
+			<div class="videoview">
+				<div id="player" style="background:#fafafa"></div>	
+			</div>
+			<div class="detailWrap">
+				<dl>
+					<dt>제목</dt>
+					<dd class="full"><input type="text" name="title" title="제목" class="inputTxt" value="${contentMeta.title}" readonly></dd>
+					<dt>종목</dt>
+					<dd><input type="text" name="sportsEvent" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd>
+					<dt class="ml20">소유자</dt>
+					<dd><input type="text" name="tagUser" title="소유자" class="inputTxt" value="${contentMeta.contentUserNames}" readonly></dd>
+					<dt>녹화자</dt>
+					<dd><input type="text" name=recordUser title="녹화자" class="inputTxt" value="${contentMeta.recordUser.userName}" readonly></dd>
+					<dt class="ml20">녹화일자</dt>
+					<dd>
+						<div class="datepickerBox">
+							<input type="text" id="recordFromDate" name="recordDate" class="inputTxt date"  value="<fmt:formatDate value="${contentMeta.recordDate}" pattern="yyyy-MM-dd" />" readonly/>
+						</div>					
+					</dd>
+					<dt>설명</dt>
+					<dd class="full"><textarea name="summary" title="설명" readonly>${contentMeta.summary}</textarea></dd>
+					<dt>파일</dt>
+					<dd class="full">
+						<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly>
+						<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						
+					</dd>						
+				</dl>
+				<div class="btnWrap">
+					<a class="btn download">다운로드</a>		
+					<div class="btnWrap">
+						<a class="btn delete">삭제</a> 
+						<a class="btn edit">수정</a>					
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- //container -->
-
-
 <!-- footer -->
 <jsp:include page="/include/footer" />
 <!-- //footer -->
