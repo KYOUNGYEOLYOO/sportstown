@@ -44,7 +44,10 @@ label	{display:block; /*width:65px;*/ /*line-height:45px; height:45px;*/ font-si
 .inputFile {height:27px;}
 
 
-textarea	{width:100%; padding:0 10px; border:1px solid #dbdbdb; resize:none; min-height:80px;}
+select	{position:relative; line-height:38px; height:40px; width:268px; padding:0 10px; border:1px solid #dbdbdb;border-radius:0; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none;-webkit-appearance:none; -moz-appearance:none; appearance:none; -o- appearance:none; background: #fff url(../../images/layout/input_select.png) no-repeat right center;
+    background-position: top 50% right 14px;}
+select::-ms-expand {display:none;}
+textarea	{width:100%; padding:0 10px; border:1px solid #dbdbdb; resize:none; min-height:80px; margin-bottom:7px;}
 
 
 a {text-decoration:none !important;cursor:pointer;}

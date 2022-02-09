@@ -16,11 +16,15 @@ $(document).ready(function(){
 	
 	
 	$("[data-ctrl-view=user_modify]").dialog({
-		width:500,
+		width:620,
 		modal : true,
 		authOpen :true,
 		resizable : false,
 		buttons : {
+			
+			"닫기" : function(){
+				$(this).dialog("close");
+			},			
 			"저장" : function(){
 				var jpPopup = $(this);
 				console.log($(this).find("form").serialize());
@@ -42,9 +46,6 @@ $(document).ready(function(){
 						}
 					}
 				});
-			},
-			"닫기" : function(){
-				$(this).dialog("close");
 			}
 		},
 		close : function(event, ui){
@@ -58,29 +59,29 @@ $(document).ready(function(){
 
 <form>
 	<input type="hidden" name="userId" value="${user.userId}" />
-	<table class="write_type1 mgb20" summary="">
+	<table summary="">
 		<caption></caption>
 		<colgroup>
-			<col width="150">
+			<col width="120">
 			<col width="*">
 		</colgroup>
 		<tbody>
 			<tr>
 				<th>ID</th>
-				<td><input type="text" name="loginId" value="${user.loginId}" title="로그인아이디" class="type_2" readonly></td>
+				<td><input type="text" name="loginId" value="${user.loginId}" title="로그인아이디" class="inputTxt" readonly></td>
 			</tr>
 			<tr>
 				<th>Password</th>
-				<td><input type="text" name="newPassword" value="" title="로그인 패스워드" class="type_2"></td>
+				<td><input type="text" name="newPassword" value="" title="로그인 패스워드" class="inputTxt"></td>
 			</tr>
 			<tr>
 				<th>사용자명</th>
-				<td><input type="text" name="userName" value="${user.userName}" title="사용자명" class="type_2"></td>
+				<td><input type="text" name="userName" value="${user.userName}" title="사용자명" class="inputTxt"></td>
 			</tr>
 			<tr>
 				<th>종목</th>
 				<td>
-					<select class="td sel_type_2" name="sportsEventCode" title="종목선택">
+					<select name="sportsEventCode" title="종목선택">
 						<option value="">선택하세요</option>
 						<c:forEach items="${sprotsEvents}" var="code">
 							<c:choose>
@@ -99,7 +100,7 @@ $(document).ready(function(){
 			<tr>
 				<th>사용자유형</th>
 				<td>
-					<select class="td sel_type_2" name="userType" title="선수명 선택">
+					<select name="userType" title="선수명 선택">
 						<option value="Athlete">선수</option>
 						<option value="Coach">지도자</option>
 						<option value="Admin">관리자</option>
@@ -109,7 +110,7 @@ $(document).ready(function(){
 			<tr>
 				<th>사용여부</th>
 				<td>
-					<select class="td sel_type_2" name="isUsed" title="사용 여부">
+					<select name="isUsed" title="사용 여부">
 						<option value="true">사용</option>
 						<option value="false">사용암함</option>
 					</select>

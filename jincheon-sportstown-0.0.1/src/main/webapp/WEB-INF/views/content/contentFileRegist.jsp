@@ -184,118 +184,97 @@ function callback_selectedUsers(sender, users)
 
 <!-- container -->
 <div id="container">
+	<div class="titleWrap">
+		<h2>영상등록 - 파일등록</h2>
+	</div>
+
 	<div id="contentsWrap">
 
-		<!-- lnbWrap -->
-		<div id="lnbWrap" class="video">
-				<div class="lnbWraph2">
-					<h2>컨텐츠등록</h2>
-				</div>
-		</div>
-		<!-- //lnbWrap -->
-
 		<!-- contents -->
-		<div id="contents" class="video">
-
-			<!-- title -->
-			<h3>영상녹화</h3>
-			<!-- //title -->
+		<div id="contents" class="detailContainer">
 			<div class="vodregistBox">
 				<div class="vodregist ">
 					<form id="frmContent" method="post" enctype="multipart/form-data" action="<c:url value="/service/content/registContentWithFile"/>">
 						<input type="hidden" name="contentType" value="VIDEO" />
 						<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId" class="type_2">
-						<table class="write_type1 mgb20" summary="">
-							<caption></caption>
-							<colgroup>
-							<col width="150">
-							<col width="*">
-							<col width="150">
-							<col width="*">
-							</colgroup>
-							<tbody>
-								<tr>
-									<th>제목</th>
-									<td colspan="3"><input type="text" name="title" value="" title="제목" class="type_2" data-ctrl-contentMeta="title" data-regist-input></td>
-								</tr>
-								<tr>
-									<th>파일</th>
-									<td colspan="2">
-										<input type="file" name="file" class="type_2" style="width:100%;" data-regist-input/>
-									</td>
+						<dl>
+							<dt>제목</dt>
+							<dd class="full">
+								<input type="text" name="title" value="" title="제목" class="inputTxt" data-ctrl-contentMeta="title" data-regist-input>
+							</dd>
+							<dt>파일</dt>
+							<dd class="full">
+								<input type="file" name="file" class="inputTxt" data-regist-input/>
+							</dd>
+								<!-- 
 									<td data-regist-fileProgress>
 										&nbsp;
 									</td>
-								</tr>
-								<tr>
-									<th>스포츠종목</th>
-									<td>
-										<c:choose>
-											<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-												<select class="td sel_type_2" name="sportsEventCode" title="스포츠종목" data-regist-input>
-													<option value="">선택하세요</option>
-													<c:forEach items="${sprotsEvents}" var="code">
-														<c:choose>
-															<c:when test="${loginUser.sportsEventCode == code.codeId}">
-																<option value="${code.codeId}" selected>${code.name}</option>
-															</c:when>
-															<c:otherwise>
-																<option value="${code.codeId}" >${code.name}</option>
-															</c:otherwise>
-														</c:choose>
-													</c:forEach>
-												</select>
-											</c:when>
-											<c:otherwise>
-												<input type="text" name="sportsEventName" class="type_2" value="${loginUser.sportsEvent.name}" readonly data-regist-input/>
-												<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
-											</c:otherwise>
-										</c:choose>
-									</td>
-									<th>소유자</th>
-									<td>
-										<input type="text" name="contentUserNames" title="소유자" class="type_2" data-ctrl-contentMeta="contentUserNames" value="${loginUser.userName}" readonly data-regist-input/>
-										<input type="hidden" name="contentUsers[0].userId" data-ctrl-contentmeta="contentUserId" value="${loginUser.userId}">
-									</td>
-								</tr>
-								<tr>
-									<th>녹화자</th>
-									<td>
-										<select class="td sel_type_2" name="recordUserId" title="녹화자" data-regist-input>
+									 -->
+							<dt>종목</dt>
+							<dd>
+								<c:choose>
+									<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+										<select class="selectyze" name="sportsEventCode" title="스포츠종목" data-regist-input>
 											<option value="">선택하세요</option>
-											<c:forEach items="${users}" var="user">
+											<c:forEach items="${sprotsEvents}" var="code">
 												<c:choose>
-													<c:when test="${loginUser.userId == user.userId}">
-														<option value="${user.userId}" selected >${user.userName}</option>
+													<c:when test="${loginUser.sportsEventCode == code.codeId}">
+														<option value="${code.codeId}" selected>${code.name}</option>
 													</c:when>
-													<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-														<option value="${user.userId}" >${user.userName}</option>
-													</c:when>
-													<c:when test="${loginUser.sportsEventCode == user.sportsEventCode}">
-														<option value="${user.userId}" >${user.userName}</option>
-													</c:when>
+													<c:otherwise>
+														<option value="${code.codeId}" >${code.name}</option>
+													</c:otherwise>
 												</c:choose>
 											</c:forEach>
 										</select>
-									</td>
-									<th>녹화일자</th>
-									<td>
-										<input type="text" class="inputTxt date" style="height:35px; margin-right:5px; width:270px" name="recordDate"  value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>" data-regist-input/>
-									</td>
-								</tr>
-								<tr>
-									<th>설명</th>
-									<td colspan="3">
-										<textarea name="summary" title="설명" class="ta_type_1" rows="5" data-ctrl-contentMeta="summary" data-regist-input></textarea>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+									</c:when>
+									<c:otherwise>
+										<input type="text" name="sportsEventName" class="inputTxt" value="${loginUser.sportsEvent.name}" readonly data-regist-input/>
+										<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
+									</c:otherwise>
+								</c:choose>
+							</dd>
+							<dt class="ml20">소유자</dt>
+							<dd>
+								<input type="text" name="contentUserNames" title="소유자" class="inputTxt" data-ctrl-contentMeta="contentUserNames" value="${loginUser.userName}" readonly data-regist-input/>
+								<input type="hidden" name="contentUsers[0].userId" data-ctrl-contentmeta="contentUserId" value="${loginUser.userId}">
+							</dd>
+							<dt>녹화자</dt>
+							<dd>
+								<select class="selectyze" name="recordUserId" title="녹화자" data-regist-input>
+									<option value="">선택하세요</option>
+									<c:forEach items="${users}" var="user">
+										<c:choose>
+											<c:when test="${loginUser.userId == user.userId}">
+												<option value="${user.userId}" selected >${user.userName}</option>
+											</c:when>
+											<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+												<option value="${user.userId}" >${user.userName}</option>
+											</c:when>
+											<c:when test="${loginUser.sportsEventCode == user.sportsEventCode}">
+												<option value="${user.userId}" >${user.userName}</option>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+								</select>
+							</dd>
+							<dt class="ml20">녹화일자</dt>
+							<dd>
+								<div class="datepickerBox">
+									<input type="text" class="inputTxt date" name="recordDate"  value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>" data-regist-input/>
+								</div>
+							</dd>
+							<dt>설명</dt>
+							<dd class="full">
+								<textarea name="summary" title="설명" rows="5" data-ctrl-contentMeta="summary" data-regist-input></textarea>
+							</dd>
+						</dl>
 					</form>
 					
-					<div class="btnbox alignR">
-						<span class="btn_typeA t1"><a href="javascript:onClick_regist();">등록</a></span> 
-						<span class="btn_typeA t2"><a href="javascript:onClick_reload();">새로하기</a></span>
+					<div class="btnWrap">
+						<a class="btn reset" href="javascript:onClick_reload();">초기화</a></span>
+						<a class="btn write" href="javascript:onClick_regist();">등록</a></span> 						
 					</div>					
 				</div>
 			</div>

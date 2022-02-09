@@ -12,11 +12,14 @@ $(document).ready(function(){
 	var eventSender = new bcs_ctrl_event($("[data-ctrl-view=user_regist]"));
 	
 	$("[data-ctrl-view=user_regist]").dialog({
-		width:500,
+		width:620,
 		modal : true,
 		authOpen :true,
 		resizable : false,
 		buttons : {
+			"닫기" : function(){
+				$(this).dialog("close");
+			},			
 			"저장" : function(){
 				var jpPopup = $(this);
 				console.log($(this).find("form").serialize());
@@ -38,10 +41,8 @@ $(document).ready(function(){
 						}
 					}
 				});
-			},
-			"닫기" : function(){
-				$(this).dialog("close");
 			}
+
 		},
 		close : function(event, ui){
 			$(this).dialog("destroy");
@@ -53,29 +54,29 @@ $(document).ready(function(){
 </script>
 
 <form>
-	<table class="write_type1 mgb20" summary="">
+	<table summary="">
 		<caption></caption>
 		<colgroup>
-			<col width="150">
+			<col width="120">
 			<col width="*">
 		</colgroup>
 		<tbody>
 			<tr>
 				<th><label for="reg_loginId">ID</label></th>
-				<td><input type="text" id="reg_loginId" name="loginId" value="" title="로그인아이디" class="type_2"></td>
+				<td><input type="text" id="reg_loginId" name="loginId" value="" title="로그인아이디" class="inputTxt"></td>
 			</tr>
 			<tr>
 				<th><label for="reg_password">Password</label></th>
-				<td><input type="password" id="reg_password" name="password" value="" title="Password" class="type_2"></td>
-			</tr>
-			<tr>p
-				<th><label for="reg_userName">사용자명</label></th>
-				<td><input type="text" id="reg_userName" name="userName" value="" title="사용자명" class="type_2"></td>
+				<td><input type="password" id="reg_password" name="password" value="" title="Password" class="inputTxt"></td>
 			</tr>
 			<tr>
-				<th>종목</th>
+				<th><label for="reg_userName">사용자명</label></th>
+				<td><input type="text" id="reg_userName" name="userName" value="" title="사용자명" class="inputTxt"></td>
+			</tr>
+			<tr>
+				<th><p>종목</p></th>
 				<td>
-					<select class="td sel_type_2" name="sportsEventCode" title="종목선택">
+					<select name="sportsEventCode" title="종목선택">
 						<option value="">선택하세요</option>
 						<c:forEach items="${sprotsEvents}" var="code">
 							<option value="${code.codeId}">${code.name}</option>
@@ -86,7 +87,7 @@ $(document).ready(function(){
 			<tr>
 				<th><label for="reg_userType">사용자유형</label></th>
 				<td>
-					<select class="td sel_type_2" id="reg_userType" name="userType" title="선수명 선택">
+					<select id="reg_userType" name="userType" title="선수명 선택">
 						<option value="Athlete">선수</option>
 						<option value="Coach">지도자</option>
 						<option value="Admin">관리자</option>
