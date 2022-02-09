@@ -25,14 +25,15 @@
 		<maven.test.skip>true</maven.test.skip>
 	</properties>
 
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.21.RELEASE</version>
 		<relativePath />
 	</parent>
-
-
+	
+	
 	<dependencies>
 		<!-- Springframework Boot -->
 		<dependency>
@@ -55,6 +56,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-logging</artifactId>
 		</dependency>
+	
 
 		<!-- https://mvnrepository.com/artifact/com.mchange/mchange-commons-java -->
 		<dependency>
@@ -76,6 +78,7 @@
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		
 
 		<!-- Logging -->
 		<dependency>

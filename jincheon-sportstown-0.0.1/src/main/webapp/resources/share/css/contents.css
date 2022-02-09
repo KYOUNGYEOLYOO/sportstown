@@ -67,13 +67,28 @@ select.td { border:solid 1px #dbdbdb; padding:8px 10px ; width:100%;}
 
 .btn_typeA a, .btn_typeB a, .btn_typeC a, .btn_typeD a {color:#fff;}
 
+
+
+/*	btnWrap	*/
+a.btn	{width:130px; height:40px; line-height:38px; text-align:center; border-radius:4px; border:1px solid #ccc; background:#fff; color:#666; font-size:14px; font-weight:bold;}
+a.btn.reset	{}
+a.btn.write	{border-color:#5bc0de; background-color:#5bc0de; color:#fff;}
+a.btn.search	{border-color:#337ab7; background-color:#337ab7; color:#fff;}
+a.btn.edit	{border-color:#5cb85c; background-color:#5cb85c; color:#fff;}
+a.btn.delete	{border-color:#d9534f; background-color:#d9534f; color:#fff;}
+.btnWrap	{display:flex; align-items:center; justify-content:space-between;}
+
+
+
+.datepickerBox	{position:relative;}
+
 .datepickerBox.ex {overflow:hidden; width:350px}
 .datepickerBox p { margin-bottom:10px;}
-.datepickerBox label { display:inline-block; width:65px; line-height:45px; height:45px; font-size:15px; color:#3e3e3e; font-weight:bold; text-align:center;}
-.datepickerBox input.inputTxt { line-height:45px; height:45px; width:280px; padding:0 40px 0 10px;}
+.datepickerBox label { }
+.datepickerBox input.inputTxt { }
 .datepickerBox input.inputTxt.ex { width:350px;}
 
-.datepickerBox .ui-datepicker-trigger { position:absolute; top:1px; right:0;}
+.datepickerBox .ui-datepicker-trigger { position:absolute; bottom:16px; right:10px;}
 
 /* popupWindow */
 .popupheader {background:#5a79ba url(../../images/contents/poptitlebg.png) no-repeat 50% 0; height:40px; line-height:40px; height:40px; color:#fff; font-size:15px; text-align:center;}
