@@ -71,7 +71,7 @@ function initPalyer()
 	console.log("login location ==> ${loginUser.connectLocation}");
 	console.log("streamer ==> ${streamer}");
 	// var  mediaUrl = "${streamer}/${streamMeta.application.name}/${streamMeta.streamName}"
-	var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, streamer)}/${streamMeta.application.name}/${streamMeta.streamName}";
+	var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, streamer)}/${streamMeta.application.name}/${streamMeta.streamName}.stream";
 	// mediaUrl = "<c:url value="/resources/mp4/sample.mp4"/>";
 	// mediaUrl = "http://223.26.218.116:1935/vod/_definst_/mp4:test/bcs.mp4/playlist.m3u8";
 	console.log(mediaUrl);
