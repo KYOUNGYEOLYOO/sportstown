@@ -112,7 +112,7 @@ $(document).ready(function(){
 	   	
 	});
 	
-	
+	/* 여기가 녹화재생 > 영상추가 버튼 혹은 초기화 버튼 누르면 나오는 영상 검색 페이지 조그만거 20211210 */
 	$("[data-ctrl-view=file_search]").dialog({
 		width:700,
 		modal : true,

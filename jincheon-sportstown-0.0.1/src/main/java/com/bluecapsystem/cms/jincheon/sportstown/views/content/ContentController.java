@@ -119,7 +119,32 @@ public class ContentController {
 		}
 		return mnv;
 	}
+	
+	@RequestMapping("/detail/{contentId}"+"/video")
+	public ModelAndView detail_video(final HttpSession session, @PathVariable("contentId") final String contentId) {
+		ModelAndView mnv = new ModelAndView("/content/contentDetails");
+		String resultCode = "false";
+		try {
+			SportstownContentMeta meta = (SportstownContentMeta) contentServ.getContent(contentId);
 
+			User loginUser = (User) session.getAttribute(UserSessionDefine.LOGIN_USER_SESSION_KEY);
+
+//			if( meta.getRecordUserId().equals(loginUser.getUserId()) //
+//				|| (meta.getSportsEventCode().equals(loginUser.getSportsEventCode()) && loginUser.getUserType() == UserType.Coach)
+//					|| loginUser.getIsDeveloper() || loginUser.getIsAdmin() || loginUser.getUserType() == UserType.Admin) {
+//				mnv.setViewName("/content/contentModify");
+//			}
+			resultCode = "Success";
+			mnv.addObject("contentMeta", meta);
+			mnv.addObject("resultCode", resultCode);
+
+			loadCodes(mnv);
+			logger.debug("111111111111111" + resultCode);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return mnv;
+	}
 
 
 

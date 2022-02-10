@@ -5,6 +5,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <jsp:useBean id="now" class="java.util.Date" />
+<jsp:useBean id="ipFilter" class="com.bluecapsystem.cms.jincheon.sportstown.common.define.IPFilterConstant" />
+
+<link rel="stylesheet" href="<c:url value="/bluecap/css/video-js.css"/>"> 
+<script src="https://unpkg.com/video.js/dist/video.js"></script>
+<script type="text/javascript" src="<c:url value="/bluecap/jwplayer-7.11.3/jwplayer.js"/>"></script>
+<script>jwplayer.key="/cDB/4s47uzPnRb3q/gtzOze04a7CABARZuQWIwYvfQ=";</script>
 
 <html lang="ko" xml:lang="ko">
 <head>
@@ -12,11 +18,15 @@
 <jsp:include page="/include/head"/>
 
 
+
 <script type="text/javascript">
 $(document).ready(function(){
 	init_contentList();
+	set_contentDetails(null);
 });
 </script>
+
+
 
 <script type="text/javascript">
 
@@ -58,10 +68,13 @@ function init_contentList()
 			id : "contentId"
 		},
 		onSelectRow : function(id){
-			onClick_detail();
+			// 0209 onClick_detail();
+			onClick_detail_video();
 		}
 	});
 }
+
+
 </script>
 
 
@@ -94,6 +107,71 @@ function onClick_detail()
 	
 	window.open("<c:url value="/content/detail"/>/" + contentId, "popup", "height=930,width=910,resizable=no,menubar=no,toolbar=no", true);
 	
+}
+
+function onClick_detail_video()
+{
+	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
+	if(typeof contentId == "undefined" || contentId == null)
+	{
+		new bcs_messagebox().open("영상검색", "컨텐츠를 선택해 주세요", null);
+		return;
+	}
+	
+	console.log("contentId : ", contentId);
+	
+	$("#frmContentDetails").empty();
+	$("#frmContentDetails").jqUtils_bcs_loadHTML(
+			"<c:url value="/content/detail"/>/" + contentId + "/video",
+			false, "get", null, null
+		);
+	console.log('set_contentDetails');
+// 		$.ajax({
+// 			url : "<c:url value="/content/detail"/>/" + contentId +"/video",
+// 			async : false,
+// 			dataType : "json",
+// 			data : null, 
+// 			method : "post",
+// 			success : function (ajaxData) {
+// 			if (ajaxData.resultCode == "Success"){
+// 					console.log("1111111111");
+// 					console.log("ajaxData : ", ajaxData.contentMeta);
+
+// 					contentMeta_video = ajaxData.contentMeta;
+// 					vodStreamer = ajaxData.vodStreamer;
+// 					contentRootUri = ajaxData.contentRootUri;
+// 					test();
+// 				}else{
+// 					console.log("2222222222");
+// 				}
+// 			},
+// 			error : function(request,error){
+// 				console.log("why????");
+// 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+// 			}
+// 		});		
+}
+
+function set_contentDetails(contentId)
+{
+	$("#frmContentDetails").empty();
+	$("#frmContentDetails").jqUtils_bcs_loadHTML(
+			"<c:url value="/content/detail"/>/" + contentId +"/video",
+			false, "get", null, null
+		);
+	console.log('set_cameraDetail1111');
+	console.log("/content/detail/" + contentId +"/video");
+	
+	/*
+	console.log(camera);
+	$("#frmCameraDetail").find("input[name=name]").val(camera.name);
+	$("#frmCameraDetail").find("input[name=camId]").val(camera.camId);
+	*/	
+}
+
+function clear_contentDetails()
+{
+	$("#frmContentDetails").find("input").val("");
 }
 
 function onClick_modify()
@@ -326,41 +404,43 @@ function clear_cameraDetail()
 
 		<!-- //contents -->
 		<div class="detailContainer">
-			<div class="videoview">
-				<div id="player" style="background:#fafafa"></div>	
-			</div>
-			<div class="detailWrap">
-				<dl>
-					<dt>제목</dt>
-					<dd class="full"><input type="text" name="title" title="제목" class="inputTxt" value="${contentMeta.title}" readonly></dd>
-					<dt>종목</dt>
-					<dd><input type="text" name="sportsEvent" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd>
-					<dt class="ml20">소유자</dt>
-					<dd><input type="text" name="tagUser" title="소유자" class="inputTxt" value="${contentMeta.contentUserNames}" readonly></dd>
-					<dt>녹화자</dt>
-					<dd><input type="text" name=recordUser title="녹화자" class="inputTxt" value="${contentMeta.recordUser.userName}" readonly></dd>
-					<dt class="ml20">녹화일자</dt>
-					<dd>
-						<div class="datepickerBox">
-							<input type="text" id="recordFromDate" name="recordDate" class="inputTxt date"  value="<fmt:formatDate value="${contentMeta.recordDate}" pattern="yyyy-MM-dd" />" readonly/>
-						</div>					
-					</dd>
-					<dt>설명</dt>
-					<dd class="full"><textarea name="summary" title="설명" readonly>${contentMeta.summary}</textarea></dd>
-					<dt>파일</dt>
-					<dd class="full">
-						<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly>
-						<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						
-					</dd>						
-				</dl>
-				<div class="btnWrap">
-					<a class="btn download">다운로드</a>		
-					<div class="btnWrap">
-						<a class="btn delete">삭제</a> 
-						<a class="btn edit">수정</a>					
-					</div>
-				</div>
-			</div>
+			<form id="frmContentDetails">
+			</form>
+<!-- 			<div class="videoview"> -->
+<!-- 				<div id="player" style="background:#fafafa"></div>	 -->
+<!-- 			</div> -->
+<!-- 			<div class="detailWrap"> -->
+<!-- 				<dl> -->
+<!-- 					<dt>제목</dt> -->
+<%-- 					<dd class="full"><input type="text" name="title" title="제목" class="inputTxt" value="${contentMeta.title}" readonly></dd> --%>
+<!-- 					<dt>종목</dt> -->
+<%-- 					<dd><input type="text" name="sportsEvent" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd> --%>
+<!-- 					<dt class="ml20">소유자</dt> -->
+<%-- 					<dd><input type="text" name="tagUser" title="소유자" class="inputTxt" value="${contentMeta.contentUserNames}" readonly></dd> --%>
+<!-- 					<dt>녹화자</dt> -->
+<%-- 					<dd><input type="text" name=recordUser title="녹화자" class="inputTxt" value="${contentMeta.recordUser.userName}" readonly></dd> --%>
+<!-- 					<dt class="ml20">녹화일자</dt> -->
+<!-- 					<dd> -->
+<!-- 						<div class="datepickerBox"> -->
+<%-- 							<input type="text" id="recordFromDate" name="recordDate" class="inputTxt date"  value="<fmt:formatDate value="${contentMeta.recordDate}" pattern="yyyy-MM-dd" />" readonly/> --%>
+<!-- 						</div>					 -->
+<!-- 					</dd> -->
+<!-- 					<dt>설명</dt> -->
+<%-- 					<dd class="full"><textarea name="summary" title="설명" readonly>${contentMeta.summary}</textarea></dd> --%>
+<!-- 					<dt>파일</dt> -->
+<!-- 					<dd class="full"> -->
+<!-- 						<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly> -->
+<!-- 						<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						 -->
+<!-- 					</dd>						 -->
+<!-- 				</dl> -->
+<!-- 				<div class="btnWrap"> -->
+<!-- 					<a class="btn download">다운로드</a>		 -->
+<!-- 					<div class="btnWrap"> -->
+<!-- 						<a class="btn delete">삭제</a>  -->
+<!-- 						<a class="btn edit">수정</a>					 -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 		</div>
 	</div>
 </div>

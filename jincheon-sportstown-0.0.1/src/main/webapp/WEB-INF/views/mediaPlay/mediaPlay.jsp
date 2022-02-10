@@ -5,11 +5,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <jsp:useBean id="now" class="java.util.Date" />
-
-<html lang="ko" xml:lang="ko">
-<head>
-
-<jsp:include page="/include/head"/>
+                                                      
+<%-- 여기가 녹화된 video 실행시키는 페이지 20211210 --%>                                    
+<html lang="ko" xml:lang="ko">                        
+<head>                                                
+                                                      
+<jsp:include page="/include/head"/>                   
 
 <style type="text/css">
 .videobox .videocontents {background-color: #000; color: #CFCFCF;}
@@ -267,6 +268,9 @@ function toggleSlomo(player, videoTag, rate) {
 </head>
 <body>
 
+<%-- 여기가 녹화된 video 실행시키는 페이지 
+	html 콘솔창에 뜨는 부분
+	20211210 --%>
 <form id="frmRecordFileParams">
 	<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}" />	
 	<input type="hidden" name="camId" value="" />

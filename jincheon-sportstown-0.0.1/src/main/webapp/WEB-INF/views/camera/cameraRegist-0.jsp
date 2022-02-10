@@ -1,4 +1,4 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,38 +7,26 @@
 
 <script type="text/javascript">
 
-var applicationCode_new = "";
-var streamServer = "";
-var streamName = "";
-var streamSourceUrl = "";
-
-
 $(document).ready(function(){
 	
 	var eventSender = new bcs_ctrl_event($("[data-ctrl-view=camera_regist]"));
 	
-	
-	
-	
-	
 	$("[data-ctrl-view=camera_regist]").dialog({
-		width:760,
+		width:700,
 		modal : true,
 		authOpen :true,
 		resizable : false,
 		buttons : {
-			"닫기" : function(){
-				$(this).dialog("close");
-			},			
 			"저장" : function(){
 				var jpPopup = $(this);
+				console.log(">>>>>>>>>>>>>>>>>value>>>");
+				console.log($("#applicationCode_new").val());
+				console.log($("#streamServer_new option:selected").text());
+// 				console.log($('input[name="streamMetaItems[0].streamName"]').val());
+// 				console.log($('input[name="streamMetaItems[0].streamSourceUrl"]').val());
+				console.log(">>>>>>>>>>>>>>>>>>");
+				console.log(jpPopup.find("form").serialize());
 				
-				applicationCode_new = $("#applicationCode_new option:selected").text();
-				streamServer = $("#streamServer_new option:selected").text();
-				streamName = $('#streamName_new').val();
-				streamSourceUrl = $('#streamSourceUrl_new').val();
-				
-			
 				
 				$.ajax({
 					url : "<c:url value="/service/camera/registCamera"/>",
@@ -55,18 +43,14 @@ $(document).ready(function(){
 							
 							console.log(">>>>>>"+jpPopup.find("form"));
 							
-							
-							
-							// 와우자 서버에 올리기
-							//addToWowza();
+							// 와우자 서버에 올리기 
+							addToWowza();
 						}
 						else{
 							new bcs_messagebox().openError("카메라관리", "카메라 등록중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 						}
 					}
 				});
-<<<<<<< HEAD
-=======
 				/*
 				20211221
 				위에는 DB에 저장하는 부분인거 같고
@@ -81,9 +65,7 @@ $(document).ready(function(){
 			},
 			"닫기" : function(){
 				$(this).dialog("close");
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 			}
-
 		},
 		close : function(event, ui){
 			$(this).dialog("destroy");
@@ -94,13 +76,11 @@ $(document).ready(function(){
 });
 
 function addToWowza(){
-	
-
 	var params = {
-			app :applicationCode_new
-			,streamServer :streamServer
-			,streamName :streamName
-			,streamSourceUrl :streamSourceUrl
+			app :$("#applicationCode_new").val()
+			,streamServer :$("#streamServer_new option:selected").text()
+			,streamName :$('input[name="streamMetaItems[0].streamName"]').val()
+			,streamSourceUrl :$('input[name="streamMetaItems[0].streamSourceUrl"]').val()
 		}
 	
 	$.ajax({
@@ -117,7 +97,7 @@ function addToWowza(){
 			}else{
 				alert("isSuccess : " + ajaxData.isSuccess +"\n"+ "message : " + ajaxData.message +"\n" + 
 						"app : " + ajaxData.app +"\n"+ "streamName : " + ajaxData.streamName +"\n"+ 
-						"streamSourceUrl : " + ajaxData.streamSourceUrl +"\n"+ "streamServer : " + ajaxData.streamServer);
+						"streamSourceUrl : " + ajaxData.streamSourceUrl "\n"+ "streamServer : " + ajaxData.streamServer);
 			}
 			
 		},
@@ -130,21 +110,21 @@ function addToWowza(){
 </script>
 
 <form>
-	<table summary="">
+	<table class="write_type1 mgb20" summary="">
 		<caption></caption>
 		<colgroup>
-			<col width="120">
+			<col width="150">
 			<col width="*">
 		</colgroup>
 		<tbody>
 			<tr>
 				<th>카메라명</th>
-				<td><input type="text" name="name" value="" title="카메라명" class="inputTxt"></td>
+				<td><input type="text" name="name" value="" title="카메라명" class="type_2"></td>
 			</tr>
 			<tr>
 				<th>카메라유형</th>
 				<td>
-					<select name="cameraType" title="카메라 유형">
+					<select class="td sel_type_2" name="cameraType" title="카메라 유형">
 						<option value="Static">고정</option>
 						<option value="Shift">유동</option>
 					</select>
@@ -153,7 +133,7 @@ function addToWowza(){
 			<tr>
 				<th>카메라위치</th>
 				<td>
-					<select name="locationCode" title="카메라 위치">
+					<select class="td sel_type_2" name="locationCode" title="카메라 위치">
 						<option value="">선택안함</option>
 						<c:forEach items="${locations}" var="location">
 							<option value="${location.codeId}">${location.name}</option>
@@ -164,7 +144,7 @@ function addToWowza(){
 			<tr>
 				<th>스포츠종목</th>
 				<td>
-					<select name="sportsEventCode" title="스포츠종목">
+					<select class="td sel_type_2" name="sportsEventCode" title="스포츠종목">
 						<option value="">선택안함</option>
 						<c:forEach items="${sprotsEvents}" var="sportsEvent">
 							<option value="${sportsEvent.codeId}">${sportsEvent.name}</option>
@@ -180,26 +160,22 @@ function addToWowza(){
 			</tr>
 		</tbody>
 	</table>
-	<h3>HD 정보 입력</h3>
+	<h1>HD 정보 입력</h1>
 	<input type="hidden" name="streamMetaItems[0].metaClass" value="HD" />
 	<input type="hidden" name="streamMetaItems[0].camId" value="" />
-	<table summary="">
+	<table class="write_type1 mgb20" summary="">
 		<caption></caption>
 		<colgroup>
-			<col width="120">
+			<col width="150">
 			<col width="*">
-			<col width="120">
+			<col width="150">
 			<col width="*">
 		</colgroup>
 		<tbody>
 			<tr>
 				<th>스트리밍서버</th>
 				<td colspan="3">
-<<<<<<< HEAD
-					<select name="streamMetaItems[0].streamServerCode" title="스트리밍서버">
-=======
 					<select id="streamServer_new" class="td sel_type_2" name="streamMetaItems[0].streamServerCode" title="스트리밍서버">
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 						<option value="">선택안함</option>
 						<c:forEach items="${streamServers}" var="streamServer">
 							<option value="${streamServer.codeId}">${streamServer.name}</option>
@@ -210,11 +186,7 @@ function addToWowza(){
 			<tr>
 				<th>Application</th>
 				<td>
-<<<<<<< HEAD
-					<select name="streamMetaItems[0].applicationCode" title="Application 서비스 이름">
-=======
 					<select id="applicationCode_new" class="td sel_type_2" name="streamMetaItems[0].applicationCode" title="Application 서비스 이름">
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 						<option value="">선택안함</option>
 						<c:forEach items="${applications}" var="application">
 							<option value="${application.codeId}">${application.name}</option>
@@ -223,52 +195,44 @@ function addToWowza(){
 				</td>
 				<th>스트림명</th>
 				<td>
-<<<<<<< HEAD
-					<input type="text" name="streamMetaItems[0].streamName" value="" title="스트리밍 서비스 이름" class="inputTxt">	
-=======
-					<input id="streamName_new" type="text" name="streamMetaItems[0].streamName" value="" title="스트리밍 서비스 이름" class="type_2">	
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
+					<input type="text" name="streamMetaItems[0].streamName" value="" title="스트리밍 서비스 이름" class="type_2">	
 				</td>
 			</tr>
 			<tr>
 				<th>Source URL</th>
-<<<<<<< HEAD
-				<td colspan="3"><input type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="inputTxt"></td>
-=======
-				<td colspan="3"><input id="streamSourceUrl_new" type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="type_2"></td>
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
+				<td colspan="3"><input type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="type_2"></td>
 			</tr>
 			
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" name="streamMetaItems[0].streamUserId" value="" title="스트리밍 소스 아이디" class="inputTxt">
+					<input type="text" name="streamMetaItems[0].streamUserId" value="" title="스트리밍 소스 아이디" class="type_2">
 				</td>
 				<th>패스워드</th>
 				<td>
-					<input type="text" name="streamMetaItems[0].streamUserPassword" value="" title="스트리밍 소스 패스워드" class="inputTxt">
+					<input type="text" name="streamMetaItems[0].streamUserPassword" value="" title="스트리밍 소스 패스워드" class="type_2">
 				</td>
 			</tr>
 			
 		</tbody>
 	</table>
 	
-	<h3>Proxy 정보 입력</h3>
+	<h1>Proxy 정보 입력</h1>
 	<input type="hidden" name="streamMetaItems[1].metaClass" value="Proxy" />
 	<input type="hidden" name="streamMetaItems[1].camId" value="" />
-	<table summary="">
+	<table class="write_type1 mgb20" summary="">
 		<caption></caption>
 		<colgroup>
-			<col width="120">
+			<col width="150">
 			<col width="*">
-			<col width="120">
+			<col width="150">
 			<col width="*">
 		</colgroup>
 		<tbody>
 			<tr>
 				<th>스트리밍서버</th>
 				<td colspan="3">
-					<select name="streamMetaItems[1].streamServerCode" title="스트리밍서버">
+					<select class="td sel_type_2" name="streamMetaItems[1].streamServerCode" title="스트리밍서버">
 						<option value="">선택안함</option>
 						<c:forEach items="${streamServers}" var="streamServer">
 							<option value="${streamServer.codeId}">${streamServer.name}</option>
@@ -279,7 +243,7 @@ function addToWowza(){
 			<tr>
 				<th>Application</th>
 				<td>
-					<select name="streamMetaItems[1].applicationCode" title="Application 서비스 이름">
+					<select class="td sel_type_2" name="streamMetaItems[1].applicationCode" title="Application 서비스 이름">
 						<option value="">선택안함</option>
 						<c:forEach items="${applications}" var="application">
 							<option value="${application.codeId}">${application.name}</option>
@@ -288,22 +252,22 @@ function addToWowza(){
 				</td>
 				<th>스트림명</th>
 				<td>
-					<input type="text" name="streamMetaItems[1].streamName" value="" title="스트리밍이름" class="inputTxt">	
+					<input type="text" name="streamMetaItems[1].streamName" value="" title="스트리밍이름" class="type_2">	
 				</td>
 			</tr>
 			<tr>
 				<th>Source URL</th>
-				<td colspan="3"><input type="text" name="streamMetaItems[1].streamSourceUrl" value="" title="카메라명" class="inputTxt"></td>
+				<td colspan="3"><input type="text" name="streamMetaItems[1].streamSourceUrl" value="" title="카메라명" class="type_2"></td>
 			</tr>
 			
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" name="streamMetaItems[1].streamUserId" value="" title="스트리밍 소스 아이디" class="inputTxt">
+					<input type="text" name="streamMetaItems[1].streamUserId" value="" title="스트리밍 소스 아이디" class="type_2">
 				</td>
 				<th>패스워드</th>
 				<td>
-					<input type="text" name="streamMetaItems[1].streamUserPassword" value="" title="스트리밍 소스 패스워드" class="inputTxt">
+					<input type="text" name="streamMetaItems[1].streamUserPassword" value="" title="스트리밍 소스 패스워드" class="type_2">
 				</td>
 			</tr>
 			

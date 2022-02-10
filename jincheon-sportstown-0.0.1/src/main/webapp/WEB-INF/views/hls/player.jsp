@@ -8,10 +8,11 @@
 <jsp:useBean id="ipFilter" class="com.bluecapsystem.cms.jincheon.sportstown.common.define.IPFilterConstant" />
 
 
- <c:set var="proxyMeta" value="" />
+<c:set var="proxyMeta" value="" />
 <c:set var="enablePlayer" value="false" />
 <c:forEach items="${camera.streamMetaItems}" var="streamMeta">
-	<c:if test="${streamMeta.metaClass == 'Proxy'}">
+<%-- 	<c:if test="${streamMeta.metaClass == 'Proxy'}"> <!-- 0208 이부분 HD로 수정하면 될듯..  --> --%>
+	<c:if test="${streamMeta.metaClass == 'HD'}"> <!-- 0208 이부분 HD로 수정하면 될듯..  -->
 		<c:set var="proxyMeta" value="${streamMeta}" />
 		<c:set var="enablePlayer" value="true" />
 		<c:set var="liveStreamer"  value="${fn:replace(liveStreamer, '{STREAM_SERVER}', proxyMeta.streamServer.name)}"/>
@@ -85,8 +86,8 @@ $(document).ready(function(){
 	
 <c:if test="${enablePlayer == true}">
 
-	var liveStreamUrl = "${ipFilter.filterAddress(loginUser.connectLocation, liveStreamer)}/${proxyMeta.application.name}/${proxyMeta.streamName}/playlist.m3u8";
-	var dvrStreamUrl = "${ipFilter.filterAddress(loginUser.connectLocation, dvrStreamer)}/${proxyMeta.application.name}/${proxyMeta.streamName}/playlist.m3u8?DVR";
+	var liveStreamUrl = "${ipFilter.filterAddress(loginUser.connectLocation, liveStreamer)}/${proxyMeta.application.name}/${proxyMeta.streamName}.stream/playlist.m3u8";
+	var dvrStreamUrl = "${ipFilter.filterAddress(loginUser.connectLocation, dvrStreamer)}/${proxyMeta.application.name}/${proxyMeta.streamName}.stream/playlist.m3u8?DVR";
 	
 	var isLiveOnly = "${camera.isLiveOnly}" == "true";
 	

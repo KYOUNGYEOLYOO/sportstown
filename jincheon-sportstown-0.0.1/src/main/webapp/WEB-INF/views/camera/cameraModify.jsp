@@ -7,6 +7,11 @@
 
 <script type="text/javascript">
 
+var applicationCode_new = "";
+var streamServer = "";
+var streamName = "";
+var streamSourceUrl = "";
+
 $(document).ready(function(){
 	
 	var eventSender = new bcs_ctrl_event($("[data-ctrl-view=camera_modify]"));
@@ -27,7 +32,21 @@ $(document).ready(function(){
 			},
 			"저장" : function(){
 				var jpPopup = $(this);
+				
+				applicationCode_new = $(this).find("form").find('select[name="streamMetaItems[0].applicationCode"] option:selected').text();
+				streamServer = $(this).find("form").find('select[name="streamMetaItems[0].streamServerCode"] option:selected').text();
+				streamName = $(this).find("form").find('input[name="streamMetaItems[0].streamName"]').val();
+				streamSourceUrl = $(this).find("form").find('input[name="streamMetaItems[0].streamSourceUrl"]').val();
+				
+				console.log("applicationCode_new" + applicationCode_new);
+				console.log("streamServer" + streamServer);
+				console.log("streamName" + streamName);
+				console.log("streamSourceUrl" + streamSourceUrl);
+				
+				
 				console.log($(this).find("form").serialize());
+				
+				
 				$.ajax({
 					url : "<c:url value="/service/camera/modifyCamera"/>",
 					async : false,
@@ -40,8 +59,10 @@ $(document).ready(function(){
 						if(ajaxData.resultCode == "Success"){
 							eventSender.send("data-event-modify", ajaxData.camera);
 							jpPopup.dialog("close");
+							console.log(" ajaxData.stream : ", ajaxData.stream );
 						}
 						else{
+							console.log(" ajaxData.stream : ", ajaxData.stream );
 							new bcs_messagebox().openError("카메라수정", "카메라 수정중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 						}
 					}
@@ -56,11 +77,43 @@ $(document).ready(function(){
 	});
 });
 
+function updateToWowza()
+{
+	var params = {
+		serverName : streamServer
+		, applicationName : applicationCode_new
+		, streamName : streamName
+		, streamSourceUrl : streamSourceUrl
+	}
+	
+	$.ajax({
+		url : "<c:url value="/service/camera/updateCameraW"/>",
+		async : false,
+		dataType : "json",
+		method : "post",
+		data : params,
+		success : function(ajaxData){
+				alert("app : " + ajaxData.applicationName +"\n"+ "streamName : " + ajaxData.streamName +"\n"+
+						"streamServer : " + ajaxData.serverName + "\n"+
+						"final URL : " + ajaxData.finalUrl);	
+			
+		},
+		error : function(XMLHttpRequest, textStatus, errorThrown){
+			alert("통신 실패"+ "code:"+XMLHttpRequest.status+"\n"+"message:"+XMLHttpRequest.responseText+"\n"+"error:"+errorThrown);								
+			}
+	})
+}
+
 </script>
 
 <form>
+<<<<<<< HEAD
 	<input type="hidden" name="camId" value="${camera.camId}" />
 	<table summary="">
+=======
+	<input type="hidden" name="camId" value="${camera.camId}" />	
+	<table class="write_type1 mgb20" summary="">
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 		<caption></caption>
 		<colgroup>
 			<col width="120">
@@ -123,6 +176,7 @@ $(document).ready(function(){
 		<h3>${streamMeta.metaClass} 정보 입력</h3>
 		<input type="hidden" name="streamMetaItems[${st.index}].camId" value="${streamMeta.camId}" />
 		<input type="hidden" name="streamMetaItems[${st.index}].metaClass" value="${streamMeta.metaClass}" />
+		<input type="hidden" name="streamMetaItems[${st.index}].streamNameBefore" value="${streamMeta.streamName}" />
 		
 		<table summary="">
 			<caption></caption>
