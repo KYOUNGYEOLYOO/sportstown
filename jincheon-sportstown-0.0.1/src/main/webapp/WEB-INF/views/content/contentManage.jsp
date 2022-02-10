@@ -22,68 +22,10 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	init_contentList();
+	set_contentDetails(null);
 });
 </script>
 
-
-<script type="text/javascript">
-<c:set var="contentMeta_video" value=""/>
-<c:set var="vodStreamer" value=""/>
-<c:set var="contentRootUri" value=""/>
-
-function test(){
-	alert("111");
-	
-
-// 	<c:forEach items="${contentMeta.content.instances}" var="instance" end="0">
-// 		<c:set var="streamUrl" value="${vodStreamer}/${contentRootUri}"/>
-// 		<c:set var="streamFile" value="${instance.file.fileName}"/>
-// 	</c:forEach>
-
-	var instance = contentMeta_video.content.instances[0];
-	var streamUrl = vodStreamer + contentRootUri;
-	var streamFile = instance.file.fileName;
-
-	
-	console.log("login location ==> ${loginUser.connectLocation}");
-	console.log(contentMeta_video);
-	console.log(streamUrl);
-	console.log(streamFile);
-	console.log("11111111", vodStreamer);
-		//var  mediaUrl = "${vodStreamer}${contentRootUri}${contentMeta.content.instances[0].file.filePath}${contentMeta.content.instances[0].file.fileName}/playlist.m3u8"
-		var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, vodStreamer)}${contentRootUri}${contentMeta.content.instances[0].file.filePath}${contentMeta.content.instances[0].file.fileName}/playlist.m3u8"
-		console.log("aaaaaaaaaaa"+"${ipFilter.filterAddress(loginUser.connectLocation,vodStreamer)}");
-
-		var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, <%=vodStreamer>)}" + contentRootUri + instance.file.filePath +	streamFile + "/playlist.m3u8";
-		
-		
-		// mediaUrl = "<c:url value="/resources/mp4/sample.mp4"/>";
-		// mediaUrl = "http://223.26.218.116:1935/vod/_definst_/mp4:./test/bcs.mp4/playlist.m3u8";
-		
-		console.log("mediaURL", mediaUrl);
-		
-		jwplayer("player").setup({
-			"file" : mediaUrl,
-			"width" : 850,
-			"height" : 437,
-			autostart : true
-		});
-		
-		jwplayer("player").onReady(function() {
-			// Slomo only works for HTML5 and ...
-		    if (jwplayer().getRenderingMode() == "html5") {
-		        videoTag = document.querySelector('video');
-		        // ... browsers that support playbackRate
-		        if(videoTag.playbackRate) 
-		        {
-		        	jwplayer("player").addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
-		        }
-		    }
-			this.addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
-		});	
-		
-}
-</script>
 
 
 <script type="text/javascript">
@@ -131,6 +73,8 @@ function init_contentList()
 		}
 	});
 }
+
+
 </script>
 
 
@@ -176,33 +120,58 @@ function onClick_detail_video()
 	
 	console.log("contentId : ", contentId);
 	
-	
-		$.ajax({
-			url : "<c:url value="/content/detail"/>/" + contentId +"/video",
-			async : false,
-			dataType : "json",
-			data : null, 
-			method : "post",
-			success : function (ajaxData) {
-			if (ajaxData.resultCode == "Success"){
-					console.log("1111111111");
-					console.log("ajaxData : ", ajaxData.contentMeta);
+	$("#frmContentDetails").empty();
+	$("#frmContentDetails").jqUtils_bcs_loadHTML(
+			"<c:url value="/content/detail"/>/" + contentId + "/video",
+			false, "get", null, null
+		);
+	console.log('set_contentDetails');
+// 		$.ajax({
+// 			url : "<c:url value="/content/detail"/>/" + contentId +"/video",
+// 			async : false,
+// 			dataType : "json",
+// 			data : null, 
+// 			method : "post",
+// 			success : function (ajaxData) {
+// 			if (ajaxData.resultCode == "Success"){
+// 					console.log("1111111111");
+// 					console.log("ajaxData : ", ajaxData.contentMeta);
 
-					contentMeta_video = ajaxData.contentMeta;
-					vodStreamer = ajaxData.vodStreamer;
-					contentRootUri = ajaxData.contentRootUri;
-					test();
-				}else{
-					console.log("2222222222");
-				}
-			},
-			error : function(request,error){
-				console.log("why????");
-				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			}
-		});	
+// 					contentMeta_video = ajaxData.contentMeta;
+// 					vodStreamer = ajaxData.vodStreamer;
+// 					contentRootUri = ajaxData.contentRootUri;
+// 					test();
+// 				}else{
+// 					console.log("2222222222");
+// 				}
+// 			},
+// 			error : function(request,error){
+// 				console.log("why????");
+// 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+// 			}
+// 		});		
+}
+
+function set_contentDetails(contentId)
+{
+	$("#frmContentDetails").empty();
+	$("#frmContentDetails").jqUtils_bcs_loadHTML(
+			"<c:url value="/content/detail"/>/" + contentId +"/video",
+			false, "get", null, null
+		);
+	console.log('set_cameraDetail1111');
+	console.log("/content/detail/" + contentId +"/video");
 	
-	
+	/*
+	console.log(camera);
+	$("#frmCameraDetail").find("input[name=name]").val(camera.name);
+	$("#frmCameraDetail").find("input[name=camId]").val(camera.camId);
+	*/	
+}
+
+function clear_contentDetails()
+{
+	$("#frmContentDetails").find("input").val("");
 }
 
 function onClick_modify()
@@ -435,41 +404,43 @@ function clear_cameraDetail()
 
 		<!-- //contents -->
 		<div class="detailContainer">
-			<div class="videoview">
-				<div id="player" style="background:#fafafa"></div>	
-			</div>
-			<div class="detailWrap">
-				<dl>
-					<dt>제목</dt>
-					<dd class="full"><input type="text" name="title" title="제목" class="inputTxt" value="${contentMeta.title}" readonly></dd>
-					<dt>종목</dt>
-					<dd><input type="text" name="sportsEvent" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd>
-					<dt class="ml20">소유자</dt>
-					<dd><input type="text" name="tagUser" title="소유자" class="inputTxt" value="${contentMeta.contentUserNames}" readonly></dd>
-					<dt>녹화자</dt>
-					<dd><input type="text" name=recordUser title="녹화자" class="inputTxt" value="${contentMeta.recordUser.userName}" readonly></dd>
-					<dt class="ml20">녹화일자</dt>
-					<dd>
-						<div class="datepickerBox">
-							<input type="text" id="recordFromDate" name="recordDate" class="inputTxt date"  value="<fmt:formatDate value="${contentMeta.recordDate}" pattern="yyyy-MM-dd" />" readonly/>
-						</div>					
-					</dd>
-					<dt>설명</dt>
-					<dd class="full"><textarea name="summary" title="설명" readonly>${contentMeta.summary}</textarea></dd>
-					<dt>파일</dt>
-					<dd class="full">
-						<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly>
-						<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						
-					</dd>						
-				</dl>
-				<div class="btnWrap">
-					<a class="btn download">다운로드</a>		
-					<div class="btnWrap">
-						<a class="btn delete">삭제</a> 
-						<a class="btn edit">수정</a>					
-					</div>
-				</div>
-			</div>
+			<form id="frmContentDetails">
+			</form>
+<!-- 			<div class="videoview"> -->
+<!-- 				<div id="player" style="background:#fafafa"></div>	 -->
+<!-- 			</div> -->
+<!-- 			<div class="detailWrap"> -->
+<!-- 				<dl> -->
+<!-- 					<dt>제목</dt> -->
+<%-- 					<dd class="full"><input type="text" name="title" title="제목" class="inputTxt" value="${contentMeta.title}" readonly></dd> --%>
+<!-- 					<dt>종목</dt> -->
+<%-- 					<dd><input type="text" name="sportsEvent" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd> --%>
+<!-- 					<dt class="ml20">소유자</dt> -->
+<%-- 					<dd><input type="text" name="tagUser" title="소유자" class="inputTxt" value="${contentMeta.contentUserNames}" readonly></dd> --%>
+<!-- 					<dt>녹화자</dt> -->
+<%-- 					<dd><input type="text" name=recordUser title="녹화자" class="inputTxt" value="${contentMeta.recordUser.userName}" readonly></dd> --%>
+<!-- 					<dt class="ml20">녹화일자</dt> -->
+<!-- 					<dd> -->
+<!-- 						<div class="datepickerBox"> -->
+<%-- 							<input type="text" id="recordFromDate" name="recordDate" class="inputTxt date"  value="<fmt:formatDate value="${contentMeta.recordDate}" pattern="yyyy-MM-dd" />" readonly/> --%>
+<!-- 						</div>					 -->
+<!-- 					</dd> -->
+<!-- 					<dt>설명</dt> -->
+<%-- 					<dd class="full"><textarea name="summary" title="설명" readonly>${contentMeta.summary}</textarea></dd> --%>
+<!-- 					<dt>파일</dt> -->
+<!-- 					<dd class="full"> -->
+<!-- 						<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly> -->
+<!-- 						<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						 -->
+<!-- 					</dd>						 -->
+<!-- 				</dl> -->
+<!-- 				<div class="btnWrap"> -->
+<!-- 					<a class="btn download">다운로드</a>		 -->
+<!-- 					<div class="btnWrap"> -->
+<!-- 						<a class="btn delete">삭제</a>  -->
+<!-- 						<a class="btn edit">수정</a>					 -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 		</div>
 	</div>
 </div>

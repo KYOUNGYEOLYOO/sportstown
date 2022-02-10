@@ -122,7 +122,7 @@ public class ContentController {
 	
 	@RequestMapping("/detail/{contentId}"+"/video")
 	public ModelAndView detail_video(final HttpSession session, @PathVariable("contentId") final String contentId) {
-		ModelAndView mnv = new ModelAndView("jsonView");
+		ModelAndView mnv = new ModelAndView("/content/contentDetails");
 		String resultCode = "false";
 		try {
 			SportstownContentMeta meta = (SportstownContentMeta) contentServ.getContent(contentId);

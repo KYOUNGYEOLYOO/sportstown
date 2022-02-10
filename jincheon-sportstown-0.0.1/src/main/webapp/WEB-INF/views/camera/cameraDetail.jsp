@@ -21,7 +21,7 @@
 
 
 	<c:forEach items="${camera.streamMetaItems}" var="meta">
-		<c:if test="${meta.metaClass == 'Proxy'}">
+		<c:if test="${meta.metaClass == 'HD'}">
 			<c:set var="streamMeta" value="${meta}"/>
 			<c:set var="enablePlayer" value="true" />
 			<c:set var="streamer"  value="${fn:replace(streamer, '{STREAM_SERVER}', streamMeta.streamServer.name)}"/>
