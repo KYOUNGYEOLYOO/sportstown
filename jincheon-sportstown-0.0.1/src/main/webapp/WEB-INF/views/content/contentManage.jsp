@@ -5,6 +5,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <jsp:useBean id="now" class="java.util.Date" />
+<jsp:useBean id="ipFilter" class="com.bluecapsystem.cms.jincheon.sportstown.common.define.IPFilterConstant" />
+
+<link rel="stylesheet" href="<c:url value="/bluecap/css/video-js.css"/>"> 
+<script src="https://unpkg.com/video.js/dist/video.js"></script>
+<script type="text/javascript" src="<c:url value="/bluecap/jwplayer-7.11.3/jwplayer.js"/>"></script>
+<script>jwplayer.key="/cDB/4s47uzPnRb3q/gtzOze04a7CABARZuQWIwYvfQ=";</script>
 
 <html lang="ko" xml:lang="ko">
 <head>
@@ -12,11 +18,73 @@
 <jsp:include page="/include/head"/>
 
 
+
 <script type="text/javascript">
 $(document).ready(function(){
 	init_contentList();
 });
 </script>
+
+
+<script type="text/javascript">
+<c:set var="contentMeta_video" value=""/>
+<c:set var="vodStreamer" value=""/>
+<c:set var="contentRootUri" value=""/>
+
+function test(){
+	alert("111");
+	
+
+// 	<c:forEach items="${contentMeta.content.instances}" var="instance" end="0">
+// 		<c:set var="streamUrl" value="${vodStreamer}/${contentRootUri}"/>
+// 		<c:set var="streamFile" value="${instance.file.fileName}"/>
+// 	</c:forEach>
+
+	var instance = contentMeta_video.content.instances[0];
+	var streamUrl = vodStreamer + contentRootUri;
+	var streamFile = instance.file.fileName;
+
+	
+	console.log("login location ==> ${loginUser.connectLocation}");
+	console.log(contentMeta_video);
+	console.log(streamUrl);
+	console.log(streamFile);
+	console.log("11111111", vodStreamer);
+		//var  mediaUrl = "${vodStreamer}${contentRootUri}${contentMeta.content.instances[0].file.filePath}${contentMeta.content.instances[0].file.fileName}/playlist.m3u8"
+		var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, vodStreamer)}${contentRootUri}${contentMeta.content.instances[0].file.filePath}${contentMeta.content.instances[0].file.fileName}/playlist.m3u8"
+		console.log("aaaaaaaaaaa"+"${ipFilter.filterAddress(loginUser.connectLocation,vodStreamer)}");
+
+		var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, <%=vodStreamer>)}" + contentRootUri + instance.file.filePath +	streamFile + "/playlist.m3u8";
+		
+		
+		// mediaUrl = "<c:url value="/resources/mp4/sample.mp4"/>";
+		// mediaUrl = "http://223.26.218.116:1935/vod/_definst_/mp4:./test/bcs.mp4/playlist.m3u8";
+		
+		console.log("mediaURL", mediaUrl);
+		
+		jwplayer("player").setup({
+			"file" : mediaUrl,
+			"width" : 850,
+			"height" : 437,
+			autostart : true
+		});
+		
+		jwplayer("player").onReady(function() {
+			// Slomo only works for HTML5 and ...
+		    if (jwplayer().getRenderingMode() == "html5") {
+		        videoTag = document.querySelector('video');
+		        // ... browsers that support playbackRate
+		        if(videoTag.playbackRate) 
+		        {
+		        	jwplayer("player").addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
+		        }
+		    }
+			this.addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
+		});	
+		
+}
+</script>
+
 
 <script type="text/javascript">
 
@@ -58,7 +126,8 @@ function init_contentList()
 			id : "contentId"
 		},
 		onSelectRow : function(id){
-			onClick_detail();
+			// 0209 onClick_detail();
+			onClick_detail_video();
 		}
 	});
 }
@@ -93,6 +162,46 @@ function onClick_detail()
 	
 	
 	window.open("<c:url value="/content/detail"/>/" + contentId, "popup", "height=930,width=910,resizable=no,menubar=no,toolbar=no", true);
+	
+}
+
+function onClick_detail_video()
+{
+	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
+	if(typeof contentId == "undefined" || contentId == null)
+	{
+		new bcs_messagebox().open("영상검색", "컨텐츠를 선택해 주세요", null);
+		return;
+	}
+	
+	console.log("contentId : ", contentId);
+	
+	
+		$.ajax({
+			url : "<c:url value="/content/detail"/>/" + contentId +"/video",
+			async : false,
+			dataType : "json",
+			data : null, 
+			method : "post",
+			success : function (ajaxData) {
+			if (ajaxData.resultCode == "Success"){
+					console.log("1111111111");
+					console.log("ajaxData : ", ajaxData.contentMeta);
+
+					contentMeta_video = ajaxData.contentMeta;
+					vodStreamer = ajaxData.vodStreamer;
+					contentRootUri = ajaxData.contentRootUri;
+					test();
+				}else{
+					console.log("2222222222");
+				}
+			},
+			error : function(request,error){
+				console.log("why????");
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});	
+	
 	
 }
 
