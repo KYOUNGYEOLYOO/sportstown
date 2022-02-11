@@ -135,6 +135,7 @@ function onClick_delete()
 	
 	
 	var mb = new bcs_messagebox().open("카메라관리", "삭제 하시겠습니까?", null, {
+		"닫기" : function(){ mb.close(); },		
 		"삭제" : function(){
 			$.ajax({
 				url : "<c:url value="/service/camera/removeCamera"/>/" + camId,
@@ -157,8 +158,8 @@ function onClick_delete()
 					}
 				}
 			});
-		},
-		"닫기" : function(){ mb.close(); }
+		}
+
 	});
 	
 	
@@ -310,53 +311,59 @@ function clear_cameraDetail()
 
 <!-- container -->
 <div id="container">
+<<<<<<< HEAD
+	<div class="titleWrap">
+		<h2>관리자기능 - 카메라 등록</h2>
+	</div>
+	<div id="contentsWrap">
+=======
 	<div id="contentsWrap" style= "display:flex; justify-content:space-evenly; width:100vw;">
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 	
 		<!-- lnbWrap -->
+<<<<<<< HEAD
+		<div id="lnbWrap" class="searchContainer">
+=======
 		<div id="lnbWrap" style= "margin:0px">
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="hasNotUsed" value="true" />
-				<div class="lnbWraph2">
-					<h2>카메라관리</h2>
-				</div>
-				<div class="datepickerBox">
-					<p>
+
+				<ul>				
+					<li>
 						<label for="search_keyword">카메라명</label> 
 						<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
-					</p>
-				</div>
-				
-				<div class="">
-					<select class="selectyze psa" name="cameraType">
-						<option value="">카메라유형</option>
-						<option value="Static">고정</option>
-						<option value="Shift">유동</option>
-					</select>
-				</div>
-				
-				<div class="">
-					<select class="selectyze psa" name="locationCode">
-						<option value="">카메라위치</option>
-						<c:forEach items="${locations}" var="location">
-							<option value="${location.codeId}">${location.name}</option>
-						</c:forEach>
-					</select>
-				</div>
-			
-				<div class="">
-					<select class="selectyze psa" name="sportsEventCode">
-						<option value="">스포츠종목</option>
-						<c:forEach items="${sprotsEvents}" var="sprotsEvent">
-							<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
-						</c:forEach>
-					</select>
-				</div>
+					</li>
+					<li>
+						<select class="selectyze" name="cameraType">
+							<option value="">카메라유형</option>
+							<option value="Static">고정</option>
+							<option value="Shift">유동</option>
+						</select>
+					</li>
+					<li>
+						<select class="selectyze" name="locationCode">
+							<option value="">카메라위치</option>
+							<c:forEach items="${locations}" var="location">
+								<option value="${location.codeId}">${location.name}</option>
+							</c:forEach>
+						</select>
+					</li>
+					<li>
+						<select class="selectyze" name="sportsEventCode">
+							<option value="">스포츠종목</option>
+							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
+								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
+							</c:forEach>
+						</select>
+					</li>
+				</ul>
 				
 				
 			</form>
-			<div class="btnbox alignC" style="text-align: center;">
-				<span class="btn_typeA t3"><a href="javascript:onClick_search();">검색</a></span> 
-				<span class="btn_typeA t2"><a href="javascript:onClick_searchInit();">조건초기화</a></span>
+			<div class="btnWrap">
+				<a class="btn reset" href="javascript:onClick_searchInit();">초기화</a>
+				<a class="btn search" href="javascript:onClick_search();">검색</a>				
 			</div>
 			
 			
@@ -373,6 +380,17 @@ function clear_cameraDetail()
 				<table id="cameraList" class="list_type1" data-ctrl-view="camera_list" data-event-selectedRow="onSelected_cameraListItem" style = "min-width: 600px;"></table>
 				<div id="p_cameraList" data-ctrl-view="camera_list_pager"></div>
 			</div>
+<<<<<<< HEAD
+		</div>
+		<div class="detailContainer camera">
+			<form id="frmCameraDetail">
+			</form>
+			<div class="btnWrap">
+				<div class="btnWrap">
+					<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
+					<a class="btn edit" href="javascript:onClick_modify();">수정</a>				
+					<a class="btn write" href="javascript:onClick_regist();">등록</a>			
+=======
 			<!-- 20220110 여기서부터 수정한 부분 
 				1. rnbWrap 추가함 ( width 35vw, display inline-block )
 				2. class vodlistBox ( style width 40vw 추가 )
@@ -389,7 +407,9 @@ function clear_cameraDetail()
 					<span class="btn_typeA t1"><a href="javascript:onClick_regist();">등록</a></span> 
 					<span class="btn_typeA t4"><a href="javascript:onClick_modify();">수정</a></span> 
 					<span class="btn_typeA t2"><a href="javascript:onClick_delete();">삭제</a></span>
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 				</div>
+				
 			</div>
 		</div>
 

@@ -515,7 +515,7 @@ function callback_selectedUsers(sender, users)
 					</form>
 					<div class="btnWrap">
 						<a class="btn download" href="javascript:onClick_download();">다운로드</a>		
-						<a class="btn reset" href="javascript:onClick_reload();">초기화</a></span>
+						<a class="btn reset" href="javascript:onClick_reload();">초기화</a>
 						<div class="btnWrap">
 							<a class="btn write" href="javascript:onClick_regist();">등록</a> 				
 						</div>
