@@ -57,8 +57,8 @@ function test(){
 		
 		jwplayer("player").setup({
 			"file" : mediaUrl,
-			"width" : 559,
-			"height" : 314,
+			"width" : 543,
+			"height" : 305,
 			autostart : true
 		});
 		

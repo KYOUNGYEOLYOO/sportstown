@@ -383,8 +383,10 @@ function clear_cameraDetail()
 <<<<<<< HEAD
 		</div>
 		<div class="detailContainer camera">
+			===================== 이부분은  cameraDetail.jsp 파일을 호출하는 부분입니다 ==================
 			<form id="frmCameraDetail">
 			</form>
+			===================== 이부분은  cameraDetail.jsp 파일을 호출하는 부분입니다 ==================
 			<div class="btnWrap">
 				<div class="btnWrap">
 					<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
@@ -396,22 +398,24 @@ function clear_cameraDetail()
 				2. class vodlistBox ( style width 40vw 추가 )
 			-->
 		</div>
-		<div id="rnbWrap" style="width:35vw; display: inline-block; height: 100%">
-			<!-- 20220110 여기까지 수정한 부분 -->
-			<div class="mgt30" style = "min-width: 656px;">
-				<form id="frmCameraDetail">
-				</form>
-				<div class="btnbox alignR">
-					<span class="btn_typeA t1"><a href="javascript:onClick_disconnect();">연결 해제</a></span>
-					<span class="btn_typeA t1"><a href="javascript:onClick_connect();">연결</a></span>
-					<span class="btn_typeA t1"><a href="javascript:onClick_regist();">등록</a></span> 
-					<span class="btn_typeA t4"><a href="javascript:onClick_modify();">수정</a></span> 
-					<span class="btn_typeA t2"><a href="javascript:onClick_delete();">삭제</a></span>
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
-				</div>
+<!-- 		<div id="rnbWrap" style="width:35vw; display: inline-block; height: 100%"> -->
+<!-- 			<!-- 20220110 여기까지 수정한 부분 --> -->
+<!-- 			<div class="mgt30" style = "min-width: 656px;"> -->
+<!-- 		===================== 이부분은  cameraDetail.jsp 파일을 호출하는 부분입니다 ================== -->
+<!-- 				<form id="frmCameraDetail"> -->
+<!-- 				</form> -->
+<!-- 		===================== 이부분은  cameraDetail.jsp 파일을 호출하는 부분입니다 ================== -->
+<!-- 				<div class="btnbox alignR"> -->
+<!-- 					<span class="btn_typeA t1"><a href="javascript:onClick_disconnect();">연결 해제</a></span> -->
+<!-- 					<span class="btn_typeA t1"><a href="javascript:onClick_connect();">연결</a></span> -->
+<!-- 					<span class="btn_typeA t1"><a href="javascript:onClick_regist();">등록</a></span>  -->
+<!-- 					<span class="btn_typeA t4"><a href="javascript:onClick_modify();">수정</a></span>  -->
+<!-- 					<span class="btn_typeA t2"><a href="javascript:onClick_delete();">삭제</a></span> -->
+<!-- >>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown -->
+<!-- 				</div> -->
 				
-			</div>
-		</div>
+<!-- 			</div> -->
+<!-- 		</div> -->
 
 		<!-- //contents -->
 
