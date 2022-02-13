@@ -234,25 +234,26 @@ function clearUserDetail()
 		<div class="detailContainer">
 			<form id="frmUserDetail">
 				<input type="hidden" name="userId" value="" />
-				<dl>
-					<dt>ID</dt>
-					<dd class="full">
-						<input type="text" name="loginId" value="" title="사용자명" class="inputTxt" readonly />
-					</dd>
-					<dt>사용자명</dt>
-					<dd class="full">
-						<input type="text" name="userName" value="" title="사용자명" class="inputTxt" readonly>
-					</dd>
-					<dt>종목</dt>
-					<dd class="full">
-						<input type="text" name="sportsEventName" value="" title="종목" class="inputTxt" readonly>
-					</dd>
-					<dt>사용자유형</dt>
-					<dd class="full">
-						<input type="text" name="userType" value="" title="사용자종류" class="inputTxt" readonly>
-					</dd>
-				</dl>
-
+				<div class="detailWrap">
+					<dl>
+						<dt>ID</dt>
+						<dd class="full">
+							<input type="text" name="loginId" value="" title="사용자명" class="inputTxt" readonly />
+						</dd>
+						<dt>사용자명</dt>
+						<dd class="full">
+							<input type="text" name="userName" value="" title="사용자명" class="inputTxt" readonly>
+						</dd>
+						<dt>종목</dt>
+						<dd class="full">
+							<input type="text" name="sportsEventName" value="" title="종목" class="inputTxt" readonly>
+						</dd>
+						<dt>사용자유형</dt>
+						<dd class="full">
+							<input type="text" name="userType" value="" title="사용자종류" class="inputTxt" readonly>
+						</dd>
+					</dl>
+				</div>
 			</form>
 			<div class="btnWrap">	
 				<div class="btnWrap">	 

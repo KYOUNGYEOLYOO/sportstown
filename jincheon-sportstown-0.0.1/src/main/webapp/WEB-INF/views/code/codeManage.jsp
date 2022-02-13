@@ -207,51 +207,40 @@ function clear_groupDetail()
 
 <!-- container -->
 <div id="container">
+	<div class="titleWrap">
+		<h2>관리자기능 - 코드관리</h2>
+	</div>
 	<div id="contentsWrap">
 
 		<!-- lnbWrap -->
-		<div id="lnbWrap">
-		
-			<div class="">
-				<select class="selectyze psa" id="groupList">
-					<option value="">그룹 선택</option>
-					<c:forEach items="${groups}" var="group">
-						<option value="${group.groupCode}">${group.name}</option>
-					</c:forEach>
-				</select>
-			</div>
+		<div id="lnbWrap" class="searchContainer">
+			<ul>
+				<li>
+					<select class="selectyze" id="groupList">
+						<option value="">그룹 선택</option>
+						<c:forEach items="${groups}" var="group">
+							<option value="${group.groupCode}">${group.name}</option>
+						</c:forEach>
+					</select>
+				</li>
+			</ul>
 		</div>
 		<!-- //lnbWrap -->
 
 		<!-- contents -->
-		<div id="contents">
+		<div id="contents" class="detailContainer">
 		
-			<div>
-				<form id="frmCodeGroupDetail">
-					<input type="hidden" name="groupCode" value="" />
-					<table class="write_type1 mgb20" summary="코드그룹 상세 정보">
-						<caption>사용자 상세 정보</caption>
-						<colgroup>
-							<col width="150">
-							<col width="*">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th>코드그룹명</th>
-								<td><input type="text" name="name" value="" title="코드그룹명" class="type_2" readonly></td>
-							</tr>
-							<tr>
-								<th>설명</th>
-								<td><input type="text" name="description" value="" title="설명" class="type_2" readonly></td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
-			</div>
-
-			<!-- title -->
-			<h3>영상녹화</h3>
-			<!-- //title -->
+			<form id="frmCodeGroupDetail">
+				<input type="hidden" name="groupCode" value="" />
+				<div class="detailWrap code">
+					<dl>
+						<dt>코드그룹명</dt>
+						<dd><input type="text" name="name" value="" title="코드그룹명" class="inputTxt" readonly></dd>
+						<dt>설명</dt>
+						<dd><input type="text" name="description" value="" title="설명" class="inputTxt" readonly></dd>
+					</dl>
+				</div>
+			</form>
 
 			<div class="vodlistBox">
 				<table id="codeList" class="list_type1" data-ctrl-view="code_list" data-event-selectedRow="onSelected_codeListItem"></table>
@@ -259,10 +248,12 @@ function clear_groupDetail()
 					<jsp:param value="codeList" name="listId"/>
 				</jsp:include>
 				
-				<div class="btnbox alignR mgt30">
-					<span class="btn_typeA t1"><a href="javascript:onClick_regist();">등록</a></span> 
-					<span class="btn_typeA t4"><a href="javascript:onClick_modify();">수정</a></span> 
-					<span class="btn_typeA t2"><a href="javascript:onClick_delete();">삭제</a></span>
+				<div class="btnWrap">
+					<div class="btnWrap">
+						<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
+						<a class="btn edit" href="javascript:onClick_modify();">수정</a>
+						<a class="btn write" href="javascript:onClick_regist();">등록</a>			
+					</div>		
 				</div>
 			</div>
 
