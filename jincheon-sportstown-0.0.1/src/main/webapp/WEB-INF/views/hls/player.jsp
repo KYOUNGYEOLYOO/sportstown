@@ -303,7 +303,12 @@ $(document).ready(function(){
 				
 			</div>
 			
-			<div class="videoicons" style="width:240px; padding-left : 0px;">
+			<div class="videoicons">
+				<div class="speedWrap">
+					<button class="down" />
+					<input type="text" value="-4" />
+					<button class="up" />
+				</div>
 				<c:if test="${camera.isLiveOnly != true}">
 					<!-- <button class="player-btn disable player-btn-dvr on" >dLive</button> -->
 				</c:if>

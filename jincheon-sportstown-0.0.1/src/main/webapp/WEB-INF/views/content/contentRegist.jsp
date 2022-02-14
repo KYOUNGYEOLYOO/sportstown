@@ -317,11 +317,16 @@ function callback_selectedUsers(sender, users)
 	<div class="titleWrap">
 		<h2>영상등록 - 녹화등록</h2>
 		<div class="selectWrap">
+<<<<<<< HEAD
 		<!-- 위치이동-->
+=======
+		<!-- 	위치이동	-->
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 			<c:choose>
-				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">					
-					<select class="selectyze" name="sportsEventCode">						
-						<option value="">운동종목</option>
+				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+					<select class="selectyze" name="sportsEventCode">
+						
+						<option value="">스포츠종목</option>
 						<c:forEach items="${sprotsEvents}" var="sprotsEvent">
 							<c:set var="isSelected" value="" />
 							<c:if test="${loginUser.sportsEventCode == sprotsEvent.codeId}">
@@ -334,8 +339,13 @@ function callback_selectedUsers(sender, users)
 				<c:otherwise>
 					<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
 				</c:otherwise>
+<<<<<<< HEAD
 			</c:choose>		
 		<!--//위치이동 -->
+=======
+			</c:choose>
+		<!-- 	//위치이동 -->
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 		</div>
 	</div>
 	<div id="contentsWrap">
@@ -348,7 +358,11 @@ function callback_selectedUsers(sender, users)
 				<!-- <input type="hidden" name="locationRootCode" value="UPLOAD" /> -->
 				<input type="hidden" name="locationRootCode" value="INGEST" />
 				<input type="hidden" name="hasNotUsed" value="true" />
+<<<<<<< HEAD
 				<!-- 	위치이동	
+=======
+				<!-- 	위치이동
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 				<c:choose>
 					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
 						<div class="">
@@ -370,8 +384,13 @@ function callback_selectedUsers(sender, users)
 						<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
 					</c:otherwise>
 				</c:choose>
+<<<<<<< HEAD
 				
 				-->
+=======
+				-->
+				
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 <!-- 				<div class=""> -->
 <!-- 					<select class="selectyze psa" name="cameraType"> -->
 <!-- 						<option value="">카메라유형</option> -->

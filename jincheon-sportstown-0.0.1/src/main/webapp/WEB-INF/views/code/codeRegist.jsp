@@ -12,11 +12,14 @@ $(document).ready(function(){
 	var eventSender = new bcs_ctrl_event($("[data-ctrl-view=code_regist]"));
 	
 	$("[data-ctrl-view=code_regist]").dialog({
-		width:500,
+		width:620,
 		modal : true,
 		authOpen :true,
 		resizable : false,
 		buttons : {
+			"닫기" : function(){
+				$(this).dialog("close");
+			},			
 			"저장" : function(){
 				var jpPopup = $(this);
 				console.log($(this).find("form").serialize());
@@ -38,9 +41,6 @@ $(document).ready(function(){
 						}
 					}
 				});
-			},
-			"닫기" : function(){
-				$(this).dialog("close");
 			}
 		},
 		close : function(event, ui){
@@ -54,21 +54,21 @@ $(document).ready(function(){
 
 <form>
 	<input type="hidden" name="groupCode" value="${group.groupCode}" />
-	<table class="write_type1 mgb20" summary="">
+	<table summary="">
 		<caption></caption>
 		<colgroup>
-			<col width="150">
+			<col width="120">
 			<col width="*">
 		</colgroup>
 		<tbody>
 			<tr>
 				<th>코드명</th>
-				<td><input type="text" name="name" value="" title="코드명" class="type_2"></td>
+				<td><input type="text" name="name" value="" title="코드명" class="inputTxt"></td>
 			</tr>
 			<tr>
 				<th>사용여부</th>
 				<td>
-					<select class="td sel_type_2" name="isUsed" title="사용여부">
+					<select name="isUsed" title="사용여부">
 						<option value="true">사용</option>
 						<option value="false">사용안함</option>
 					</select>

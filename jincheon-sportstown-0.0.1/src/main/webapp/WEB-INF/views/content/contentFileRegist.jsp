@@ -18,14 +18,6 @@
 <%-- <script type="text/javascript" src="<c:url value="/bluecap/jwplayer/jwplayer.js"/>"></script> --%>
 <!-- <script>jwplayer.key="uL+sf8LV4JfO0X1+U8YPbC7PoiiNX730vh3pnQ==";</script> -->
 
-<style type="text/css">
-#lnbWrap select {
-    border: solid 1px #dbdbdb;
-    padding: 8px 10px;
-    width: 100%
-}
-</style>
-
 <script type="text/javascript">
 $(document).ready(function(){
 });
@@ -197,20 +189,12 @@ function callback_selectedUsers(sender, users)
 					<form id="frmContent" method="post" enctype="multipart/form-data" action="<c:url value="/service/content/registContentWithFile"/>">
 						<input type="hidden" name="contentType" value="VIDEO" />
 						<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId" class="type_2">
+						<div class="detailWrap">
 						<dl>
 							<dt>제목</dt>
 							<dd class="full">
 								<input type="text" name="title" value="" title="제목" class="inputTxt" data-ctrl-contentMeta="title" data-regist-input>
 							</dd>
-							<dt>파일</dt>
-							<dd class="full">
-								<input type="file" name="file" class="inputTxt" data-regist-input/>
-							</dd>
-								<!-- 
-									<td data-regist-fileProgress>
-										&nbsp;
-									</td>
-									 -->
 							<dt>종목</dt>
 							<dd>
 								<c:choose>
@@ -265,16 +249,40 @@ function callback_selectedUsers(sender, users)
 									<input type="text" class="inputTxt date" name="recordDate"  value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>" data-regist-input/>
 								</div>
 							</dd>
+							<dt>영상유형</dt>
+							<dd class="full">
+								<input type="radio" name="radio01" id="radio01_01" /><label for="radio01_01">개별 영상</label>
+								<input type="radio" name="radio01" id="radio01_02" checked /><label for="radio01_02">묶음 영상</label>
+							</dd>
+								<!-- 
+									<td data-regist-fileProgress>
+										&nbsp;
+									</td>
+									 -->							
+							<dt>파일</dt>
+							<dd class="full">
+								<input type="file" name="file" class="inputTxt" data-regist-input/>
+							</dd>
+								<!-- 
+									<td data-regist-fileProgress>
+										&nbsp;
+									</td>
+									 -->							
+							<dt>태그</dt>
+							<dd class="full">
+								<input type="text" name="title" value="" title="태그" class="inputTxt">
+							</dd>							
 							<dt>설명</dt>
 							<dd class="full">
 								<textarea name="summary" title="설명" rows="5" data-ctrl-contentMeta="summary" data-regist-input></textarea>
 							</dd>
 						</dl>
+						</div>
 					</form>
 					
 					<div class="btnWrap">
-						<a class="btn reset" href="javascript:onClick_reload();">초기화</a></span>
-						<a class="btn write" href="javascript:onClick_regist();">등록</a></span> 						
+						<a class="btn reset" href="javascript:onClick_reload();">초기화</a>
+						<a class="btn write" href="javascript:onClick_regist();">등록</a>			
 					</div>					
 				</div>
 			</div>

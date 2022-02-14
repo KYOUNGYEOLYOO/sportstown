@@ -17,53 +17,7 @@
 <link rel="stylesheet" href="<c:url value="/bluecap/css/video-js.css"/>"> 
 <script src="https://unpkg.com/video.js/dist/video.js"></script>
 
-<style type="text/css">
-.videobox .videocontents {background-color: #000; color: #CFCFCF;}
 
-.camera1pt li .videobox { width : 1266px; }
-.camera1pt li .videocontents { min-height:800px;}
-.camera1pt li .video-js { width : 1266px ; min-height:800px;}
-
-.camera2pt li .videobox { width : 617px;}
-.camera2pt li .videocontents { min-height:381px;}
-.camera2pt li:nth-child(2n+1) {margin-left: 15px; margin-bottom:10px;}
-.camera2pt li .video-js { width : 617px; min-height:381px;}
-
-.camera3pt li { margin-bottom:10px; margin-left : 10px;}
-.camera3pt li:nth-child(3n+1) { margin-left: 10px; margin-bottom:10px; }
-.camera3pt li:nth-child(3n+2) { margin-left: 10px; margin-bottom:10px; }
-.camera3pt li .videobox {width : 410px;}
-.camera3pt li .videocontents { min-height:237px;}
-.camera3pt li .video-js { width : 410px; min-height:237px;}
-
-.videobox .videohead .videotitle { width : 245px; padding-left : 10px; }
-.videobox .videohead .videotitle .rec_status{ float : left; margin-right:10px;}
-.videobox .videohead .videotitle .rec_status img { vertical-align: middle; }
-.videobox .videohead .videoicons { width : 50px; }
-.videobox .videohead .videotitle .ui-selectmenu-button.ui-button {margin-bottom : 3px;}
-
-.videoicons .player-btn {height : 33px;
-	min-width: 35px;
-	border: 1px solid;
-	color: #f9f9f9;
-	font-weight: bold;
-}
-
-
-.videoicons .player-btn.disable {
-	color: gray;
-}
-
-.videoicons .player-btn.on {
-	color: #d50000;
-}
-
-.videoicons .player-btn.on.player-btn-dvr {
-	color: #22cd22;
-}
-
-
-</style>
 
 <script type="text/javascript">
 
@@ -128,6 +82,14 @@ $(document).ready(function(){
 	},4000); */
 	/* window.screen.orientation.onchange(); */
 	changeContainer();
+	
+	
+	//	220214 add
+	$(document).on('click', '#lnbWrap.video > p.toggle', function() {	        
+		$(this).parent().toggleClass("menuopen");
+});	
+	
+	
 });
 
 </script>
@@ -175,7 +137,7 @@ function callback_removePlayer(sender, camId)
 	return true;
 }
 
-
+//	220214 edit
 function change_player_layout()
 {
 	var cntPlayer = $("#playerList > li").length;
@@ -184,7 +146,7 @@ function change_player_layout()
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera1pt");
-	}else if(cntPlayer <= 4)
+	}else if(cntPlayer <= 2)	
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera2pt");
@@ -457,19 +419,26 @@ function onClick_liveRecordAll()
 
 <!-- container -->
 <div id="container">
+	<div class="titleWrap">
+		<h2>영상녹화</h2>
+		<div class="btnWrap player">
+			<a class="btn" href="javascript:onClick_recordAll();">전체녹화</a>
+			<a class="btn" href="javascript:onClick_stopRecordAll();">전체스톱</a>
+			<a class="btn" href="javascript:onClick_backRecordAll();">전체뒤로</a>
+			<a class="btn" href="javascript:onClick_liveRecordAll();">전체라이브</a>
+		</div> 		
+	</div>
 	<div id="contentsWrap">
 	
 		<!-- lnbWrap -->
 		<div id="lnbWrap" class="video">
-			<div class="lnbWraph2">
-				<h2>영상녹화</h2>
-			</div>
+			<p class="toggle"></p>
 			<form id="frmRecordData">
 				<input type="hidden" name="recordUserId" value="${loginUser.userId}" />
 				<c:choose>
 					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-						<div class="">
-							<select id="sportsEvent" class="selectyze psa" name="sportsEventCode">
+						<div class="selectWrap">
+							<select id="sportsEvent" class="selectyze" name="sportsEventCode">
 								<option value="">스포츠종목</option>
 								<c:forEach items="${sprotsEvents}" var="sprotsEvent">
 									<c:choose>
@@ -498,25 +467,25 @@ function onClick_liveRecordAll()
 				
 			</div>
 			<!-- 캔버스 생성 버튼을 만들어봅세다.. 20211213 -->
-			<div id="canvasBtn" onclick="addCanvas();">캔버스</div>
-			
-			<div class="btnbox alignC" style="text-align: center;">
-				<span class="btn_typeA t1 mgb10"><a href="javascript:onClick_recordAll();">전체녹화</a></span>
-				<span class="btn_typeA t2 mgb10"><a href="javascript:onClick_stopRecordAll();">전체스톱</a></span>
-				<span class="btn_typeA t4 mgb10"><a href="javascript:onClick_backRecordAll();">전체뒤로</a></span>
-				<span class="btn_typeA t4"><a href="javascript:onClick_liveRecordAll();">전체라이브</a></span>
-			</div> 
+			<div class="canvasBtnWrap">
+				<div id="canvasBtn" onclick="addCanvas();">캔버스</div>
+				<button id="drawing" onclick="drawCanvas()">draw</button>
+				<button id="shape" onclick="drawShape()">shape</button>
+				<button id="eraser" onclick="eraseCanvas()">eraser</button>
+				<button id="clear" onclick="clrCanvas(document.getElementById('canvas'))">clear</button>
+				<button id="color" onclick="changeColor('blue')">color</button>
+				<button id="thickness" onclick="changeWidth(10)">thickness</button>
+				<button id="close" onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>				
+			</div>
+
 		</div>
 		<!-- //lnbWrap -->
 		
 
 		<!-- contents -->
-		<div id="contents" class="video">
-
-			<h3>영상녹화</h3>
-	
+		<div id="contents" class="video">			
 			<div class="cameraBox">
-				<ul id="playerList" class="camera1pt"
+				<ul id="playerList"
 					data-ctrl-view="live_player_list"
 					
 					data-event-initilizePlayerButton="callback_initPlayerButton"
@@ -532,9 +501,9 @@ function onClick_liveRecordAll()
 					data-event-disableCamera="callback_removePlayer">
 					
 				</ul>
-	
+				<p>좌측 메뉴바를 눌러<br />영상을 선택해주세요</p>	<!-- 영상 선택 전 노출 문구 또는 이미지 지정 -->	
 			</div>
-
+			<button class="fullScreen" id="fullscreen" onclick="fullScreen()" />
 		</div>
 		<!-- //contents -->
 	</div>
@@ -547,6 +516,7 @@ function onClick_liveRecordAll()
 <!-- //footer -->
 </div>
 <%--20211215 --%>
+<!-- 
 <div id="styleBtn" style="display: flex; position:absolute; 
 	top: 60px; right: 0px; z-index: 4;">
 	<button style="margin-right:10px" id="fullscreen"
@@ -566,6 +536,6 @@ function onClick_liveRecordAll()
 	<button style="margin-right:10px" id="close"
 	onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>
 </div>
-
+ -->
 </body>
 </html>
