@@ -343,7 +343,6 @@ function callback_selectedUsers(sender, users)
 			</c:choose>		
 		<!--//위치이동 -->
 =======
-			</c:choose>
 		<!-- 	//위치이동 -->
 >>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 		</div>

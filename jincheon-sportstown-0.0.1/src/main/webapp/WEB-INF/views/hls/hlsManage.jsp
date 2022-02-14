@@ -40,8 +40,13 @@ function maxWindow() {
 
 function changeContainer(){
 	var container = document.getElementById("container");
-	container.style.width = window.screen.width;
-	container.style.height = window.screen.height;
+// 	container.style.width = window.screen.width;
+// 	container.style.height = window.screen.height;
+	if (!document.fullscreenElement) {
+		container.webkitRequestFullscreen();
+	  } else {
+		document.webkitExitFullscreen();
+	  }
 }
 </script>
 
@@ -59,8 +64,11 @@ window.screen.orientation.onchange = function() {
 };
 
 function fullScreen(){
-	document.getElementById("container").webkitRequestFullScreen();
-	console.log("전체화면");
+	if (!document.fullscreenElement) {
+		container.webkitRequestFullscreen();
+	  } else {
+		document.webkitExitFullscreen();
+	  }
 }
 </script>
 
