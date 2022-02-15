@@ -2,6 +2,8 @@ package com.bluecapsystem.cms.jincheon.sportstown.views.manage;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bluecapsystem.cms.core.data.condition.CodeSelectCondition;
 import com.bluecapsystem.cms.core.service.CodeService;
+import com.bluecapsystem.cms.jincheon.sportstown.common.define.UserSessionDefine;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownContentMeta;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 import com.bluecapsystem.cms.jincheon.sportstown.service.UserManageService;
 
@@ -51,6 +55,23 @@ public class UserViewController
 
 		return mnv;
 	}
+	
+	@RequestMapping("/passwordModify")
+	public ModelAndView passwordModify(final HttpSession session)
+	{
+		ModelAndView mnv = new ModelAndView("/user/userPwdModify");
+
+//		loadCodes(mnv);
+		
+		try {
+			User loginUser = (User) session.getAttribute(UserSessionDefine.LOGIN_USER_SESSION_KEY);
+
+//			loadCodes(mnv);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return mnv;
+	} 
 
 
 	@RequestMapping("/select")
