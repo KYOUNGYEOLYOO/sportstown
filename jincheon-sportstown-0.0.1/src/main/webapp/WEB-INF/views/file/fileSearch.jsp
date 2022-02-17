@@ -123,7 +123,10 @@ $(document).ready(function(){
 			
 			"닫기" : function(){
 				$(this).dialog("close");
-			}
+			},
+			"초기화" : function(){
+				$(this).dialog("close");	//초기화 기능 삽입
+			}			
 		},
 		close : function(event, ui){
 			$(this).dialog("destroy");

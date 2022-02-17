@@ -10,8 +10,8 @@
 .cameraBox > ul	{display:flex; flex-wrap:wrap; justify-content:center;}
 .cameraBox > ul > li	{display:flex;}
 .cameraBox > ul > li .videocontents	{position:relative;}
-.cameraBox > ul > li:nth-child(even)	{margin-left:10px;}
-.cameraBox > ul > li:nth-child(n+3)	{margin-top:10px;}
+.cameraBox > ul > li:nth-of-type(even)	{margin-left:10px;}
+.cameraBox > ul > li:nth-of-type(n+3)	{margin-top:10px;}
 .cameraBox > ul.camera1pt li	{width:1561px;}
 .cameraBox > ul.camera2pt li	{width:945px;}
 .cameraBox > ul.camera3pt li	{width:772px;}
@@ -41,6 +41,7 @@
 	#container.full #contentsWrap	{height:100vh !important; }
 	#container.full #contentsWrap #contents.video	{background:#111;}
 	button.fullScreen	{bottom:74px; background-image:url(../../images/common/btn_fullscreen_off.png)}
+	a.addMedia	{bottom:74px;}
 	.cameraBox	{padding:0;}
 	.cameraBox > p	{color:#aaa}
 		

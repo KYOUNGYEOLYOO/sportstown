@@ -12,44 +12,7 @@
                                                       
 <jsp:include page="/include/head"/>                   
 
-<style type="text/css">
-.videobox .videocontents {background-color: #000; color: #CFCFCF;}
 
-.camera1pt li .videobox { width : 1396px; }
-.camera1pt li .videocontents { min-height:100px;}
-
-.camera2pt li .videobox { width : 685px;}
-.camera2pt li .videocontents { min-height:347px;}
-
-.camera2pt li {margin-left: 0px;}
-.camera2pt li:nth-child(2n+1) {margin-bottom:15px;}
-.camera2pt li:nth-of-type(even) {margin-left: 15px;}
-
-.videobox .videohead .videotitle { width : 315px; padding-left : 10px; }
-.videobox .videohead .videoicons { width : 50px; }
-
-.file-search{
-	position: absolute;
-    top: 80px; right: 90px;
-}
-
-.btn-right{
-	position: absolute;
-    top: 77px; right: 220px;
-}
-
-.btnplay-right{
-	position: absolute;
-    top: 20px; right: 330px;
-}
-</style>
-
-<style type="text/css">
-
-.btnbox .btn_typeA.t2 {height:45px;}
-
-.UlSelectize {position: static;}
-</style>
 <script type="text/javascript" src="<c:url value="/bluecap/jwplayer-7.11.3/jwplayer.js"/>"></script>
 <script>jwplayer.key="/cDB/4s47uzPnRb3q/gtzOze04a7CABARZuQWIwYvfQ=";</script>
 
@@ -57,6 +20,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	onClick_addMedia();
+	
+	$(document).on('click', '#lnbWrap.video > p.toggle', function() {	        
+		$(this).parent().toggleClass("menuopen");
+	});	
+	
 });
 
 </script>
@@ -78,6 +46,7 @@ function onClick_initMedia()
 	location.reload();
 }
 
+//220218 edit
 function change_player_layout()
 {
 	var cntPlayer = $("#playerList > li").length;
@@ -86,7 +55,7 @@ function change_player_layout()
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera1pt");
-	}else if(cntPlayer <= 4)
+	}else if(cntPlayer <= 2)	
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera2pt");
@@ -97,7 +66,10 @@ function change_player_layout()
 	}
 }
 
+
 </script>
+
+
 
 
 <script type="text/javascript">
@@ -262,6 +234,14 @@ function toggleSlomo(player, videoTag, rate) {
 	return;
 }; 
 
+function fullScreen(){
+	if (!document.fullscreenElement) {
+		container.webkitRequestFullscreen();
+	  } else {
+		document.webkitExitFullscreen();
+	  }
+}
+
 </script>
 
 
@@ -300,22 +280,29 @@ function toggleSlomo(player, videoTag, rate) {
 
 
 <!-- container -->
-<div id="container">
+<div id="container" class="full">
+	<div class="titleWrap">
+		<h2>녹화재생</h2>				
+	</div>	
 	<div id="contentsWrap">
+		<div id="lnbWrap" class="video">
+			<p class="toggle"></p>
+			<div class="btnContainer">
+				<div class="btnWrap player">
+					<a href="javascript:onClick_play();"><img src="<c:url value="/resources"/>/images/contents/play.png" alt="시작"></a>
+					<a href="javascript:onClick_Pause();"><img src="<c:url value="/resources"/>/images/contents/stop.png" alt="정지"></a>
 	
-		<!-- contents -->
-		<div id="contents" class="video exvideo">
-			<h3>녹화재생</h3>
-			<div style="margin-bottom:15px; overflow:hidden">
-			
-			<div class="fL">
-			
+					<a href="javascript:onClick_slowModtion();">
+						<img src="<c:url value="/resources"/>/images/contents/slowmo.png" alt="슬로우모션">
+					</a>				
+				</div>
+			</div>
 			<form id="frmFileSearch">
 				<input type="hidden" name="recordUserId" value="${loginUser.userId}" />
 				<c:choose>
 					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-						<div class="">
-							<select id="sportsEvent" class="selectyze psa" name="sportsEventCode">
+						<div class="selectWrap">
+							<select id="sportsEvent" class="selectyze" name="sportsEventCode">
 								<option value="">스포츠종목</option>
 								<c:forEach items="${sprotsEvents}" var="sprotsEvent">
 									<c:choose>
@@ -334,15 +321,18 @@ function toggleSlomo(player, videoTag, rate) {
 						<input type="hidden" id="sportsEvent" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
 					</c:otherwise>
 				</c:choose>
-			</form>
-			</div>
+			</form>			
+		</div>
+		<!-- contents -->
+		<div id="contents" class="video">
 			
-			<div class="fL btnbox mgt0">
-				<span class="btn_typeA t3 video mgl10"><a href="javascript:onClick_addMedia();">영상추가</a></span><!--수정-->
-				<span class="btn_typeA t2 video mgl5"><a href="javascript:onClick_initMedia();">초기화</a></span><!--수정-->
+			<!-- 
+			<div>
+				<span class="btn_typeA t3 video mgl10"><a href="javascript:onClick_addMedia();">영상추가</a></span>
+				<span class="btn_typeA t2 video mgl5"><a href="javascript:onClick_initMedia();">초기화</a></span>
 			</div>	
-			
-			
+			 -->
+			<!-- 
 			<div class="fR playbtn">
 <%-- 				<a href="javascript:onClick_seekBack();"><img src="<c:url value="/resources"/>/images/contents/prev.png" alt="이전"></a> --%>
 				<a href="javascript:onClick_play();"><img src="<c:url value="/resources"/>/images/contents/play.png" alt="시작"></a>
@@ -352,15 +342,16 @@ function toggleSlomo(player, videoTag, rate) {
 					<img src="<c:url value="/resources"/>/images/contents/slowmo.png" alt="슬로우모션" style="width:43px; height:43px;">
 				</a>
 			</div>
-			
+			 -->
 			<div class="cameraBox">
-				<ul id="playerList" class="camera1pt" 
+				<ul id="playerList"
 					data-ctrl-view="vod_player_list"
 					data-event-remove="callback_unselectedFile">
-				</ul>
-	
+				</ul>	
+				<p>영상을 선택해주세요</p>	<!-- 영상 선택 전 노출 문구 또는 이미지 지정 -->	
 			</div>
-
+			<button class="fullScreen" id="fullscreen" onclick="fullScreen()"></button>
+			<a class="addMedia" href="javascript:onClick_addMedia();">영상추가</a>
 		</div>
 		<!-- //contents -->
 	</div>
