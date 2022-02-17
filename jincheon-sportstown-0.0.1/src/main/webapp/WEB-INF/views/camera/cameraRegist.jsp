@@ -65,8 +65,6 @@ $(document).ready(function(){
 						}
 					}
 				});
-<<<<<<< HEAD
-=======
 				/*
 				20211221
 				위에는 DB에 저장하는 부분인거 같고
@@ -78,10 +76,6 @@ $(document).ready(function(){
 				HD 부분에 id 값들 3개 추가
 				id 삭제하고 name 쓰기로 함
 				*/
-			},
-			"닫기" : function(){
-				$(this).dialog("close");
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 			}
 
 		},
@@ -195,11 +189,7 @@ function addToWowza(){
 			<tr>
 				<th>스트리밍서버</th>
 				<td colspan="3">
-<<<<<<< HEAD
-					<select name="streamMetaItems[0].streamServerCode" title="스트리밍서버">
-=======
-					<select id="streamServer_new" class="td sel_type_2" name="streamMetaItems[0].streamServerCode" title="스트리밍서버">
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
+					<select id="streamServer_new" name="streamMetaItems[0].streamServerCode" title="스트리밍서버">
 						<option value="">선택안함</option>
 						<c:forEach items="${streamServers}" var="streamServer">
 							<option value="${streamServer.codeId}">${streamServer.name}</option>
@@ -210,11 +200,7 @@ function addToWowza(){
 			<tr>
 				<th>Application</th>
 				<td>
-<<<<<<< HEAD
-					<select name="streamMetaItems[0].applicationCode" title="Application 서비스 이름">
-=======
-					<select id="applicationCode_new" class="td sel_type_2" name="streamMetaItems[0].applicationCode" title="Application 서비스 이름">
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
+					<select id="applicationCode_new" name="streamMetaItems[0].applicationCode" title="Application 서비스 이름">
 						<option value="">선택안함</option>
 						<c:forEach items="${applications}" var="application">
 							<option value="${application.codeId}">${application.name}</option>
@@ -223,20 +209,15 @@ function addToWowza(){
 				</td>
 				<th>스트림명</th>
 				<td>
-<<<<<<< HEAD
-					<input type="text" name="streamMetaItems[0].streamName" value="" title="스트리밍 서비스 이름" class="inputTxt">	
-=======
-					<input id="streamName_new" type="text" name="streamMetaItems[0].streamName" value="" title="스트리밍 서비스 이름" class="type_2">	
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
+					<input id="streamName_new" type="text" name="streamMetaItems[0].streamName" value="" title="스트리밍 서비스 이름" class="inputTxt">	
 				</td>
 			</tr>
 			<tr>
 				<th>Source URL</th>
-<<<<<<< HEAD
-				<td colspan="3"><input type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="inputTxt"></td>
-=======
-				<td colspan="3"><input id="streamSourceUrl_new" type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="type_2"></td>
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
+				<td colspan="3" class="double">
+					<input type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="inputTxt">
+					<input id="streamSourceUrl_new" type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="inputTxt">
+				</td>
 			</tr>
 			
 			<tr>

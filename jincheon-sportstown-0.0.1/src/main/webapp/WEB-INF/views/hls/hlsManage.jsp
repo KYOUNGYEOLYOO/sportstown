@@ -426,21 +426,29 @@ function onClick_liveRecordAll()
 
 
 <!-- container -->
-<div id="container">
+<div id="container" class="full">
 	<div class="titleWrap">
-		<h2>영상녹화</h2>
-		<div class="btnWrap player">
-			<a class="btn" href="javascript:onClick_recordAll();">전체녹화</a>
-			<a class="btn" href="javascript:onClick_stopRecordAll();">전체스톱</a>
-			<a class="btn" href="javascript:onClick_backRecordAll();">전체뒤로</a>
-			<a class="btn" href="javascript:onClick_liveRecordAll();">전체라이브</a>
-		</div> 		
+		<h2>영상녹화</h2>				
 	</div>
 	<div id="contentsWrap">
 	
 		<!-- lnbWrap -->
 		<div id="lnbWrap" class="video">
 			<p class="toggle"></p>
+			<div class="btnContainer">
+				<div class="btnWrap player">
+					<a class="btn rec" href="javascript:onClick_recordAll();">Rec</a>
+					<a class="btn stop" href="javascript:onClick_stopRecordAll();">Stop</a>
+					<a class="btn back" href="javascript:onClick_backRecordAll();">Back</a>
+					<a class="btn live" href="javascript:onClick_liveRecordAll();">Live</a>
+					<!-- 
+					<a class="btn" href="javascript:onClick_recordAll();">전체녹화</a>
+					<a class="btn" href="javascript:onClick_stopRecordAll();">전체스톱</a>
+					<a class="btn" href="javascript:onClick_backRecordAll();">전체뒤로</a>
+					<a class="btn" href="javascript:onClick_liveRecordAll();">전체라이브</a>		
+					 -->		
+				</div> 	
+			</div>		
 			<form id="frmRecordData">
 				<input type="hidden" name="recordUserId" value="${loginUser.userId}" />
 				<c:choose>
@@ -475,6 +483,7 @@ function onClick_liveRecordAll()
 				
 			</div>
 			<!-- 캔버스 생성 버튼을 만들어봅세다.. 20211213 -->
+			<!-- 
 			<div class="canvasBtnWrap">
 				<div id="canvasBtn" onclick="addCanvas();">캔버스</div>
 				<button id="drawing" onclick="drawCanvas()">draw</button>
@@ -485,6 +494,7 @@ function onClick_liveRecordAll()
 				<button id="thickness" onclick="changeWidth(10)">thickness</button>
 				<button id="close" onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>				
 			</div>
+			 -->
 
 		</div>
 		<!-- //lnbWrap -->

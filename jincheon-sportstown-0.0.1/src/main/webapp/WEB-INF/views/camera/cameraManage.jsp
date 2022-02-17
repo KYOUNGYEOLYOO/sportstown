@@ -270,10 +270,10 @@ function clear_cameraDetail()
 		<div class="detailContainer camera">
 			<form id="frmCameraDetail">
 			</form>
-			<div class="btnWrap">
-				<div class="btnWrap">					
-					<a class="btn delete" href="javascript:onClick_delete();">연결</a>
-					<a class="btn delete" href="javascript:onClick_delete();">연결해제</a>
+			<div class="btnWrap cameraSearch">
+				<a class="btn" href="javascript:onClick_delete();">연결</a>
+				<a class="btn" href="javascript:onClick_delete();">연결해제</a>
+				<div class="btnWrap">				
 					<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
 					<a class="btn edit" href="javascript:onClick_modify();">수정</a>				
 					<a class="btn write" href="javascript:onClick_regist();">등록</a>			

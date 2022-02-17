@@ -94,9 +94,9 @@ function test()
 </c:if>
 
 </script>
-
+<div class="detailWrap">
 	<div class="videoview">
-		<video id="player" style="background:#fafafa; width:100%"></video>	
+		<video id="player"></video>	
 	</div>
 	<input type="hidden" name="camId" value="${camera.camId}" />
 	<dl>
@@ -170,5 +170,5 @@ function test()
 			</dd>
 		</dl>
 	</c:forEach>
-
+</div>
 	

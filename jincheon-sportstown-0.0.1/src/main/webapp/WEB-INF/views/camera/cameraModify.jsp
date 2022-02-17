@@ -107,13 +107,8 @@ function updateToWowza()
 </script>
 
 <form>
-<<<<<<< HEAD
-	<input type="hidden" name="camId" value="${camera.camId}" />
-	<table summary="">
-=======
 	<input type="hidden" name="camId" value="${camera.camId}" />	
-	<table class="write_type1 mgb20" summary="">
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
+	<table summary="">
 		<caption></caption>
 		<colgroup>
 			<col width="120">

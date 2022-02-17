@@ -101,7 +101,7 @@ li.on .depth2Wrap { display:block; }
 
 
 .detailContainer .btnWrap	{border-top:1px solid #eaeaea; padding:30px 20px;}
-.detailContainer .btnWrap a	{width:120px;}
+.detailContainer .btnWrap a	{width:95px;}
 .detailContainer .btnWrap .btnWrap	{padding:0; border:none; margin:0; justify-content: flex-end; flex:1;}
 .detailContainer .btnWrap a + a	{margin-left:10px;}
 
@@ -161,18 +161,38 @@ li.on .depth2Wrap { display:block; }
 #lnbWrapT .lnb > li.on > .depth3 {display:block;}
 
 #contents {flex:1; flex-grow:1;/* min-width:908px;*//* float:left; */position:relative; /*width:1005px;*//* min-height:450px;*//* padding:25px 0 25px 0px;*/ line-height:1em; *line-height:1.05em; font-size:14px;background:#fff; border:1px solid #eaeaea; /*padding:20px; */}
-#contents.video{/*width:1265px;*/}
+#contents.video{/*width:1265px;*/overflow-y:auto;}
 #contents.video.exvideo{/*width:100%;*/}
 
-#lnbWrap.video	{background:#fff; border:1px solid #eaeaea; position:absolute; top:60px; width:74px; height:calc(100% - 80px); z-index:2; display:flex; flex-direction:column;
+#lnbWrap.video	{background:#fff; border-right:1px solid #cdcdcd; position:absolute; top:0; width:1px; height:100%; z-index:2; display:flex; flex-direction:column;
     /*-moz-transition: all 200ms ease-in;
     -ms-transition: all 200ms ease-in;
     -o-transition: all 200ms ease-in;
     -webkit-transition: all 200ms ease-in;*/
 }
-#contents.video	{background:none; border:none; margin-left:104px;}
+#lnbWrap.video.menuopen	{border-left:1px solid #cdcdcd;}
+#contents.video	{/*background:none;*/ border:none; /*margin-left:104px;*//*padding:10px;*/}
 
-#lnbWrap.video > p.toggle	{position:relative; width:74px; height:74px; cursor:pointer;border-bottom:1px solid #eaeaea;}
+#lnbWrap.video > p.toggle	{position:absolute; border-radius:0 6px 6px 0; width:24px; height:36px; top:calc(50% - 18px); left:0; cursor:pointer; /*border:1px solid #ccc; */border-left:none; background:#337ab7;}
+#lnbWrap.video.menuopen > p.toggle	{left:330px}
+#lnbWrap.video > p.toggle:before	{
+	content: "";
+    position: absolute;
+    display: block;
+    width:0;
+    height:0;
+    border-top:6px solid transparent;
+    border-bottom:6px solid transparent;
+    border-left:6px solid #fff;
+    left: calc(50% - 3px);
+    top: calc(50% - 6px);
+}
+#lnbWrap.video.menuopen > p.toggle:before	{
+    border-right:6px solid #fff;
+    border-left:none;
+}
+
+/*
 #lnbWrap.video > p.toggle:before	{
 	content: "";
     position: absolute;
@@ -201,17 +221,29 @@ li.on .depth2Wrap { display:block; }
     -o-transition: all 100ms ease-in;
     -webkit-transition: all 100ms ease-in;
 }
-
+*/
+/*
 #lnbWrap.video.menuopen > p.toggle:before,#lnbWrap.video.menuopen > p.toggle:after {top: 50%;}
 #lnbWrap.video.menuopen > p.toggle:before	{transform: rotate(45deg);}    
 #lnbWrap.video.menuopen > p.toggle:after	{transform: rotate(-45deg);}  
+*/
+#lnbWrap.video .btnContainer	{display:none; border-bottom:1px solid #eaeaea;}
+#lnbWrap.video.menuopen .btnContainer	{display:block; }
+#lnbWrap.video .btnWrap.player {display:flex; width:272px; margin:0 auto;padding:10px 0; }
+
+#lnbWrap.video .btnWrap.player .btn	{width:auto; flex:1; font-weight:bold;}
+#lnbWrap.video .btnWrap.player .btn + .btn	{margin-left:10px;}
+#lnbWrap.video .btnWrap.player .btn.rec	{color:#d50000; border-color:#d50000;}
+#lnbWrap.video .btnWrap.player .btn.stop	{color:#00297c; border-color:#00297c;}
+#lnbWrap.video .btnWrap.player .btn.back	{}
+#lnbWrap.video .btnWrap.player .btn.live	{color:#05d500; border-color:#05d500;}
 
 
-#lnbWrap.video.menuopen	{width:310px; }
+#lnbWrap.video.menuopen	{width:332px; }
 
-#lnbWrap.video .selectWrap	{display:none;position:absolute; top:6px; right:0; border-bottom:1px solid #eaeaea; padding: 10px 20px;width: calc(100% - 74px);}
-#lnbWrap.video .selectWrap .selectyzeValue{width:195px;}
-#lnbWrap.video .selectWrap .UlSelectize{width:195px}
+#lnbWrap.video .selectWrap	{display:none;/*position:absolute; top:6px; right:0; */border-bottom:1px solid #eaeaea; padding: 10px 0 3px;/*width: calc(100% - 74px);*/text-align:center;}
+#lnbWrap.video .selectWrap .selectyzeValue{width:272px;}
+#lnbWrap.video .selectWrap .UlSelectize{width:272px}
 
 #lnbWrap.video.menuopen .selectWrap	{display:block; }
 
@@ -234,12 +266,8 @@ li.on .depth2Wrap { display:block; }
 button.fullScreen	{position:fixed; z-index: 1; right:60px; bottom:44px; width:80px; height:80px; border-radius:50%; /*border:1px solid #5bc0de;*/ background:rgba(91,192,222,.4) url(../../images/common/btn_fullscreen.png) no-repeat 50% 50%;}
 button.fullScreen:hover	{background-color:#5bc0de}
 
-@media screen and (min-height: 1079px){
-	#headerWrap,#footerWrap	{display:none;}
-	#contentsWrap	{height:calc(100vh - 64px);}
-	button.fullScreen	{bottom:74px; background-image:url(../../images/common/btn_fullscreen_off.png)}
 
-}
+
 
 /* select */
 .DivSelectyze {position:relative; display:inline-block; *display:inline; height:40px;}
@@ -296,6 +324,8 @@ body .ui-dialog .ui-dialog-content table td select, body .ui-dialog .ui-dialog-c
 body .ui-dialog .ui-dialog-content table tr + tr	{border-top:1px solid rgba(0,0,0,.05)}
 body .ui-dialog .ui-dialog-content table td input[type="checkbox"]	{margin-top:13px;}
 body .ui-dialog .ui-dialog-content table + h3	{text-align:left; padding:16px 20px; font-size:14px; font-weight:bold; border-top: 1px solid #ddd; border-bottom: 1px solid #eee;}
+body .ui-dialog .ui-dialog-content table td.double input	{width:211.5px}
+body .ui-dialog .ui-dialog-content table td.double input + input	{margin-left:16px; width:calc(100% - 232.5px);}
 
 body .ui-dialog .ui-dialog-buttonpane	{margin:0; padding:10px 20px; border:none; border-top:1px solid #ddd;} 
  
@@ -316,7 +346,7 @@ body .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button	{margin:0;widt
     
  body .ui-dialog.ui-draggable .ui-dialog-buttonpane .ui-dialog-buttonset button + button	{border-color: #337ab7; background-color: #337ab7;}
  
-  body .ui-state-error,  body .ui-widget-content .ui-state-error	{border:none; background:none;border-bottom: 3px solid #d9534f; color:#666;}
+ body .ui-state-error,  body .ui-widget-content .ui-state-error	{border:none; background:none;border-bottom: 3px solid #d9534f; color:#666;}
  
  
  
