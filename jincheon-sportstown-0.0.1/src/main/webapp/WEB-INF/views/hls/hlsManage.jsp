@@ -395,6 +395,19 @@ function onClick_liveRecordAll()
 		$(playerLi).trigger("click");
 	});
 }
+
+function canvasTest()
+{
+	$("#canvas").empty();
+	$("#canvas").jqUtils_bcs_loadHTML(
+			"<c:url value="/canvas/canvasPop"/>" ,
+			false, "get", null, null
+		);
+	console.log('canvas_pop');
+	
+	$(".ui-front").appendTo("#container");
+}
+
 </script>
 
 
@@ -431,6 +444,7 @@ function onClick_liveRecordAll()
 		<h2>영상녹화</h2>				
 	</div>
 	<div id="contentsWrap">
+	<form id="canvas"></form>
 	
 		<!-- lnbWrap -->
 		<div id="lnbWrap" class="video">
@@ -483,8 +497,13 @@ function onClick_liveRecordAll()
 				
 			</div>
 			<!-- 캔버스 생성 버튼을 만들어봅세다.. 20211213 -->
+<<<<<<< HEAD
 			<!-- 
+=======
+			
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
 			<div class="canvasBtnWrap">
+				<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div>
 				<div id="canvasBtn" onclick="addCanvas();">캔버스</div>
 				<button id="drawing" onclick="drawCanvas()">draw</button>
 				<button id="shape" onclick="drawShape()">shape</button>

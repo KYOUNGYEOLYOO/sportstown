@@ -22,7 +22,8 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
+	var originFileName = "";
+	var originFileNameSplit = "";
 	var params = $("#frmSearch").serialize();
 	
 	$("#fileList").jqGrid({
@@ -37,16 +38,38 @@ $(document).ready(function(){
 		height: 525,
 		autowidth: true,
 		viewrecords: true,
+		viewsortcols: [false,'vertical',false],
 		rownumbers: false,
 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
-	   	colNames:["파일명", "fileId", "filePath", "fileName"],
+// 	   	colNames:["파일명", "fileId", "filePath", "fileName"],
+	   	colNames:["종목","등록자","날짜","fileId", "filePath", "fileName"],
 	   	colModel:[
-	   		{name:"orignFileName",index:"orignFileName",align:"left"},
+	   		{name:"sports",index:"sports", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					originFileName = rowObject.orignFileName;
+					originFileName = originFileName.replace('.mp4','');
+					originFileNameSplit = originFileName.split("_");
+					console.log(originFileName);
+					console.log(originFileNameSplit);
+					return originFileNameSplit[0];
+				}
+			},
+			{name:"user",index:"user", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					return originFileNameSplit[1];
+				}
+			},
+			{name:"date",index:"date", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					return originFileNameSplit[2];
+				}
+			},
+// 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
 	   		{name:"fileId", index:"fileId", hidden:true},
 	   		{name:"filePath", index:"filePath", hidden:true},
 	   		{name:"fileName", index:"fileName", hidden:true}
 	   	],
-	   	// pager: $("#p_fileList"),
+	   	// pager: $("#p_fileList"), 이거 풀어야됨
 	   	jsonReader : {
 	   		root : "files",
 	   		id : "fileId"
