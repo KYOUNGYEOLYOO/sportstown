@@ -404,6 +404,8 @@ function canvasTest()
 			false, "get", null, null
 		);
 	console.log('canvas_pop');
+	
+	$(".ui-front").appendTo("#container");
 }
 
 </script>

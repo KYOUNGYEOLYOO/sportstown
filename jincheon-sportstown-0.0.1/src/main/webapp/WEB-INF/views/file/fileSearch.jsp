@@ -55,7 +55,8 @@ $(document).ready(function(){
 		height: 300,
 		autowidth: true,
 		viewrecords: true,
-		rownumbers: true,
+		viewsortcols: [false,'vertical',false],
+		rownumbers: false,
 		rowNum: 10,
 		rowList: [10,20,30],
 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
@@ -136,6 +137,8 @@ $(document).ready(function(){
 			fn_reloadFiles();
 		}
 	});
+	
+	$('[data-ctrl-view=file_search]').dialog('widget').attr('id', 'dialogId');
 });
 
 </script>

@@ -46,7 +46,6 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/bluecap/css/bcsCommon.css"/>"/>
 
-
 <%--
 캔버스 기능 20211213
  --%>

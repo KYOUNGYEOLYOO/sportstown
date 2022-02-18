@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page session="false" %>
 <jsp:useBean id="now" class="java.util.Date" />
+<jsp:include page="/include/head"/>
+
 
 <script type="text/javascript">
 

@@ -42,17 +42,19 @@ function init_contentList()
 		url : "<c:url value="/service/content/getContents"/>?" + $("#frmSearch").serialize(),
 		datatype: "json",
 		mtype: "get",
-	   	width: "auto",
+	   	width: 800,
+// 	   	width: "auto",
 	   	key: true,
+	   	viewsortcols: [false,'vertical',false],
 		// height: "auto",
 		height: 640,
-		autowidth: true,
+// 		autowidth: true,
 		viewrecords: true,
-		rownumbers: true,
+		rownumbers: false,
 		rowNum: 8,
 		rowList: [8,20,30],
 // 	   	colNames:["썸네일", "스포츠종류", "제목", "촬영자", "촬영일자", "등록일자", "contentId"],
-	   	colNames:["썸네일", "스포츠종류", "제목", "촬영자", "촬영일자 / 등록일자", "contentId"],
+	   	colNames:["썸네일", "스포츠종류", "제목", "촬영일자 / 등록일자", "contentId"],
 	   	colModel:[
 			{name:"thumbnail",index:"thumbnail", width:70,align:"center", 
 				formatter: function (cellvalue, options, rowObject) {
@@ -60,10 +62,20 @@ function init_contentList()
 					return "<img src='<c:url value="/content/thumbnail"/>/"+rowObject.contentId+"' height='100%' width='100%'/>";
 				}
 			},
-			{name:"sportsEvent.name",index:"sportsEventName", width:80, align:"left"},
+			{name:"sportsEvent.name",index:"sportsEventName", width:80, align:"left",
+				formatter: function (cellvalue, options, rowObject) {
+					return rowObject.sportsEvent.name + "\n" + rowObject.recordUser.userName;
+				}
+			},
 			{name:"title",index:"title", width:180, align:"left"},
-			{name:"recordUser.userName", index:"recordUserName", width:100, align:"center"},
-			{name:/* "formatedRecordDate"+ */"content.registDate", index:"formatedRecordDate", width:200, align:"center"},
+// 			{name:"recordUser.userName", index:"recordUserName", width:100, align:"center"},
+			
+			{name:"formatedRecordDate", index:"formatedRecordDate", width:200, align:"center",
+				formatter: function (cellvalue, options, rowObject) {
+						return rowObject.formatedRecordDate + "\n" + rowObject.content.registDate;
+					}
+				},
+// 			{name:"formatedRecordDate", index:"formatedRecordDate", width:200, align:"center"},
 // 			{name:"content.registDate", index:"registDate", width:100, align:"center"},
 			{name:"contentId", index:"contentId", hidden:true}
 		],
@@ -135,15 +147,16 @@ function initPage(gridId,totalSize,currentPage){
     // 페이지 리스트가 1이나 데이터가 없을 경우 (링크 빼고 흐린 이미지로 변경)
     if(pageList<2){
        
-        pageInner+="<img src='firstPage2.gif'>";
-        pageInner+="<img src='prePage2.gif'>";
+//         pageInner+="<img src='firstPage2.gif'>";
+        pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
+        pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
        
     }
     // 이전 페이지 리스트가 있을 경우 (링크넣고 뚜렷한 이미지로 변경)
     if(pageList>1){
        
-        pageInner+="<a class='first' href='javascript:firstPage()'><img src='firstPage.gif'></a>";
-        pageInner+="<a class='pre' href='javascript:prePage("+totalSize+")'><img src='prePage.gif'></a>";
+        pageInner+="<a class='first' href='javascript:firstPage()'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
+        pageInner+="<a class='pre' href='javascript:prePage("+totalSize+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
        
     }
     // 페이지 숫자를 찍으며 태그생성 (현재페이지는 강조태그)
@@ -161,14 +174,14 @@ function initPage(gridId,totalSize,currentPage){
     // 다음 페이지 리스트가 있을 경우
     if(totalPageList>pageList){
        
-        pageInner+="<a class='next' href='javascript:nextPage("+totalSize+")'><img src='nextPage.gif'></a>";
-        pageInner+="<a class='last' href='javascript:lastPage("+totalPage+")'><img src='lastPage.gif'></a>";
+        pageInner+="<a class='next' href='javascript:nextPage("+totalSize+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
+        pageInner+="<a class='last' href='javascript:lastPage("+totalPage+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
     }
     // 현재 페이지리스트가 마지막 페이지 리스트일 경우
     if(totalPageList==pageList){
        
-        pageInner+="<img src='nextPage2.gif'>";
-        pageInner+="<img src='lastPage2.gif'>";
+        pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
+        pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
     }  
     //alert(pageInner);
     // 페이징할 DIV태그에 우선 내용을 비우고 페이징 태그삽입
@@ -237,6 +250,16 @@ function goPage(num){
        
 }
 
+
+function toggleSlomo() {
+	currentRate == 1 ? currentRate = 0.2: currentRate = 1;
+    videoTag.playbackRate = currentRate;
+    videoTag.defaultPlaybackRate = currentRate;
+    if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
+        jwplayer("player").seek(jwplayer("player").getPosition());
+    }
+	return;
+};
 </script>
 
 
@@ -551,7 +574,7 @@ function clear_cameraDetail()
 				<table id="contentList" class="list_type1" data-ctrl-view="content_list" data-event-selectedRow="onSelected_cameraListItem"></table>
 <!-- 				<div id="p_contentList" data-ctrl-view="content_list_pager"></div> -->
 				<div id="NoData"></div>
-				<div id="paginate"></div>
+				<div id="paginate" style="text-align: center; margin-top: 60px"></div>
 			</div>
 
 			<div>
