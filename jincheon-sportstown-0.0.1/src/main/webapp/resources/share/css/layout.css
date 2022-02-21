@@ -315,7 +315,7 @@ a.addMedia:hover	{background-color:#d3222a;}
 
 /*	new - popup	*/
 body .ui-widget.ui-widget-content	{padding:0; border:none;}
-body .ui-widget-header	{border-radius:0; border:none; border-bottom: 3px solid #d9534f; background: none; color: #ffffff;font-size:16px; color:#666;}
+body .ui-widget-header	{border-radius:0; border:none; border-bottom: 3px solid #d9534f; background: none; font-size:16px; color:#666;}
 body .ui-dialog.ui-draggable .ui-widget-header	{border-color:#5bc0de}
 
 body .ui-dialog .ui-dialog-title	{padding:6px 0;}
@@ -364,6 +364,31 @@ body .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button	{margin:0;widt
  
  body .ui-state-error,  body .ui-widget-content .ui-state-error	{border:none; background:none;border-bottom: 3px solid #d9534f; color:#666;}
  
+ 
+/*	popup	*/ 
+.popupContainer	{background:#fff}
+.popupContainer header	{border-bottom: 3px solid #5bc0de; font-size:16px; color:#666; font-weight:bold;padding:14px 20px;} 
+.popupContainer table	{width:100%;}
+.popupContainer table th	{background: rgba(0,0,0,.02);}
+.popupContainer table th, .popupContainer table td	{padding:10px 20px;}
+.popupContainer table tr	{border-bottom: 1px solid rgba(0,0,0,.05);}
+
+.popupContainer table th label	{line-height: 40px; font-size: 12px;font-weight: normal;}
+
+.popupContainer table td input	{width:100%;} 
+.popupContainer table + p	{padding:9px 20px; border-bottom: 1px solid #ddd;}
+.popupContainer table + p input	{margin:6px 6px 0 0;}
+.popupContainer table + p label	{display:inline-block; line-height:24px;}
+
+.popupContainer .infoContainer	{padding:10px 20px;font-size:12px;}
+.popupContainer .infoContainer p	{font-weight:bold;}
+.popupContainer .infoContainer ul {}
+.popupContainer .infoContainer ul li	{line-height:24px; }
+.popupContainer .infoContainer ul li:before	{content:""; display:inline-block; width:2px; height:2px; vertical-align:middle; background:#aaa; margin:-2px 4px 0 0;}
+.popupContainer .btnWrap	{display:flex; justify-content:space-between; padding: 10px 20px; border-top: 1px solid #ddd;}
+
+.popupContainer .btnWrap a + a	{border-color: #337ab7; background-color: #337ab7; color:#fff;}
+
  .loading	{position:fixed; z-index:10000; width:100vw; height:100vh; top:0; left:0; background:rgba(0,0,0,.2);}
  .loading:before {content:""; position: absolute; left: calc(50% - 40px); top:calc(50% - 40px); z-index: 1; width: 80px; height: 80px; 
  border: 16px solid rgba(0,0,0,.2); border-radius: 50%; border-top: 16px solid #5bc0de; 

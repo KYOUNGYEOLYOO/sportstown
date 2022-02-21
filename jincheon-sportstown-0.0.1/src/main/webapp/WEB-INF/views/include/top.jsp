@@ -101,7 +101,7 @@
 
 function onClick_pwdModify()
 {
-	window.open("<c:url value="/user/passwordModify"/>", "popup", "height=750,width=910,resizable=no,menubar=no,toolbar=no", true);
+	window.open("<c:url value="/user/passwordModify"/>", "popup", "height=520,width=620,resizable=no,menubar=no,toolbar=no", true);
 }
 
 // function onClick_pwdModify()
