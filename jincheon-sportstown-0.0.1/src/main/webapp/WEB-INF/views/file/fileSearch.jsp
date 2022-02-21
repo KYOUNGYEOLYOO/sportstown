@@ -55,7 +55,8 @@ $(document).ready(function(){
 		height: 300,
 		autowidth: true,
 		viewrecords: true,
-		rownumbers: true,
+		viewsortcols: [false,'vertical',false],
+		rownumbers: false,
 		rowNum: 10,
 		rowList: [10,20,30],
 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
@@ -112,7 +113,7 @@ $(document).ready(function(){
 	   	
 	});
 	
-	
+	/* 여기가 녹화재생 > 영상추가 버튼 혹은 초기화 버튼 누르면 나오는 영상 검색 페이지 조그만거 20211210 */
 	$("[data-ctrl-view=file_search]").dialog({
 		width:700,
 		modal : true,
@@ -123,7 +124,10 @@ $(document).ready(function(){
 			
 			"닫기" : function(){
 				$(this).dialog("close");
-			}
+			},
+			"초기화" : function(){
+				$(this).dialog("close");	//초기화 기능 삽입
+			}			
 		},
 		close : function(event, ui){
 			$(this).dialog("destroy");
@@ -136,6 +140,8 @@ $(document).ready(function(){
 			fn_reloadFiles();
 		}
 	});
+	
+	$('[data-ctrl-view=file_search]').dialog('widget').attr('id', 'dialogId');
 });
 
 </script>

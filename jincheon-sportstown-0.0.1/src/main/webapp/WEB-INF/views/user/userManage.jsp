@@ -91,6 +91,8 @@ function onClick_delete()
 	
 	
 	var mb = new bcs_messagebox().open("사용자 삭제", "정말로 삭제 하시겠습니까?", null, {
+		
+		"닫기" : function(){ mb.close(); },
 		"삭제" : function(){
 			$.ajax({
 				url : "<c:url value="/service/user/removeUser"/>/" + userId,
@@ -110,8 +112,7 @@ function onClick_delete()
 					}
 				}
 			});
-		},
-		"닫기" : function(){ mb.close(); }
+		},		
 	});
 	
 	
@@ -196,35 +197,31 @@ function clearUserDetail()
 
 <!-- container -->
 <div id="container">
+	<div class="titleWrap">
+		<h2>관리자기능 - 사용자</h2>
+	</div>
 	<div id="contentsWrap">
 
 		<!-- lnbWrap -->
-		<div id="lnbWrap">
+		<div id="lnbWrap" class="searchContainer">
 			<form id="frmSearch" onSubmit="return false;">
-				<input type="hidden" name="hasNotUsed" value="true" />
-				<div class="lnbWraph2">
-					<h2>사용자관리</h2>
-				</div>
-				<div class="datepickerBox">
-					<p>
+				<input type="hidden" name="hasNotUsed" value="true" />				
+				<ul>				
+					<li>
 						<label for="search_keyword">사용자명</label> 
 						<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
-					</p>
-				</div>
+					</li>
+				</ul>
 			</form>
-			<div class="btnbox alignC" style="text-align: center;">
-				<span class="btn_typeA t3"><a href="javascript:onClick_search();">검색</a></span> 
+			<div class="btnWrap">
+				<a class="btn reset">초기화</a>	<!-- 초기화 기능 추가 -->
+				<a class="btn search" href="javascript:onClick_search();">검색</a></span> 
 			</div>
 		</div>
 		<!-- //lnbWrap -->
 
 		<!-- contents -->
 		<div id="contents">
-
-			<!-- title -->
-			<h3>사용자관리</h3>
-			<!-- //title -->
-
 			<div class="vodlistBox">
 				<jsp:include page="/user/list">
 					<jsp:param value="userList" name="listId"/>
@@ -233,43 +230,38 @@ function clearUserDetail()
 				<table id="userList" class="list_type1" data-ctrl-view="user_list" data-event-selectedRow="onSelected_userListItem"></table>
 				<div id="p_userList" data-ctrl-view="user_list_pager"></div>
 			</div>
-
-			<div>
-				<form id="frmUserDetail">
-					<input type="hidden" name="userId" value="" />
-					<table class="write_type1 mgt30 mgb20" summary="사용자 상세 정보">
-						<caption>사용자 상세 정보</caption>
-						<colgroup>
-							<col width="150">
-							<col width="*">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th>ID</th>
-								<td><input type="text" name="loginId" value="" title="사용자명" class="type_2" readonly></td>
-							</tr>
-							<tr>
-								<th>사용자명</th>
-								<td><input type="text" name="userName" value="" title="사용자명" class="type_2" readonly></td>
-							</tr>
-							<tr>
-								<th>종목</th>
-								<td><input type="text" name="sportsEventName" value="" title="종목" class="type_2" readonly></td>
-							</tr>
-							<tr>
-								<th>사용자유형</th>
-								<td><input type="text" name="userType" value="" title="사용자종류" class="type_2" readonly></td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
-				<div class="btnbox alignR">
-					<span class="btn_typeA t1"><a href="javascript:onClick_regist();">등록</a></span> 
-					<span class="btn_typeA t4"><a href="javascript:onClick_modify();">수정</a></span> 
-					<span class="btn_typeA t2"><a href="javascript:onClick_delete();">삭제</a></span>
+		</div>
+		<div class="detailContainer">
+			<form id="frmUserDetail">
+				<input type="hidden" name="userId" value="" />
+				<div class="detailWrap">
+					<dl>
+						<dt>ID</dt>
+						<dd class="full">
+							<input type="text" name="loginId" value="" title="사용자명" class="inputTxt" readonly />
+						</dd>
+						<dt>사용자명</dt>
+						<dd class="full">
+							<input type="text" name="userName" value="" title="사용자명" class="inputTxt" readonly>
+						</dd>
+						<dt>종목</dt>
+						<dd class="full">
+							<input type="text" name="sportsEventName" value="" title="종목" class="inputTxt" readonly>
+						</dd>
+						<dt>사용자유형</dt>
+						<dd class="full">
+							<input type="text" name="userType" value="" title="사용자종류" class="inputTxt" readonly>
+						</dd>
+					</dl>
+				</div>
+			</form>
+			<div class="btnWrap">	
+				<div class="btnWrap">	 
+					<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
+					<a class="btn edit" href="javascript:onClick_modify();">수정</a>
+					<a class="btn write" href="javascript:onClick_regist();">등록</a>
 				</div>
 			</div>
-
 		</div>
 		<!-- //contents -->
 

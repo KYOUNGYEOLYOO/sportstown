@@ -78,7 +78,11 @@ public class IPFilterConstant {
 	public String convertToInternalAddress(String addr) {
 		String retAddr = addr;
 
+		System.out.println("InternalAddr1>>"+addr);
 		for(String extAddr : externalAddressMap.keySet()) {
+			
+			System.out.println("InternalAddr2>>"+extAddr);
+			System.out.println("InternalAddr3>>"+retAddr.indexOf(extAddr));
 			if(retAddr.indexOf(extAddr) >= 0) {
 				retAddr = retAddr.replaceFirst(extAddr, externalAddressMap.get(extAddr));
 				break;

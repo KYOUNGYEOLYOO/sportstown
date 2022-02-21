@@ -142,11 +142,17 @@ public class CameraViewController {
 		{
 			if(camId != null)
 			{
+				Property streamer = propServ.getProperty("WOWZA_PROPERTIES", "BASE_LIVE_URL");
+				
 				CameraSelectCondition condition = new CameraSelectCondition(camId);
 				condition.setHasStreamMeta(true);
 				Camera camera = camServ.getCamera(condition);
 				mnv.addObject("camera", camera);
+				mnv.addObject("streamer", streamer.valueToString());
+			}else {
+				mnv.addObject("streamer", "");
 			}
+			
 
 			loadCodes(mnv);
 		}catch(Exception ex) {

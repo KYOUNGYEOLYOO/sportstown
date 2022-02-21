@@ -41,7 +41,9 @@
 .ui-jqgrid .ui-search-table td.ui-search-clear { width:25px;}
 .ui-jqgrid tr.ui-search-toolbar td > input { padding-right: 0px; width: 95%;}
 .ui-jqgrid tr.ui-search-toolbar select {}
-/* body */ 
+/* body */
+/* 스크롤바 없애기 프로젝트 */
+/* .ui-jqgrid .ui-jqgrid-bdiv {overflow-x: hidden; overflow-y: hidden;}  */
 .ui-jqgrid .ui-jqgrid-bdiv {position: relative; margin: 0; padding:0; overflow: auto; text-align:left;z-index: 101;}
 .ui-jqgrid .ui-jqgrid-btable {table-layout:fixed; margin:0; outline-style: none; border-collapse: separate;}
 .ui-jqgrid tr.jqgrow { outline-style: none; }
@@ -353,3 +355,4 @@ td.menu_text {
 #column_menu.ui-menu .ui-menu-item {
 	position :static;
 }
+

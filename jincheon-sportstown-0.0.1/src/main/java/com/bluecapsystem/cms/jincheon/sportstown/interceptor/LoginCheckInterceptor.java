@@ -26,6 +26,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor
 	public LoginCheckInterceptor()
 	{
 		
+		
+		
+		
+		
 	}
 	
 	@Override

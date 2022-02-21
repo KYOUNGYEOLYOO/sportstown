@@ -22,7 +22,8 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
+	var originFileName = "";
+	var originFileNameSplit = "";
 	var params = $("#frmSearch").serialize();
 	
 	$("#fileList").jqGrid({
@@ -37,16 +38,38 @@ $(document).ready(function(){
 		height: 525,
 		autowidth: true,
 		viewrecords: true,
+		viewsortcols: [false,'vertical',false],
 		rownumbers: false,
 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
-	   	colNames:["파일명", "fileId", "filePath", "fileName"],
+// 	   	colNames:["파일명", "fileId", "filePath", "fileName"],
+	   	colNames:["종목","등록자","날짜","fileId", "filePath", "fileName"],
 	   	colModel:[
-	   		{name:"orignFileName",index:"orignFileName",align:"left"},
+	   		{name:"sports",index:"sports", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					originFileName = rowObject.orignFileName;
+					originFileName = originFileName.replace('.mp4','');
+					originFileNameSplit = originFileName.split("_");
+					console.log(originFileName);
+					console.log(originFileNameSplit);
+					return originFileNameSplit[0];
+				}
+			},
+			{name:"user",index:"user", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					return originFileNameSplit[1];
+				}
+			},
+			{name:"date",index:"date", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					return originFileNameSplit[2];
+				}
+			},
+// 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
 	   		{name:"fileId", index:"fileId", hidden:true},
 	   		{name:"filePath", index:"filePath", hidden:true},
 	   		{name:"fileName", index:"fileName", hidden:true}
 	   	],
-	   	// pager: $("#p_fileList"),
+	   	// pager: $("#p_fileList"), 이거 풀어야됨
 	   	jsonReader : {
 	   		root : "files",
 	   		id : "fileId"
@@ -60,6 +83,11 @@ $(document).ready(function(){
 	
 	init_searchCtrls();
 	
+	
+// 	$("#sportsEventCodeSelect").change(function(){
+// 		console.log("값변경 테스트:" + $(this).val());
+// 		$('#sportsEventCodeInput').val($(this).val()).prop("selected",true);
+// 	});
 });
 </script>
 
@@ -203,34 +231,54 @@ function set_content(data)
 <script type="text/javascript">
 
 function init_searchCtrls()
-{
-	$("#frmSearch").find("[name=sportsEventCode]").change(function(){
-		var sportEventCode = $(this).val();
-		$("#frmSearch").find("[name=camId]").children(":not(:first)").remove();
-		$.ajax({
-			url : "<c:url value="/service/camera/getAllCameras"/>/" + sportEventCode,
-			async : false,
-			dataType : "json",
-			method : "post",
-			beforeSend : function(xhr, settings ){},
-			error : function (xhr, status, error){},
-			success : function (ajaxData) {
-				for(var i = 0; i < ajaxData.staticCameras.length; i++)
-				{
-					var $opt = $("<option/>").val(ajaxData.staticCameras[i].camId).text(ajaxData.staticCameras[i].name);
-					$("#frmSearch").find("[name=camId]").append($opt);
+{	
+// 	if($("#sportsEventCodeSelect").val()){
+		$("#sportsEventCodeSelect").change(function(){
+// 		$("#frmSearch").find("[name=sportsEventCode]").change(function(){
+			console.log("값변경 테스트:" + $(this).val());
+			var sportEventCode = $(this).val();
+			$("#frmSearch").find("[name=camId]").children(":not(:first)").remove();
+			console.log("service/camera/getAllCameras" + sportEventCode);
+			$.ajax({
+				url : "<c:url value="/service/camera/getAllCameras"/>/" + sportEventCode,
+				async : false,
+				dataType : "json",
+				method : "post",
+				beforeSend : function(xhr, settings ){},
+				error : function (xhr, status, error){},
+				success : function (ajaxData) {
+					for(var i = 0; i < ajaxData.staticCameras.length; i++)
+					{
+						
+						var $opt = $("<option/>").val(ajaxData.staticCameras[i].camId).text(ajaxData.staticCameras[i].name);
+						$("#frmSearch").find("[name=camId]").append($opt);
+						
+// 						var $li = $("<li/>");
+// 						var $a = $li.append('<a rel="'+ajaxData.staticCameras[i].camId+'" href="#">'+ajaxData.staticCameras[i].name+'</a>');
+						
+						
+// 						$(".UlSelectize").append($a);
+					}
+					
+					
+					for(var i = 0; i < ajaxData.shiftCameras.length; i++)
+					{
+						
+						
+						var $opt = $("<option/>").val(ajaxData.shiftCameras[i].camId).text(ajaxData.shiftCameras[i].name);
+						$("#frmSearch").find("[name=camId]").append($opt);
+// 						var $li = $("<li/>");
+// 						var $a = $li.append('<a rel="'+ajaxData.staticCameras[i].camId+'" href="#">'+ajaxData.staticCameras[i].name+'</a>');
+						
+						
+// 						$(".UlSelectize").append($a);
+					}
 				}
-				
-				
-				for(var i = 0; i < ajaxData.shiftCameras.length; i++)
-				{
-					var $opt = $("<option/>").val(ajaxData.shiftCameras[i].camId).text(ajaxData.shiftCameras[i].name);
-					$("#frmSearch").find("[name=camId]").append($opt);
-				}
-			}
-		});
-	}).trigger("change");
+			});
+		}).trigger("change");
+// 	}
 }
+
 
 </script>
 
@@ -320,7 +368,7 @@ function callback_selectedUsers(sender, users)
 		<!-- 	위치이동 -->
 			<c:choose>
 				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">					
-					<select class="selectyze" name="sportsEventCode">						
+					<select class="selectyze" name="sportsEventCode" id="sportsEventCodeSelect">						
 						<option value="">운동종목</option>
 						<c:forEach items="${sprotsEvents}" var="sprotsEvent">
 							<c:set var="isSelected" value="" />
@@ -348,29 +396,28 @@ function callback_selectedUsers(sender, users)
 				<!-- <input type="hidden" name="locationRootCode" value="UPLOAD" /> -->
 				<input type="hidden" name="locationRootCode" value="INGEST" />
 				<input type="hidden" name="hasNotUsed" value="true" />
-				<!-- 	위치이동	
-				<c:choose>
-					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-						<div class="">
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}"> --%>
+<!-- 						<div class=""> -->
 						
-							<select class="selectyze psa" name="sportsEventCode">
+<!-- 							<select class="" name="sportsEventCode" id="sportsEventCodeInput"> -->
 								
-								<option value="">스포츠종목</option>
-								<c:forEach items="${sprotsEvents}" var="sprotsEvent">
-									<c:set var="isSelected" value="" />
-									<c:if test="${loginUser.sportsEventCode == sprotsEvent.codeId}">
-										<c:set var="isSelected" value="selected" />
-									</c:if>
-									<option value="${sprotsEvent.codeId}" ${isSelected}>${sprotsEvent.name}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
-					</c:otherwise>
-				</c:choose>
-				-->
+<!-- 								<option value="">스포츠종목</option> -->
+<%-- 								<c:forEach items="${sprotsEvents}" var="sprotsEvent"> --%>
+<%-- 									<c:set var="isSelected" value="" /> --%>
+<%-- 									<c:if test="${loginUser.sportsEventCode == sprotsEvent.codeId}"> --%>
+<%-- 										<c:set var="isSelected" value="selected" /> --%>
+<%-- 									</c:if> --%>
+<%-- 									<option value="${sprotsEvent.codeId}" ${isSelected}>${sprotsEvent.name}</option> --%>
+<%-- 								</c:forEach> --%>
+<!-- 							</select> -->
+<!-- 						</div> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:otherwise> --%>
+<%-- 						<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/> --%>
+<%-- 					</c:otherwise> --%>
+<%-- 				</c:choose> --%>
+				
 				
 <!-- 				<div class=""> -->
 <!-- 					<select class="selectyze psa" name="cameraType"> -->
@@ -379,10 +426,39 @@ function callback_selectedUsers(sender, users)
 <!-- 						<option value="Shift">유동</option> -->
 <!-- 					</select> -->
 <!-- 				</div> -->
-
+<!-- 				<div class="mgt10"> -->
+<!-- 					<select class="" name="camId"> -->
+<!-- 						<option value="">카메라목록</option> -->
+<%-- 						<c:forEach items="${shiftCameras}" var="camera"> --%>
+<%-- 							<option value="${camera.camId}" >${camera.name}</option> --%>
+<%-- 						</c:forEach> --%>
+<!-- 					</select> -->
+<!-- 				</div> -->
+				
+<!-- 				<div class="datepickerBox mgt20"> -->
+<!-- 					<p class="psr"> -->
+<!-- 						<label for="recordFromDate">촬영일</label> -->
+<%-- 						<input type="text" id="recordFromDate" name="recordFromDate" class="inputTxt date" value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/> --%>
+<!-- 					</p> -->
+<!-- 				</div> -->
+				
+<!-- 				<div class="datepickerBox mgt20"> -->
+<!-- 					<p class="psr"> -->
+<!-- 						<label for="recordToDate">&nbsp;</label> -->
+<%-- 						<input type="text" id="recordToDate" name="recordToDate" class="inputTxt date" value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/> --%>
+<!-- 					</p> -->
+<!-- 				</div> -->
+				
+<!-- 				<div class="datepickerBox mgt20"> -->
+<!-- 				<p> -->
+<!-- 					<label for="tit">파일명</label> -->
+<!-- 					<input type="text" class="inputTxt" name="tit" /> -->
+<!-- 				</p> -->
+<!-- 				</div> -->
+				
 				<ul>				
 					<li>
-						<select class="selectyze" name="camId">
+						<select class="" name="camId">
 							<option value="">카메라목록</option>
 							<c:forEach items="${shiftCameras}" var="camera">
 								<option value="${camera.camId}" >${camera.name}</option>

@@ -7,17 +7,29 @@
 .depth2Wrap {display:none;}
 </style>
 
+
+<div title="사용자수정" class="bcs_dialog_hide" data-ctrl-view="userPassowrd_modify" data-event-modify="callback_pwdModify">
+</div>
 <div id="headerWrap">
 	<div id="header">
 		<h1><a href="#" class="img_logo"><img src="<c:url value="/resources/images/layout/logo.png"/>" alt="대한체육회" /></a></h1>
 		<!-- gnb -->
 		<div id="gnbWrap">
 			<h2 class="blind">주메뉴</h2>
-			<ul id="gnb">				
-				<li data-main-menu-id="hls"><span><a href="<c:url value="/hls/manage"/>">영상녹화</a></span></li>
-				<li data-main-menu-id="mediaPlay"><span><a href="<c:url value="/mediaPlay"/>">녹화재생</a></span></li>
-				<li data-main-menu-id="regist">
-					<span><a href="<c:url value="#"/>">영상등록</a></span>
+			<ul id="gnb">
+				
+				<li data-main-menu-id="hls"><span><a href="<c:url value="/hls/manage"/>">영상녹화</a></span>
+				</li>
+	
+				
+				
+				<li data-main-menu-id="mediaPlay"><span><a href="<c:url value="/mediaPlay"/>">녹화재생</a></span>
+				</li>
+				
+				
+				
+
+				<li data-main-menu-id="regist"><span><a href="<c:url value="#"/>">영상등록</a></span>
 					<!-- depth2 -->
 					<div class="depth2Wrap sub02">
 						<div class="menuWrap">
@@ -29,8 +41,9 @@
 					</div>
 					<!-- //depth2 -->
 				</li>
-				<li data-main-menu-id="search">
-					<span><a href="<c:url value="/content/manage"/>">영상검색</a></span>
+
+				<li data-main-menu-id="search"><span><a href="<c:url value="/content/manage"/>">영상검색</a></span>
+
 					<!-- depth2 -->
 					<div class="depth2Wrap sub03">
 						<div class="menuWrap">
@@ -41,25 +54,29 @@
 					</div>
 					<!-- //depth2 -->
 				</li>
+
 				<c:if test="${loginUser.isAdmin == true or loginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-				<li data-main-menu-id="manage">
-					<span><a href="#">관리자기능</a></span>
+				<li data-main-menu-id="manage"><span><a href="#">관리자기능</a></span>
+
 					<!-- depth2 -->
 					<div class="depth2Wrap sub04">
 						<div class="menuWrap">
-							<ul class="depth2">
-								<li data-sub-menu-id="userManage" ><a href="<c:url value="/user/manage"/>">사용자</a></li>
-								<li data-sub-menu-id="cameraManage" ><a href="<c:url value="/camera/manage"/>">카메라 등록</a></li>
-								<li data-sub-menu-id="cameraMonitor" ><a href="<c:url value="/camera/monitor"/>">녹화상태</a></li>
-								<li data-sub-menu-id="codeManage" ><a href="<c:url value="/code/manage"/>">코드관리</a></li>
-								<!--	<li><a href="../04/05.html">공지사항</a></li> -->
-							</ul>
+						<ul class="depth2">
+							<li data-sub-menu-id="userManage" ><a href="<c:url value="/user/manage"/>">사용자</a></li>
+							<li data-sub-menu-id="cameraManage" ><a href="<c:url value="/camera/manage"/>">카메라 등록</a></li>
+							<li data-sub-menu-id="cameraMonitor" ><a href="<c:url value="/camera/monitor"/>">녹화상태</a></li>
+							<li data-sub-menu-id="codeManage" ><a href="<c:url value="/code/manage"/>">코드관리</a></li>
+<!-- 							<li><a href="../04/05.html">공지사항</a></li> -->
+						</ul>
 						</div>
 					</div>
 					<!-- //depth2 -->
 				</li>
-				</c:if>		
-				<!-- <li data-ctrl-button="btn_logout"><span><a href="javascript:onLogout();">로그아웃</a></span> </li>	 -->
+				</c:if>
+				
+				
+				
+<!-- 				<li data-ctrl-button="btn_logout"><span><a href="javascript:onLogout();">로그아웃</a></span> </li> -->
 			</ul>
 		</div>
 		<!-- //gnb -->
@@ -70,7 +87,9 @@
 				<ul>
 					<li><a href="javascript:onLogout();">로그아웃</a></li>
 					<li><a href="#">사용자 정보 변경</a></li>
-					<li><a href="#">비밀 번호 갱신</a></li>
+					<li><a href="<c:url value="javascript:onClick_pwdModify();" />">비밀 번호 갱신</a></li>
+					<li><a href="<c:url value="/admin/adminGraph1" />">임시로 만든 대쉬보드 페이지1</a></li>
+					<li><a href="<c:url value="/admin/adminGraph2" />">임시로 만든 통계 페이지2</a></li>
 				</ul>
 			</div>
 		</div>		
@@ -79,9 +98,30 @@
 
 
 <script type="text/javascript">
-$(document).ready(function(){
 
-	/*	new	*/
+function onClick_pwdModify()
+{
+	window.open("<c:url value="/user/passwordModify"/>", "popup", "height=520,width=620,resizable=no,menubar=no,toolbar=no", true);
+}
+
+// function onClick_pwdModify()
+// {
+	
+// 	console.log(userId);
+	
+// 	if(userId == "")
+// 	{
+// 		new bcs_messagebox().open("사용자 수정", "사용자를 선택해 주세요", null);
+// 		return;
+// 	}
+// 	$("[data-ctrl-view=userPassowrd_modify]").empty();
+// 	$("[data-ctrl-view=userPassowrd_modify]").jqUtils_bcs_loadHTML(
+// 			"<c:url value="/user/passwordModify"/>" ,
+// 			false, "get", null, null
+// 		);	
+// }
+
+$(document).ready(function(){
 	
 	$(".welcome > p").click(function(){
 		$(this).next().toggle();

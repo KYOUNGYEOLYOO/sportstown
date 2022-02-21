@@ -14,11 +14,14 @@ $(document).ready(function(){
 	eventSender.sender.find("[name=isUsed]").val("${code.isUsed}").prop("checked", true);
 	
 	$("[data-ctrl-view=code_modify]").dialog({
-		width:500,
+		width:620,
 		modal : true,
 		authOpen :true,
 		resizable : false,
 		buttons : {
+			"닫기" : function(){
+				$(this).dialog("close");
+			},			
 			"저장" : function(){
 				var jpPopup = $(this);
 				console.log($(this).find("form").serialize());
@@ -40,10 +43,8 @@ $(document).ready(function(){
 						}
 					}
 				});
-			},
-			"닫기" : function(){
-				$(this).dialog("close");
 			}
+
 		},
 		close : function(event, ui){
 			$(this).dialog("destroy");
@@ -56,21 +57,21 @@ $(document).ready(function(){
 
 <form>
 	<input type="hidden" name="codeId" value="${code.codeId}"/>
-	<table class="write_type1 mgb20" summary="">
+	<table summary="">
 		<caption></caption>
 		<colgroup>
-			<col width="150">
+			<col width="120">
 			<col width="*">
 		</colgroup>
 		<tbody>
 			<tr>
 				<th>코드명</th>
-				<td><input type="text" name="name" value="${code.name}" title="코드명" class="type_2"></td>
+				<td><input type="text" name="name" value="${code.name}" title="코드명" class="inputTxt"></td>
 			</tr>
 			<tr>
 				<th>사용여부</th>
 				<td>
-					<select class="td sel_type_2" name="isUsed" title="사용 여부">
+					<select name="isUsed" title="사용 여부">
 						<option value="true">사용</option>
 						<option value="false">사용안함</option>
 					</select>

@@ -8,3 +8,12 @@
 		<p class="copyright">Copyrightⓒ 2016 Korean Sport & Olympic Committee. all rights reserved.</p>
 	</div>
 </div>
+<div class="loading"></div>
+
+<script type="text/javascript">
+$(document).ready(function(){	
+	$(document).on('click', '.loading', function() {	 
+		$(this).hide();
+	});		
+});
+</script>

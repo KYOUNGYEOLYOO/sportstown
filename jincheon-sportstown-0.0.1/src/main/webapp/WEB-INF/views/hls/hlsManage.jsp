@@ -17,55 +17,60 @@
 <link rel="stylesheet" href="<c:url value="/bluecap/css/video-js.css"/>"> 
 <script src="https://unpkg.com/video.js/dist/video.js"></script>
 
-<style type="text/css">
-.videobox .videocontents {background-color: #000; color: #CFCFCF;}
 
-.camera1pt li .videobox { width : 1266px; }
-.camera1pt li .videocontents { min-height:800px;}
-.camera1pt li .video-js { width : 1266px ; min-height:800px;}
 
-.camera2pt li .videobox { width : 617px;}
-.camera2pt li .videocontents { min-height:381px;}
-.camera2pt li:nth-child(2n+1) {margin-left: 15px; margin-bottom:10px;}
-.camera2pt li .video-js { width : 617px; min-height:381px;}
+<script type="text/javascript">
 
-.camera3pt li { margin-bottom:10px; margin-left : 10px;}
-.camera3pt li:nth-child(3n+1) { margin-left: 10px; margin-bottom:10px; }
-.camera3pt li:nth-child(3n+2) { margin-left: 10px; margin-bottom:10px; }
-.camera3pt li .videobox {width : 410px;}
-.camera3pt li .videocontents { min-height:237px;}
-.camera3pt li .video-js { width : 410px; min-height:237px;}
+/* window.onload = maxWindow;
 
-.videobox .videohead .videotitle { width : 245px; padding-left : 10px; }
-.videobox .videohead .videotitle .rec_status{ float : left; margin-right:10px;}
-.videobox .videohead .videotitle .rec_status img { vertical-align: middle; }
-.videobox .videohead .videoicons { width : 50px; }
-.videobox .videohead .videotitle .ui-selectmenu-button.ui-button {margin-bottom : 3px;}
+function maxWindow() {
+    window.moveTo(0, 0);
 
-.videoicons .player-btn {height : 33px;
-	min-width: 35px;
-	border: 1px solid;
-	color: #f9f9f9;
-	font-weight: bold;
+    if (document.all) {
+        top.window.resizeTo(screen.availWidth, screen.availHeight);
+    }
+
+    else if (document.layers || document.getElementById) {
+        if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
+            top.window.outerHeight = screen.availHeight;
+            top.window.outerWidth = screen.availWidth;
+        }
+    }
+} */
+
+function changeContainer(){
+	var container = document.getElementById("container");
+// 	container.style.width = window.screen.width;
+// 	container.style.height = window.screen.height;
+	if (!document.fullscreenElement) {
+		container.webkitRequestFullscreen();
+	  } else {
+		document.webkitExitFullscreen();
+	  }
 }
+</script>
 
+<script type="text/javascript">
 
-.videoicons .player-btn.disable {
-	color: gray;
+window.screen.orientation.onchange = function() {
+
+	console.log("여기는 들어와지나??");
+    if (this.type.startsWith('landscape')) {
+      document.getElementById("container").webkitRequestFullscreen();
+    } else {
+      document.webkitExitFullscreen();
+    }
+
+};
+
+function fullScreen(){
+	if (!document.fullscreenElement) {
+		container.webkitRequestFullscreen();
+	  } else {
+		document.webkitExitFullscreen();
+	  }
 }
-
-.videoicons .player-btn.on {
-	color: #d50000;
-}
-
-.videoicons .player-btn.on.player-btn-dvr {
-	color: #22cd22;
-}
-
-
-</style>
-
-
+</script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -80,6 +85,19 @@ $(document).ready(function(){
 		});
 		
 	$("#sportsEvent").trigger("change");
+	/* setTimeout(function(){
+		$("#fullscreen").trigger("click");
+	},4000); */
+	/* window.screen.orientation.onchange(); */
+	changeContainer();
+	
+	
+	//	220214 add
+	$(document).on('click', '#lnbWrap.video > p.toggle', function() {	        
+		$(this).parent().toggleClass("menuopen");
+});	
+	
+	
 });
 
 </script>
@@ -127,7 +145,7 @@ function callback_removePlayer(sender, camId)
 	return true;
 }
 
-
+//	220214 edit
 function change_player_layout()
 {
 	var cntPlayer = $("#playerList > li").length;
@@ -136,7 +154,7 @@ function change_player_layout()
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera1pt");
-	}else if(cntPlayer <= 4)
+	}else if(cntPlayer <= 2)	
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera2pt");
@@ -377,6 +395,19 @@ function onClick_liveRecordAll()
 		$(playerLi).trigger("click");
 	});
 }
+
+function canvasTest()
+{
+	$("#canvas").empty();
+	$("#canvas").jqUtils_bcs_loadHTML(
+			"<c:url value="/canvas/canvasPop"/>" ,
+			false, "get", null, null
+		);
+	console.log('canvas_pop');
+	
+	$(".ui-front").appendTo("#container");
+}
+
 </script>
 
 
@@ -408,20 +439,36 @@ function onClick_liveRecordAll()
 
 
 <!-- container -->
-<div id="container">
+<div id="container" class="full">
+	<div class="titleWrap">
+		<h2>영상녹화</h2>				
+	</div>
 	<div id="contentsWrap">
+	<form id="canvas"></form>
 	
 		<!-- lnbWrap -->
 		<div id="lnbWrap" class="video">
-			<div class="lnbWraph2">
-				<h2>영상녹화</h2>
-			</div>
+			<p class="toggle"></p>
+			<div class="btnContainer">
+				<div class="btnWrap player">
+					<a class="btn rec" href="javascript:onClick_recordAll();">Rec</a>
+					<a class="btn stop" href="javascript:onClick_stopRecordAll();">Stop</a>
+					<a class="btn back" href="javascript:onClick_backRecordAll();">Back</a>
+					<a class="btn live" href="javascript:onClick_liveRecordAll();">Live</a>
+					<!-- 
+					<a class="btn" href="javascript:onClick_recordAll();">전체녹화</a>
+					<a class="btn" href="javascript:onClick_stopRecordAll();">전체스톱</a>
+					<a class="btn" href="javascript:onClick_backRecordAll();">전체뒤로</a>
+					<a class="btn" href="javascript:onClick_liveRecordAll();">전체라이브</a>		
+					 -->		
+				</div> 	
+			</div>		
 			<form id="frmRecordData">
 				<input type="hidden" name="recordUserId" value="${loginUser.userId}" />
 				<c:choose>
 					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-						<div class="">
-							<select id="sportsEvent" class="selectyze psa" name="sportsEventCode">
+						<div class="selectWrap">
+							<select id="sportsEvent" class="selectyze" name="sportsEventCode">
 								<option value="">스포츠종목</option>
 								<c:forEach items="${sprotsEvents}" var="sprotsEvent">
 									<c:choose>
@@ -449,24 +496,33 @@ function onClick_liveRecordAll()
 				data-event-disableCamera="callback_removePlayer">
 				
 			</div>
+			<!-- 캔버스 생성 버튼을 만들어봅세다.. 20211213 -->
+<<<<<<< HEAD
+			<!-- 
+=======
 			
-			<div class="btnbox alignC" style="text-align: center;">
-				<span class="btn_typeA t1 mgb10"><a href="javascript:onClick_recordAll();">전체녹화</a></span>
-				<span class="btn_typeA t2 mgb10"><a href="javascript:onClick_stopRecordAll();">전체스톱</a></span>
-				<span class="btn_typeA t4 mgb10"><a href="javascript:onClick_backRecordAll();">전체뒤로</a></span>
-				<span class="btn_typeA t4"><a href="javascript:onClick_liveRecordAll();">전체라이브</a></span>
-			</div> 
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
+			<div class="canvasBtnWrap">
+				<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div>
+				<div id="canvasBtn" onclick="addCanvas();">캔버스</div>
+				<button id="drawing" onclick="drawCanvas()">draw</button>
+				<button id="shape" onclick="drawShape()">shape</button>
+				<button id="eraser" onclick="eraseCanvas()">eraser</button>
+				<button id="clear" onclick="clrCanvas(document.getElementById('canvas'))">clear</button>
+				<button id="color" onclick="changeColor('blue')">color</button>
+				<button id="thickness" onclick="changeWidth(10)">thickness</button>
+				<button id="close" onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>				
+			</div>
+			 -->
+
 		</div>
 		<!-- //lnbWrap -->
 		
 
 		<!-- contents -->
-		<div id="contents" class="video">
-
-			<h3>영상녹화</h3>
-	
+		<div id="contents" class="video">			
 			<div class="cameraBox">
-				<ul id="playerList" class="camera1pt"
+				<ul id="playerList"
 					data-ctrl-view="live_player_list"
 					
 					data-event-initilizePlayerButton="callback_initPlayerButton"
@@ -482,9 +538,9 @@ function onClick_liveRecordAll()
 					data-event-disableCamera="callback_removePlayer">
 					
 				</ul>
-	
+				<p>좌측 메뉴바를 눌러<br />영상을 선택해주세요</p>	<!-- 영상 선택 전 노출 문구 또는 이미지 지정 -->	
 			</div>
-
+			<button class="fullScreen" id="fullscreen" onclick="fullScreen()" />
 		</div>
 		<!-- //contents -->
 	</div>
@@ -496,6 +552,27 @@ function onClick_liveRecordAll()
 <jsp:include page="/include/footer" />
 <!-- //footer -->
 </div>
-
+<%--20211215 --%>
+<!-- 
+<div id="styleBtn" style="display: flex; position:absolute; 
+	top: 60px; right: 0px; z-index: 4;">
+	<button style="margin-right:10px" id="fullscreen"
+	onclick="fullScreen()">screen</button>
+	<button style="margin-right:10px" id="drawing"
+	onclick="drawCanvas()">draw</button>
+	<button style="margin-right:10px" id="shape"
+	onclick="drawShape()">shape</button>
+	<button style="margin-right:10px" id="eraser"
+	onclick="eraseCanvas()">eraser</button>
+	<button style="margin-right:10px" id="clear"
+	onclick="clrCanvas(document.getElementById('canvas'))">clear</button>
+	<button style="margin-right:10px" id="color"
+	onclick="changeColor('blue')">color</button>
+	<button style="margin-right:10px" id="thickness"
+	onclick="changeWidth(10)">thickness</button>
+	<button style="margin-right:10px" id="close"
+	onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>
+</div>
+ -->
 </body>
 </html>

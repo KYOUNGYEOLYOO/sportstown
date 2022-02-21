@@ -27,18 +27,22 @@ $(document).ready(function(){
 	
 });
 
+
 </script>
 
 
 <script type="text/javascript">
 function onClick_addMedia()
-{
+{	
 	var params = $("#frmFileSearch").serialize();
 	$("[data-ctrl-view=file_search]").empty();
 	$("[data-ctrl-view=file_search]").jqUtils_bcs_loadHTML(
 			"<c:url value="/file/search"/>",
 			false, "get", params, null
 		);
+	
+	$(".ui-front").appendTo("#container");
+// 	$(".ui-widget-overlay ui-front").appendTo("#container");
 }
 
 function onClick_initMedia()
@@ -242,6 +246,8 @@ function fullScreen(){
 	  }
 }
 
+
+
 </script>
 
 
@@ -283,7 +289,7 @@ function fullScreen(){
 <div id="container" class="full">
 	<div class="titleWrap">
 		<h2>녹화재생</h2>				
-	</div>	
+	</div>
 	<div id="contentsWrap">
 		<div id="lnbWrap" class="video">
 			<p class="toggle"></p>
