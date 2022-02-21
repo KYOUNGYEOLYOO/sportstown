@@ -313,6 +313,50 @@ a.addMedia:hover	{background-color:#d3222a;}
 .fL{float:left}
 .fR{float:right}
 
+/*	dashboard	*/
+#container.dashboard	{} 
+#container.dashboard .titleWrap	{}
+#container.dashboard .titleWrap dl	{line-height:12px;}
+#container.dashboard .titleWrap dl dt	{display:inline-block; font-size:12px;}
+#container.dashboard .titleWrap dl dd	{display:inline-block; color:#333; font-weight:bold; }
+#container.dashboard .titleWrap dl dd + dt	{margin-left:8px; padding-left:12px; border-left:2px solid #ccc;}
+
+
+#container.dashboard #contents	{background:none; border:none; display:flex; flex-direction:column;}
+
+
+#container.dashboard .tableContainer	{/*padding:20px;*/background: #fff; border: 1px solid #eaeaea; margin-bottom:10px;}
+#container.dashboard .tableContainer select	{width:130px; margin:10px;}
+#container.dashboard .tableContainer table	{width:100%; border-top: 1px solid #eaeaea;}
+#container.dashboard .tableContainer table th, #container.dashboard .tableContainer table td	{text-align:center; line-height:40px; font-size:12px;}
+#container.dashboard .tableContainer table th	{background: rgba(0,0,0,.02); border-bottom: 1px solid rgba(0,0,0,.05);}
+
+#container.dashboard .chartContainer	{flex:1; display:flex;}
+#container.dashboard .chartContainer > div	{}
+
+
+#container.dashboard .chartContainer .summary	{width:300px;}
+#container.dashboard .chartContainer .summary > dl	{font-size:12px; padding:10px 20px; line-height:40px; background: #fff; border: 1px solid #eaeaea;}
+#container.dashboard .chartContainer .summary > dl:first-of-type	{display:flex; border-bottom:none; display:flex; justify-content:space-between;}
+#container.dashboard .chartContainer .summary > dl:first-of-type dt	{}
+#container.dashboard .chartContainer .summary > dl > dt	{font-weight:bold;}
+#container.dashboard .chartContainer .summary > dl dl	{padding-left:12px; overflow:hidden;}
+#container.dashboard .chartContainer .summary > dl dl dt	{float:left; clear:both;}
+#container.dashboard .chartContainer .summary > dl dl dd	{float:right;}
+
+#container.dashboard .chartContainer > div[class*="chart"]	{display:flex; flex-direction:column; margin-left:10px;background: #fff; border: 1px solid #eaeaea;}
+#container.dashboard .chartContainer > div[class*="chart"] .title	{padding:10px 20px;border-bottom: 1px solid #eaeaea; display:flex; justify-content:space-between; line-height:40px;}
+#container.dashboard .chartContainer > div[class*="chart"] .title h4	{font-weight:bold; line-height:40px;}
+#container.dashboard .chartContainer > div[class*="chart"] .title span	{font-size:12px;}
+#container.dashboard .chartContainer > div[class*="chart"] .chartBox	{flex:1;}
+
+#container.dashboard .chartContainer .chart01	{flex:1;}
+#container.dashboard .chartContainer .chart02	{width:603px;}
+
+
+
+
+
 /*	new - popup	*/
 body .ui-widget.ui-widget-content	{padding:0; border:none;}
 body .ui-widget-header	{border-radius:0; border:none; border-bottom: 3px solid #d9534f; background: none; font-size:16px; color:#666;}
