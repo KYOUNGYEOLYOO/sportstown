@@ -505,6 +505,9 @@ function callback_selectedUsers(sender, users)
 			<div class="vodlistBox">
 				<table id="fileList" class="list_type1" data-ctrl-view="file_list" data-event-selectedRow="onSelected_cameraListItem"></table>
 				<div id="p_fileList" data-ctrl-view="file_list_pager"></div>
+<!-- <!-- 				페이져 --> -->
+<!-- 				<div id="NoData"></div> -->
+<!-- 				<div id="paginate" style="text-align: center; margin-top: 60px"></div> -->
 			</div>		
 		</div>
 		<div class="detailContainer">	

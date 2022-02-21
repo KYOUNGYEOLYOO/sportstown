@@ -39,6 +39,7 @@ function onClick_addMedia()
 			"<c:url value="/file/search"/>",
 			false, "get", params, null
 		);
+	$(".ui-front").appendTo("#container");
 }
 
 function onClick_initMedia()
@@ -86,6 +87,10 @@ function callback_checkSelectedItem(sender, fileId)
 	}
 	
 	return false;
+}
+
+function callback_initMedia(sender){
+	location.reload();
 }
 
 function callback_addFile(sender, file)
@@ -276,6 +281,7 @@ function fullScreen(){
 	data-event-unselectedFile="callback_unselectedFile"
 	
 	data-event-checkSelectedFile="callback_checkSelectedItem"
+	data-event-initMedia="callback_initMedia"
 ></div>
 
 

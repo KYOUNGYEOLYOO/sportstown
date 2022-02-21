@@ -460,7 +460,19 @@ function canvasTest()
 					<a class="btn" href="javascript:onClick_stopRecordAll();">전체스톱</a>
 					<a class="btn" href="javascript:onClick_backRecordAll();">전체뒤로</a>
 					<a class="btn" href="javascript:onClick_liveRecordAll();">전체라이브</a>		
-					 -->		
+					 -->
+<!-- 					<div class="canvasBtnWrap"> -->
+<!-- 						<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div> -->
+<!-- 						<div id="canvasBtn" onclick="addCanvas();">캔버스</div> -->
+<!-- 						<button id="drawing" onclick="drawCanvas()">draw</button> -->
+<!-- 						<button id="shape" onclick="drawShape()">shape</button> -->
+<!-- 						<button id="eraser" onclick="eraseCanvas()">eraser</button> -->
+<!-- 						<button id="clear" onclick="clrCanvas(document.getElementById('canvas'))">clear</button> -->
+<!-- 						<button id="color" onclick="changeColor('blue')">color</button> -->
+<!-- 						<button id="thickness" onclick="changeWidth(10)">thickness</button> -->
+<!-- 						<button id="close" onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>				 -->
+<!-- 					</div> -->
+					 	
 				</div> 	
 			</div>		
 			<form id="frmRecordData">
@@ -497,23 +509,9 @@ function canvasTest()
 				
 			</div>
 			<!-- 캔버스 생성 버튼을 만들어봅세다.. 20211213 -->
-<<<<<<< HEAD
-			<!-- 
-=======
+
+			<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div>
 			
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown
-			<div class="canvasBtnWrap">
-				<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div>
-				<div id="canvasBtn" onclick="addCanvas();">캔버스</div>
-				<button id="drawing" onclick="drawCanvas()">draw</button>
-				<button id="shape" onclick="drawShape()">shape</button>
-				<button id="eraser" onclick="eraseCanvas()">eraser</button>
-				<button id="clear" onclick="clrCanvas(document.getElementById('canvas'))">clear</button>
-				<button id="color" onclick="changeColor('blue')">color</button>
-				<button id="thickness" onclick="changeWidth(10)">thickness</button>
-				<button id="close" onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>				
-			</div>
-			 -->
 
 		</div>
 		<!-- //lnbWrap -->
