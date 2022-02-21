@@ -228,6 +228,7 @@ function callback_selectedUsers(sender, users)
 									</td>
 								</tr>
 								<tr>
+								
 									<th>스포츠종목</th>
 									<td>
 										<c:choose>
