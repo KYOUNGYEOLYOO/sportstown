@@ -261,7 +261,7 @@ function callback_selectedUsers(sender, users)
 									 -->							
 							<dt>파일</dt>
 							<dd class="full">
-								<input type="file" name="file" class="inputTxt" data-regist-input/>
+								<input type="file"  webkitdirectory name="file" class="inputTxt" data-regist-input/>
 							</dd>
 								<!-- 
 									<td data-regist-fileProgress>
