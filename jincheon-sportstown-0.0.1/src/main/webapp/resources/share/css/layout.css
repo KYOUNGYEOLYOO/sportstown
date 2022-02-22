@@ -313,6 +313,68 @@ a.addMedia:hover	{background-color:#d3222a;}
 .fL{float:left}
 .fR{float:right}
 
+/*	dashboard	*/
+#container.dashboard	{} 
+#container.dashboard .titleWrap	{}
+#container.dashboard .titleWrap dl	{line-height:12px;}
+#container.dashboard .titleWrap dl dt	{display:inline-block; font-size:12px;}
+#container.dashboard .titleWrap dl dd	{display:inline-block; color:#333; font-weight:bold; }
+#container.dashboard .titleWrap dl dd + dt	{margin-left:8px; padding-left:12px; border-left:2px solid #ccc;}
+
+
+#container.dashboard #contents	{background:none; border:none; display:flex; flex-direction:column;}
+
+
+#container.dashboard .tableContainer	{/*padding:20px;*/background: #fff; border: 1px solid #eaeaea; margin-bottom:10px;}
+#container.dashboard .tableContainer select	{width:130px; margin:10px;}
+#container.dashboard .tableContainer table	{width:100%; border-top: 1px solid #eaeaea;}
+#container.dashboard .tableContainer table th, #container.dashboard .tableContainer table td	{text-align:center; line-height:40px; font-size:12px;}
+#container.dashboard .tableContainer table th	{background: rgba(0,0,0,.02); border-bottom: 1px solid rgba(0,0,0,.05);}
+
+#container.dashboard .chartContainer	{flex:1; display:flex;}
+#container.dashboard .chartContainer > div	{}
+
+
+#container.dashboard .chartContainer .summary	{width:300px;}
+#container.dashboard .chartContainer .summary > dl	{font-size:12px; padding:10px 20px; line-height:40px; background: #fff; border: 1px solid #eaeaea;}
+#container.dashboard .chartContainer .summary > dl:first-of-type	{display:flex; border-bottom:none; display:flex; justify-content:space-between;}
+#container.dashboard .chartContainer .summary > dl:first-of-type dt	{}
+#container.dashboard .chartContainer .summary > dl > dt	{font-weight:bold;}
+#container.dashboard .chartContainer .summary > dl dl	{padding-left:12px; overflow:hidden;}
+#container.dashboard .chartContainer .summary > dl dl dt	{float:left; clear:both;}
+#container.dashboard .chartContainer .summary > dl dl dd	{float:right;}
+
+#container.dashboard .chartContainer > div[class*="chart"]	{display:flex; flex-direction:column; margin-left:10px;background: #fff; border: 1px solid #eaeaea;}
+#container.dashboard .chartContainer > div[class*="chart"] .title	{padding:10px 20px;border-bottom: 1px solid #eaeaea; display:flex; justify-content:space-between; line-height:40px;}
+#container.dashboard .chartContainer > div[class*="chart"] .title h4	{font-weight:bold; line-height:40px;}
+#container.dashboard .chartContainer > div[class*="chart"] .title span	{font-size:12px;}
+#container.dashboard .chartContainer > div[class*="chart"] .chartBox	{flex:1;}
+
+#container.dashboard .chartContainer .chart01	{flex:1;}
+#container.dashboard .chartContainer .chart01 .chartBox	{  background:url(../../images/contents/sample01.png) no-repeat 50% 50%; background-size:contain;}
+#container.dashboard .chartContainer .chart02	{width:603px;}
+#container.dashboard .chartContainer .chart02 .chartBox	{  background:url(../../images/contents/sample02.png) no-repeat 50% 50%; background-size:contain;}
+#container.dashboard .chartContainer .listBox	{flex:1;background: #fff; border: 1px solid #eaeaea;}
+
+/*	paginate	*/
+#paginate	{display:flex; align-items:center; justify-content:center;}
+#paginate a	{line-height:40px; font-size:16px; padding:0 10px;}
+#paginate a.btn	{padding:0; margin:0 10px; border:none; width:16px; height:16px; background:url(../../images/common/btn_paginate.png) no-repeat 0% 0%;}
+#paginate a.btn.none	{opacity:0.5; cursor:default;}
+
+#paginate a.btn.first	{background-position:0 0;}
+#paginate a.btn.pre	{background-position:-16px 0;}
+#paginate a.btn.next	{background-position:-32px 0;}
+#paginate a.btn.last	{background-position:-48px 0;}
+#paginate a:not(.none).btn.first:hover	{background-position:0 -16px;}
+#paginate a:not(.none).btn.pre:hover	{background-position:-16px -16px;}
+#paginate a:not(.none).btn.next:hover	{background-position:-32px -16px;}
+#paginate a:not(.none).btn.last:hover	{background-position:-48px -16px;}
+#paginate a strong	{color:#337ab7; font-weight:bold;}
+#paginate a:hover	{color:#337ab7;}
+
+
+
 /*	new - popup	*/
 body .ui-widget.ui-widget-content	{padding:0; border:none;}
 body .ui-widget-header	{border-radius:0; border:none; border-bottom: 3px solid #d9534f; background: none; font-size:16px; color:#666;}

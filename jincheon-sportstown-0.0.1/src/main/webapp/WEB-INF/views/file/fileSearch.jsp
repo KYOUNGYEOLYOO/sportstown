@@ -44,7 +44,7 @@ $(document).ready(function(){
 	};
 	
 	
-	
+	// 영상검색 나오는 jqgrid
 	$grid.jqGrid({
 		// url: "<c:url value="/service/file/getFileList"/>?"+params,
 		datatype: "local",
@@ -126,7 +126,7 @@ $(document).ready(function(){
 				$(this).dialog("close");
 			},
 			"초기화" : function(){
-				$(this).dialog("close");	//초기화 기능 삽입
+				eventSender.send("data-event-initMedia");	//초기화 기능 삽입
 			}			
 		},
 		close : function(event, ui){

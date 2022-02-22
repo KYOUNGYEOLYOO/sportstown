@@ -18,7 +18,7 @@ $(document).ready(function(){
 	   	width: "auto",
 	   	key: true,
 		// height: "auto",
-		height: 300,
+		height: 640, // 원래 300이였음
 		autowidth: true,
 		viewrecords: true,
 		viewsortcols: [false,'vertical',false],

@@ -264,7 +264,10 @@ function clear_cameraDetail()
 					<jsp:param value="p_cameraList" name="pagerId"/>
 				</jsp:include>
 				<table id="cameraList" class="list_type1" data-ctrl-view="camera_list" data-event-selectedRow="onSelected_cameraListItem"></table>
-				<div id="p_cameraList" data-ctrl-view="camera_list_pager"></div>
+<!-- 				<div id="p_cameraList" data-ctrl-view="camera_list_pager"></div> -->
+<!-- 				<div id="NoData"></div> -->
+				<div id="paginate" data-ctrl-view="camera_list_pager" style="text-align: center; margin-top: 60px"></div>
+				
 			</div>
 		</div>
 		<div class="detailContainer camera">

@@ -6,7 +6,14 @@
 <jsp:useBean id="now" class="java.util.Date" />
 
 <style type="text/css">
-	.transparent { background: transparent}
+/* 	캔버스 팝업창 css 요소 */
+	.transparent {
+		background: transparent;
+/* 		border: 1px solid black; */
+		}
+	#canvasId{
+		border: 1px solid black;
+	}
 </style>
 
 <script type="text/javascript">
@@ -19,6 +26,7 @@ $(document).ready(function(){
 		dialogClass: 'transparent',
 	});
 	
+	$('#canvas').dialog('widget').attr('id', 'canvasId');
 	$("#canvas").find(".canvas_menu").click(function(){
 		$(this).next().toggle();
 	});
