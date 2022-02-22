@@ -351,8 +351,9 @@ a.addMedia:hover	{background-color:#d3222a;}
 #container.dashboard .chartContainer > div[class*="chart"] .chartBox	{flex:1;}
 
 #container.dashboard .chartContainer .chart01	{flex:1;}
+#container.dashboard .chartContainer .chart01 .chartBox	{  background:url(../../images/contents/sample01.png) no-repeat 50% 50%; background-size:contain;}
 #container.dashboard .chartContainer .chart02	{width:603px;}
-
+#container.dashboard .chartContainer .chart02 .chartBox	{  background:url(../../images/contents/sample02.png) no-repeat 50% 50%; background-size:contain;}
 #container.dashboard .chartContainer .listBox	{flex:1;background: #fff; border: 1px solid #eaeaea;}
 
 /*	paginate	*/
