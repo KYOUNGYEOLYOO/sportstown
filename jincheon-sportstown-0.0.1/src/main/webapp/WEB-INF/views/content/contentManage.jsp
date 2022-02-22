@@ -185,8 +185,8 @@ function initPage(gridId,totalSize,currentPage){
     }  
     //alert(pageInner);
     // 페이징할 DIV태그에 우선 내용을 비우고 페이징 태그삽입
-    $("#paginate").html("");
-    $("#paginate").append(pageInner);
+    //$("#paginate").html("");	//220222 test
+    //$("#paginate").append(pageInner);	//220222 test
    
 }
 
@@ -574,7 +574,19 @@ function clear_cameraDetail()
 				<table id="contentList" class="list_type1" data-ctrl-view="content_list" data-event-selectedRow="onSelected_cameraListItem"></table>
 <!-- 				<div id="p_contentList" data-ctrl-view="content_list_pager"></div> -->
 				<div id="NoData"></div>
-				<div id="paginate" style="text-align: center; margin-top: 60px"></div>
+				<div id="paginate">
+					
+					<a class='btn first'></a>
+					<a class='btn pre'></a>
+					<a class='btn pre none'></a>
+					
+					<a><strong>1</strong></a>
+					<a>2</a>
+					
+					<a class='btn next none'></a>
+					<a class='btn next'></a>
+					<a class='btn last'></a>
+				</div>
 			</div>
 
 			<div>

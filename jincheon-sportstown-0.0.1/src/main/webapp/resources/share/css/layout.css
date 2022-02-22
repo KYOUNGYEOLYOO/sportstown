@@ -353,7 +353,24 @@ a.addMedia:hover	{background-color:#d3222a;}
 #container.dashboard .chartContainer .chart01	{flex:1;}
 #container.dashboard .chartContainer .chart02	{width:603px;}
 
+#container.dashboard .chartContainer .listBox	{flex:1;background: #fff; border: 1px solid #eaeaea;}
 
+/*	paginate	*/
+#paginate	{display:flex; align-items:center; justify-content:center;}
+#paginate a	{line-height:40px; font-size:16px; padding:0 10px;}
+#paginate a.btn	{padding:0; margin:0 10px; border:none; width:16px; height:16px; background:url(../../images/common/btn_paginate.png) no-repeat 0% 0%;}
+#paginate a.btn.none	{opacity:0.5; cursor:default;}
+
+#paginate a.btn.first	{background-position:0 0;}
+#paginate a.btn.pre	{background-position:-16px 0;}
+#paginate a.btn.next	{background-position:-32px 0;}
+#paginate a.btn.last	{background-position:-48px 0;}
+#paginate a:not(.none).btn.first:hover	{background-position:0 -16px;}
+#paginate a:not(.none).btn.pre:hover	{background-position:-16px -16px;}
+#paginate a:not(.none).btn.next:hover	{background-position:-32px -16px;}
+#paginate a:not(.none).btn.last:hover	{background-position:-48px -16px;}
+#paginate a strong	{color:#337ab7; font-weight:bold;}
+#paginate a:hover	{color:#337ab7;}
 
 
 

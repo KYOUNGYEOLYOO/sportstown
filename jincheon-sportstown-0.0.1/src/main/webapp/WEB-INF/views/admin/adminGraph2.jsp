@@ -79,8 +79,10 @@
 					</tr>
 				</tbody>
 				</table>
-			</div>			
-			<div class="listBox"></div>
+			</div>	
+			<div class="chartContainer">		
+				<div class="listBox"></div>
+			</div>
 		</div>
 	</div>
 </div>
