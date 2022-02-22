@@ -37,6 +37,7 @@ function init_contentList()
 // 	var pageCount = 10; // 한 페이지에 보여줄 페이지 수 (ex:1 2 3 4 5)
 	
 	var eventSender = new bcs_ctrl_event($("#contentList"));
+	console.log("<c:url value="/service/content/getContents"/>?" + $("#frmSearch").serialize());
 	$("#contentList").jqGrid({
 		// data: mydata,
 		url : "<c:url value="/service/content/getContents"/>?" + $("#frmSearch").serialize(),
@@ -120,6 +121,12 @@ function initPage(gridId,totalSize,currentPage){
     var totalPageList = Math.ceil(totalPage/pageCount);
     // 페이지 리스트가 몇번째 리스트인지
     var pageList=Math.ceil(currentPage/pageCount);
+    
+    console.log("totalPage :", totalPage);
+    console.log("pageCount :", pageCount);
+    console.log("totalPageList :",totalPageList);
+    console.log("PageList :",pageList);
+    
    
     //alert("currentPage="+currentPage+"/ totalPage="+totalSize);
     //alert("pageCount="+pageCount+"/ pageList="+pageList);
@@ -147,17 +154,15 @@ function initPage(gridId,totalSize,currentPage){
     // 페이지 리스트가 1이나 데이터가 없을 경우 (링크 빼고 흐린 이미지로 변경)
     if(pageList<2){
        
-//         pageInner+="<img src='firstPage2.gif'>";
-        pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
-        pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
+//         pageInner+="<a class='btn first' href='javascript:firstPage()'>111</a>";
+//         pageInner+="<a class='btn pre' href='javascript:prePage()'>222</a>";
        
     }
     // 이전 페이지 리스트가 있을 경우 (링크넣고 뚜렷한 이미지로 변경)
     if(pageList>1){
        
-        pageInner+="<a class='first' href='javascript:firstPage()'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
-        pageInner+="<a class='pre' href='javascript:prePage("+totalSize+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
-       
+        pageInner+="<a class='btn first' href='javascript:firstPage()'></a>";
+        pageInner+="<a class='btn pre' href='javascript:prePage("+totalSize+")'></a>";
     }
     // 페이지 숫자를 찍으며 태그생성 (현재페이지는 강조태그)
     for(var i=startPageList; i<=endPageList; i++){
@@ -174,19 +179,19 @@ function initPage(gridId,totalSize,currentPage){
     // 다음 페이지 리스트가 있을 경우
     if(totalPageList>pageList){
        
-        pageInner+="<a class='next' href='javascript:nextPage("+totalSize+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
-        pageInner+="<a class='last' href='javascript:lastPage("+totalPage+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
+        pageInner+="<a class='btn next' href='javascript:nextPage("+totalSize+")'></a>";
+        pageInner+="<a class='btn last' href='javascript:lastPage("+totalPage+")'></a>";
     }
     // 현재 페이지리스트가 마지막 페이지 리스트일 경우
     if(totalPageList==pageList){
        
-        pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
-        pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
+//         pageInner+="<a class='btn first' href='javascript:firstPage()'>777</a>";
+//         pageInner+="<a class='btn pre' href='javascript:prePage()'>888</a>";
     }  
     //alert(pageInner);
     // 페이징할 DIV태그에 우선 내용을 비우고 페이징 태그삽입
-    //$("#paginate").html("");	//220222 test
-    //$("#paginate").append(pageInner);	//220222 test
+    $("#paginate").html("");	//220222 test
+    $("#paginate").append(pageInner);	//220222 test
    
 }
 
@@ -304,7 +309,6 @@ function onClick_detail_video()
 	}
 	
 	console.log("contentId : ", contentId);
-	
 	$("#frmContentDetails").empty();
 	$("#frmContentDetails").jqUtils_bcs_loadHTML(
 			"<c:url value="/content/detail"/>/" + contentId + "/video",
@@ -363,6 +367,15 @@ function onClick_modify()
 {
 }
 
+function callback_reloadList(contentId)
+{
+	$("#contentList").jqGrid("delRowData", contentId);
+	$("#contentList").jqGrid('setGridParam', {
+        page:$("#contentList").getGridParam("page")
+    }).trigger("reloadGrid");
+	
+}
+
 function onClick_delete()
 {
 	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
@@ -374,23 +387,24 @@ function onClick_delete()
 	
 	var mb = new bcs_messagebox().open("영상검색", "삭제 하시겠습니까?", null, {
 		"삭제" : function(){
-			$.ajax({
-				url : "<c:url value="/"/>/" + contentId,
-				async : false,
-				dataType : "json",
-				data : null, 
-				method : "post",
-				beforeSend : function(xhr, settings ){},
-				error : function (xhr, status, error){},
-				success : function (ajaxData) {
-					if(ajaxData.resultCode == "Success"){
-						$("#contentList").jqGrid("delRowData", ajaxData.contentId);
-						mb.close();
-					}else{
-						new bcs_messagebox().openError("영상검색", "컨텐츠 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
-					}
-				}
-			});
+			console.log("<c:url value="/"/>/" + contentId);
+// 			$.ajax({
+// 				url : "<c:url value="/"/>/" + contentId,
+// 				async : false,
+// 				dataType : "json",
+// 				data : null, 
+// 				method : "post",
+// 				beforeSend : function(xhr, settings ){},
+// 				error : function (xhr, status, error){},
+// 				success : function (ajaxData) {
+// 					if(ajaxData.resultCode == "Success"){
+// 						$("#contentList").jqGrid("delRowData", ajaxData.contentId);
+// 						mb.close();
+// 					}else{
+// 						new bcs_messagebox().openError("영상검색", "컨텐츠 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+// 					}
+// 				}
+// 			});
 		},
 		"닫기" : function(){ mb.close(); }
 	});
@@ -574,18 +588,18 @@ function clear_cameraDetail()
 				<table id="contentList" class="list_type1" data-ctrl-view="content_list" data-event-selectedRow="onSelected_cameraListItem"></table>
 <!-- 				<div id="p_contentList" data-ctrl-view="content_list_pager"></div> -->
 				<div id="NoData"></div>
-				<div id="paginate">
+				<div id="paginate" class="paginate">
 					
-					<a class='btn first'></a>
-					<a class='btn pre'></a>
-					<a class='btn pre none'></a>
+<!-- 					<a class='btn first'></a> -->
+<!-- 					<a class='btn pre'></a> -->
+<!-- 					<a class='btn pre none'></a> -->
 					
-					<a><strong>1</strong></a>
-					<a>2</a>
+<!-- 					<a><strong>1</strong></a> -->
+<!-- 					<a>2</a> -->
 					
-					<a class='btn next none'></a>
-					<a class='btn next'></a>
-					<a class='btn last'></a>
+<!-- 					<a class='btn next none'></a> -->
+<!-- 					<a class='btn next'></a> -->
+<!-- 					<a class='btn last'></a> -->
 				</div>
 			</div>
 
@@ -603,7 +617,8 @@ function clear_cameraDetail()
 
 		<!-- //contents -->
 		<div class="detailContainer">
-			<form id="frmContentDetails">
+			<form id="frmContentDetails" data-ctrl-view="content_details" 
+			data-event-reloadList="callback_reloadList">
 			</form>
 <!-- 			<div class="videoview"> -->
 <!-- 				<div id="player" style="background:#fafafa"></div>	 -->

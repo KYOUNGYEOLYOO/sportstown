@@ -17,12 +17,13 @@
 
 
 <c:set var="contentMeta_video" value=""/>
-<c:set var="vodStreamer" value=""/>
+<%-- <c:set var="vodStreamer" value=""/> --%>
 <c:set var="contentRootUri" value=""/>
 
 <script type="text/javascript">
 var videoTag;
 var currentRate = 1;
+var eventSender = new bcs_ctrl_event($("[data-ctrl-view=content_details]"));
 
 //alert("111");
 test();
@@ -32,8 +33,8 @@ test();
 	
 //});
 
-<c:set var="streamUrl" value=""/>
-<c:set var="streamFile" value=""/>
+// <c:set var="streamUrl" value=""/>
+// <c:set var="streamFile" value=""/>
 
 <c:forEach items="${contentMeta.content.instances}" var="instance" end="0">
 	<c:set var="streamUrl" value="${vodStreamer}/${contentRootUri}"/>
@@ -45,6 +46,8 @@ function test(){
 
 	console.log("login location ==> ${loginUser.connectLocation}");
 	console.log("vodStreamer ==> ${vodStreamer}");
+	console.log("streamUrl ==> ${streamUrl}");
+	console.log("streamFile ==> ${streamFile}");
 		//var  mediaUrl = "${vodStreamer}${contentRootUri}${contentMeta.content.instances[0].file.filePath}${contentMeta.content.instances[0].file.fileName}/playlist.m3u8"
 		var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, vodStreamer)}${contentRootUri}${contentMeta.content.instances[0].file.filePath}${contentMeta.content.instances[0].file.fileName}/playlist.m3u8"
 
@@ -77,7 +80,59 @@ function test(){
 		
 }
 
+function onClick_download()
+{
+ 	$(location).attr("href", "<c:url value="/file/download"/>/${contentMeta.content.instances[0].file.fileId}");
+}
+function onClick_modify()
+{
+	// 이전부터 구현되어 있는 기능이 없었음...
+}
+function onClick_delete()
+{
+	var contentId = "${contentId}";
+	if(typeof contentId == "undefined" || contentId == null)
+	{
+		new bcs_messagebox().open("영상검색", "컨텐츠를 선택해 주세요", null);
+		return;
+	}
+	
+	var mb = new bcs_messagebox().open("영상검색", "삭제 하시겠습니까?", null, {
+		"삭제" : function(){
+			console.log("<c:url value="/service/content/deleteContent"/>/" + contentId);
+			$.ajax({
+// 				url : "<c:url value="/"/>/" + contentId,
+				url : "<c:url value="/service/content/deleteContent"/>" ,
+				async : false,
+				dataType : "json",
+// 				data : null,
+				data : {
+					contentId: contentId
+				},
+				method : "post",
+				beforeSend : function(xhr, settings ){},
+				error : function (xhr, status, error){},
+				success : function (ajaxData) {
+					if(ajaxData.resultCode == "Success"){
+						console.log("ajaxData.resultCode : ", ajaxData.resultCode);
+// 						$("#contentList").jqGrid("delRowData", ajaxData.contentId);
+						eventSender.send("data-event-reloadList",contentId); // contentDetails에서 삭제시 contentManage에 jqgrid selrow 삭제
+						mb.close();
+					}else{
+						new bcs_messagebox().openError("영상검색", "컨텐츠 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+					}
+				}
+			});
+		},
+		"닫기" : function(){ mb.close(); }
+	});
+	
+}
+
+
 </script>
+
+
 	<div class="videoview">
 		<div id="player" style="background:#fafafa"></div>	
 	</div>
@@ -106,9 +161,10 @@ function test(){
 			</dd>						
 		</dl>
 		<div class="btnWrap">
-			<a class="btn download">다운로드</a>		
+<!-- 			<a class="btn download">다운로드</a>		 -->
+			<a class="btn download" href="javascript:onClick_download();">다운로드</a>		
 			<div class="btnWrap">
-				<a class="btn delete">삭제</a> 
+				<a class="btn delete" href="javascript:onClick_delete();">삭제</a> 
 				<a class="btn edit">수정</a>					
 			</div>
 		</div>

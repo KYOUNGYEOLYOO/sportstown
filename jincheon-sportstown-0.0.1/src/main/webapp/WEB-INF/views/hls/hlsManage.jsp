@@ -510,7 +510,7 @@ function canvasTest()
 			</div>
 			<!-- 캔버스 생성 버튼을 만들어봅세다.. 20211213 -->
 
-			<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div>
+<!-- 			<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div> -->
 			
 
 		</div>

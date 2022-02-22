@@ -25,6 +25,7 @@ var serverName = "";
 var streamName = "";
 
 
+
 function onClick_search()
 {
 	console.log('onClick_search');
@@ -88,6 +89,57 @@ function onClick_modify()
 			"<c:url value="/camera/modify"/>/" + camId,
 			false, "get", null, null
 		);	
+}
+function onClick_connect(){
+	var camId = $("#cameraList").jqGrid("getGridParam", "selrow");
+	if(typeof camId == "undefined" || camId == null)
+	{
+		new bcs_messagebox().open("카메라관리", "카메라를 선택해 주세요", null);
+		return;
+	}
+	
+	$.ajax({
+		url : "<c:url value="/service/camera/connectStreamW"/>/" + camId,
+		async : false,
+		dataType : "json",
+		data : null,
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				console.log("success");
+			}else{
+				new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+}
+
+function onClick_disconnect(){
+	var camId = $("#cameraList").jqGrid("getGridParam", "selrow");
+	if(typeof camId == "undefined" || camId == null)
+	{
+		new bcs_messagebox().open("카메라관리", "카메라를 선택해 주세요", null);
+		return;
+	}
+	
+	$.ajax({
+		url : "<c:url value="/service/camera/disconnectStreamW"/>/" + camId,
+		async : false,
+		dataType : "json",
+		data : null,
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				console.log("success");
+			}else{
+				new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
 }
 
 function onClick_delete()
@@ -266,7 +318,7 @@ function clear_cameraDetail()
 				<table id="cameraList" class="list_type1" data-ctrl-view="camera_list" data-event-selectedRow="onSelected_cameraListItem"></table>
 <!-- 				<div id="p_cameraList" data-ctrl-view="camera_list_pager"></div> -->
 <!-- 				<div id="NoData"></div> -->
-				<div id="paginate" data-ctrl-view="camera_list_pager" style="text-align: center; margin-top: 60px"></div>
+				<div class="paginate" id="p_cameraList" data-ctrl-view="camera_list_pager" style="text-align: center;"></div>
 				
 			</div>
 		</div>
@@ -274,8 +326,8 @@ function clear_cameraDetail()
 			<form id="frmCameraDetail">
 			</form>
 			<div class="btnWrap cameraSearch">
-				<a class="btn" href="javascript:onClick_delete();">연결</a>
-				<a class="btn" href="javascript:onClick_delete();">연결해제</a>
+				<a class="btn" href="javascript:onClick_connect();">연결</a>
+				<a class="btn" href="javascript:onClick_disconnect();">연결해제</a>
 				<div class="btnWrap">				
 					<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
 					<a class="btn edit" href="javascript:onClick_modify();">수정</a>				

@@ -19,10 +19,11 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#canvas").dialog({
-		title: "캔버스",
+		title: "캔버스",  // 타이틀은 사라지고 메뉴가 얇게 들어가면 좋겠습니다.
 		modal: true,
-		width: '1000',
-		height: '1000',
+		width: '1920',
+		height: $("#contentsWrap").height(), // contentsWrap 크기로 설정하고 싶은데 height가 자꾸 auto로 설정이 됩니다...
+// 		height: $("#contentsWrap").height(),
 		dialogClass: 'transparent',
 	});
 	

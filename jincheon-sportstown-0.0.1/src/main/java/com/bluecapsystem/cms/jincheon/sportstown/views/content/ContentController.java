@@ -135,6 +135,7 @@ public class ContentController {
 //				mnv.setViewName("/content/contentModify");
 //			}
 			resultCode = "Success";
+			mnv.addObject("contentId", contentId);
 			mnv.addObject("contentMeta", meta);
 			mnv.addObject("resultCode", resultCode);
 

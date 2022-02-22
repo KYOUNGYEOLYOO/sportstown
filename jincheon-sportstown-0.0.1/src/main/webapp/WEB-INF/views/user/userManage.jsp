@@ -228,10 +228,9 @@ function clearUserDetail()
 					<jsp:param value="p_userList" name="pagerId"/>
 				</jsp:include>
 				<table id="userList" class="list_type1" data-ctrl-view="user_list" data-event-selectedRow="onSelected_userListItem"></table>
-				<div id="p_userList" data-ctrl-view="user_list_pager"></div>
-				<!-- <!-- 				페이져 --> -->
+<!-- 				<div id="p_userList" data-ctrl-view="user_list_pager"></div> -->
 <!-- 				<div id="NoData"></div> -->
-<!-- 				<div id="paginate" style="text-align: center; margin-top: 60px"></div> -->
+				<div class="paginate" id="p_userList" data-ctrl-view="user_list_pager" style="text-align: center; "></div>
 				
 			</div>
 		</div>
