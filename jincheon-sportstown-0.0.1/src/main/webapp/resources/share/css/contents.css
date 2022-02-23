@@ -16,7 +16,8 @@
 .cameraBox > ul.camera2pt li	{width:945px;}
 .cameraBox > ul.camera3pt li	{width:772px;}
 
-.camera1pt li .videocontents {height:878px;}
+/* .camera1pt li .videocontents {height:878px;} */
+.camera1pt li .videocontents {height:836px;}
 .camera2pt li .videocontents {height:532px;}
 .camera3pt li .videocontents {height:434px;}
 
@@ -24,7 +25,7 @@
 
 .cameraBox > ul[class*="camera"] + p	{display:none;}
 
-
+.videocontents .jwplayer {height: 100% !important}
 
 @media screen and (min-height: 1079px){
 	.cameraBox > ul > li:nth-child(n+3)	{/*margin-top:24px;*/}

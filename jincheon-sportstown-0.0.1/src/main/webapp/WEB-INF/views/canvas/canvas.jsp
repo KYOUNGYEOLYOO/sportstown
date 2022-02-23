@@ -24,6 +24,8 @@ $(document).ready(function(){
 		width: '1920',
 		height: $("#contentsWrap").height(), // contentsWrap 크기로 설정하고 싶은데 height가 자꾸 auto로 설정이 됩니다...
 // 		height: $("#contentsWrap").height(),
+		draggable: false,
+		resizable: false,
 		dialogClass: 'transparent',
 	});
 	

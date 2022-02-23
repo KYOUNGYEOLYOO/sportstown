@@ -73,7 +73,7 @@ $(document).ready(function(){
 	   		{name:"fileName", index:"fileName", hidden:true}
 	   	],
 	   	multiselect:true,
-	   	pager: $pager,
+// 	   	pager: $pager, //0223 페이져 삭제
 	   	jsonReader : {
 	   		root : "files",
 	   		id : "fileId"
@@ -141,7 +141,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	$('[data-ctrl-view=file_search]').dialog('widget').attr('id', 'dialogId');
+	$('[data-ctrl-view=file_search]').dialog('widget').attr('id', 'fsDialogId');
 });
 
 </script>
