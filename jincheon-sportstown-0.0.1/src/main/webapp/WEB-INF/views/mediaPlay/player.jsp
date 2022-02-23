@@ -6,6 +6,7 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <jsp:useBean id="ipFilter" class="com.bluecapsystem.cms.jincheon.sportstown.common.define.IPFilterConstant" />
 
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/share/css/contents.css"/>"/>
 
 <script type="text/javascript">
 
@@ -81,7 +82,7 @@ function canvasTest()
 			<div id="player_${file.fileId}" data-ctrl-view="vod_player" data-vod-fileId="${file.fileId}" >
 				Wait loading
 			</div>
-			<button class="player cannvas" onclick="canvasTest()"></button>
+<!-- 			<button class="player cannvas" onclick="canvasTest()"></button> -->
 		</div>
 	</div>
 </li>
