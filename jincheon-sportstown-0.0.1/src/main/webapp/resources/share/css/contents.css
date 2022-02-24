@@ -15,11 +15,16 @@
 .cameraBox > ul.camera1pt li	{width:1561px;}
 .cameraBox > ul.camera2pt li	{width:945px;}
 .cameraBox > ul.camera3pt li	{width:772px;}
+/* .cameraBox > ul.camera4pt li	{width:630px;} */
 
 /* .camera1pt li .videocontents {height:878px;} */
 .camera1pt li .videocontents {height:836px;}
 .camera2pt li .videocontents {height:532px;}
 .camera3pt li .videocontents {height:413px;}
+/* .camera4pt li .videocontents {height:272px;} */
+/* .camera4pt > li:nth-of-type(n+2)	{margin-top:px !important;} */
+/* .camera4pt > li:nth-of-type(n+3)	{margin-top:10px !important; margin-left:10px;} */
+/* .camera4pt > li:nth-of-type(n+4)	{margin-top:0px !important;} */
 /* .camera3pt li .videocontents {height:434px;} */
 
 .cameraBox .videobox	{position:relative; width:100%; height:100%;}

@@ -158,10 +158,14 @@ function change_player_layout()
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera2pt");
-	}else
+	}else if(cntPlayer <= 4)	
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera3pt");
+	}else
+	{
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera4pt");
 	}
 }
 
