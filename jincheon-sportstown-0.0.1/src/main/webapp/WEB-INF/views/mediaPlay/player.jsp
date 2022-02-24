@@ -82,6 +82,7 @@ function canvasTest()
 			<div id="player_${file.fileId}" data-ctrl-view="vod_player" data-vod-fileId="${file.fileId}" >
 				Wait loading
 			</div>
+			<button class="player cannvas"></button>
 <!-- 			<button class="player cannvas" onclick="canvasTest()"></button> -->
 		</div>
 	</div>

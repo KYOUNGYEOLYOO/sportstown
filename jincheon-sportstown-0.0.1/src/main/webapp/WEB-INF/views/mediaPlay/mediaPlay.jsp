@@ -24,6 +24,29 @@ $(document).ready(function(){
 	$(document).on('click', '#lnbWrap.video > p.toggle', function() {	        
 		$(this).parent().toggleClass("menuopen");
 	});	
+
+	// 220224 canvas
+	$(document).on('click', '.player.cannvas', function() {	        
+		$("#wrapper").addClass("canvasopen");
+	});		
+	$(document).on('click', '.canvasMenuWrap > ul > li > p', function() {	        
+		$(this).toggleClass("open");
+	});		
+	$(document).on('click', '.canvasMenuWrap > ul a', function() {	
+		$(".canvasMenuWrap .eraser").removeClass("on");
+		$(this).parent().siblings().removeClass("on");
+		$(this).parent().addClass("on");
+	});
+	$(document).on('click', '.canvasMenuWrap .eraser a', function() {	        
+		$(".canvasMenuWrap").find("li").removeClass("on");
+		$(this).parent().addClass("on");
+	});	
+	$(document).on('click', '.canvasMenuWrap .reset p', function() {	        
+		$(".canvasMenuWrap").find("li").removeClass("on");		
+	});		
+	$(document).on('click', '.canvasMenuWrap > p.close', function() {	        
+		$("#wrapper").removeClass("canvasopen");
+	});		
 	
 });
 
@@ -359,6 +382,49 @@ function fullScreen(){
 			<button class="fullScreen" id="fullscreen" onclick="fullScreen()"></button>
 			<a class="addMedia" href="javascript:onClick_addMedia();">영상추가</a>
 		</div>
+		<!-- 	canvas -->
+		<div class="canvasContainer">
+			<div class="canvasWrap">
+				<div class="canvasMenuWrap">
+					<ul>
+						<li class="figure">
+							<p>도형</p>
+							<ul>
+								<li class="quadrangle"><a href="#">네모</a></li>
+								<li class="circle"><a href="#">원</a></li>
+								<li class="line"><a href="#">자유선</a></li>
+							</ul>
+						</li>
+						<li class="color">
+							<p>색깔</p>
+							<ul>
+								<li class="blue"><a href="#">파랑</a></li>
+								<li class="red"><a href="#">빨강</a></li>
+								<li class="green"><a href="#">초록</a></li>
+								<li class="black"><a href="#">검정</a></li>
+								<li class="skiblue"><a href="#">하늘색</a></li>				
+							</ul>
+						</li>
+						<li class="width">
+							<p>두께</p>
+							<ul>
+								<li class="thin"><a href="#">얇은 거</a></li>
+								<li class="normal"><a href="#">보통</a></li>
+								<li class="bold"><a href="#">두꺼운 거</a></li>
+							</ul>
+						</li>
+						<li class="eraser">
+							<a href="#">지우개</a>
+						</li>		
+						<li class="reset">
+							<p>초기화</p>
+						</li>				
+					</ul>
+					<p class="close">닫기</p>
+				</div>			
+			</div>
+		</div>		
+		<!-- 	//canvas -->
 		<!-- //contents -->
 	</div>
 </div>
