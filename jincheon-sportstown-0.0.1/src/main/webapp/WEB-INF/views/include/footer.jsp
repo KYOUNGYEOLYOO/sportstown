@@ -12,8 +12,9 @@
 
 <script type="text/javascript">
 $(document).ready(function(){	
-	$(document).on('click', '.loading', function() {	 
-		$(this).hide();
-	});		
+// 	$(document).on('click', '.loading', function() {	 
+// 		$(this).hide();
+// 	});	
+	$(".loading").hide();
 });
 </script>

@@ -201,9 +201,13 @@ public class UserJsonController {
 				session.setAttribute(UserSessionDefine.LOGIN_USER_SESSION_KEY, user);
 				// session timeout 24h
 				session.setMaxInactiveInterval(60*60*24);
+				
+			
+				
 				resultCode = CommonResult.Success;
 				System.out.println("result code : " + resultCode);
 				System.out.println("session data : " + user);
+				mnv.addObject("user", user);
 			}
 		} catch (Exception ex) {
 			System.out.println("login error : " + ex);
@@ -212,7 +216,7 @@ public class UserJsonController {
 		}
 
 		mnv.addObject("resultCode", resultCode);
-		mnv.addObject("testCode", "test");
+		
 
 		return mnv;
 

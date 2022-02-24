@@ -31,7 +31,13 @@ function onClick_login()
 		
 			if(ajaxData.resultCode == "Success"){
 				// TODO : main 화면으로 redirect
-				$(location).attr("href", "<c:url value="/hls/manage"/>");
+				
+				if(ajaxData.user.userType == "Admin"){
+					$(location).attr("href", "<c:url value="/index"/>");
+				}else{
+					$(location).attr("href", "<c:url value="/hls/manage"/>");
+				}
+				//
 			}
 			else{
 				new bcs_messagebox().openError("로그인", "로그인에 실패 했습니다 [errorCode="+ajaxData.resultCode+"]", null);

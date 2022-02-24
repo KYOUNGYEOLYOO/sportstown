@@ -7,6 +7,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		
+		
 		var eventSender = new bcs_ctrl_event($("#${listId}"));
 		$("#${listId}").jqGrid({
 			// data: mydata,
@@ -27,17 +29,26 @@
 			rowNum: -1,
 			// rowList: [20,50,100],
 			// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
-			colNames : [ "코드명", "사용여부", "codeId" ],
+			
+			
+			colNames : [ "코드명", "사용여부", "파티션여부","codeId" ],
 			colModel : [ {
 				name : "name",
 				index : "loginId",
-				width : 180,
+				width : 30,
 				align : "left"
 			}, {
 				name : "isUsed",
 				index : "isUsed",
-				width : 180,
+				width : 30,
 				align : "center"
+			},{
+				name : "isPartition",
+				index : "isPartition",
+				width : 30,
+				align : "center",
+				hidden : true
+				
 			},
 			// {name:"registDate",index:"registDate", align:"center"},
 			{

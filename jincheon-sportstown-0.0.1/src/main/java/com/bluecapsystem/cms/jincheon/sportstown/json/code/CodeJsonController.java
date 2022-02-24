@@ -127,6 +127,7 @@ public class CodeJsonController
 		{
 			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("codes", codes);
+			mnv.addObject("groupCode", groupCode);
 		}
 		
 		return mnv;
@@ -152,6 +153,8 @@ public class CodeJsonController
 			@ModelAttribute() Code code)
 	{
 		ModelAndView mnv = new ModelAndView("jsonView");
+		System.out.println("1>>>>"+code.getIsUsed());
+		System.out.println("1>>>>"+code.getIsPartition());
 		IResult resultCode = codeServ.modifyCode(code);
 		
 		mnv.addObject("code", code);

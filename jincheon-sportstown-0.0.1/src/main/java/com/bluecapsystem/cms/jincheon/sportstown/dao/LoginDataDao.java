@@ -25,18 +25,16 @@ import com.bluecapsystem.cms.core.generator.UniqueIDGenerator;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.DashboardDataSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
-import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.LoginData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 
 
 
-public interface DashboardDataDao extends JpaRepository<DashboardData, String>
+public interface LoginDataDao extends JpaRepository<DashboardData, String>
 {
 	
-	@Query(value = "SELECT dd.sportsEvent.name, count(*) FROM DashboardData dd WHERE dd.dataType= :dataType group by dd.sportsEvent.name ")
-	List<DashboardData> findGroupByData(@Param("dataType") DataType dataType);
-
-	
+	@Query(value = "SELECT ld.userId FROM LoginData ld WHERE ld.registDate between(current_timestamp - interval '5min') and current_timestamp group by ld.userId ",nativeQuery = true)
+	List<LoginData> findGroupByData();
 
 	
 }

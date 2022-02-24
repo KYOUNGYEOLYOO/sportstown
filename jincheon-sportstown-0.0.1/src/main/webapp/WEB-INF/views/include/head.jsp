@@ -46,6 +46,9 @@
 
 <link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/bluecap/css/bcsCommon.css"/>"/>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
 <%--
 캔버스 기능 20211213
  --%>
