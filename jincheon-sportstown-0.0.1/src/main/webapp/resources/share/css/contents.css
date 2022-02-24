@@ -147,6 +147,7 @@
 								
 								
 .canvasContainer .canvasMenuWrap .width > p	{background-position:0 -100px;}
+.canvasContainer .canvasMenuWrap .width > p:hover	{background-position:-50px -100px;}
 .canvasContainer .canvasMenuWrap .width a	{position:relative; background-image:none;}
 .canvasContainer .canvasMenuWrap .width a:before	{content:""; position:absolute; left:10px; width:30px; background-color:#ccc;}
 .canvasContainer .canvasMenuWrap .width li.on a:before	{background-color:#fff;}
