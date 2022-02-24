@@ -228,7 +228,7 @@ a.btn.delete	{border-color:#d9534f; background-color:#d9534f; color:#fff;}
 .datepickerBox input.inputTxt { }
 .datepickerBox input.inputTxt.ex { width:350px;}
 
-.datepickerBox .ui-datepicker-trigger { position:absolute; bottom:16px; right:10px;}
+.datepickerBox .ui-datepicker-trigger { position:absolute; bottom:16px; right:10px; cursor:pointer;}
 
 /* popupWindow */
 .popupheader {background:#5a79ba url(../../images/contents/poptitlebg.png) no-repeat 50% 0; height:40px; line-height:40px; height:40px; color:#fff; font-size:15px; text-align:center;}

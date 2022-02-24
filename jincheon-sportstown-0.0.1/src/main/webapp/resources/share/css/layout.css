@@ -460,12 +460,12 @@ body .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button	{margin:0;widt
  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
  
  /*	calenadr	*/
- body .ui-widget.ui-widget-content.ui-datepicker 	{box-shadow: 0 0 2px 2px rgba(0,0,0,.1);}
+ body .ui-widget.ui-widget-content.ui-datepicker 	{background-color:#eef9fc; box-shadow: 0 0 7px 4px rgba(0,0,0,.2); padding:10px;}
 .ui-datepicker .ui-datepicker-header.ui-widget-header .ui-datepicker-prev,.ui-datepicker .ui-datepicker-header.ui-widget-header .ui-datepicker-next	{
 	width:16px; height:16px; 
 	background-image:url(../../images/common/btn_paginate.png); 
 	border:none ;
-	top:9px;
+	top:17px;
 }
 .ui-datepicker .ui-datepicker-prev span, .ui-datepicker .ui-datepicker-next span	{display:none !important;}
 .ui-datepicker .ui-datepicker-prev	{background-position:-16px 0;}
@@ -473,9 +473,9 @@ body .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset button	{margin:0;widt
  .ui-datepicker .ui-datepicker-prev:hover	{background-position:-16px -16px;}
 .ui-datepicker .ui-datepicker-next:hover	{background-position:-32px -16px;}
 
-.ui-datepicker .ui-datepicker-header	{border-bottom-color:#5bc0de;}
+body .ui-datepicker .ui-datepicker-header	{background-color:#fff; border-bottom:3px solid #5bc0de; padding:10px 0;}
 
-body .ui-datepicker table	{margin:0;}
+body .ui-datepicker table	{margin:0; background-color:#fff;}
 body .ui-datepicker td	{padding:0; border-top:1px solid #eaeaea;}
 body .ui-datepicker td + td	{border-left:1px solid #eaeaea;}
 body .ui-datepicker td a	{border:none !important; font-weight:normal !important; padding:6px !important;}
