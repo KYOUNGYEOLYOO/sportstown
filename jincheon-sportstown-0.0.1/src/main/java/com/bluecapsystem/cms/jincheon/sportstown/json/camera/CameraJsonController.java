@@ -314,27 +314,38 @@ public class CameraJsonController {
 	 * mnv.addObject("streamSourceUrl", streamSourceUrl); } return mnv; }
 	 */
 	
-	@RequestMapping(value = "/connectStreamW")
-	public ModelAndView connectStreamW(HttpServletRequest request) {
+	@RequestMapping(value = "/connectStreamW/{camId}")
+	public ModelAndView connectStreamW(@PathVariable("camId") String camId,
+			@ModelAttribute CameraSelectCondition condition) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 
 		String applicationCode = "";
 		String streamName = "";
 		String streamServer = "";
-		String streamSourceUrl = "";
+
+		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
-		/*
-		 * 20211228 connect disconnect 진행중
-		 */
-
+		Camera camera = null;
+		try {
+			condition.setCamId(camId);
+			camera = camServ.getCamera(condition);
+			resultCode = CommonResult.Success;
+		} catch (Exception ex) {
+			resultCode = CommonResult.SystemError;
+		}
+		
 		try {
 			String baseUrl = null;
 
-			applicationCode = (String) request.getParameter("applicationName");
-			streamName = (String) request.getParameter("streamName");
-			streamServer = (String) request.getParameter("serverName");
+			applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+			streamName = camera.getStreamMetaItems().get(0).getStreamName();
+			streamName = streamName.replace(".stream", ""); 
+			streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+//			applicationCode = (String) request.getParameter("applicationName");
+//			streamName = (String) request.getParameter("streamName");
+//			streamServer = (String) request.getParameter("serverName");
 
 			baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 			baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
@@ -359,11 +370,11 @@ public class CameraJsonController {
 			}
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
-			Enumeration params = request.getParameterNames();
-			while (params.hasMoreElements()) {
-				String name = (String) params.nextElement();
-				System.out.print(name + " : " + request.getParameter(name) + "     ");
-			}
+//			Enumeration params = request.getParameterNames();
+//			while (params.hasMoreElements()) {
+//				String name = (String) params.nextElement();
+//				System.out.print(name + " : " + request.getParameter(name) + "     ");
+//			}
 			System.out.println();
 		} finally {
 			mnv.addObject("applicationName", applicationCode);
@@ -375,17 +386,27 @@ public class CameraJsonController {
 		return mnv;
 	}
 
-	@RequestMapping(value = "/disconnectStreamW")
-	public ModelAndView disconnectStreamW(HttpServletRequest request) {
+	@RequestMapping(value = "/disconnectStreamW/{camId}")
+	public ModelAndView disconnectStreamW(@PathVariable("camId") String camId,
+			@ModelAttribute CameraSelectCondition condition) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 
 		String applicationCode = "";
 		String streamName = "";
 		String streamServer = "";
-		String streamSourceUrl = "";
+
+		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
+		Camera camera = null;
+		try {
+			condition.setCamId(camId);
+			camera = camServ.getCamera(condition);
+			resultCode = CommonResult.Success;
+		} catch (Exception ex) {
+			resultCode = CommonResult.SystemError;
+		}
 		/*
 		 * 20211228 connect disconnect 진행중
 		 */
@@ -393,9 +414,14 @@ public class CameraJsonController {
 		try {
 			String baseUrl = null;
 
-			applicationCode = (String) request.getParameter("applicationName");
-			streamName = (String) request.getParameter("streamName");
-			streamServer = (String) request.getParameter("serverName");
+			
+			applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+			streamName = camera.getStreamMetaItems().get(0).getStreamName();
+//			streamName = streamName.replace(".stream", ""); disconnect 는 stream이 들어가야됨
+			streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+//			applicationCode = (String) request.getParameter("applicationName");
+//			streamName = (String) request.getParameter("streamName");
+//			streamServer = (String) request.getParameter("serverName");
 
 			baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 			baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
@@ -420,11 +446,11 @@ public class CameraJsonController {
 			}
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
-			Enumeration params = request.getParameterNames();
-			while (params.hasMoreElements()) {
-				String name = (String) params.nextElement();
-				System.out.print(name + " : " + request.getParameter(name) + "     ");
-			}
+//			Enumeration params = request.getParameterNames();
+//			while (params.hasMoreElements()) {
+//				String name = (String) params.nextElement();
+//				System.out.print(name + " : " + request.getParameter(name) + "     ");
+//			}
 			System.out.println();
 		} finally {
 			mnv.addObject("applicationName", applicationCode);

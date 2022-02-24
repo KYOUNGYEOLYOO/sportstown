@@ -11,7 +11,6 @@
 
 <jsp:include page="/include/head"/>
 
-<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/bluecap/css/bcsCommon.css"/>"/>
 
 <script src="<c:url value="/bluecap/jqUtils/messagebox.js"/>"></script>
 <script src="<c:url value="/bluecap/jqUtils/ajaxHTMLLoader.js"/>"></script>
@@ -24,6 +23,9 @@
 <%-- <script src="<c:url value="/resources/jqueryui/jquery-ui.js"/>"></script> --%>
 <script src="<c:url value="/resources/jqgrid/js/i18n/grid.locale-en.js"/>"></script>
 <script src="<c:url value="/resources/jqgrid/js/jquery.jqGrid.min.js"/>"></script>
+
+<link rel="stylesheet" type="text/css" media="screen" href="<c:url value="/bluecap/css/bcsCommon.css"/>"/>
+
 
 <script type="text/javascript">
 $(document).ready(function(){

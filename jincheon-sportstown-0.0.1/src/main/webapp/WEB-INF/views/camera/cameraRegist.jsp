@@ -87,6 +87,7 @@ $(document).ready(function(){
 	
 });
 
+
 function addToWowza(){
 	
 
@@ -214,8 +215,9 @@ function addToWowza(){
 			</tr>
 			<tr>
 				<th>Source URL</th>
-				<td colspan="3" class="double">
-					<input type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="inputTxt">
+<!-- 				<td colspan="3" class="double"> -->
+				<td colspan="3">
+<!-- 					<input type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="inputTxt"> -->
 					<input id="streamSourceUrl_new" type="text" name="streamMetaItems[0].streamSourceUrl" value="" title="카메라명" class="inputTxt">
 				</td>
 			</tr>
