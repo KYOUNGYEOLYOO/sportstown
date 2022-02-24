@@ -72,14 +72,16 @@ function addCanvas(){
 	
 	const canvasChange = document.createElement("canvas");
 	canvasChange.setAttribute("id","canvasChange");
-	document.body.appendChild(canvasChange);
+//	document.body.appendChild(canvasChange);
+	document.getElementById("canvasWrap").appendChild(canvasChange);
 	canvasChange.setAttribute("style","position: absolute; top: 0px; left: 0px;"+
 	"z-index: 1; background-color: transparent;");
 	
 	
 	const canvas = document.createElement("canvas");
 	canvas.setAttribute("id", "canvas");
-	document.body.appendChild(canvas);
+//	document.body.appendChild(canvas);
+	document.getElementById("canvasWrap").appendChild(canvas);
 	canvas.setAttribute("background-color","transparent");
 	canvas.setAttribute("style","position: absolute; top: 0px; left: 0px;"+
 	"z-index: 2; ");
@@ -87,6 +89,10 @@ function addCanvas(){
 		
 	ctx = canvas.getContext("2d");
 	ctxChange = canvasChange.getContext("2d");
+	
+	// default 색상 빨강으로 설정
+	ctx.strokeStyle = "#ff0000";
+	ctxChange.strokeStyle = "#ff0000";
 	
 	resizeCanvas(canvas); 
 	// 이유는 모르겠는데 실행 안됨 이 내용들을 setAttribute에서 바로 실행
@@ -109,7 +115,9 @@ function delCanvas(canvas, canvasChange){
 
 function clrCanvas(canvas){
 	console.log("clrCanvas");
-	ctx.clearRect(0,0,canvas.width,canvas.height);
+//	ctx.clearRect(0,0,canvas.width,canvas.height);
+// jquery로 넣어주려다 보니 width를 함수로 써야되는듯??
+	ctx.clearRect(0,0,canvas.width(),canvas.height());
 }
 
 function eraseCanvas(){
@@ -156,6 +164,23 @@ function changeWidth(value){
 
 function changeColor(value){
 	console.log("changeColor");
+	switch (value){
+		case "파랑":
+			value = "#0000ff";
+			break;
+		case "빨강":
+			value = "#ff0000";
+			break;
+		case "초록":
+			value = "#00ff00";
+			break;
+		case "검정":
+			value = "#000";
+			break;
+		case "하늘색":
+			value = "#00ccff";
+			break;
+	}
 	ctx.strokeStyle = value;
 	ctxChange.strokeStyle = value;
 }

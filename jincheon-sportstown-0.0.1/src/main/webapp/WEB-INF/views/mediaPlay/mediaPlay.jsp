@@ -28,6 +28,7 @@ $(document).ready(function(){
 	// 220224 canvas
 	$(document).on('click', '.player.cannvas', function() {	        
 		$("#wrapper").addClass("canvasopen");
+		addCanvas();
 	});		
 	$(document).on('click', '.canvasMenuWrap > ul > li > p', function() {	        
 		$(this).toggleClass("open");
@@ -37,15 +38,21 @@ $(document).ready(function(){
 		$(this).parent().siblings().removeClass("on");
 		$(this).parent().addClass("on");
 	});
+	$(document).on('click', '.canvasMenuWrap .color a', function() {
+		changeColor($(this).context.innerHTML);
+	});
 	$(document).on('click', '.canvasMenuWrap .eraser a', function() {	        
 		$(".canvasMenuWrap").find("li").removeClass("on");
+		eraseCanvas();
 		$(this).parent().addClass("on");
 	});	
 	$(document).on('click', '.canvasMenuWrap .reset p', function() {	        
-		$(".canvasMenuWrap").find("li").removeClass("on");		
+		$(".canvasMenuWrap").find("li").removeClass("on");
+		clrCanvas($("#canvas"));
 	});		
 	$(document).on('click', '.canvasMenuWrap > p.close', function() {	        
 		$("#wrapper").removeClass("canvasopen");
+		delCanvas($("#canvas"),$("#canvasChange"));
 	});		
 	
 });
@@ -384,7 +391,7 @@ function fullScreen(){
 		</div>
 		<!-- 	canvas -->
 		<div class="canvasContainer">
-			<div class="canvasWrap">
+			<div class="canvasWrap" id="canvasWrap">
 				<div class="canvasMenuWrap">
 					<ul>
 						<li class="figure">
