@@ -12,11 +12,14 @@
 </div>
 <div id="headerWrap">
 	<div id="header">
-		<h1><a href="#" class="img_logo"><img src="<c:url value="/resources/images/layout/logo.png"/>" alt="대한체육회" /></a></h1>
+		<h1><a href="<c:url value="javascript:logo_click();" />" class="img_logo"><img src="<c:url value="/resources/images/layout/logo.png"/>" alt="대한체육회" /></a></h1>
 		<!-- gnb -->
 		<div id="gnbWrap">
 			<h2 class="blind">주메뉴</h2>
 			<ul id="gnb">
+				
+				<li data-main-menu-id="main" style="display:none;"><span><a href="<c:url value="/hls/manage"/>">main</a></span>
+				</li>
 				
 				<li data-main-menu-id="hls"><span><a href="<c:url value="/hls/manage"/>">영상녹화</a></span>
 				</li>
@@ -98,6 +101,15 @@
 
 
 <script type="text/javascript">
+
+function logo_click(){
+	
+	if('${loginUser.userType}' == "Admin"){
+		$(location).attr("href", "<c:url value="/index"/>");
+	}else{
+		$(location).attr("href", "<c:url value="/hls/manage"/>");
+	}	
+}
 
 function onClick_pwdModify()
 {

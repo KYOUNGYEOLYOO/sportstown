@@ -34,9 +34,12 @@ import com.bluecapsystem.cms.core.service.ContentService;
 import com.bluecapsystem.cms.core.service.FileInstanceService;
 import com.bluecapsystem.cms.core.service.ThumbnailInstanceService;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.SportstownContentSelectCondition;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownContentMeta;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownFileInstanceMeta;
 import com.bluecapsystem.cms.jincheon.sportstown.json.utils.JqGridParameterParser;
+import com.bluecapsystem.cms.jincheon.sportstown.service.DashboardDataManageService;
 
 @RestController
 @RequestMapping("/service/content")
@@ -55,10 +58,16 @@ public class ContentJsonController {
 
 	@Autowired
 	private ThumbnailInstanceService thumbnailServ;
+	
+	@Autowired
+	private DashboardDataManageService dashboardDataManageServ;
+	
+	
 
 	@RequestMapping("/registContentWithFile")
 	public ModelAndView registContentWithFile(@ModelAttribute Content content, @ModelAttribute SportstownContentMeta meta,
-			@RequestParam("file") MultipartFile file) {
+			@RequestParam("file") MultipartFile file,
+			@ModelAttribute DashboardData dashboardData) {
 
 		logger.debug("upload file name [content={}], [meta={}] => {}", content, meta, file.getOriginalFilename());
 		IResult resultCode = CommonResult.UnknownError;
@@ -114,6 +123,17 @@ public class ContentJsonController {
 			// 컨텐츠 등록
 			content.setContentMeta(meta);
 			resultCode = contentServ.registContent(em, content);
+			
+			if (resultCode != CommonResult.Success)
+				break _TRANSACTION;
+			
+			dashboardData.setUserType(DataType.Contents);
+			dashboardData.setRegistDate(content.getRegistDate());
+			dashboardData.setUserId(meta.getRecordUserId());
+			dashboardData.setSportsEventCode(meta.getSportsEventCode());
+			
+			dashboardDataManageServ.registDashboardData(dashboardData);
+			
 		}
 
 		logger.debug("컨텐츠 & 파일 저장결과 [content={}] => {}", content, resultCode);

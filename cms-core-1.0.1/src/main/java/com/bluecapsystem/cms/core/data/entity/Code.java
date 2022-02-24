@@ -52,10 +52,10 @@ public class Code
 	public String toString()
 	{
 		return String.format("%s["
-				+ "groupCode=%s, codeSeq=%s, name=%s, isUsed=%s"
+				+ "groupCode=%s, codeSeq=%s, name=%s, isUsed=%s, isPartition=%s"
 				+ "]",
 				this.getClass().getSimpleName(),
-				groupCode, codeId, name, isUsed.toString());
+				groupCode, codeId, name, isUsed.toString(), isPartition.toString());
 	}
 	
 
@@ -63,7 +63,7 @@ public class Code
 	{
 		this.name = code.getName();
 		this.isUsed = code.getIsUsed();
-		
+		this.isPartition = code.getIsPartition();
 		return true;
 	}
 	
@@ -116,7 +116,7 @@ public class Code
 		return isPartition;
 	}
 
-	public void setPartition(Boolean isPartition) {
+	public void setIsPartition(Boolean isPartition) {
 		this.isPartition = isPartition;
 	}
 	

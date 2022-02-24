@@ -62,6 +62,18 @@ function onSelected_group(groupCode)
 		url : "<c:url value="/service/code/getCodes"/>/" + groupCode + "?hasNotUsed=true",
 		datatype: "json"
 	});
+	
+	
+	if(groupCode =="SPORTS_EVENT"){
+		$("#codeList").jqGrid("showCol","isPartition");
+		//$("#jqGirdId").jqGrid('setColWidth', 'name' , 50, false);
+		//$("#jqGirdId").jqGrid('setColWidth', 'isUsed' , 50, false);
+	}else{
+		$("#codeList").jqGrid("hideCol","isPartition");
+		//$("#jqGirdId").jqGrid('setColWidth', 'name' , 180, false);
+		//$("#jqGirdId").jqGrid('setColWidth', 'isUsed' , 180, false);
+	}
+	
 	$("#codeList").trigger("reloadGrid");
 }
 
@@ -246,7 +258,9 @@ function clear_groupDetail()
 				<table id="codeList" class="list_type1" data-ctrl-view="code_list" data-event-selectedRow="onSelected_codeListItem"></table>
 				<jsp:include page="/code/codeList">
 					<jsp:param value="codeList" name="listId"/>
+					
 				</jsp:include>
+				
 				
 				<div class="btnWrap">
 					<div class="btnWrap">

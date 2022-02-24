@@ -141,6 +141,17 @@ function callback_modify(sender, user)
 <script type="text/javascript">
 function setUserDetail(user)
 {
+	console.log(user);
+	if(user.sportsEvent.isPartition == true){
+		$('#partition_area1').show();
+		$('#partition_area2').show();
+		$("#frmUserDetail").find("input[name=authFromDate]").val(user.authFromDate.substring(0,10));
+		$("#frmUserDetail").find("input[name=authToDate]").val(user.authToDate.substring(0,10));
+	}else{
+		$('#partition_area1').hide();
+		$('#partition_area2').hide();
+	}
+	
 	$("#frmUserDetail").find("input[name=userId]").val(user.userId);
 	$("#frmUserDetail").find("input[name=loginId]").val(user.loginId);
 	$("#frmUserDetail").find("input[name=userName]").val(user.userName);
@@ -251,6 +262,11 @@ function clearUserDetail()
 						<dt>종목</dt>
 						<dd class="full">
 							<input type="text" name="sportsEventName" value="" title="종목" class="inputTxt" readonly>
+						</dd>
+						<dt id="partition_area1" style="display:none;">기간</dt>
+						<dd id="partition_area2" style="display:none;" class="full">
+							<input type="text" name="authFromDate" value="" title="종목" class="inputTxt" style="width: 47%;" readonly>&nbsp;~&nbsp;
+							<input type="text" name="authToDate" value="" title="종목" class="inputTxt" style="width: 47%;"readonly>
 						</dd>
 						<dt>사용자유형</dt>
 						<dd class="full">

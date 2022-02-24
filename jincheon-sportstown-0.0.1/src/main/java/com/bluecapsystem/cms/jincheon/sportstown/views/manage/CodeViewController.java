@@ -93,12 +93,14 @@ public class CodeViewController
 	}
 	
 	@RequestMapping("/codeList")
-	public ModelAndView codeList(@RequestParam(name="listId", defaultValue="") String listId)
+	public ModelAndView codeList(@RequestParam(name="listId", defaultValue="") String listId,
+			@RequestParam(name="groupCode", defaultValue="") String groupCode)
 	{
 		
 		ModelAndView mnv = new ModelAndView("/code/codeList");
 		
 		mnv.addObject("listId", listId);
+		
 		
 		return mnv;
 	}

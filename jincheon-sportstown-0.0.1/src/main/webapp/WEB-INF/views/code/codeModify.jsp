@@ -12,6 +12,9 @@ $(document).ready(function(){
 	var eventSender = new bcs_ctrl_event($("[data-ctrl-view=code_modify]"));
 	
 	eventSender.sender.find("[name=isUsed]").val("${code.isUsed}").prop("checked", true);
+	eventSender.sender.find("[name=isPartition]").val("${code.isPartition}").prop("checked", true);
+	
+	
 	
 	$("[data-ctrl-view=code_modify]").dialog({
 		width:620,
@@ -77,6 +80,17 @@ $(document).ready(function(){
 					</select>
 				</td>
 			</tr>
+			<c:if test="${code.groupCode == 'SPORTS_EVENT'}">
+			<tr>
+				<th>파티션여부</th>
+				<td>
+					<select name="isPartition" title="파티션여부">
+						<option value="true">사용</option>
+						<option value="false">사용안함</option>
+					</select>
+				</td>
+			</tr>
+			</c:if>
 		</tbody>
 	</table>
 </form>

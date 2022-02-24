@@ -58,6 +58,7 @@ $(document).ready(function(){
 </script>
 
 <form>
+	<c:set var="partitionValue" value=""/>
 	<input type="hidden" name="userId" value="${user.userId}" />
 	<table summary="">
 		<caption></caption>
@@ -87,6 +88,9 @@ $(document).ready(function(){
 							<c:choose>
 								<c:when test="${user.sportsEventCode == code.codeId}">
 									<option value="${code.codeId}" selected>${code.name}</option>
+									<c:if test="${code.isPartition == true}">
+										<c:set var="partitionValue" value="Y"/>
+									</c:if>
 								</c:when>
 								<c:otherwise>
 									<option value="${code.codeId}">${code.name}</option>
@@ -97,6 +101,13 @@ $(document).ready(function(){
 					</select>
 				</td>
 			</tr>
+			<c:if test="${partitionValue =='Y'}">
+			<tr>
+				<th>기간</th>
+				<td>
+				</td>
+			</tr>
+			</c:if>
 			<tr>
 				<th>사용자유형</th>
 				<td>

@@ -8,13 +8,19 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
 
 import com.bluecapsystem.cms.jincheon.sportstown.common.define.UserSessionDefine;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.LoginData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 import com.bluecapsystem.cms.jincheon.sportstown.data.result.UserResult;
+import com.bluecapsystem.cms.jincheon.sportstown.service.DashboardDataManageService;
+import com.bluecapsystem.cms.jincheon.sportstown.service.LoginDataManageService;
 
 
 
@@ -22,6 +28,10 @@ public class LoginCheckInterceptor implements HandlerInterceptor
 {
 	
 	private final Logger logger = LoggerFactory.getLogger(LoginCheckInterceptor.class);
+	
+	@Autowired
+	private LoginDataManageService loginDataManageServ;
+	
 	
 	public LoginCheckInterceptor()
 	{
@@ -63,6 +73,17 @@ public class LoginCheckInterceptor implements HandlerInterceptor
 				response.sendRedirect(request.getContextPath() + "/login");
 			}
 		}
+		
+		if(user != null) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>bcs>>>>>>>>");
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>bcs>>>>>>>>"+user.getUserId());
+			LoginData loginData = new LoginData();
+			loginData.setUserId(user.getUserId());
+			
+			loginDataManageServ.registLoginData(loginData);
+		}
+		
+		
 		return true;
 	}
 	

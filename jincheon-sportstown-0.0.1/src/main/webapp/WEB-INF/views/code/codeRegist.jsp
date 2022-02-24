@@ -74,6 +74,17 @@ $(document).ready(function(){
 					</select>
 				</td>
 			</tr>
+			<c:if test="${group.groupCode == 'SPORTS_EVENT'}">
+			<tr>
+				<th>파티션여부</th>
+				<td>
+					<select name="isPartition" title="사용여부">
+						<option value="true">사용</option>
+						<option value="false">사용안함</option>
+					</select>
+				</td>
+			</tr>
+			</c:if>
 		</tbody>
 	</table>
 </form>

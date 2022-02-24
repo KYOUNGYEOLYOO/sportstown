@@ -281,8 +281,7 @@ public class CodeService
 					result = CommonResult.NotFoundInstanceError;
 					break _TRANSACTION;
 				}
-				
-				if(srcCode.update(code) == false)
+								if(srcCode.update(code) == false)
 				{
 					result = CommonResult.WrongParamertError;
 					break _TRANSACTION;
