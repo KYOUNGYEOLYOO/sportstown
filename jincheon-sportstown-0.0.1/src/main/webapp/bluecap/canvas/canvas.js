@@ -28,6 +28,7 @@ let ctx;
 let ctxChange;
 let x, y;
 let data, reloadData;
+let shape = "네모";
 var myObj = window.myObj || {}
 myObj = {
 	history: []
@@ -158,6 +159,19 @@ function drawCanvas(){
 
 function changeWidth(value){
 	console.log("changeWidth");
+	console.log(value);
+	switch (value){
+		case "얇은 거":
+			value = "3";
+			break;
+		case "보통":
+			value = "5";
+			break;
+		case "두꺼운 거":
+			value = "7";
+			break;
+	}
+	console.log(value);
 	ctx.lineWidth = value;
 	ctxChange.lineWidth = value;
 }
@@ -185,9 +199,10 @@ function changeColor(value){
 	ctxChange.strokeStyle = value;
 }
 
-function drawShape(/*shape*/){
+function drawShape(cShape){
 	console.log("drawShape");
-	
+	shape = cShape;
+	console.log("111shape:",shape);
 	
 	let canvasShape = document.getElementById("canvasChange");
 	
@@ -222,18 +237,43 @@ function drawShape(/*shape*/){
 			cX= parseInt(e.clientX - canvasX);
 			cY= parseInt(e.clientY - canvasY);
 			
+			
+			switch(shape){
+				case "네모":
+					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+					ctxChange.strokeRect(sX,sY,cX-sX,cY-sY);
+					break;
+				case "원":
+					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+					ctxChange.beginPath();
+					ctxChange.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
+					parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
+					0, 2 * Math.PI,);
+					ctxChange.closePath();
+					ctxChange.stroke();
+					break;
+				case "자유선":
+					drawCanvas();
+//					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+//					ctxChange.beginPath();
+//					ctxChange.moveTo(sX,sY);
+//					ctxChange.lineTo(cX,cY);
+//					ctxChange.closePath();
+//					ctxChange.stroke();
+					break;
+			}
 			/*// rectangle
 			ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
 			ctxChange.strokeRect(sX,sY,cX-sX,cY-sY);*/
 			
 			// ellipse (타원)
-			ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
-			ctxChange.beginPath();
-			ctxChange.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
-			parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
-			0, 2 * Math.PI,);
-			ctxChange.closePath();
-			ctxChange.stroke();
+//			ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+//			ctxChange.beginPath();
+//			ctxChange.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
+//			parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
+//			0, 2 * Math.PI,);
+//			ctxChange.closePath();
+//			ctxChange.stroke();
 			
 			/*// line (일직선)
 			ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
@@ -252,13 +292,31 @@ function drawShape(/*shape*/){
 		//rect
 //		ctx.strokeRect(sX,sY,cX-sX,cY-sY);
 
+		console.log("aaaa:",shape);
+		switch(shape){
+			case "네모":
+				ctx.strokeRect(sX,sY,cX-sX,cY-sY);
+				shape ="네모";
+				break;
+			case "원":
+				ctx.beginPath();
+				ctx.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
+				parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
+				0, 2 * Math.PI,);
+				ctx.closePath();
+				ctx.stroke();
+				shape ="원";
+				break;
+				}
+//			case "자유선":
+//				drawCanvas();
 		//ellipse
-		ctx.beginPath();
-		ctx.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
-		parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
-		0, 2 * Math.PI,);
-		ctx.closePath();
-		ctx.stroke();
+//		ctx.beginPath();
+//		ctx.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
+//		parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
+//		0, 2 * Math.PI,);
+//		ctx.closePath();
+//		ctx.stroke();
 
 		
 		/*//line

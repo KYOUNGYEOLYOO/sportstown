@@ -38,6 +38,12 @@ $(document).ready(function(){
 		$(this).parent().siblings().removeClass("on");
 		$(this).parent().addClass("on");
 	});
+	$(document).on('click', '.canvasMenuWrap .width a', function() {
+		changeWidth($(this).context.innerHTML);
+	});
+	$(document).on('click', '.canvasMenuWrap .figure a', function() {
+		drawShape($(this).context.innerHTML);
+	});
 	$(document).on('click', '.canvasMenuWrap .color a', function() {
 		changeColor($(this).context.innerHTML);
 	});
@@ -52,6 +58,7 @@ $(document).ready(function(){
 	});		
 	$(document).on('click', '.canvasMenuWrap > p.close', function() {	        
 		$("#wrapper").removeClass("canvasopen");
+		$(".canvasMenuWrap").find("li").removeClass("on");
 		delCanvas($("#canvas"),$("#canvasChange"));
 	});		
 	
@@ -392,7 +399,7 @@ function fullScreen(){
 		<!-- 	canvas -->
 		<div class="canvasContainer">
 			<div class="canvasWrap" id="canvasWrap">
-				<div class="canvasMenuWrap">
+				<div class="canvasMenuWrap" >
 					<ul>
 						<li class="figure">
 							<p>도형</p>

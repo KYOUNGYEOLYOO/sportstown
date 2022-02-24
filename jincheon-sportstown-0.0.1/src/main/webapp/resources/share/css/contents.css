@@ -113,11 +113,12 @@
 	.canvasContainer .canvasWrap	{height:100vh; margin-top:0;}
 }
 
-.canvasContainer .canvasMenuWrap	{display:flex;position:absolute; z-index:3; top:20px; right:20px; background:rgba(255,255,255,.8); border-radius:4px; border:1px solid rgba(0,0,0,.1); padding:10px; height:74px; }
+.canvasContainer .canvasMenuWrap	{display:flex;position:absolute; z-index:4; /* top:20px; */ bottom:20px; right:20px; background:rgba(255,255,255,.8); border-radius:4px; border:1px solid rgba(0,0,0,.1); padding:10px; height:74px; }
 .canvasContainer .canvasMenuWrap ul	{display:flex;}
 .canvasContainer .canvasMenuWrap > ul > li + li	{margin-left:10px;}
 
-.canvasContainer .canvasMenuWrap ul li ul	{display:none; margin-top:20px;}
+.canvasContainer .canvasMenuWrap ul li ul	{display:none; margin-top:-240px;}
+.canvasContainer .canvasMenuWrap ul li.color ul 	{display:none; margin-top:-353px;}
 .canvasContainer .canvasMenuWrap ul li ul li + li	{margin-top:5px;}
 .canvasContainer .canvasMenuWrap ul li p.open + ul	{display:block;}
 
