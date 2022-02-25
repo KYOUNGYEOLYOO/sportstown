@@ -159,7 +159,7 @@ function callback_selectedUsers(sender, users)
 <!-- header -->
 <jsp:include page="/include/top">
 	<jsp:param value="regist" name="mainMenu"/>
-	<jsp:param value="contentRegist" name="subMenu"/>
+	<jsp:param value="contentFileRegist" name="subMenu"/>
 </jsp:include>
 <!-- //header -->
 

@@ -126,14 +126,14 @@ public class User
 	 * 권한 시작 일자
 	 */
 	@Column(nullable = true)
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "Asia/Seoul")
 	private Date authFromDate;
 	
 	/**
 	 * 권한 종료 일자
 	 */
 	@Column(nullable = true)
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "Asia/Seoul")
 	private Date authToDate;
 	
 	/**
@@ -181,6 +181,9 @@ public class User
 
 		this.setSportsEventCode(newUser.getSportsEventCode());
 		this.setSportsEvent(newUser.getSportsEvent());
+		
+		this.setAuthFromDate(newUser.getAuthFromDate());
+		this.setAuthToDate(newUser.getAuthToDate());
 
 		this.setPassword(Optional.ofNullable(newUser.getPassword()).orElse(this.getPassword()));
 	}

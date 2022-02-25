@@ -43,6 +43,8 @@ function onSelected_userListItem(sender, rowData)
 		beforeSend : function(xhr, settings ){},
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
+			console.log("====");
+			console.log(ajaxData);
 			if(ajaxData.resultCode == "Success"){
 				setUserDetail(ajaxData.user);
 			}else{
@@ -145,8 +147,17 @@ function setUserDetail(user)
 	if(user.sportsEvent.isPartition == true){
 		$('#partition_area1').show();
 		$('#partition_area2').show();
-		$("#frmUserDetail").find("input[name=authFromDate]").val(user.authFromDate.substring(0,10));
-		$("#frmUserDetail").find("input[name=authToDate]").val(user.authToDate.substring(0,10));
+		if(user.authFromDate != null){
+			$("#frmUserDetail").find("input[name=authFromDate]").val(user.authFromDate.substring(0,10));
+		}else{
+			$("#frmUserDetail").find("input[name=authFromDate]").val("");
+		}
+		if(user.authToDate != null){
+			$("#frmUserDetail").find("input[name=authToDate]").val(user.authToDate.substring(0,10));
+		}else{
+			$("#frmUserDetail").find("input[name=authToDate]").val("");
+		}
+		
 	}else{
 		$('#partition_area1').hide();
 		$('#partition_area2').hide();
@@ -262,7 +273,7 @@ function clearUserDetail()
 						<dd class="full">
 							<input type="text" name="sportsEventName" value="" title="종목" class="inputTxt" readonly>
 						</dd>
-						<dt id="partition_area1" style="display:none;">기간</dt>
+						<dt id="partition_area1" style="display:none;">영상 기간</dt>
 						<dd id="partition_area2" style="display:none;" class="full">
 							<input type="text" name="authFromDate" value="" title="종목" class="inputTxt" style="width: 47%;" readonly>&nbsp;~&nbsp;
 							<input type="text" name="authToDate" value="" title="종목" class="inputTxt" style="width: 47%;"readonly>

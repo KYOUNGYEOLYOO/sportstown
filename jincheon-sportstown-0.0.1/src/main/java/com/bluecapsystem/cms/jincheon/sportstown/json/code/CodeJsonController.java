@@ -153,8 +153,7 @@ public class CodeJsonController
 			@ModelAttribute() Code code)
 	{
 		ModelAndView mnv = new ModelAndView("jsonView");
-		System.out.println("1>>>>"+code.getIsUsed());
-		System.out.println("1>>>>"+code.getIsPartition());
+		
 		IResult resultCode = codeServ.modifyCode(code);
 		
 		mnv.addObject("code", code);
@@ -176,6 +175,34 @@ public class CodeJsonController
 		mnv.addObject("resultCode", resultCode);
 		
 		logger.debug("코드 삭제 요청 결과 [codeId={}] => {}", codeId, resultCode);
+		return mnv;
+	}
+	
+	
+	@RequestMapping("/getCode/{codeId}")
+	public ModelAndView getCode(
+			@PathVariable("codeId") String codeId)
+	{
+		ModelAndView mnv = new ModelAndView("jsonView");
+		IResult resultCode = CommonResult.UnknownError;
+		
+		Code code = null;
+		try
+		{
+			code = codeServ.getCode(codeId); 
+			resultCode = CommonResult.Success;
+		}catch(Exception ex)
+		{
+			logger.error("코드 조회중 오류 발생 [codeId={}] \n{}",
+					codeId,
+					ExceptionUtils.getFullStackTrace(ex));
+			code = null;
+			resultCode = CommonResult.SystemError;
+		}finally
+		{
+			mnv.addObject("code", code);
+			mnv.addObject("resultCode", resultCode);
+		}		
 		return mnv;
 	}
 

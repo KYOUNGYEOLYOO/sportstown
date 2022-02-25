@@ -9,6 +9,14 @@
 
 $(document).ready(function(){
 	
+	$( ".date" ).datepicker({
+		showOn: "button",
+		buttonImage: "<c:url value="/resources/images/contents/icons_calendar.png"/>",
+		buttonImageOnly: true,
+		dateFormat: 'yy-mm-dd',
+		buttonText: "Select date"
+	});
+	
 	var eventSender = new bcs_ctrl_event($("[data-ctrl-view=user_modify]"));
 	
 	eventSender.sender.find("[name=userType]").val("${user.userType}").prop("selected", true);
@@ -103,8 +111,15 @@ $(document).ready(function(){
 			</tr>
 			<c:if test="${partitionValue =='Y'}">
 			<tr>
-				<th>기간</th>
+				<th>영상 기간</th>
 				<td>
+					<div class="datepickerBox">
+						<input type="text" id="authFromDate" name="authFromDate" class="inputTxt date" value="<fmt:formatDate value="${user.authFromDate}" pattern="yyyy-MM-dd"/>"/>
+					</div>
+					&nbsp;~&nbsp;
+					<div class="datepickerBox">
+						<input type="text" id="authToDate" name="authToDate" class="inputTxt date" value="<fmt:formatDate value="${user.authToDate}" pattern="yyyy-MM-dd"/>"/>					
+					</div>
 				</td>
 			</tr>
 			</c:if>

@@ -55,7 +55,7 @@ function init_contentList()
 		rowNum: 8,
 		rowList: [8,20,30],
 // 	   	colNames:["썸네일", "스포츠종류", "제목", "촬영자", "촬영일자", "등록일자", "contentId"],
-	   	colNames:["썸네일", "스포츠종류", "제목", "촬영일자 / 등록일자", "contentId"],
+	   	colNames:["썸네일", "스포츠종류", "제목", "촬영일자 / 등록일자", "등록일자","contentId"],
 	   	colModel:[
 			{name:"thumbnail",index:"thumbnail", width:70,align:"center", 
 				formatter: function (cellvalue, options, rowObject) {
@@ -77,7 +77,7 @@ function init_contentList()
 					}
 				},
 // 			{name:"formatedRecordDate", index:"formatedRecordDate", width:200, align:"center"},
-// 			{name:"content.registDate", index:"registDate", width:100, align:"center"},
+			{name:"content.registDate", index:"registDate", width:100, align:"center",hidden:true},
 			{name:"contentId", index:"contentId", hidden:true}
 		],
 // 		pager: $("#p_contentList"),
@@ -97,11 +97,12 @@ function init_contentList()
 		},
 		jsonReader : {
 			root : "contents",
-			id : "contentId"
+			id : "contentId",
+			registDate : "registDate"
 		},
-		onSelectRow : function(id){
+		onSelectRow : function(registDate){
 			// 0209 onClick_detail();
-			onClick_detail_video();
+			onClick_detail_video(registDate);
 		}
 	});
 }
@@ -299,8 +300,48 @@ function onClick_detail()
 	
 }
 
-function onClick_detail_video()
+function onClick_detail_video(registDate)
 {
+	
+	
+	console.log(">>>>>>>>>>>"+registDate);
+	
+	
+	
+	if("${loginUser.sportsEvent.isPartition}" == 'true'){
+		
+		var authFromDate = "${loginUser.authFromDate}";
+		var authToDate = "${loginUser.authToDate}";
+		
+		console.log(authFromDate);
+		console.log(authToDate);
+		
+		if(authFromDate == '' && authToDate == ''){
+			new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+			return;
+		}else{
+			var today = registDate;   
+
+			var todayTemp = today.substring(0,8);
+			
+			var authFromDateTemp = authFromDate.substring(0,10).replace(/-/gi, "");
+			var authToDateTemp = authToDate.substring(0,10).replace(/-/gi, "");
+
+			
+			console.log(todayTemp);
+			console.log(authFromDateTemp);
+			console.log(authToDateTemp);
+			
+			if(authFromDateTemp <= todayTemp && todayTemp <= authToDateTemp){
+				
+			}else{
+				new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+				return;
+			}
+		}
+	}
+	
+	
 	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
 	if(typeof contentId == "undefined" || contentId == null)
 	{
@@ -374,6 +415,24 @@ function callback_reloadList(contentId)
         page:$("#contentList").getGridParam("page")
     }).trigger("reloadGrid");
 	
+}
+
+function onClick_auth(){
+	
+	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
+	var userId = "${loginUser.userId}";
+	if(typeof contentId == "undefined" || contentId == null)
+	{
+		new bcs_messagebox().open("영상검색", "컨텐츠를 선택해 주세요", null);
+		return;
+	}
+	
+	
+	$("[data-ctrl-view=content_auth]").empty();
+	$("[data-ctrl-view=content_auth]").jqUtils_bcs_loadHTML(
+			"<c:url value="/contentAuth/reqAuth"/>/" + contentId+"/"+ userId,
+			false, "get", null, null
+		);		
 }
 
 function onClick_delete()
@@ -474,7 +533,8 @@ function clear_cameraDetail()
 	<jsp:param value="contentManage" name="subMenu"/>
 </jsp:include>
 <!-- //header -->
-
+<div title="승인요청" class="bcs_dialog_hide" data-ctrl-view="content_auth" >
+</div>
 <!-- container -->
 <div id="container">
 	<div class="titleWrap">

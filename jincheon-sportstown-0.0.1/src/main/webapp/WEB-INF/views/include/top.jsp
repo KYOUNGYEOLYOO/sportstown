@@ -38,21 +38,22 @@
 						<div class="menuWrap">
 							<ul class="depth2">
 								<li data-sub-menu-id="contentRegist" ><a href="<c:url value="/content/regist"/>">녹화등록</a></li>
-								<li data-sub-menu-id="contentRegist" ><a href="<c:url value="/content/registFile"/>">파일등록</a></li>
+								<li data-sub-menu-id="contentFileRegist" ><a href="<c:url value="/content/registFile"/>">파일등록</a></li>
 							</ul>
 						</div>
 					</div>
 					<!-- //depth2 -->
 				</li>
 
-				<li data-main-menu-id="search"><span><a href="<c:url value="/content/manage"/>">영상검색</a></span>
+				<li data-main-menu-id="search"><span><a href="<c:url value="#"/>">영상검색</a></span>
 
 					<!-- depth2 -->
 					<div class="depth2Wrap sub03">
 						<div class="menuWrap">
-						<ul class="depth2">
-							<li data-sub-menu-id="contentManage"><a href="<c:url value="/content/manage"/>">영상검색</a></li>
-						</ul>
+							<ul class="depth2">
+								<li data-sub-menu-id="contentManage"><a href="<c:url value="/content/manage"/>">영상검색</a></li>
+								<li data-sub-menu-id="contentAuth"><a href="<c:url value="/contentAuth/manage"/>">영상승인</a></li>
+							</ul>
 						</div>
 					</div>
 					<!-- //depth2 -->

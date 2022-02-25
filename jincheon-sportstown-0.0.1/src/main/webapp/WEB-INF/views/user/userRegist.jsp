@@ -8,7 +8,43 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	$( ".date" ).datepicker({
+		showOn: "button",
+		buttonImage: "<c:url value="/resources/images/contents/icons_calendar.png"/>",
+		buttonImageOnly: true,
+		dateFormat: 'yy-mm-dd',
+		buttonText: "Select date"
+	});
 	
+	$('#sportsEventCode').change(function(){
+	    
+	    
+	    $.ajax({
+			url : "<c:url value="/service/code/getCode"/>/" + $(this).val(),
+			async : false,
+			dataType : "json",
+			data : null, 
+			method : "post",
+			beforeSend : function(xhr, settings ){},
+			error : function (xhr, status, error){},
+			success : function (ajaxData) {
+				if(ajaxData.resultCode == "Success"){
+					if(ajaxData.code.isPartition == true){
+						$("#partition_area").show();
+					}else{
+						$("#partition_area").hide();
+					}
+					
+				}
+				else{
+					new bcs_messagebox().openError("코드 정보 조회", "코드 정보 조회중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+				}
+			}
+		});
+	   
+	})
+
+
 	var eventSender = new bcs_ctrl_event($("[data-ctrl-view=user_regist]"));
 	
 	$("[data-ctrl-view=user_regist]").dialog({
@@ -76,12 +112,24 @@ $(document).ready(function(){
 			<tr>
 				<th><p>종목</p></th>
 				<td>
-					<select name="sportsEventCode" title="종목선택">
+					<select name="sportsEventCode" id="sportsEventCode" title="종목선택" >
 						<option value="">선택하세요</option>
 						<c:forEach items="${sprotsEvents}" var="code">
 							<option value="${code.codeId}">${code.name}</option>
 						</c:forEach>
 					</select>
+				</td>
+			</tr>
+			<tr id="partition_area" style="display:none;">
+				<th>영상 기간</th>
+				<td>
+					<div class="datepickerBox">
+						<input type="text" id="authFromDate" name="authFromDate" class="inputTxt date" value="<fmt:formatDate value="${user.authFromDate}" pattern="yyyy-MM-dd"/>"/>
+					</div>
+					&nbsp;~&nbsp;
+					<div class="datepickerBox">
+						<input type="text" id="authToDate" name="authToDate" class="inputTxt date" value="<fmt:formatDate value="${user.authToDate}" pattern="yyyy-MM-dd"/>"/>					
+					</div>
 				</td>
 			</tr>
 			<tr>

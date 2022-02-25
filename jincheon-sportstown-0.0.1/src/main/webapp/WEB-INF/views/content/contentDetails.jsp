@@ -163,6 +163,7 @@ function onClick_delete()
 		<div class="btnWrap">
 <!-- 			<a class="btn download">다운로드</a>		 -->
 			<a class="btn download" href="javascript:onClick_download();">다운로드</a>		
+			<a class="btn write" href="javascript:onClick_auth();">승인요청</a>		
 			<div class="btnWrap">
 				<a class="btn delete" href="javascript:onClick_delete();">삭제</a> 
 				<a class="btn edit">수정</a>					
