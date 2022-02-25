@@ -15,11 +15,19 @@
 .cameraBox > ul.camera1pt li	{width:1561px;}
 .cameraBox > ul.camera2pt li	{width:945px;}
 .cameraBox > ul.camera3pt li	{width:772px;}
+.cameraBox > ul.camera4pt li	{width:506px;}
 
 /* .camera1pt li .videocontents {height:878px;} */
 .camera1pt li .videocontents {height:836px;}
 .camera2pt li .videocontents {height:532px;}
-.camera3pt li .videocontents {height:434px;}
+.camera3pt li .videocontents {height:413px;}
+.camera4pt li .videocontents {height:272px;}
+.camera4pt {align-content: flex-start;}
+.camera4pt > li	{margin: 0px 0px 10px 10px !important;}
+.camera4pt > li:nth-of-type(3n+1)	{margin-left:0px !important;}
+/* .camera4pt > li:nth-of-type(3n+2)	{margin-bottom:0px !important;} */
+/* .camera4pt > li:nth-of-type(n+4)	{margin-top:0px !important;} */
+/* .camera3pt li .videocontents {height:434px;} */
 
 .cameraBox .videobox	{position:relative; width:100%; height:100%;}
 
@@ -33,10 +41,12 @@
 	.cameraBox > ul.camera1pt li	{width:1920px;}
 	.cameraBox > ul.camera2pt li	{width:955px}
 	.cameraBox > ul.camera3pt li	{width:946px;}
+	.cameraBox > ul.camera4pt li	{width:615px;}
 
 	.camera1pt li .videocontents {height:1080px;}
 	.camera2pt li .videocontents {height:537px;}
 	.camera3pt li .videocontents {height:532px;}
+	.camera4pt li .videocontents {height:352px;}
 	
 	#headerWrap,#footerWrap	{display:none;}
 	#container.full #contentsWrap	{height:100vh !important; }
@@ -59,9 +69,9 @@
 .videobox .videohead .videotitle {float:left; padding-left:20px; width:49%; line-height:40px; height:40px; color:#fff; font-size:15px;}
 .videobox .videohead .videoicons {float:right; padding:0 10px; margin:0; text-align:right; width:49%; }
 
-.videobox .player.cannvas	{opacity:.2; position:absolute; z-index:1; right:20px; bottom:40px; width:48px; height:48px; border-radius:4px; background:#d9534f url(../../images/contents/btn_canvas.png) no-repeat 50% 50%;}
+.videobox .player.cannvas	{opacity:.2; position:absolute; z-index:1; right:20px; top:60px; width:48px; height:48px; border-radius:4px; background:#5a79ba url(../../images/contents/btn_canvas.png) no-repeat 50% 50%;}
 .videobox:hover .player.cannvas	{opacity:1;}
-.videobox .player.cannvas:hover	{background-color:#d3222a;}
+.videobox .player.cannvas:hover	{/*background-color:#d3222a;*/}
 
 
 .videobox .videohead .videotitle { width : 245px; padding-left : 10px; }
@@ -100,13 +110,67 @@
 	color: #22cd22;
 }
 
+/*	canvas	*/
+#wrapper.canvasopen	{}
+#wrapper.canvasopen button.fullScreen, #wrapper.canvasopen a.addMedia, #wrapper.canvasopen #lnbWrap.video,#wrapper.canvasopen .videohead,#wrapper.canvasopen .player.cannvas {display:none;}
+#wrapper.canvasopen .canvasContainer	{display:block;}
+.canvasContainer	{display:none; position:fixed; z-index:10001; width:100vw; height:100vh; top:0; left:0;}
+#wrapper.canvasopen .canvasContainer	{display:block;}
+
+.canvasContainer .canvasWrap	{position:relative; width:100%; height:calc(100% - 80px); margin-top:56px;}
+@media screen and (min-height: 1079px){
+	.canvasContainer .canvasWrap	{height:100vh; margin-top:0;}
+}
+
+.canvasContainer .canvasMenuWrap	{display:flex;position:absolute; z-index:4; /* top:20px; */ bottom:20px; right:20px; background:rgba(255,255,255,.8); border-radius:4px; border:1px solid rgba(0,0,0,.1); padding:10px; height:74px; }
+.canvasContainer .canvasMenuWrap ul	{display:flex;}
+.canvasContainer .canvasMenuWrap > ul > li + li	{margin-left:10px;}
+
+.canvasContainer .canvasMenuWrap ul li ul	{display:none; margin-top:-240px;}
+.canvasContainer .canvasMenuWrap ul li.color ul 	{display:none; margin-top:-353px;}
+.canvasContainer .canvasMenuWrap ul li ul li + li	{margin-top:5px;}
+.canvasContainer .canvasMenuWrap ul li p.open + ul	{display:block;}
+
+.canvasContainer .canvasMenuWrap p, .canvasContainer .canvasMenuWrap a	{font-size:0; cursor:pointer; line-height:0; vertical-align:top; width:52px; height:52px; background-image:url(../../images/contents/ico_canvas.png); background-repeat:no-repeat; background-color:#000;}
+.canvasContainer .canvasMenuWrap ul li > p,.canvasContainer .canvasMenuWrap ul li > a	{border-radius:50%; border:1px solid #ccc; background-color:#fff;}
+.canvasContainer .canvasMenuWrap ul li > p:hover	{background-color:#337ab7; border-color:#337ab7;}
+.canvasContainer .canvasMenuWrap ul li.on a	{background-color:#5bc0de; border-color:#5bc0de;}
+.canvasContainer .canvasMenuWrap .figure > p	{background-position:0 0;}
+.canvasContainer .canvasMenuWrap .figure > p:hover	{background-position:-100px -100px;}
+
+.canvasContainer .canvasMenuWrap .figure .quadrangle a	{background-position:-50px 0;}
+.canvasContainer .canvasMenuWrap .figure .circle a	{background-position:-100px 0;}
+.canvasContainer .canvasMenuWrap .figure .line a	{background-position:-150px 0;}
+.canvasContainer .canvasMenuWrap .figure .quadrangle.on a	{background-position:-50px -50px;}
+.canvasContainer .canvasMenuWrap .figure .circle.on a	{background-position:-100px -50px;}
+.canvasContainer .canvasMenuWrap .figure .line.on a	{background-position:-150px -50px;}
 
 
-
-
-
-
-
+.canvasContainer .canvasMenuWrap .color > p	{background-position:0 -50px;}
+.canvasContainer .canvasMenuWrap .color a	{position:relative; background-image:none;}
+.canvasContainer .canvasMenuWrap .color a:before	{content:""; border-radius:50%; position:absolute; top:10px; left:10px; width:30px; height:30px;}
+.canvasContainer .canvasMenuWrap .color li.on a:before	{border:2px solid #fff; top:8px; left:8px;}
+.canvasContainer .canvasMenuWrap .color .blue a:before	{background-color:#0000ff;}
+.canvasContainer .canvasMenuWrap .color .red a:before	{background-color:#ff0000;}
+.canvasContainer .canvasMenuWrap .color .green a:before	{background-color:#00ff00;}
+.canvasContainer .canvasMenuWrap .color .black a:before	{background-color:#000;}
+.canvasContainer .canvasMenuWrap .color .skiblue a:before	{background-color:#00ccff;}
+								
+								
+.canvasContainer .canvasMenuWrap .width > p	{background-position:0 -100px;}
+.canvasContainer .canvasMenuWrap .width > p:hover	{background-position:-50px -100px;}
+.canvasContainer .canvasMenuWrap .width a	{position:relative; background-image:none;}
+.canvasContainer .canvasMenuWrap .width a:before	{content:""; position:absolute; left:10px; width:30px; background-color:#ccc;}
+.canvasContainer .canvasMenuWrap .width li.on a:before	{background-color:#fff;}
+.canvasContainer .canvasMenuWrap .width .thin a:before	{height:2px; top:calc(50% - 1px);}
+.canvasContainer .canvasMenuWrap .width .normal a:before	{height:4px; top:calc(50% - 2px);}
+.canvasContainer .canvasMenuWrap .width .bold a:before	{height:8px; top:calc(50% - 4px);}
+								
+.canvasContainer .canvasMenuWrap .eraser > a	{background-position:0 -150px;}
+.canvasContainer .canvasMenuWrap .eraser.on > a	{background-position:-50px -150px;}
+.canvasContainer .canvasMenuWrap .reset > p	{background-position:0 -200px;}																
+.canvasContainer .canvasMenuWrap .reset > p:hover	{background-position:-50px -200px;}	
+.canvasContainer .canvasMenuWrap .close	{margin-left:20px; background-position:1px -249px; background-color:transparent;}
 
 
 /* LIST */
@@ -175,7 +239,7 @@ a.btn.delete	{border-color:#d9534f; background-color:#d9534f; color:#fff;}
 .datepickerBox input.inputTxt { }
 .datepickerBox input.inputTxt.ex { width:350px;}
 
-.datepickerBox .ui-datepicker-trigger { position:absolute; bottom:16px; right:10px;}
+.datepickerBox .ui-datepicker-trigger { position:absolute; bottom:16px; right:10px; cursor:pointer;}
 
 /* popupWindow */
 .popupheader {background:#5a79ba url(../../images/contents/poptitlebg.png) no-repeat 50% 0; height:40px; line-height:40px; height:40px; color:#fff; font-size:15px; text-align:center;}

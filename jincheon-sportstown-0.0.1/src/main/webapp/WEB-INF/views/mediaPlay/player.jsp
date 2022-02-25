@@ -51,22 +51,22 @@ $(document).ready(function(){
 });
 
 
-// 캔버스 호출하는 함수
-function canvasTest()
-{
-	$("#canvas").empty();
-	$("#canvas").jqUtils_bcs_loadHTML(
-			"<c:url value="/canvas/canvasPop"/>" ,
-			false, "get", null, null
-		);
-	console.log('canvas_pop');
+// // 캔버스 호출하는 함수
+// function canvasTest()
+// {
+// 	$("#canvas").empty();
+// 	$("#canvas").jqUtils_bcs_loadHTML(
+// 			"<c:url value="/canvas/canvasPop"/>" ,
+// 			false, "get", null, null
+// 		);
+// 	console.log('canvas_pop');
 	
-	$(".ui-front").appendTo("#container");
-}
+// 	$(".ui-front").appendTo("#container");
+// }
 
 
 </script>
-<form id="canvas"></form>
+<!-- <form id="canvas"></form> -->
 
 <li data-vod-fileId="${file.fileId}">
 	<div class="videobox">
@@ -82,6 +82,7 @@ function canvasTest()
 			<div id="player_${file.fileId}" data-ctrl-view="vod_player" data-vod-fileId="${file.fileId}" >
 				Wait loading
 			</div>
+			<button class="player cannvas"></button>
 <!-- 			<button class="player cannvas" onclick="canvasTest()"></button> -->
 		</div>
 	</div>

@@ -28,6 +28,7 @@ let ctx;
 let ctxChange;
 let x, y;
 let data, reloadData;
+let shape = "네모";
 var myObj = window.myObj || {}
 myObj = {
 	history: []
@@ -72,14 +73,16 @@ function addCanvas(){
 	
 	const canvasChange = document.createElement("canvas");
 	canvasChange.setAttribute("id","canvasChange");
-	document.body.appendChild(canvasChange);
+//	document.body.appendChild(canvasChange);
+	document.getElementById("canvasWrap").appendChild(canvasChange);
 	canvasChange.setAttribute("style","position: absolute; top: 0px; left: 0px;"+
 	"z-index: 1; background-color: transparent;");
 	
 	
 	const canvas = document.createElement("canvas");
 	canvas.setAttribute("id", "canvas");
-	document.body.appendChild(canvas);
+//	document.body.appendChild(canvas);
+	document.getElementById("canvasWrap").appendChild(canvas);
 	canvas.setAttribute("background-color","transparent");
 	canvas.setAttribute("style","position: absolute; top: 0px; left: 0px;"+
 	"z-index: 2; ");
@@ -87,6 +90,10 @@ function addCanvas(){
 		
 	ctx = canvas.getContext("2d");
 	ctxChange = canvasChange.getContext("2d");
+	
+	// default 색상 빨강으로 설정
+	ctx.strokeStyle = "#ff0000";
+	ctxChange.strokeStyle = "#ff0000";
 	
 	resizeCanvas(canvas); 
 	// 이유는 모르겠는데 실행 안됨 이 내용들을 setAttribute에서 바로 실행
@@ -109,7 +116,9 @@ function delCanvas(canvas, canvasChange){
 
 function clrCanvas(canvas){
 	console.log("clrCanvas");
-	ctx.clearRect(0,0,canvas.width,canvas.height);
+//	ctx.clearRect(0,0,canvas.width,canvas.height);
+// jquery로 넣어주려다 보니 width를 함수로 써야되는듯??
+	ctx.clearRect(0,0,canvas.width(),canvas.height());
 }
 
 function eraseCanvas(){
@@ -150,19 +159,50 @@ function drawCanvas(){
 
 function changeWidth(value){
 	console.log("changeWidth");
+	console.log(value);
+	switch (value){
+		case "얇은 거":
+			value = "3";
+			break;
+		case "보통":
+			value = "5";
+			break;
+		case "두꺼운 거":
+			value = "7";
+			break;
+	}
+	console.log(value);
 	ctx.lineWidth = value;
 	ctxChange.lineWidth = value;
 }
 
 function changeColor(value){
 	console.log("changeColor");
+	switch (value){
+		case "파랑":
+			value = "#0000ff";
+			break;
+		case "빨강":
+			value = "#ff0000";
+			break;
+		case "초록":
+			value = "#00ff00";
+			break;
+		case "검정":
+			value = "#000";
+			break;
+		case "하늘색":
+			value = "#00ccff";
+			break;
+	}
 	ctx.strokeStyle = value;
 	ctxChange.strokeStyle = value;
 }
 
-function drawShape(/*shape*/){
+function drawShape(cShape){
 	console.log("drawShape");
-	
+	shape = cShape;
+	console.log("111shape:",shape);
 	
 	let canvasShape = document.getElementById("canvasChange");
 	
@@ -197,18 +237,43 @@ function drawShape(/*shape*/){
 			cX= parseInt(e.clientX - canvasX);
 			cY= parseInt(e.clientY - canvasY);
 			
+			
+			switch(shape){
+				case "네모":
+					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+					ctxChange.strokeRect(sX,sY,cX-sX,cY-sY);
+					break;
+				case "원":
+					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+					ctxChange.beginPath();
+					ctxChange.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
+					parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
+					0, 2 * Math.PI,);
+					ctxChange.closePath();
+					ctxChange.stroke();
+					break;
+				case "자유선":
+					drawCanvas();
+//					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+//					ctxChange.beginPath();
+//					ctxChange.moveTo(sX,sY);
+//					ctxChange.lineTo(cX,cY);
+//					ctxChange.closePath();
+//					ctxChange.stroke();
+					break;
+			}
 			/*// rectangle
 			ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
 			ctxChange.strokeRect(sX,sY,cX-sX,cY-sY);*/
 			
 			// ellipse (타원)
-			ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
-			ctxChange.beginPath();
-			ctxChange.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
-			parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
-			0, 2 * Math.PI,);
-			ctxChange.closePath();
-			ctxChange.stroke();
+//			ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+//			ctxChange.beginPath();
+//			ctxChange.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
+//			parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
+//			0, 2 * Math.PI,);
+//			ctxChange.closePath();
+//			ctxChange.stroke();
 			
 			/*// line (일직선)
 			ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
@@ -227,13 +292,31 @@ function drawShape(/*shape*/){
 		//rect
 //		ctx.strokeRect(sX,sY,cX-sX,cY-sY);
 
+		console.log("aaaa:",shape);
+		switch(shape){
+			case "네모":
+				ctx.strokeRect(sX,sY,cX-sX,cY-sY);
+				shape ="네모";
+				break;
+			case "원":
+				ctx.beginPath();
+				ctx.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
+				parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
+				0, 2 * Math.PI,);
+				ctx.closePath();
+				ctx.stroke();
+				shape ="원";
+				break;
+				}
+//			case "자유선":
+//				drawCanvas();
 		//ellipse
-		ctx.beginPath();
-		ctx.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
-		parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
-		0, 2 * Math.PI,);
-		ctx.closePath();
-		ctx.stroke();
+//		ctx.beginPath();
+//		ctx.ellipse(parseInt((cX+sX)/2),parseInt((cY+sY)/2),
+//		parseInt(Math.abs(cX-sX)),parseInt(Math.abs(cY-sY)), 0,
+//		0, 2 * Math.PI,);
+//		ctx.closePath();
+//		ctx.stroke();
 
 		
 		/*//line
