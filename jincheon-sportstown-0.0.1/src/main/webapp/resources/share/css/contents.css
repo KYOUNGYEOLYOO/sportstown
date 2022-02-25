@@ -15,15 +15,17 @@
 .cameraBox > ul.camera1pt li	{width:1561px;}
 .cameraBox > ul.camera2pt li	{width:945px;}
 .cameraBox > ul.camera3pt li	{width:772px;}
-/* .cameraBox > ul.camera4pt li	{width:630px;} */
+.cameraBox > ul.camera4pt li	{width:506px;}
 
 /* .camera1pt li .videocontents {height:878px;} */
 .camera1pt li .videocontents {height:836px;}
 .camera2pt li .videocontents {height:532px;}
 .camera3pt li .videocontents {height:413px;}
-/* .camera4pt li .videocontents {height:272px;} */
-/* .camera4pt > li:nth-of-type(n+2)	{margin-top:px !important;} */
-/* .camera4pt > li:nth-of-type(n+3)	{margin-top:10px !important; margin-left:10px;} */
+.camera4pt li .videocontents {height:272px;}
+.camera4pt {align-content: flex-start;}
+.camera4pt > li	{margin: 0px 0px 10px 10px !important;}
+.camera4pt > li:nth-of-type(3n+1)	{margin-left:0px !important;}
+/* .camera4pt > li:nth-of-type(3n+2)	{margin-bottom:0px !important;} */
 /* .camera4pt > li:nth-of-type(n+4)	{margin-top:0px !important;} */
 /* .camera3pt li .videocontents {height:434px;} */
 
@@ -39,10 +41,12 @@
 	.cameraBox > ul.camera1pt li	{width:1920px;}
 	.cameraBox > ul.camera2pt li	{width:955px}
 	.cameraBox > ul.camera3pt li	{width:946px;}
+	.cameraBox > ul.camera4pt li	{width:615px;}
 
 	.camera1pt li .videocontents {height:1080px;}
 	.camera2pt li .videocontents {height:537px;}
 	.camera3pt li .videocontents {height:532px;}
+	.camera4pt li .videocontents {height:352px;}
 	
 	#headerWrap,#footerWrap	{display:none;}
 	#container.full #contentsWrap	{height:100vh !important; }
