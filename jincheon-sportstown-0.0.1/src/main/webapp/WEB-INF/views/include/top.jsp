@@ -6,7 +6,38 @@
 <style type="text/css">
 .depth2Wrap {display:none;}
 </style>
+<script type="text/javascript">
 
+
+function onClick_pwdModify()
+{
+	window.open("<c:url value="/user/passwordModify"/>", "popup", "height=390,width=620,resizable=no,menubar=no,toolbar=no", true);
+}
+
+
+
+$(document).ready(function(){
+	
+
+	
+	var changeDate = "${loginUser.changeDate}";
+	changeDate = changeDate.substring(0,10).replace(/-/gi, "");
+	var today = new Date();
+	
+	var sixMonthAgo = new Date(today.setMonth(today.getMonth()-6));
+	
+	var year = sixMonthAgo.getFullYear();
+	var month = ('0' + (sixMonthAgo.getMonth() + 1)).slice(-2);
+	var day = ('0' + sixMonthAgo.getDate()).slice(-2);
+
+	var dateString = year + '' + month  + '' + day;
+	
+	if(Number(changeDate)< Number(dateString)){
+		onClick_pwdModify();
+	}
+	
+});
+</script>
 
 <div title="사용자수정" class="bcs_dialog_hide" data-ctrl-view="userPassowrd_modify" data-event-modify="callback_pwdModify">
 </div>
@@ -85,15 +116,15 @@
 		</div>
 		<!-- //gnb -->
 		<div class="welcome">
-			<p>양궁 <span>홍길동</span>님 안녕하세요</p>		
+			<p> <span>${loginUser.userName}</span>님 안녕하세요</p>		
 			<div>
-				<p>사용자를 위한 기능을 제공합니다. </p>
+<!-- 				<p>사용자를 위한 기능을 제공합니다. </p> -->
 				<ul>
 					<li><a href="javascript:onLogout();">로그아웃</a></li>
-					<li><a href="#">사용자 정보 변경</a></li>
-					<li><a href="<c:url value="javascript:onClick_pwdModify();" />">비밀 번호 갱신</a></li>
-					<li><a href="<c:url value="/admin/adminGraph1" />">임시로 만든 대쉬보드 페이지1</a></li>
-					<li><a href="<c:url value="/admin/adminGraph2" />">임시로 만든 통계 페이지2</a></li>
+<!-- 					<li><a href="#">사용자 정보 변경</a></li> -->
+<%-- 					<li><a href="<c:url value="javascript:onClick_pwdModify();" />">비밀 번호 갱신</a></li> --%>
+<%-- 					<li><a href="<c:url value="/admin/adminGraph1" />">임시로 만든 대쉬보드 페이지1</a></li> --%>
+<%-- 					<li><a href="<c:url value="/admin/adminGraph2" />">임시로 만든 통계 페이지2</a></li> --%>
 				</ul>
 			</div>
 		</div>		
@@ -112,10 +143,7 @@ function logo_click(){
 	}	
 }
 
-function onClick_pwdModify()
-{
-	window.open("<c:url value="/user/passwordModify"/>", "popup", "height=520,width=620,resizable=no,menubar=no,toolbar=no", true);
-}
+
 
 // function onClick_pwdModify()
 // {
@@ -136,6 +164,8 @@ function onClick_pwdModify()
 
 $(document).ready(function(){
 	
+	console.log("========");
+	console.log("${loginUser}");
 	$(".welcome > p").click(function(){
 		$(this).next().toggle();
 	});	
@@ -172,6 +202,22 @@ $(document).ready(function(){
 			mainMenu.addClass("on");
 	}
 	
+	
+	var changeDate = "${loginUser.changeDate}";
+	changeDate = changeDate.substring(0,10).replace(/-/gi, "");
+	var today = new Date();
+	
+	var sixMonthAgo = new Date(today.setMonth(today.getMonth()-6));
+	console.log(">>>>>>>>>"+sixMonthAgo);
+	var year = sixMonthAgo.getFullYear();
+	var month = ('0' + (sixMonthAgo.getMonth() + 1)).slice(-2);
+	var day = ('0' + sixMonthAgo.getDate()).slice(-2);
+
+	var dateString = year + '' + month  + '' + day;
+	
+	if(Number(changeDate)< Number(dateString)){
+		onClick_pwdModify();
+	}
 	
 });
 

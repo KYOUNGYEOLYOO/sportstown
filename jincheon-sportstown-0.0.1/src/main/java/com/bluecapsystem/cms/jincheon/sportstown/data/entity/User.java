@@ -187,6 +187,13 @@ public class User
 
 		this.setPassword(Optional.ofNullable(newUser.getPassword()).orElse(this.getPassword()));
 	}
+	
+	public void updatePassword(String password)
+	{
+
+		this.changeDate = new Date();
+		this.setPassword(password);
+	}
 
 
 	public String getUserId() {

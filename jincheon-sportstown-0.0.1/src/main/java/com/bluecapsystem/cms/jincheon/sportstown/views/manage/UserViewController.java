@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bluecapsystem.cms.core.data.condition.CodeSelectCondition;
+import com.bluecapsystem.cms.core.result.CommonResult;
 import com.bluecapsystem.cms.core.service.CodeService;
 import com.bluecapsystem.cms.jincheon.sportstown.common.define.UserSessionDefine;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
@@ -62,10 +63,13 @@ public class UserViewController
 		ModelAndView mnv = new ModelAndView("/user/userPwdModify");
 
 //		loadCodes(mnv);
-		
+		User user = null;
 		try {
 			User loginUser = (User) session.getAttribute(UserSessionDefine.LOGIN_USER_SESSION_KEY);
 
+			user = userServ.getUser(loginUser.getUserId(), null);
+			mnv.addObject("user", user);
+			
 //			loadCodes(mnv);
 		} catch (Exception ex) {
 			ex.printStackTrace();

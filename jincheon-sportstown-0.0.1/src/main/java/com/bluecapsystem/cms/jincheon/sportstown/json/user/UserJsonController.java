@@ -147,6 +147,27 @@ public class UserJsonController {
 		mnv.addObject("resultCode", resultCode);
 		return mnv;
 	}
+	
+	@RequestMapping(value = "/modifyUserPassword/{userId}/{password}")
+	public ModelAndView modifyUserPassword(@PathVariable("userId") String userId, @PathVariable("password") String password) {
+		ModelAndView mnv = new ModelAndView("jsonView");
+
+		
+		IResult resultCode = userServ.modifyUserPassword(userId, password);
+
+		logger.debug("사용자 password 수정 요청 결과 [userId={}] => {}", userId, resultCode);
+
+		User user = null;
+		try {
+			user = userServ.getUser(new UserSelectCondition(userId, null));
+		} catch (Exception ex) {
+			logger.error("사용자 정보 가져오기 실패 [userId={}] \n{}", user.getUserId(), ExceptionUtils.getFullStackTrace(ex));
+		}
+
+		mnv.addObject("user", user);
+		mnv.addObject("resultCode", resultCode);
+		return mnv;
+	}
 
 	@RequestMapping(value = "/removeUser/{userId}")
 	public ModelAndView removeUser(@PathVariable("userId") String userId) {

@@ -332,7 +332,7 @@ function onClick_detail_video(registDate)
 			console.log(authFromDateTemp);
 			console.log(authToDateTemp);
 			
-			if(authFromDateTemp <= todayTemp && todayTemp <= authToDateTemp){
+			if(Number(authFromDateTemp) <= Number(todayTemp) && Number(todayTemp) <= Number(authToDateTemp)){
 				
 			}else{
 				new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);

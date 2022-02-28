@@ -202,6 +202,54 @@ public class UserManageService
 		
 		return result;
 	}
+	
+	/**
+	 * 사용자를 Password 수정 한다
+	 * @param user
+	 * @return
+	 */
+	public IResult modifyUserPassword(String userId, String password)
+	{
+		IResult result = CommonResult.UnknownError;
+		EntityManager em = emf.createEntityManager();
+		
+		_TRANS :
+		{
+			try
+			{
+				em.getTransaction().begin();
+				// 기존의 사용자 정보를 가져온다
+				User user = userDao.selectUser(em, new UserSelectCondition(userId, null));
+				if( user == null)
+				{
+					result = UserResult.UserNotFound;
+					break _TRANS;
+				}
+				
+				user.updatePassword(password);
+
+				// DB 에 사용자를 등록 한다
+				user = userDao.updateUser(em, user);
+				
+				result = CommonResult.Success;
+				em.getTransaction().commit();
+				break _TRANS;
+			}catch(Exception ex)
+			{
+				logger.error("사용자 password 수정 오류 [userId={}] \n{} ", 
+						userId, 
+						ExceptionUtils.getFullStackTrace(ex));
+				result = CommonResult.DAOError;
+				em.getTransaction().rollback();
+				break _TRANS;
+			}
+		}
+		
+		em.close();
+		logger.debug("사용자 password 수정 결과 [userId={}] => {} ", userId, result);
+		
+		return result;
+	}
 
 	public IResult modifyPassword(Long userId, String orignPassword, String newPassword)
 	{
