@@ -324,18 +324,21 @@ public class CameraJsonController {
 		String streamName = "";
 		String streamServer = "";
 
-		IResult resultCode = CommonResult.UnknownError;
+//		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
-		Camera camera = null;
-		try {
-			condition.setCamId(camId);
-			camera = camServ.getCamera(condition);
-			resultCode = CommonResult.Success;
-		} catch (Exception ex) {
-			resultCode = CommonResult.SystemError;
-		}
+
+		condition = new CameraSelectCondition(camId);
+		condition.setHasStreamMeta(true);
+		Camera camera = camServ.getCamera(condition);
+//		try {
+//			condition.setCamId(camId);
+//			camera = camServ.getCamera(condition);
+//			resultCode = CommonResult.Success;
+//		} catch (Exception ex) {
+//			resultCode = CommonResult.SystemError;
+//		}
 		
 		try {
 			String baseUrl = null;
@@ -396,18 +399,20 @@ public class CameraJsonController {
 		String streamName = "";
 		String streamServer = "";
 
-		IResult resultCode = CommonResult.UnknownError;
+//		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
-		Camera camera = null;
-		try {
-			condition.setCamId(camId);
-			camera = camServ.getCamera(condition);
-			resultCode = CommonResult.Success;
-		} catch (Exception ex) {
-			resultCode = CommonResult.SystemError;
-		}
+		condition = new CameraSelectCondition(camId);
+		condition.setHasStreamMeta(true);
+		Camera camera = camServ.getCamera(condition);
+//		try {
+//			condition.setCamId(camId);
+//			camera = camServ.getCamera(condition);
+//			resultCode = CommonResult.Success;
+//		} catch (Exception ex) {
+//			resultCode = CommonResult.SystemError;
+//		}
 		/*
 		 * 20211228 connect disconnect 진행중
 		 */
@@ -455,6 +460,7 @@ public class CameraJsonController {
 //			}
 			System.out.println();
 		} finally {
+//			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("applicationName", applicationCode);
 			mnv.addObject("streamName", streamName);
 			mnv.addObject("serverName", streamServer);

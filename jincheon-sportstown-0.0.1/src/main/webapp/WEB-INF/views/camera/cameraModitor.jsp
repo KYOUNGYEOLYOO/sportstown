@@ -10,7 +10,7 @@
 <head>
 
 <jsp:include page="/include/head"/>
-<jsp:include page="/include/footer"/>
+
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -56,13 +56,12 @@ $(document).ready(function(){
 	   	width: "auto",
 	   	key: true,
 		// height: "auto",
-		height: 690, // 600 이였음
+		height: 640, // 600 이였음
 		autowidth: true,
 		viewrecords: true,
 		viewsortcols: [false,'vertical',false],
 		rownumbers: false,
-		rowNum: 20,
-		rowList: [20,50,100],
+		rowNum: 12,
 	   	colNames:["카메라명",  "카메라위치",  "스포츠종목", "녹화상태", "camId"],
 	   	colModel:[
 	   		{name:"name",index:"name", width:180, align:"center"},
@@ -206,7 +205,7 @@ if(totalPageList==pageList){
 //그리드 첫페이지로 이동
 function firstPage(){
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#cameraList").jqGrid('setGridParam', {
                             page:1
                         }).trigger("reloadGrid");
        
@@ -214,16 +213,16 @@ function firstPage(){
 // 그리드 이전페이지 이동
 function prePage(totalSize){
        
-        var currentPage = $('#contentList').getGridParam('page');
+        var currentPage = $('#cameraList').getGridParam('page');
         var pageCount = 10;
        
         currentPage-=pageCount;
         pageList=Math.ceil(currentPage/pageCount);
         currentPage=(pageList-1)*pageCount+pageCount;
        
-        initPage("contentList",totalSize,currentPage);
+        initPage("cameraList",totalSize,currentPage);
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#cameraList").jqGrid('setGridParam', {
                             page:currentPage
                         }).trigger("reloadGrid");
        
@@ -233,30 +232,30 @@ function prePage(totalSize){
 // 그리드 다음페이지 이동    
 function nextPage(totalSize){
        
-        var currentPage = $('#contentList').getGridParam('page');
+        var currentPage = $('#cameraList').getGridParam('page');
         var pageCount = 10;
        
         currentPage+=pageCount;
         pageList=Math.ceil(currentPage/pageCount);
         currentPage=(pageList-1)*pageCount+1;
        
-        initPage("contentList",totalSize,currentPage);
+        initPage("cameraList",totalSize,currentPage);
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#cameraList").jqGrid('setGridParam', {
                             page:currentPage
                         }).trigger("reloadGrid");
 }
 // 그리드 마지막페이지 이동
 function lastPage(totalSize){
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#cameraList").jqGrid('setGridParam', {
                             page:totalSize
                         }).trigger("reloadGrid");
 }
 // 그리드 페이지 이동
 function goPage(num){
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#cameraList").jqGrid('setGridParam', {
                             page:num
                         }).trigger("reloadGrid");
        
@@ -293,53 +292,100 @@ function open_cameraLive(camId)
 
 <!-- container -->
 <div id="container">
+	<div class="titleWrap">
+		<h2>관리자기능 - 녹화 상태</h2>
+	</div>
 	<div id="contentsWrap">
 	
+			<!-- lnbWrap -->
+<!-- 		<div id="lnbWrap"> -->
+<!-- 			<form id="frmSearch" onSubmit="return false;"> -->
+<!-- 				<input type="hidden" name="hasNotUsed" value="true" /> -->
+<!-- 				<div class="lnbWraph2"> -->
+<!-- 					<h2>카메라관리</h2> -->
+<!-- 				</div> -->
+<!-- 				<div class="datepickerBox"> -->
+<!-- 					<p> -->
+<!-- 						<label for="search_keyword">카메라명</label>  -->
+<!-- 						<input type="text" class="inputTxt" id="search_keyword" name="keyword" /> -->
+<!-- 					</p> -->
+<!-- 				</div> -->
+				
+<!-- 				<div class=""> -->
+<!-- 					<select class="selectyze psa" name="cameraType"> -->
+<!-- 						<option value="">카메라유형</option> -->
+<!-- 						<option value="Static">고정</option> -->
+<!-- 						<option value="Shift">유동</option> -->
+<!-- 					</select> -->
+<!-- 				</div> -->
+				
+<!-- 				<div class=""> -->
+<!-- 					<select class="selectyze psa" name="locationCode"> -->
+<!-- 						<option value="">카메라위치</option> -->
+<%-- 						<c:forEach items="${locations}" var="location"> --%>
+<%-- 							<option value="${location.codeId}">${location.name}</option> --%>
+<%-- 						</c:forEach> --%>
+<!-- 					</select> -->
+<!-- 				</div> -->
+			
+<!-- 				<div class=""> -->
+<!-- 					<select class="selectyze psa" name="sportsEventCode"> -->
+<!-- 						<option value="">스포츠종목</option> -->
+<%-- 						<c:forEach items="${sprotsEvents}" var="sprotsEvent"> --%>
+<%-- 							<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option> --%>
+<%-- 						</c:forEach> --%>
+<!-- 					</select> -->
+<!-- 				</div> -->
+				
+				
+<!-- 			</form> -->
+<!-- 			<div class="btnbox alignC" style="text-align: center;"> -->
+<!-- 				<span class="btn_typeA t3"><a href="javascript:onClick_search();">검색</a></span>  -->
+<!-- 				<span class="btn_typeA t2"><a href="javascript:onClick_searchInit();">조건초기화</a></span> -->
+<!-- 			</div> -->
+			
+			
+<!-- 		</div> -->
 		<!-- lnbWrap -->
-		<div id="lnbWrap">
+		<div id="lnbWrap" class="searchContainer">
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="hasNotUsed" value="true" />
-				<div class="lnbWraph2">
-					<h2>카메라관리</h2>
-				</div>
-				<div class="datepickerBox">
-					<p>
+
+				<ul>				
+					<li>
 						<label for="search_keyword">카메라명</label> 
 						<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
-					</p>
-				</div>
-				
-				<div class="">
-					<select class="selectyze psa" name="cameraType">
-						<option value="">카메라유형</option>
-						<option value="Static">고정</option>
-						<option value="Shift">유동</option>
-					</select>
-				</div>
-				
-				<div class="">
-					<select class="selectyze psa" name="locationCode">
-						<option value="">카메라위치</option>
-						<c:forEach items="${locations}" var="location">
-							<option value="${location.codeId}">${location.name}</option>
-						</c:forEach>
-					</select>
-				</div>
-			
-				<div class="">
-					<select class="selectyze psa" name="sportsEventCode">
-						<option value="">스포츠종목</option>
-						<c:forEach items="${sprotsEvents}" var="sprotsEvent">
-							<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
-						</c:forEach>
-					</select>
-				</div>
+					</li>
+					<li>
+						<select class="selectyze" name="cameraType">
+							<option value="">카메라유형</option>
+							<option value="Static">고정</option>
+							<option value="Shift">유동</option>
+						</select>
+					</li>
+					<li>
+						<select class="selectyze" name="locationCode">
+							<option value="">카메라위치</option>
+							<c:forEach items="${locations}" var="location">
+								<option value="${location.codeId}">${location.name}</option>
+							</c:forEach>
+						</select>
+					</li>
+					<li>
+						<select class="selectyze" name="sportsEventCode">
+							<option value="">스포츠종목</option>
+							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
+								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
+							</c:forEach>
+						</select>
+					</li>
+				</ul>
 				
 				
 			</form>
-			<div class="btnbox alignC" style="text-align: center;">
-				<span class="btn_typeA t3"><a href="javascript:onClick_search();">검색</a></span> 
-				<span class="btn_typeA t2"><a href="javascript:onClick_searchInit();">조건초기화</a></span>
+			<div class="btnWrap">
+				<a class="btn reset" href="javascript:onClick_searchInit();">초기화</a>
+				<a class="btn search" href="javascript:onClick_search();">검색</a>				
 			</div>
 			
 			
@@ -378,6 +424,7 @@ function open_cameraLive(camId)
 
 <!-- footer -->
 <%-- <jsp:include page="./include/footer.jsp" /> --%>
+<jsp:include page="/include/footer"/>
 <!-- //footer -->
 </div>
 

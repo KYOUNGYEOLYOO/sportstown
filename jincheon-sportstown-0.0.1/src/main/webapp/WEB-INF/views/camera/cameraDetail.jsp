@@ -67,6 +67,7 @@ function test()
 		}],
 //         width : 400,
 //         height : 400,
+        height : 100,
         controlBar: {
             pictureInPictureToggle: false,
             currentTimeDisplay: true,

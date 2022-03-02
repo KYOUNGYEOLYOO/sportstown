@@ -113,6 +113,7 @@ $(document).ready(function(){
 function onClick_download()
 {
  	$(location).attr("href", "<c:url value="/file/download"/>/${contentMeta.content.instances[0].file.fileId}");
+ 	
 }
 function onClick_modify()
 {
@@ -276,11 +277,11 @@ function callback_selectedUsers(sender, users)
 				</dd>
 				<dt>설명</dt>
 				<dd class="full"><textarea name="summary" title="설명" >${contentMeta.summary}</textarea></dd>
-				<dt>파일</dt>
-				<dd class="full">
-					<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly>
-					<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						
-				</dd>						
+<!-- 				<dt>파일</dt> -->
+<!-- 				<dd class="full"> -->
+<!-- 					<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly> -->
+<!-- 					<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						 -->
+<!-- 				</dd>						 -->
 			</dl>
 		</form>
 		<div class="btnWrap">
