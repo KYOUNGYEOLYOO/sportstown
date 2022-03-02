@@ -151,11 +151,35 @@ public class ContentJsonController {
 	}
 
 	@RequestMapping("/registContent")
-	public ModelAndView registContent(@ModelAttribute Content content, @ModelAttribute SportstownContentMeta meta) {
+	public ModelAndView registContent(@ModelAttribute Content content, @ModelAttribute SportstownContentMeta meta,
+			@ModelAttribute DashboardData dashboardData) {
 		ModelAndView mnv = new ModelAndView("jsonView");
-		content.setContentMeta(meta);
+		
+		EntityManager em = emf.createEntityManager();
 
-		IResult resultCode = contentServ.registContent(content);
+		IResult resultCode = CommonResult.UnknownError;
+		
+		em.getTransaction().begin();
+
+		_TRANSACTION: {
+			
+			content.setContentMeta(meta);
+
+			resultCode = contentServ.registContent(content);
+			
+			if (resultCode != CommonResult.Success)
+				break _TRANSACTION;
+			
+			dashboardData.setUserType(DataType.Archive);
+			dashboardData.setRegistDate(content.getRegistDate());
+			dashboardData.setUserId(meta.getRecordUserId());
+			dashboardData.setSportsEventCode(meta.getSportsEventCode());
+			
+			dashboardDataManageServ.registDashboardData(dashboardData);
+			
+		}
+		
+
 
 		logger.debug("컨텐츠 등록 결과 [content={}] => {}", content, resultCode);
 		mnv.addObject("content", content);

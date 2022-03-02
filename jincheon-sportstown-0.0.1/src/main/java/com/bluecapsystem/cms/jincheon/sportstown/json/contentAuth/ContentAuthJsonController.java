@@ -71,15 +71,39 @@ public class ContentAuthJsonController {
 	
 
 	@CrossOrigin
-	@RequestMapping(value = "/getContentAuth/{contentId}/{userId}")
+	@RequestMapping(value = "/getContentAuth/{contentId}/{userId}/{state}/{contentAuthId}")
 	public ModelAndView getContentAuth(@PathVariable("contentId") String contentId,
-			@PathVariable("userId") String userId) {
+			@PathVariable("userId") String userId,
+			@PathVariable("state") String state,
+			@PathVariable("contentAuthId") String contentAuthId) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 
 		IResult resultCode = CommonResult.UnknownError;
 		ContentAuth contentAuth = null;
 		try {
-			contentAuth = contentAuthServ.getContentAuth(contentId,userId,"");
+			contentAuth = contentAuthServ.getContentAuth(contentId,userId,state,contentAuthId);
+			resultCode = CommonResult.Success;
+		} catch (Exception ex) {
+			resultCode = CommonResult.SystemError;
+		} finally {
+			mnv.addObject("resultCode", resultCode);
+			mnv.addObject("contentAuth", contentAuth);
+		}
+
+		return mnv;
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/getContentAuth/{contentId}/{userId}/{state}")
+	public ModelAndView getContentAuth(@PathVariable("contentId") String contentId,
+			@PathVariable("userId") String userId,
+			@PathVariable("state") String state) {
+		ModelAndView mnv = new ModelAndView("jsonView");
+
+		IResult resultCode = CommonResult.UnknownError;
+		ContentAuth contentAuth = null;
+		try {
+			contentAuth = contentAuthServ.getContentAuth(contentId,userId,state,"");
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -98,7 +122,7 @@ public class ContentAuthJsonController {
 		IResult resultCode = contentAuthServ.registContentAuth(contentAuth);
 
 		try {
-			contentAuth = contentAuthServ.getContentAuth(new ContentAuthSelectCondition(contentAuth.getContentId(), contentAuth.getUserId(),""));
+			contentAuth = contentAuthServ.getContentAuth(new ContentAuthSelectCondition(contentAuth.getContentId(), contentAuth.getUserId(),"",""));
 		} catch (Exception ex) {
 			logger.error("승인 정보 가져오기 실패 [contentAuthId={}] \n{}", contentAuth.getContentAuthId(), ExceptionUtils.getFullStackTrace(ex));
 		}
@@ -111,19 +135,21 @@ public class ContentAuthJsonController {
 		return mnv;
 	}
 
-	@RequestMapping(value = "/returnContentAuth/{contentId}/{userId}")
+	@RequestMapping(value = "/returnContentAuth/{contentId}/{userId}/{state}/{contentAuthId}")
 	public ModelAndView returnContentAuth(@PathVariable("contentId") String contentId,
-			@PathVariable("userId") String userId) {
+			@PathVariable("userId") String userId,
+			@PathVariable("state") String state,
+			@PathVariable("contentAuthId") String contentAuthId) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 
 		
 
-		IResult resultCode = contentAuthServ.modifyReturnContentAuth(contentId,userId);
+		IResult resultCode = contentAuthServ.modifyReturnContentAuth(contentId,userId,state,contentAuthId);
 
 		logger.debug("승인 수정 요청 결과 [contentAuth={}] => {}", contentId, userId, resultCode);
 		ContentAuth contentAuth = null;
 		try {
-			contentAuth = contentAuthServ.getContentAuth(new ContentAuthSelectCondition( contentId, userId,""));
+			contentAuth = contentAuthServ.getContentAuth(new ContentAuthSelectCondition( contentId, userId,state,contentAuthId));
 		} catch (Exception ex) {
 			logger.error("승인 정보 가져오기 실패 [contentAuthId={}] \n{}", contentAuth.getContentAuthId(), ExceptionUtils.getFullStackTrace(ex));
 		}
@@ -133,19 +159,21 @@ public class ContentAuthJsonController {
 		return mnv;
 	}
 	
-	@RequestMapping(value = "/approvalContentAuth/{contentId}/{userId}")
+	@RequestMapping(value = "/approvalContentAuth/{contentId}/{userId}/{state}/{contentAuthId}")
 	public ModelAndView approvalContentAuth(@PathVariable("contentId") String contentId,
-			@PathVariable("userId") String userId) {
+			@PathVariable("userId") String userId,
+			@PathVariable("state") String state,
+			@PathVariable("contentAuthId") String contentAuthId) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 
 		
 
-		IResult resultCode = contentAuthServ.modifyApprovalContentAuth(contentId,userId);
+		IResult resultCode = contentAuthServ.modifyApprovalContentAuth(contentId,userId,state,contentAuthId);
 
 		logger.debug("승인 수정 요청 결과 [contentAuth={}] => {}", contentId, userId, resultCode);
 		ContentAuth contentAuth = null;
 		try {
-			contentAuth = contentAuthServ.getContentAuth(new ContentAuthSelectCondition( contentId, userId,""));
+			contentAuth = contentAuthServ.getContentAuth(new ContentAuthSelectCondition( contentId, userId,state,contentAuthId));
 		} catch (Exception ex) {
 			logger.error("승인 정보 가져오기 실패 [contentAuthId={}] \n{}", contentAuth.getContentAuthId(), ExceptionUtils.getFullStackTrace(ex));
 		}

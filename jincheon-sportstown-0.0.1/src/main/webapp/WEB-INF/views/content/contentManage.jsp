@@ -317,9 +317,58 @@ function onClick_detail_video(registDate)
 		console.log(authToDate);
 		
 		if(authFromDate == '' && authToDate == ''){
-			new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
-			return;
+			var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
+			var userId = "${loginUser.userId}"
+			
+			
+			$.ajax({
+				url : "<c:url value="/service/contentAuth/getContentAuth"/>/" + contentId +"/"+ userId+"/approval",
+				async : false,
+				dataType : "json",
+				data : null, 
+				method : "post",
+				beforeSend : function(xhr, settings ){},
+				error : function (xhr, status, error){},
+				success : function (ajaxData) {
+					console.log("====");
+					console.log(ajaxData);
+					if(ajaxData.resultCode == "Success"){
+						
+						
+						if(ajaxData.contentAuth != null){
+							var today = new Date();
+							
+							var year = today.getFullYear();
+							var month = ('0' + (today.getMonth() + 1)).slice(-2);
+							var day = ('0' + today.getDate()).slice(-2);
+
+							var dateString = year + '' + month  + '' + day;
+							
+							var fromDateTemp = ajaxData.contentAuth.fromDate.substring(0,10).replace(/-/gi, "");
+							var toDateTemp = ajaxData.contentAuth.toDate.substring(0,10).replace(/-/gi, "");
+							
+							if(Number(fromDateTemp) <= Number(dateString) && Number(dateString) <= Number(toDateTemp)){
+								
+							}else{
+								new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+								return;
+							}
+						}else{
+							new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+							return;
+						}
+						
+						
+					}else{
+						new bcs_messagebox().openError("승인 상세조회", "승인 조회중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+					}
+				}
+			});
+			
+			
 		}else{
+
+			
 			var today = registDate;   
 
 			var todayTemp = today.substring(0,8);
@@ -335,8 +384,57 @@ function onClick_detail_video(registDate)
 			if(Number(authFromDateTemp) <= Number(todayTemp) && Number(todayTemp) <= Number(authToDateTemp)){
 				
 			}else{
-				new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
-				return;
+				
+				var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
+				var userId = "${loginUser.userId}"
+				
+				
+				$.ajax({
+					url : "<c:url value="/service/contentAuth/getContentAuth"/>/" + contentId +"/"+ userId+"/approval",
+					async : false,
+					dataType : "json",
+					data : null, 
+					method : "post",
+					beforeSend : function(xhr, settings ){},
+					error : function (xhr, status, error){},
+					success : function (ajaxData) {
+						console.log("====");
+						console.log(ajaxData);
+						if(ajaxData.resultCode == "Success"){
+							
+							
+							if(ajaxData.contentAuth != null){
+								var today = new Date();
+								
+								var year = today.getFullYear();
+								var month = ('0' + (today.getMonth() + 1)).slice(-2);
+								var day = ('0' + today.getDate()).slice(-2);
+
+								var dateString = year + '' + month  + '' + day;
+								
+								var fromDateTemp = ajaxData.contentAuth.fromDate.substring(0,10).replace(/-/gi, "");
+								var toDateTemp = ajaxData.contentAuth.toDate.substring(0,10).replace(/-/gi, "");
+								
+								if(Number(fromDateTemp) <= Number(dateString) && Number(dateString) <= Number(toDateTemp)){
+									
+								}else{
+									new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+									return;
+								}
+							}else{
+								new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+								return;
+							}
+							
+							
+						}else{
+							new bcs_messagebox().openError("승인 상세조회", "승인 조회중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+						}
+					}
+				});
+				
+// 				new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+// 				return;
 			}
 		}
 	}

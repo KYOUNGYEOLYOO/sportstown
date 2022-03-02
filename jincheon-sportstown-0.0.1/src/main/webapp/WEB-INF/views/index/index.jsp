@@ -16,71 +16,148 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	//alert(${loginUser.userType});	
-	//$(location).attr("href", "<c:url value="/record/manage"/>");
+	yearsData();
 	
-	columnChartData();
+	loginCnt();
 	
-	google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      google.charts.setOnLoadCallback(columnChart);
-      
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7],
-          ['Work2',     11],
-          ['Eat2',      2],
-          ['Commute2',  2],
-          ['Watch TV2', 2],
-          ['Sleep2',    7]
-        ]);
-
-        var options = {
-          title: '',
-          height : 570,
-          width : '100%'
-
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
-      
-      
-      function columnChart(){
-		var data = google.visualization.arrayToDataTable([
-		      ['Genre', 'Fantasy & Sci Fi', 'Romance', 'Mystery/Crime', 'General',
-		       'Western', 'Literature', { role: 'annotation' } ],
-		      ['2010', 10, 24, 20, 32, 18, 5, ''],
-		      ['2020', 16, 22, 23, 30, 16, 9, ''],
-		      ['2030', 28, 19, 29, 30, 12, 13, '']
-		    ]);
-
-	    var options = {
-   		  height : 570,
-          width : '100%',
-	      legend: { position: 'top', maxLines: 3 },
-	      bar: { groupWidth: '75%' },
-	      isStacked: true,
-	    };
-    
-  		var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
-
-     	chart.draw(data, options);
-      }
-
+	contentCnt();
+	
+	drawChart();
 });
 
-function columnChartData(){
+function contentCnt(){
 	$.ajax({
-		url : "<c:url value="/columnChartData"/>",
+		url : "<c:url value="/service/index/contentCnt"/>",
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				$('#allContent').html(ajaxData.allContent[0]+" 건");
+				$('#todayContent').html(ajaxData.todayContent[0]+" 건");
+// 				console.log(ajaxData.todayContent[0]);
+// 				$('#loginCnt').html(ajaxData.loginDatas.length+" 명");
+			    
+			}else{
+				new bcs_messagebox().openError("컨텐츠 정보", "컨텐츠 정보 조회 오류 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+}
+
+function loginCnt(){
+	$.ajax({
+		url : "<c:url value="/service/index/loginCnt"/>",
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				
+				$('#loginCnt').html(ajaxData.loginDatas.length+" 명");
+			    
+			}else{
+				new bcs_messagebox().openError("로그인 정보", "로그인 정보 조회 오류 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+}
+
+function selectBestCode(year){
+	$.ajax({
+		url : "<c:url value="/service/index/selectBestCode"/>/"+year,
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				var code = ajaxData.dashboardData[0];
+				
+				selectCode(code[0]);
+				
+				
+			    
+			}else{
+				new bcs_messagebox().openError("스포츠코드", "스포츠코드 조회 오류 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+}
+
+function selectCode(code){
+	$.ajax({
+		url : "<c:url value="/service/index/selectCode"/>",
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				console.log(ajaxData.codes);
+				
+				var codes=ajaxData.codes;
+				
+				var html="";
+				for(var i = 0 ; i < codes.length ; i++){
+					if(code == codes[i].codeId){
+						html += '<option value="'+codes[i].codeId+'" selected>'+codes[i].name+'</option>';
+					}else{
+						html += '<option value="'+codes[i].codeId+'">'+codes[i].name+'</option>';
+					}
+					
+				}
+				
+				$('#selectCode').html(html);
+			    
+				columnChart();
+				
+				
+			}else{
+				new bcs_messagebox().openError("종목코드", "종목코드 조회 오류 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+}
+
+function yearsData(){
+	var today = new Date();
+	
+	var year = today.getFullYear();	
+	
+	var html ="";
+	
+	
+	for(var i = Number(year) ; i >= 2016 ; i--){
+		if(i == Number(year)){
+			html += '<option value="'+i+'" selected>'+i+'년</option>';
+		}else{
+			html += '<option value="'+i+'">'+i+'년</option>';
+		}
+		//html += '<option value="'+i+'">'+i+'년</option>';
+	}
+	$('#selectYear').html(html);
+	
+	month();
+	selectBestCode(year);
+}
+
+function month(){
+	
+	var year = $('#selectYear').val();
+	
+	$.ajax({
+		url : "<c:url value="/service/index/monthData"/>/"+year,
 		async : false,
 		dataType : "json",
 		data : null, 
@@ -91,12 +168,189 @@ function columnChartData(){
 			if(ajaxData.resultCode == "Success"){
 				console.log(ajaxData.dashboardDatas);
 				
+				for(var i=1; i <=12; i++){
+					
+					if(i < 10){
+						i = "0"+i;
+					}
+					
+					$('#'+i+'_area').html("0");
+				}
+				
+				var data = ajaxData.dashboardDatas;
+				
+				for(var i=0; i < data.length; i++){
+					
+					var temp = data[i];
+					
+					$('#'+temp[0]+'_area').html(temp[1]);
+				}
+			    
 			}else{
-				new bcs_messagebox().openError("월별 영상 등록 현황", "데이터 오류 발생 [code="+ajaxData.resultCode+"]", null);
+				new bcs_messagebox().openError("월별 등록 현황", "데이터 오류 발생 [code="+ajaxData.resultCode+"]", null);
 			}
 		}
 	});
 }
+
+function drawChart() {
+
+
+	$.ajax({
+		url : "<c:url value="/service/index/drawChartData"/>",
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				console.log(ajaxData.dashboardDatas);
+				var dataValues = ajaxData.dashboardDatas; 
+				var labelDatas = new Array();
+				var datas = new Array();
+				
+				for (var i = 0; i < dataValues.length; i++) {
+					var temp = dataValues[i];
+
+					labelDatas[i] = temp[0];
+					datas[i] = temp[1];
+			    }
+				
+				var context = document.getElementById('piechart');
+	            var myChart = new Chart(context, {
+				    type: 'pie',
+				    data: {
+				      labels: labelDatas,
+				      datasets: [{
+				        label: "Population (millions)",
+				        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+				        data: datas
+				      }]
+				    },
+				    options: {
+				    	
+				      title: {
+				        display: false,
+				        text: ''
+				      }
+				    }
+				});
+				
+// 				var dataValues = ajaxData.dashboardDatas; 
+// 				var data = new google.visualization.DataTable();
+				
+// 				data.addColumn("string", "type");
+// 				data.addColumn("number", "value");
+				
+// 				for (var i = 0; i < dataValues.length; i++) {
+// 					var temp = dataValues[i];
+					
+// 					data.addRow([temp[0] , temp[1]]);
+// 			    }
+				
+// 				var options = {
+// 					      title: '',
+// 					      height : 570,
+// 					      width : '100%'
+
+// 			    };
+
+// 			    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+// 			    chart.draw(data, options);
+			    
+			}else{
+				new bcs_messagebox().openError("아카이브 등록 현황", "데이터 오류 발생 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+	
+    
+  }
+  
+
+  
+  function columnChart(){
+
+
+	var year = $('#selectYear').val();
+	var code = $('#selectCode').val();
+	
+	$.ajax({
+		url : "<c:url value="/service/index/columnChartData"/>/"+code+"/"+year,
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				console.log(ajaxData.dashboardDatas);
+				
+				var dashboardDatas = ajaxData.dashboardDatas; 
+				var datas = new Array();
+				
+				
+				
+				var j=0;
+				for (var i = 0; i < dashboardDatas.length; i++) {
+					var temp = dashboardDatas[i];
+					
+					datas[i] = temp[1];
+					
+					j=i;
+			    }
+				
+				
+				for(var i= j+1 ; i < 12; i++){
+					
+					datas[i] = 0;
+				}
+				
+				
+				
+				var context = document.getElementById('columnchart').getContext('2d');
+	            var myChart = new Chart(context, {
+	                type: 'bar', // 차트의 형태
+	                data: { // 차트에 들어갈 데이터
+	                    labels: [
+	                        //x 축
+	                        '01','02','03','04','05','06','07','08','09','10','11','12'
+	                    ],
+	                    datasets: [
+	                        { //데이터
+	                            label: '종목별 영상 등록 현황', //차트 제목
+	                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+	                            data: datas,	                            
+	                            borderWidth: 1 //경계선 굵기
+	                        }
+	                    ]
+	                },
+	                options: {
+	                	
+	                    scales: {
+	                        yAxes: [
+	                            {
+	                                ticks: {
+	                                    beginAtZero: true
+	                                }
+	                            }
+	                        ]
+	                    }
+	                }
+	            });
+
+			}else{
+				new bcs_messagebox().openError("종목별 영상 등록 현황", "데이터 오류 발생 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+	
+  }
+
 </script>
 </head>
 <body>
@@ -118,20 +372,21 @@ function columnChartData(){
 
 
 <div id="container" class="dashboard">
+	
 	<div class="titleWrap">
 		<h2>대쉬보드</h2>		
 		<dl>
 			<dt>오늘의 영상 등록 건수</dt>
-			<dd>123 건</dd>
+			<dd id="todayContent">0 건</dd>
 			<dt>총 등록 영상 건수</dt>
-			<dd>12,123 건</dd>
+			<dd id="allContent">0 건</dd>
 		</dl>		
 	</div>
 	<div id="contentsWrap">
 		<div id="contents">
 			<div class="tableContainer">
-				<select>
-					<option>2021년</option>
+				<select name="selectYear" id="selectYear" onChange="javascipt:month();">
+					
 				</select>
 				<table>
 					<caption></caption>
@@ -157,18 +412,18 @@ function columnChartData(){
 					</thead>
 					<tbody>
 					<tr>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
+						<td id="01_area">0</td>
+						<td id="02_area">0</td>
+						<td id="03_area">0</td>
+						<td id="04_area">0</td>
+						<td id="05_area">0</td>
+						<td id="06_area">0</td>
+						<td id="07_area">0</td>
+						<td id="08_area">0</td>
+						<td id="09_area">0</td>
+						<td id="10_area">0</td>
+						<td id="11_area">0</td>
+						<td id="12_area">0</td>
 					</tr>
 				</tbody>
 				</table>
@@ -177,7 +432,7 @@ function columnChartData(){
 				<div class="summary">
 					<dl>
 						<dt>로그인 사용자</dt>
-						<dd>123 명</dd>
+						<dd id="loginCnt">0 명</dd>
 					</dl>
 					<dl>
 						<dt>촬영 현황</dt>
@@ -195,17 +450,24 @@ function columnChartData(){
 				</div>
 				<div class="chart01">
 					<div class="title">
-						<h4>월별 영상 등록 현황</h4>
+						<h4>종목별 영상 등록 현황</h4>
 <!-- 						<span>UPLOAD / 조회</span> -->
+						<select name="selectCode" id="selectCode" onChange="javascipt:columnChart();">
+					
+						</select>
 					</div>
-					<div class="" id="columnchart"></div>
+					<div class="" id="">
+						<canvas id="columnchart" style="margin-top: 60px;"></canvas>
+					</div>
 				</div>
 				<div class="chart02">
 					<div class="title">
 						<h4>아카이브 영상 저장 분포</h4>
 <!-- 						<span>2021년 1월 29일</span> -->
 					</div>
-					<div class="" id="piechart"></div>
+					<div class="" id="">
+						<canvas id="piechart" style="padding: 0 35px 65px 35px;"></canvas>
+					</div>
 				</div>
 			</div>
 		</div>

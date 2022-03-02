@@ -39,14 +39,15 @@ public class ContentAuthSelectCondition implements ISelectCondition, IPagingable
 	
 	public ContentAuthSelectCondition()
 	{
-		this(null, null, null);
+		this(null, null, null, null );
 	}
 	
-	public ContentAuthSelectCondition(String contentId, String userId, String state)
+	public ContentAuthSelectCondition(String contentId, String userId, String state, String contentAuthId)
 	{
 		this.contentId = contentId;
 		this.userId = userId;
 		this.state = state;
+		this.contentAuthId = contentAuthId;
 	}
 	
 	

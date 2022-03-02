@@ -153,6 +153,18 @@ public class ContentAuthDao
 			Predicate p = cb.and(cb.equal(contentAuthRoot.get("userId"), condition.getUserId()));
 			conditions.add(p);
 		}
+		
+		if(EmptyChecker.isNotEmpty(condition.getContentId()))
+		{
+			Predicate p = cb.and(cb.equal(contentAuthRoot.get("contentId"), condition.getContentId()));
+			conditions.add(p);
+		}
+		
+		if(EmptyChecker.isNotEmpty(condition.getContentAuthId()))
+		{
+			Predicate p = cb.and(cb.equal(contentAuthRoot.get("contentAuthId"), condition.getContentAuthId()));
+			conditions.add(p);
+		}
 
 
 

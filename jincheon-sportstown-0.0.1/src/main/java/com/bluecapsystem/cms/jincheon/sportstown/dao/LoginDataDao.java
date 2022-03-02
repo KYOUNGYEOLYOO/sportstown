@@ -30,11 +30,12 @@ import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 
 
 
-public interface LoginDataDao extends JpaRepository<DashboardData, String>
+public interface LoginDataDao extends JpaRepository<LoginData, String>
 {
 	
-	@Query(value = "SELECT ld.userId FROM LoginData ld WHERE ld.registDate between(current_timestamp - interval '5min') and current_timestamp group by ld.userId ",nativeQuery = true)
-	List<LoginData> findGroupByData();
+	@Query(value = "SELECT ld.userId FROM LoginData ld where ld.registDate between to_timestamp(:value,  'YYYY-MM-DD HH24:MI:SS') AND CURRENT_TIMESTAMP group by ld.userId")
+	List<LoginData> findGroupByLoginData(@Param("value") String value);
 
-	
+	@Query(value = "SELECT ld.userId FROM LoginData ld WHERE ld.registDate between(current_timestamp - interval '5min') and current_timestamp group by ld.userId",nativeQuery = true)
+	List<LoginData> findGroupByData();
 }

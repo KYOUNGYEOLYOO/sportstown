@@ -81,7 +81,7 @@ public class ContentAuthViewController
 
 		try
 		{
-			ContentAuth contentAuth = contentAuthServ.getContentAuth(contentId, userId, "");
+			ContentAuth contentAuth = contentAuthServ.getContentAuth(contentId, userId, "","");
 			mnv.addObject("uscontentAuther", contentAuth);
 		}catch(Exception ex)
 		{

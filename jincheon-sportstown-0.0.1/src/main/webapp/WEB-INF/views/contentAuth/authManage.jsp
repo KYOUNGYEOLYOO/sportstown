@@ -39,7 +39,7 @@ function onSelected_authListItem(sender, rowData)
 	
 	clearAuthDetail();
 	$.ajax({
-		url : "<c:url value="/service/contentAuth/getContentAuth"/>/" + rowData.contentId +"/"+ rowData.userId,
+		url : "<c:url value="/service/contentAuth/getContentAuth"/>/" + rowData.contentId +"/"+ rowData.userId+"/"+ rowData.state+"/"+ rowData.contentAuthId,
 		async : false,
 		dataType : "json",
 		data : null, 
@@ -85,6 +85,8 @@ function onClick_return()
 {
 	var userId = $("#frmAuthDetail").find("input[name=userId]").val();
 	var contentId = $("#frmAuthDetail").find("input[name=contentId]").val();
+	var state = $("#frmAuthDetail").find("input[name=state]").val();
+	var contentAuthId = $("#frmAuthDetail").find("input[name=contentAuthId]").val();
 	
 	if(userId == "")
 	{
@@ -98,7 +100,7 @@ function onClick_return()
 		"닫기" : function(){ mb.close(); },
 		"반려" : function(){
 			$.ajax({
-				url : "<c:url value="/service/contentAuth/returnContentAuth"/>/" +contentId+"/"+ userId,
+				url : "<c:url value="/service/contentAuth/returnContentAuth"/>/" +contentId+"/"+ userId+"/"+state+"/"+contentAuthId,
 				async : false,
 				dataType : "json",
 				data : null, 
@@ -126,7 +128,9 @@ function onClick_approval()
 {
 	var userId = $("#frmAuthDetail").find("input[name=userId]").val();
 	var contentId = $("#frmAuthDetail").find("input[name=contentId]").val();
-	
+	var state = $("#frmAuthDetail").find("input[name=state]").val();
+	var contentAuthId = $("#frmAuthDetail").find("input[name=contentAuthId]").val();
+
 	if(userId == "")
 	{
 		new bcs_messagebox().open("승인", "목록를 선택해 주세요", null);
@@ -139,7 +143,7 @@ function onClick_approval()
 		"닫기" : function(){ mb.close(); },
 		"승인" : function(){
 			$.ajax({
-				url : "<c:url value="/service/contentAuth/approvalContentAuth"/>/" +contentId+"/"+ userId,
+				url : "<c:url value="/service/contentAuth/approvalContentAuth"/>/" +contentId+"/"+ userId+"/"+state+"/"+contentAuthId,
 				async : false,
 				dataType : "json",
 				data : null, 
@@ -152,7 +156,7 @@ function onClick_approval()
 						onClick_search();
 						mb.close();
 					}else{
-						new bcs_messagebox().openError("승인 반려", "승인 반려중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+						new bcs_messagebox().openError("승인", "승인 중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 					}
 				}
 			});
@@ -192,8 +196,8 @@ function setContentAuthDetail(contentAuth)
 	
 	$("#frmAuthDetail").find("input[name=userId]").val(contentAuth.userId);
 	$("#frmAuthDetail").find("input[name=contentId]").val(contentAuth.contentId);
-	
-	
+	$("#frmAuthDetail").find("input[name=state]").val(contentAuth.state);
+	$("#frmAuthDetail").find("input[name=contentAuthId]").val(contentAuth.contentAuthId);
 	
 }
 
@@ -282,6 +286,8 @@ function clearAuthDetail()
 			<form id="frmAuthDetail">
 				<input type="hidden" name="userId" value="" />
 				<input type="hidden" name="contentId" value="" />
+				<input type="hidden" name="state" value="" />
+				<input type="hidden" name="contentAuthId" value="" />
 				<div class="detailWrap">
 					<dl>
 						<dt>컨텐츠명</dt>

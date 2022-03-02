@@ -39,9 +39,9 @@ public class ContentAuthManageService
 	 * @param userId 사용자 key 값
 	 * @return
 	 */
-	public ContentAuth getContentAuth(String contentId, String userId, String state) throws Exception
+	public ContentAuth getContentAuth(String contentId, String userId, String state, String contentAuthId) throws Exception
 	{
-		return this.getContentAuth(new ContentAuthSelectCondition(contentId,userId,state));
+		return this.getContentAuth(new ContentAuthSelectCondition(contentId,userId,state,contentAuthId));
 	}
 	
 	/**
@@ -121,7 +121,7 @@ public class ContentAuthManageService
 				try
 				{
 					// 기존 중복을 확인한다
-					if(contentAuthDao.selectContentAuth(em, new ContentAuthSelectCondition(contentAuth.getContentId(), contentAuth.getUserId(), "wait")) != null)
+					if(contentAuthDao.selectContentAuth(em, new ContentAuthSelectCondition(contentAuth.getContentId(), contentAuth.getUserId(), "wait", "")) != null)
 					{
 						result = UserResult.OverlapLoginID;
 						break _TRANS;
@@ -163,7 +163,7 @@ public class ContentAuthManageService
 	 * @param contentAuth
 	 * @return
 	 */
-	public IResult modifyReturnContentAuth(String contentId, String userId)
+	public IResult modifyReturnContentAuth(String contentId, String userId, String state, String contentAuthId)
 	{
 		IResult result = CommonResult.UnknownError;
 		EntityManager em = emf.createEntityManager();
@@ -174,7 +174,7 @@ public class ContentAuthManageService
 			{
 				em.getTransaction().begin();
 				// 기존의 정보를 가져온다
-				contentAuth = contentAuthDao.selectContentAuth(em, new ContentAuthSelectCondition(contentId, userId, ""));
+				contentAuth = contentAuthDao.selectContentAuth(em, new ContentAuthSelectCondition(contentId, userId, state , contentAuthId));
 				if( contentAuth == null)
 				{
 					result = UserResult.UserNotFound;
@@ -212,21 +212,31 @@ public class ContentAuthManageService
 	 * @param contentAuth
 	 * @return
 	 */
-	public IResult modifyApprovalContentAuth(String contentId, String userId)
+	public IResult modifyApprovalContentAuth(String contentId, String userId, String state, String contentAuthId)
 	{
 		IResult result = CommonResult.UnknownError;
 		EntityManager em = emf.createEntityManager();
 		ContentAuth contentAuth =null;
+		ContentAuth contentAuth2 =null;
 		_TRANS :
 		{
 			try
 			{
 				em.getTransaction().begin();
 				// 기존의 정보를 가져온다
-				contentAuth = contentAuthDao.selectContentAuth(em, new ContentAuthSelectCondition(contentId, userId, ""));
+				contentAuth = contentAuthDao.selectContentAuth(em, new ContentAuthSelectCondition(contentId, userId, state,contentAuthId));
 				if( contentAuth == null)
 				{
 					result = UserResult.UserNotFound;
+					break _TRANS;
+				}
+				
+				
+				// 기존의 정보를 가져온다
+				contentAuth2 = contentAuthDao.selectContentAuth(em, new ContentAuthSelectCondition(contentId, userId, "approval",""));
+				if( contentAuth2 != null)
+				{
+					result = CommonResult.WrongParamertError;
 					break _TRANS;
 				}
 				contentAuth.setState("approval");
