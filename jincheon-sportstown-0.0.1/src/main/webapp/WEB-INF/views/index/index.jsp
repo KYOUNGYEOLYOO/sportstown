@@ -23,7 +23,47 @@ $(document).ready(function(){
 	contentCnt();
 	
 	drawChart();
+	
+	cameraList();
 });
+
+function cameraList(){
+	$.ajax({
+		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true",
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				
+				
+				var recording = 0;
+				var wait = 0;
+				var ready = 0;
+				
+				for(var i=0; i < ajaxData.cameras.length; i++){
+					if(ajaxData.cameras[i].state == "Wait"){
+						wait = Number(wait)+ Number(1);
+					}else if(ajaxData.cameras[i].state == "Recording"){
+						recording = Number(recording)+ Number(1);
+					}else{
+						ready = Number(ready)+ Number(1);
+					}
+				}
+				
+				$('#wait').html(wait+" 대");
+				$('#recording').html(recording+" 대");
+				$('#ready').html(ready+" 대");
+			    
+			}else{
+				new bcs_messagebox().openError("cameraList 정보", "cameraList 정보 조회 오류 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+}
 
 function contentCnt(){
 	$.ajax({
@@ -38,8 +78,7 @@ function contentCnt(){
 			if(ajaxData.resultCode == "Success"){
 				$('#allContent').html(ajaxData.allContent[0]+" 건");
 				$('#todayContent').html(ajaxData.todayContent[0]+" 건");
-// 				console.log(ajaxData.todayContent[0]);
-// 				$('#loginCnt').html(ajaxData.loginDatas.length+" 명");
+
 			    
 			}else{
 				new bcs_messagebox().openError("컨텐츠 정보", "컨텐츠 정보 조회 오류 [code="+ajaxData.resultCode+"]", null);
@@ -439,11 +478,11 @@ function drawChart() {
 						<dd>
 							<dl>
 								<dt>촬영</dt>
-								<dd>123 명</dd>
+								<dd id="recording">0 대</dd>
 								<dt>사용</dt>
-								<dd>123 명</dd>
+								<dd id="wait">0 대</dd>
 								<dt>미사용</dt>
-								<dd>123 명</dd>
+								<dd id="ready">0 대</dd>
 							</dl>
 						</dd>
 					</dl>

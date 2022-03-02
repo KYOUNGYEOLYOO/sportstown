@@ -197,7 +197,7 @@ function open_cameraLive(camId)
 
 
 <!-- footer -->
-<jsp:include page="./include/footer.jsp" />
+<jsp:include page="/include/footer" />
 <!-- //footer -->
 </div>
 
