@@ -164,7 +164,7 @@ public class CameraJsonController {
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		EntityManager em = null;
 		String finalUrl = "";
-
+		
 		try {
 			_TRANS: {
 				resultCode = camServ.registCamera(camera);
@@ -190,6 +190,7 @@ public class CameraJsonController {
 				streamName = camera.getStreamMetaItems().get(0).getStreamName();
 				streamName = streamName.replace(".stream", "");
 				streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+				
 
 				System.out.println(camera.getStreamMetaItems().get(0).getStreamServer());
 				streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
@@ -444,6 +445,7 @@ public class CameraJsonController {
 				finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
 				break;
 			}
+			camServ.changeStateCamera(camId, CameraState.DisCon);
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
 //			Enumeration params = request.getParameterNames();

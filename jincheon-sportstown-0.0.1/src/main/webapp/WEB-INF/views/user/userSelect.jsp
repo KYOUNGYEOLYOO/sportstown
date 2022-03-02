@@ -14,8 +14,10 @@ $(document).ready(function(){
 	// 이미 선택된 사용자의 정보를 가져온다
 	
 	var frmParam = $("[data-ctrl-view=user_select]").attr("data-param-selectedUserId");
+	// frmParam = frmSelectedUsers
 	$("#" + frmParam).find("[name=selectedUserIds]").each(function(){
 		var selectedUserId = $(this).val();
+		console.log("selectedUserId : ", selectedUserId);
 		$("[data-ctrl-view=user_select] > form").find("[name=checkedUser][value="+selectedUserId+"]").prop("checked", "checked");
 	});
 	
