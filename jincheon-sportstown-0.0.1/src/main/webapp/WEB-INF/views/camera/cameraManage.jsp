@@ -124,6 +124,8 @@ function onClick_disconnect(){
 		return;
 	}
 	
+	console.log("camID: ", camId);
+	
 	$.ajax({
 		url : "<c:url value="/service/camera/disconnectStreamW"/>/" + camId,
 		async : false,
@@ -133,11 +135,12 @@ function onClick_disconnect(){
 		beforeSend : function(xhr, settings ){},
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
-			if(ajaxData.resultCode == "Success"){
-				console.log("success");
-			}else{
-				new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
-			}
+			console.log("ajaxData.finalUrl : ", ajaxData);
+// 			if(ajaxData.resultCode == "Success"){
+// 				console.log("success");
+// 			}else{
+// 				new bcs_messagebox().openError("카메라관리", "카메라 연결해제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+// 			}
 		}
 	});
 }

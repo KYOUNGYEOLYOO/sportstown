@@ -20,12 +20,13 @@
 <!-- <script>jwplayer.key="uL+sf8LV4JfO0X1+U8YPbC7PoiiNX730vh3pnQ==";</script> -->
 
 <script type="text/javascript">
+var abc111;
 
 $(document).ready(function(){
-	var originFileName = "";
-	var originFileNameSplit = "";
+	
 	var params = $("#frmSearch").serialize();
 	
+
 	$("#fileList").jqGrid({
 		// data: params,
 		// datatype: "local",
@@ -36,15 +37,16 @@ $(document).ready(function(){
 	   	key: true,
 		// height: "auto",
 		height: 640,
-		rowNum: 12, // 없었음,
 		autowidth: true,
+		rowNum: 12, // 없었음,
 		viewrecords: true,
 		viewsortcols: [false,'vertical',false],
-		rownumbers: 10, // false,
+		rownumbers: false, // false,
 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
-// 	   	colNames:["파일명", "fileId", "filePath", "fileName"],
-	   	colNames:["카메라","녹화자","날짜","fileId", "filePath", "fileName"],
+	   	colNames:["파일명","카메라","녹화자","날짜","fileId", "filePath", "fileName"],
 	   	colModel:[
+	   		{name:"orignFileName",index:"orignFileName",hidden:true},
+// 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
 	   		{name:"sports",index:"sports", width:70,align:"center", 
 				formatter: function (cellvalue, options, rowObject) {
 					originFileName = rowObject.orignFileName;
@@ -65,31 +67,17 @@ $(document).ready(function(){
 					return originFileNameSplit[2];
 				}
 			},
-// 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
 	   		{name:"fileId", index:"fileId", hidden:true},
 	   		{name:"filePath", index:"filePath", hidden:true},
 	   		{name:"fileName", index:"fileName", hidden:true}
 	   	],
-	   	// pager: $("#p_fileList"), 이거 풀어야됨
-		loadComplete : function(data){  
-		    
-		    // 그리드 데이터 총 갯수
-		    var allRowsInGrid = jQuery('#fileList').jqGrid('getGridParam','records');
-		   
-		    // 데이터가 없을 경우 (먼저 태그 초기화 한 후에 적용)
-// 		    $("#NoData").html("");
-// 		    if(allRowsInGrid==0){
-// 		        $("#NoData").html("<br>데이터가 없습니다.<br>");
-// 		    }
-		    // 처음 currentPage는 널값으로 세팅 (=1)
-		    initPage("fileList",allRowsInGrid,"");
-		   
-		},
+	   	// pager: $("#p_fileList"),
 	   	jsonReader : {
 	   		root : "files",
 	   		id : "fileId"
 	   	},
 	   	onSelectRow : function(id, status){
+	   		abc111 = $(this);
 	   		var file = $(this).getRowData(id);
 	   		onSelected_fileList(file);
 	   	}
@@ -98,12 +86,79 @@ $(document).ready(function(){
 	
 	init_searchCtrls();
 	
-	
-// 	$("#sportsEventCodeSelect").change(function(){
-// 		console.log("값변경 테스트:" + $(this).val());
-// 		$('#sportsEventCodeInput').val($(this).val()).prop("selected",true);
-// 	});
 });
+
+// $(document).ready(function(){
+// 	var originFileName = "";
+// 	var originFileNameSplit = "";
+// 	var params = $("#frmSearch").serialize();
+	
+// 	$("#fileList").jqGrid({
+// 		// data: params,
+// 		// datatype: "local",
+// 		url: "<c:url value="/service/file/getFileList"/>?"+params,
+// 		datatype: "json",
+// 		mtype: "get",
+// 	   	width: "auto",
+// 	   	key: true,
+// 		// height: "auto",
+// 		height: 640,
+// 		rowNum: 12, // 없었음,
+// 		autowidth: true,
+// 		viewrecords: true,
+// 		viewsortcols: [false,'vertical',false],
+// 		rownumbers: 10, // false,
+// 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
+// // 	   	colNames:["파일명", "fileId", "filePath", "fileName"],
+// 	   	colNames:["카메라","녹화자","날짜","fileId", "filePath", "fileName"],
+// 	   	colModel:[
+// 	   		{name:"sports",index:"sports", width:70,align:"center", 
+// 				formatter: function (cellvalue, options, rowObject) {
+// 					originFileName = rowObject.orignFileName;
+// 					originFileName = originFileName.replace('.mp4','');
+// 					originFileNameSplit = originFileName.split("_");
+// 					console.log(originFileName);
+// 					console.log(originFileNameSplit);
+// 					return originFileNameSplit[0];
+// 				}
+// 			},
+// 			{name:"user",index:"user", width:70,align:"center", 
+// 				formatter: function (cellvalue, options, rowObject) {
+// 					return originFileNameSplit[1];
+// 				}
+// 			},
+// 			{name:"date",index:"date", width:70,align:"center", 
+// 				formatter: function (cellvalue, options, rowObject) {
+// 					return originFileNameSplit[2];
+// 				}
+// 			},
+// // 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
+// 	   		{name:"fileId", index:"fileId", hidden:true},
+// 	   		{name:"filePath", index:"filePath", hidden:true},
+// 	   		{name:"fileName", index:"fileName", hidden:true}
+// 	   	],
+// 	   	// pager: $("#p_fileList"), 이거 풀어야됨
+// 		loadComplete : function(data){  
+		    
+// 		    // 그리드 데이터 총 갯수
+// 		    var allRowsInGrid = jQuery('#fileList').jqGrid('getGridParam','records');
+// 		    initPage("fileList",allRowsInGrid,"");
+		   
+// 		},
+// 	   	jsonReader : {
+// 	   		root : "files",
+// 	   		id : "fileId"
+// 	   	},
+// 	   	onSelectRow : function(id, status){
+// 	   		var file = $(this).getRowData(id);
+// 	   		onSelected_fileList(file);
+// 	   	}
+// 	});
+	
+	
+// 	init_searchCtrls();
+	
+// });
 
 //그리드 페이징
 function initPage(gridId,totalSize,currentPage){

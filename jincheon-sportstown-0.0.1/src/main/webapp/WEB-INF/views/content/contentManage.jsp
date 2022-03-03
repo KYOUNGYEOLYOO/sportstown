@@ -273,6 +273,7 @@ function toggleSlomo() {
 
 function onClick_search()
 {
+	console.log("21312312342312 ; ", $("#frmSearch").serialize());
 	$("#contentList").jqGrid("setGridParam", {
 		url : "<c:url value="/service/content/getContents"/>?" + $("#frmSearch").serialize(),
 		page : 1
@@ -687,11 +688,11 @@ function clear_cameraDetail()
 						<p>촬영일</p>
 						<div class="datepickerBox">
 							<label for="registFromDate">From</label>
-							<input type="text" id="recordFromDate" name="registFromDate" class="inputTxt date" value="<fmt:formatDate value="${fromDate}" pattern="yyyy-MM-dd"/>"/>
+							<input type="text" id="recordFromDate" name="recordFromDate" class="inputTxt date" value="<fmt:formatDate value="${fromDate}" pattern="yyyy-MM-dd"/>"/>
 						</div>
 						<div class="datepickerBox">
 							<label for="registToDate">To</label>
-							<input type="text" id="recordToDate" name="registToDate" class="inputTxt date" value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>					
+							<input type="text" id="recordToDate" name="recordToDate" class="inputTxt date" value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>					
 						</div>
 					</li>
 					<li>

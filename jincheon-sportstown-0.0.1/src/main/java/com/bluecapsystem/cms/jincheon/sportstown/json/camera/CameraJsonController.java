@@ -164,7 +164,7 @@ public class CameraJsonController {
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		EntityManager em = null;
 		String finalUrl = "";
-
+		
 		try {
 			_TRANS: {
 				resultCode = camServ.registCamera(camera);
@@ -190,6 +190,7 @@ public class CameraJsonController {
 				streamName = camera.getStreamMetaItems().get(0).getStreamName();
 				streamName = streamName.replace(".stream", "");
 				streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+				
 
 				System.out.println(camera.getStreamMetaItems().get(0).getStreamServer());
 				streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
@@ -323,18 +324,21 @@ public class CameraJsonController {
 		String streamName = "";
 		String streamServer = "";
 
-		IResult resultCode = CommonResult.UnknownError;
+//		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
-		Camera camera = null;
-		try {
-			condition.setCamId(camId);
-			camera = camServ.getCamera(condition);
-			resultCode = CommonResult.Success;
-		} catch (Exception ex) {
-			resultCode = CommonResult.SystemError;
-		}
+
+		condition = new CameraSelectCondition(camId);
+		condition.setHasStreamMeta(true);
+		Camera camera = camServ.getCamera(condition);
+//		try {
+//			condition.setCamId(camId);
+//			camera = camServ.getCamera(condition);
+//			resultCode = CommonResult.Success;
+//		} catch (Exception ex) {
+//			resultCode = CommonResult.SystemError;
+//		}
 		
 		try {
 			String baseUrl = null;
@@ -395,18 +399,20 @@ public class CameraJsonController {
 		String streamName = "";
 		String streamServer = "";
 
-		IResult resultCode = CommonResult.UnknownError;
+//		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
-		Camera camera = null;
-		try {
-			condition.setCamId(camId);
-			camera = camServ.getCamera(condition);
-			resultCode = CommonResult.Success;
-		} catch (Exception ex) {
-			resultCode = CommonResult.SystemError;
-		}
+		condition = new CameraSelectCondition(camId);
+		condition.setHasStreamMeta(true);
+		Camera camera = camServ.getCamera(condition);
+//		try {
+//			condition.setCamId(camId);
+//			camera = camServ.getCamera(condition);
+//			resultCode = CommonResult.Success;
+//		} catch (Exception ex) {
+//			resultCode = CommonResult.SystemError;
+//		}
 		/*
 		 * 20211228 connect disconnect 진행중
 		 */
@@ -444,6 +450,7 @@ public class CameraJsonController {
 				finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
 				break;
 			}
+			camServ.changeStateCamera(camId, CameraState.DisCon);
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
 //			Enumeration params = request.getParameterNames();
@@ -453,6 +460,7 @@ public class CameraJsonController {
 //			}
 			System.out.println();
 		} finally {
+//			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("applicationName", applicationCode);
 			mnv.addObject("streamName", streamName);
 			mnv.addObject("serverName", streamServer);

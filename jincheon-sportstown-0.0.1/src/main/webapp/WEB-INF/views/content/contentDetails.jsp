@@ -80,13 +80,65 @@ function test(){
 		
 }
 
+$(document).ready(function(){
+	
+	
+	$("#frmContent").find("[data-ctrl-contentMeta=contentUserNames]").click(function(){
+		$("#frmSelectedUsers").empty();
+		console.log("111");
+		$("#frmContent").find("[data-ctrl-contentMeta=contentUserId]").each(function(){
+			console.log($(this).val());
+			console.log("112");
+			$("#frmSelectedUsers").append($("<input type='hidden' name='selectedUserIds' />").val($(this).val()));
+		});
+		
+		console.log("113");
+		var sportsEentCode = $("#frmContent").find("[name=sportsEventCode]").val();
+		console.log(sportsEentCode);
+		$("#frmUserSearch").find("[name=sportsEventCode]").val(sportsEentCode);
+		var param = $("#frmUserSearch").serialize();
+		console.log("114");
+		
+		console.log(param);
+		$("[data-ctrl-view=user_select]").empty();
+		$("[data-ctrl-view=user_select]").jqUtils_bcs_loadHTML(
+				"<c:url value="/user/select"/>?" + param,
+				false, "get", null, null
+			);
+		
+	});
+});
+
+
 function onClick_download()
 {
  	$(location).attr("href", "<c:url value="/file/download"/>/${contentMeta.content.instances[0].file.fileId}");
+ 	
 }
 function onClick_modify()
 {
 	// 이전부터 구현되어 있는 기능이 없었음...
+	console.log("이전부터 구현되어 있는 기능이 없었음...");
+	var param = $("#frmContent").serialize();
+	console.log(param);
+	
+	$.ajax({
+		url : "<c:url value="/service/content/modifyContent"/>",
+		async : false,
+		dataType : "json",
+		data : param, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				location.reload();
+			}
+			else{
+				new bcs_messagebox().openError("컨텐츠수정", "컨텐츠수정 오류 발생 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
 }
 function onClick_delete()
 {
@@ -130,43 +182,115 @@ function onClick_delete()
 }
 
 
+function callback_selectedUsers(sender, users)
+{
+	console.log(users);
+	
+	$("#frmContent").find("[data-ctrl-contentMeta=contentUserId]").remove();
+	var userNames = "";
+	
+	for(var i = 0; i < users.length; i++)
+	{
+		$("#frmContent").append(
+			$("<input type='hidden' name='contentUsers["+i+"].userId' data-ctrl-contentMeta='contentUserId' />").val(users[i].userId)
+		);
+		
+		userNames += users[i].userName + ",";
+	}
+	
+	$("#frmContent").find("[data-ctrl-contentMeta=contentUserNames]").val(userNames);
+	
+	return true;
+}
+
+
 </script>
 
 
 	<div class="videoview">
 		<div id="player" style="background:#fafafa"></div>	
 	</div>
+	
+	<div title="사용자조회" class="bcs_dialog_hide" data-ctrl-view="user_select" data-event-selected="callback_selectedUsers" data-param-selectedUserId="frmSelectedUsers">
+	</div>
+	
+	<form id="frmUserSearch">
+		<input type="hidden" name="sportsEventCode"/>
+	</form>
+	<form id="frmSelectedUsers">
+		<input type="hidden" 	name="selectedUserIds" value="" />
+	</form>
+	
+	
 	<div class="detailWrap">
-		<dl>
-			<dt>제목</dt>
-			<dd class="full"><input type="text" name="title" title="제목" class="inputTxt" value="${contentMeta.title}" readonly></dd>
-			<dt>종목</dt>
-			<dd><input type="text" name="sportsEvent" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd>
-			<dt class="ml20">소유자</dt>
-			<dd><input type="text" name="tagUser" title="소유자" class="inputTxt" value="${contentMeta.contentUserNames}" readonly></dd>
-			<dt>녹화자</dt>
-			<dd><input type="text" name=recordUser title="녹화자" class="inputTxt" value="${contentMeta.recordUser.userName}" readonly></dd>
-			<dt class="ml20">녹화일자</dt>
-			<dd>
-				<div class="datepickerBox">
-					<input type="text" id="recordFromDate" name="recordDate" class="inputTxt date"  value="<fmt:formatDate value="${contentMeta.recordDate}" pattern="yyyy-MM-dd" />" readonly/>
-				</div>					
-			</dd>
-			<dt>설명</dt>
-			<dd class="full"><textarea name="summary" title="설명" readonly>${contentMeta.summary}</textarea></dd>
-			<dt>파일</dt>
-			<dd class="full">
-				<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly>
-				<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						
-			</dd>						
-		</dl>
+		<form id="frmContent">
+			<dl>
+				<input type="hidden" name="contentId" value="${contentMeta.contentId}" />
+				<dt>제목</dt>
+				<dd class="full"><input type="text" name="title" title="제목" class="inputTxt" value="${contentMeta.title}" ></dd>
+				<dt>종목</dt>
+				<dd><input type="text" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd>
+<%-- 				<dd><input type="text" name="sportsEventCode" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd> --%>
+				<dd  style="display:none;">
+					<input type="hidden" name="sportsEventCode" title="스포츠종목" class="inputTxt" value="${contentMeta.sportsEventCode}">
+				</dd>
+				
+				<dt class="ml20">소유자</dt>
+				<dd>
+<%-- 					<input type="text" name="tagUser" title="소유자" class="inputTxt" value="${contentMeta.contentUserNames}" readonly> --%>
+					<input type="text" name="contentUserNames" title="소유자" class="inputTxt" data-ctrl-contentMeta="contentUserNames" value="${contentMeta.contentUserNames}" readonly>
+					
+					<c:forEach items="${contentMeta.contentUsers}" var="contentUser" varStatus="status">
+						<input type="hidden" name="contentUsers[${status.index}].userId" data-ctrl-contentmeta="contentUserId" value="${contentUser.userId}">
+					</c:forEach>
+				</dd>
+				
+				<dt>녹화자</dt>
+				<dd>
+<%-- 					<input type="text" name=recordUser title="녹화자" class="inputTxt" value="${contentMeta.recordUser.userName}" readonly> --%>
+					<select class="inputTxt" name="recordUserId" title="녹화자">
+						<option value="">선택하세요</option>
+						<c:forEach items="${users}" var="user">
+							<c:set var="isSelected" value=""/>
+							<c:if test="${contentMeta.recordUserId == user.userId}">
+								<c:set var="isSelected" value="selected"/>
+							</c:if>
+							<c:choose>
+								<c:when test="${loginUser.userId == user.userId}">
+									<option value="${user.userId}" ${isSelected}>${user.userName}</option>
+								</c:when>
+								<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+									<option value="${user.userId}" ${isSelected}>${user.userName}</option>
+								</c:when>
+								<c:when test="${loginUser.sportsEventCode == user.sportsEventCode}">
+									<option value="${user.userId}" ${isSelected}>${user.userName}</option>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+					</select>	
+				</dd>
+				<dt class="ml20">녹화일자</dt>
+				<dd>
+					<div class="datepickerBox">
+						<input type="text" id="recordFromDate" name="recordDate" class="inputTxt date"  value="<fmt:formatDate value="${contentMeta.recordDate}" pattern="yyyy-MM-dd" />" readonly/>
+					</div>					
+				</dd>
+				<dt>설명</dt>
+				<dd class="full"><textarea name="summary" title="설명" >${contentMeta.summary}</textarea></dd>
+<!-- 				<dt>파일</dt> -->
+<!-- 				<dd class="full"> -->
+<!-- 					<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly> -->
+<!-- 					<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						 -->
+<!-- 				</dd>						 -->
+			</dl>
+		</form>
 		<div class="btnWrap">
 <!-- 			<a class="btn download">다운로드</a>		 -->
 			<a class="btn download" href="javascript:onClick_download();">다운로드</a>		
 			<a class="btn write" href="javascript:onClick_auth();">승인요청</a>		
 			<div class="btnWrap">
 				<a class="btn delete" href="javascript:onClick_delete();">삭제</a> 
-				<a class="btn edit">수정</a>					
+				<a class="btn edit" href="javascript:onClick_modify();">수정</a>					
 			</div>
 		</div>
 	</div>

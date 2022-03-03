@@ -66,6 +66,9 @@ function resizeCanvas(canvas){
 	//canvas.height = window.innerHeight;
 	canvas.width = window.document.getElementById("container").clientWidth;
 	canvas.height = window.document.getElementById("container").clientHeight;
+	ctx.strokeStyle = "#ff0000";
+	ctxChange.strokeStyle = "#ff0000";
+	console.log("ctx.strokeStyle112 : ",ctx.strokeStyle);
 }
 
 function addCanvas(){
@@ -94,6 +97,7 @@ function addCanvas(){
 	// default 색상 빨강으로 설정
 	ctx.strokeStyle = "#ff0000";
 	ctxChange.strokeStyle = "#ff0000";
+	console.log("ctx.strokeStyle111 : ",ctx.strokeStyle);
 	
 	resizeCanvas(canvas); 
 	// 이유는 모르겠는데 실행 안됨 이 내용들을 setAttribute에서 바로 실행
@@ -203,7 +207,7 @@ function drawShape(cShape){
 	console.log("drawShape");
 	shape = cShape;
 	console.log("111shape:",shape);
-	
+	ctx.globalCompositeOperation = "source-over";
 	let canvasShape = document.getElementById("canvasChange");
 	
 	//ctxChange.lineWidth = ctx.lineWidth;
