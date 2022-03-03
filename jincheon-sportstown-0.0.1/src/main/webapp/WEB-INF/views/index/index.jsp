@@ -281,13 +281,22 @@ function drawChart() {
 				var dataValues = ajaxData.dashboardDatas; 
 				var labelDatas = new Array();
 				var datas = new Array();
+				var colors = new Array();
 				
+				
+				var randomColorGenerator = function () {
+	                return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+	            };
+	            
 				for (var i = 0; i < dataValues.length; i++) {
 					var temp = dataValues[i];
 
 					labelDatas[i] = temp[0];
 					datas[i] = temp[1];
+					colors[i] = randomColorGenerator();
 			    }
+				
+				
 				
 				var context = document.getElementById('piechart');
 	            var myChart = new Chart(context, {
@@ -296,7 +305,7 @@ function drawChart() {
 				      labels: labelDatas,
 				      datasets: [{
 				        label: "Population (millions)",
-				        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+				        backgroundColor: colors,
 				        data: datas
 				      }]
 				    },
@@ -308,29 +317,8 @@ function drawChart() {
 				      }
 				    }
 				});
-				
-// 				var dataValues = ajaxData.dashboardDatas; 
-// 				var data = new google.visualization.DataTable();
-				
-// 				data.addColumn("string", "type");
-// 				data.addColumn("number", "value");
-				
-// 				for (var i = 0; i < dataValues.length; i++) {
-// 					var temp = dataValues[i];
-					
-// 					data.addRow([temp[0] , temp[1]]);
-// 			    }
-				
-// 				var options = {
-// 					      title: '',
-// 					      height : 570,
-// 					      width : '100%'
-
-// 			    };
-
-// 			    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-// 			    chart.draw(data, options);
+	            
+	            
 			    
 			}else{
 				new bcs_messagebox().openError("아카이브 등록 현황", "데이터 오류 발생 [code="+ajaxData.resultCode+"]", null);
