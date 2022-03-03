@@ -114,5 +114,51 @@ public class DashboardDataManageService
 	}
 	
 	
-	
+	/**
+	 * 대시보드 삭제 한다
+	 * @param contentId
+	 * @return
+	 */
+	public IResult deleteDashboardData(String contentId)
+	{
+		IResult result = CommonResult.UnknownError;
+		EntityManager em = emf.createEntityManager();
+		
+		_TRANS :
+		{
+			try
+			{
+				em.getTransaction().begin();
+				
+				// 기존 대시보드 데이터를 확인한다\
+				DashboardData dashboardData = dashboardDataDaoImpl.selectDashboard(em, new DashboardDataSelectCondition(contentId)); 
+				if( dashboardData == null)
+				{
+					result = UserResult.UserNotFound;
+					break _TRANS;
+				}
+				
+				
+				
+				// DB 에 대시보드를 삭제 한다
+				dashboardDataDaoImpl.deleteDashboardData(em, dashboardData);
+				result = CommonResult.Success;
+				em.getTransaction().commit();
+				break _TRANS;
+			}catch(Exception ex)
+			{
+				logger.error("대시보드 삭제 오류 [contentId={}]\n{} ", 
+						contentId, 
+						ExceptionUtils.getFullStackTrace(ex));
+				result = CommonResult.DAOError;
+				em.getTransaction().rollback();
+				break _TRANS;
+			}
+		}
+		
+		em.close();
+		logger.debug("대시보드 삭제 결과 [contentId={}] => {} ", contentId, result);
+		
+		return result;
+	}
 }

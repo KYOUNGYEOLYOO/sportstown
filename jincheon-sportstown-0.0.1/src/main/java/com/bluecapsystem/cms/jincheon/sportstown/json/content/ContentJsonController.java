@@ -131,6 +131,7 @@ public class ContentJsonController {
 			dashboardData.setRegistDate(content.getRegistDate());
 			dashboardData.setUserId(meta.getRecordUserId());
 			dashboardData.setSportsEventCode(meta.getSportsEventCode());
+			dashboardData.setContentId(content.getContentId());
 			
 			dashboardDataManageServ.registDashboardData(dashboardData);
 			
@@ -174,6 +175,7 @@ public class ContentJsonController {
 			dashboardData.setRegistDate(content.getRegistDate());
 			dashboardData.setUserId(meta.getRecordUserId());
 			dashboardData.setSportsEventCode(meta.getSportsEventCode());
+			dashboardData.setContentId(content.getContentId());
 			
 			dashboardDataManageServ.registDashboardData(dashboardData);
 			
@@ -194,6 +196,8 @@ public class ContentJsonController {
 		content.setContentMeta(meta);
 
 		IResult resultCode = contentServ.modifyContent(content);
+		
+		
 
 		logger.debug("컨텐츠 수정 결과 [content={}] => {}", content, resultCode);
 		mnv.addObject("content", content);
@@ -209,6 +213,23 @@ public class ContentJsonController {
 
 		IResult resultCode = contentServ.deleteContent(contentId);
 
+		
+		EntityManager em = emf.createEntityManager();
+
+		em.getTransaction().begin();
+
+		_TRANSACTION: {
+			
+		
+			resultCode = contentServ.deleteContent(contentId);
+			
+			if (resultCode != CommonResult.Success)
+				break _TRANSACTION;
+			
+			dashboardDataManageServ.deleteDashboardData(contentId);
+			
+		}
+		
 		logger.debug("컨텐츠 삭제 결과 [contentId={}] => {}", contentId, resultCode);
 		mnv.addObject("contentId", contentId);
 		mnv.addObject("resultCode", resultCode);
