@@ -26,25 +26,27 @@ $(document).ready(function(){
 	
 	var params = $("#frmSearch").serialize();
 	
+
 	$("#fileList").jqGrid({
 		// data: params,
 		// datatype: "local",
 		url: "<c:url value="/service/file/getFileList"/>?"+params,
 		datatype: "json",
 		mtype: "get",
-		width: "auto",
-		key: true,
+	   	width: "auto",
+	   	key: true,
 		// height: "auto",
 		height: 640,
-		rowNum: 12, // 없었음,
 		autowidth: true,
+		rowNum: 12, // 없었음,
 		viewrecords: true,
 		viewsortcols: [false,'vertical',false],
-		rownumbers: 10, // false,
+		rownumbers: false, // false,
 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
-	   	colNames:["파일명","카메라","녹화자","날짜", "fileId", "filePath", "fileName"],
+	   	colNames:["파일명","카메라","녹화자","날짜","fileId", "filePath", "fileName"],
 	   	colModel:[
-	   		{name:"orignFileName",index:"orignFileName",align:"left", hidden:true},
+	   		{name:"orignFileName",index:"orignFileName",hidden:true},
+// 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
 	   		{name:"sports",index:"sports", width:70,align:"center", 
 				formatter: function (cellvalue, options, rowObject) {
 					originFileName = rowObject.orignFileName;
