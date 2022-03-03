@@ -13,6 +13,8 @@ public class DashboardDataSelectCondition implements ISelectCondition
 	 */
 	private String dataId;
 	
+	private String contentId;
+	
 	/**
 	 * data 종류
 	 */
@@ -32,23 +34,28 @@ public class DashboardDataSelectCondition implements ISelectCondition
 		this(null);
 	}
 	
-	public DashboardDataSelectCondition(String dataId)
+	public DashboardDataSelectCondition(String contentId)
 	{
-		this.dataId = dataId;
+		this.contentId = contentId;
 	}
 	
 	@Override
 	public String toString()
 	{
-		return String.format("%s[dataId=%s, sportsEventCode=%s]", 
+		return String.format("%s[dataId=%s, sportsEventCode=%s, contentId=%s]", 
 				this.getClass().getSimpleName(),
-				dataId, sportsEventCode);
+				dataId, sportsEventCode, contentId);
 	}
 
 	
 
-	
+	public String getContentId() {
+		return contentId;
+	}
 
+	public void setContentId(String contentId) {
+		this.contentId = contentId;
+	}
 	public String getDataId() {
 		return dataId;
 	}

@@ -66,6 +66,12 @@ public class DashboardData
 	private String userId;
 
 	/**
+	 * 컨텐츠 아이디
+	 */
+	@Column(nullable = false, length=256)
+	private String contentId;
+	
+	/**
 	 * data 유형
 	 */
 	@Enumerated(EnumType.STRING)
@@ -90,6 +96,15 @@ public class DashboardData
 		this.dataId = dataId;
 	}
 
+	public String getContentId() {
+		return contentId;
+	}
+
+
+	public void setContentId(String contentId) {
+		this.contentId = contentId;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -98,7 +113,6 @@ public class DashboardData
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 
 	public Date getRegistDate() {
 		return registDate;

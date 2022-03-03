@@ -15,6 +15,9 @@
 				<entry key="UPLOAD" value="D:/sport_cms_storage/upload"/>
 				<entry key="CONTENT" value="D:/sport_cms_storage/files"/>
 				
+				<entry key="WOWZALOG1" value="D:/sport_cms_storage/logs"/>
+				
+				
 				<!-- 
 				<entry key="INGEST" value="Z:/cms_storage/ingest"/>
 				<entry key="UPLOAD" value="Z:/cms_storage/upload"/>

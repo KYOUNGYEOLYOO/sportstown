@@ -134,7 +134,11 @@ public class DashboardDataDaoImpl
 	}
 
 	
-
+	public void deleteDashboardData(EntityManager em, DashboardData dashboardData)
+	{
+		logger.debug("대쉬보드 정보를 삭제 합니다 [dashboardData={}]", dashboardData);
+		em.remove(dashboardData);
+	}
 
 	/**
 	 * 사용자 table 의 검색 조건을 추가 한다
@@ -146,6 +150,12 @@ public class DashboardDataDaoImpl
 	private List<Predicate> getWhereConditions(CriteriaBuilder cb, Root<DashboardData> dashboardDataRoot, DashboardDataSelectCondition condition)
 	{
 		List<Predicate> conditions = new ArrayList<Predicate>();
+		
+		if(EmptyChecker.isNotEmpty(condition.getContentId()))
+		{
+			Predicate p = cb.and(cb.equal(dashboardDataRoot.get("contentId"), condition.getContentId()));
+			conditions.add(p);
+		}
 
 		if(EmptyChecker.isNotEmpty(condition.getDataType()))
 		{
