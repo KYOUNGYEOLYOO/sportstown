@@ -25,7 +25,31 @@ $(document).ready(function(){
 	drawChart();
 	
 	cameraList();
+	
+	diskInfo();
 });
+
+function diskInfo(){
+	$.ajax({
+		url : "<c:url value="/service/index/diskInfo"/>",
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				
+				$('#diskInfoTitle').html("NAS 사용량( "+ajaxData.free+" TB / "+ajaxData.total+" TB ) 및 영상 저장 분포");
+				$('#progressVar').attr('value',ajaxData.free);
+				$('#progressVar').attr('max',ajaxData.total);
+			}else{
+				new bcs_messagebox().openError("disk 정보", "disk 정보  오류 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+}
 
 function cameraList(){
 	$.ajax({
@@ -49,7 +73,7 @@ function cameraList(){
 						wait = Number(wait)+ Number(1);
 					}else if(ajaxData.cameras[i].state == "Recording"){
 						recording = Number(recording)+ Number(1);
-					}else{
+				}else{
 						ready = Number(ready)+ Number(1);
 					}
 				}
@@ -119,9 +143,15 @@ function selectBestCode(year){
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
 			if(ajaxData.resultCode == "Success"){
+				
 				var code = ajaxData.dashboardData[0];
 				
-				selectCode(code[0]);
+				if(code == null){
+					selectCode("000");
+				}else{
+					selectCode(code[0]);
+				}
+				
 				
 				
 			    
@@ -188,7 +218,7 @@ function yearsData(){
 	$('#selectYear').html(html);
 	
 	month();
-	selectBestCode(year);
+	
 }
 
 function month(){
@@ -224,6 +254,8 @@ function month(){
 					
 					$('#'+temp[0]+'_area').html(temp[1]);
 				}
+				
+				selectBestCode(year);
 			    
 			}else{
 				new bcs_messagebox().openError("월별 등록 현황", "데이터 오류 발생 [code="+ajaxData.resultCode+"]", null);
@@ -374,6 +406,7 @@ function drawChart() {
 	                        yAxes: [
 	                            {
 	                                ticks: {
+	                                	stepSize : 1,
 	                                    beginAtZero: true
 	                                }
 	                            }
@@ -499,13 +532,16 @@ function drawChart() {
 						<canvas id="columnchart" style="margin-top: 60px;"></canvas>
 					</div>
 				</div>
+				
 				<div class="chart02">
 					<div class="title">
-						<h4>아카이브 영상 저장 분포</h4>
-<!-- 						<span>2021년 1월 29일</span> -->
+						<h4 id="diskInfoTitle">NAS 사용량( 0 TB / 0 TB ) 및 영상 저장 분포</h4>
+						<progress id="progressVar" value="0" max="0" style="width:35%;margin-top: 15px;"></progress>
 					</div>
+					
+					
 					<div class="" id="">
-						<canvas id="piechart" style="padding: 0 35px 65px 35px;"></canvas>
+						<canvas id="piechart" style="padding: 10px 35px 55px 35px;"></canvas>
 					</div>
 				</div>
 			</div>

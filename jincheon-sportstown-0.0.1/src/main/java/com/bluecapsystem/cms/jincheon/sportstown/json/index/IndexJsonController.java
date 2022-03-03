@@ -1,5 +1,6 @@
 package com.bluecapsystem.cms.jincheon.sportstown.json.index;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -104,7 +105,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardData  = null;
 		try {
 			
-			dashboardData = dashboardDataDao.findBestCodeData(DashboardData.DataType.Contents,year);
+			dashboardData = dashboardDataDao.findBestCodeData(year);
 			
 			
 			
@@ -137,7 +138,7 @@ public class IndexJsonController {
 		
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByColumnData(DashboardData.DataType.Contents,sportsEventCode,year);
+			dashboardDatas = dashboardDataDao.findGroupByColumnData(sportsEventCode,year);
 			
 			
 			
@@ -168,7 +169,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardDatas = null;
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByMonthData(DashboardData.DataType.Contents, year);
+			dashboardDatas = dashboardDataDao.findGroupByMonthData(year);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -195,7 +196,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardDatas = null;
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByData(DashboardData.DataType.Archive);
+			dashboardDatas = dashboardDataDao.findGroupByData();
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -233,8 +234,8 @@ public class IndexJsonController {
 			
 			String today = fourteen_format.format(cal.getTime());
 			
-			allContent = dashboardDataDao.findGroupByAllContent(DashboardData.DataType.Contents);
-			todayContent = dashboardDataDao.findGroupByTodayContent(DashboardData.DataType.Contents,today);
+			allContent = dashboardDataDao.findGroupByAllContent();
+			todayContent = dashboardDataDao.findGroupByTodayContent(today);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -286,6 +287,60 @@ public class IndexJsonController {
 			
 		}
 
+		
+		
+		return mnv;
+		
+	}
+	
+	@RequestMapping("/diskInfo")
+	public ModelAndView diskInfo(HttpServletRequest request) {
+
+		ModelAndView mnv = new ModelAndView("jsonView");
+		
+		IResult resultCode = CommonResult.UnknownError;
+		
+		String  drive;
+		double  totalSize, freeSize, useSize;     
+		
+		String total="";
+		String free="";
+
+		File[] roots = File.listRoots();
+
+		for (File root : roots) {
+
+		          
+
+			drive = root.getAbsolutePath();
+	
+			totalSize = root.getTotalSpace() / Math.pow(1024, 4);
+			useSize = root.getUsableSpace() / Math.pow(1024, 4);
+			freeSize = totalSize - useSize;
+	
+			 
+			if(drive.equals("D:\\")) {
+				
+				System.out.println("\n하드 디스크 이름 : " + drive + "\n");
+				
+				System.out.println("전체 디스크 용량 : " + totalSize + " TB \n");
+		
+				System.out.println("디스크 사용 용량 : " + freeSize + " TB \n");
+		
+				System.out.println("디스크 남은 용량 : " + useSize + " TB \n");
+			}
+				
+			total = String.format("%.2f", totalSize);
+			free = String.format("%.2f", freeSize);
+			
+			resultCode = CommonResult.Success;
+
+		}
+		
+		resultCode = CommonResult.Success;
+		mnv.addObject("resultCode", resultCode);
+		mnv.addObject("total", total);
+		mnv.addObject("free", free);
 		
 		
 		return mnv;

@@ -33,21 +33,21 @@ import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 public interface DashboardDataDao extends JpaRepository<DashboardData, String>
 {
 	
-	@Query(value = "SELECT dd.sportsEvent.name, count(*) FROM DashboardData dd WHERE dd.dataType= :dataType group by dd.sportsEvent.name ")
-	List<DashboardData> findGroupByData(@Param("dataType") DataType dataType);
+	@Query(value = "SELECT dd.sportsEvent.name, count(*) FROM DashboardData dd group by dd.sportsEvent.name ")
+	List<DashboardData> findGroupByData();
 
-	@Query(value = "SELECT to_char(dd.registDate, 'mm'), count(*) FROM DashboardData dd WHERE dd.dataType= :dataType and to_char(dd.registDate, 'yyyy') = :year group by to_char(dd.registDate, 'mm') order by to_char(dd.registDate, 'mm') asc  ")
-	List<DashboardData> findGroupByMonthData(@Param("dataType") DataType dataType, @Param("year") String year);
+	@Query(value = "SELECT to_char(dd.registDate, 'mm'), count(*) FROM DashboardData dd WHERE to_char(dd.registDate, 'yyyy') = :year group by to_char(dd.registDate, 'mm') order by to_char(dd.registDate, 'mm') asc  ")
+	List<DashboardData> findGroupByMonthData( @Param("year") String year);
 
-	@Query(value = "SELECT to_char(dd.registDate, 'mm'), count(*) FROM DashboardData dd WHERE dd.dataType= :dataType and dd.sportsEventCode = :sportsEventCode and to_char(dd.registDate, 'yyyy') = :year group by to_char(dd.registDate, 'mm') order by to_char(dd.registDate, 'mm') asc ")
-	List<DashboardData> findGroupByColumnData(@Param("dataType") DataType dataType,  @Param("sportsEventCode") String sportsEventCode, @Param("year") String year);
+	@Query(value = "SELECT to_char(dd.registDate, 'mm'), count(*) FROM DashboardData dd WHERE dd.sportsEventCode = :sportsEventCode and to_char(dd.registDate, 'yyyy') = :year group by to_char(dd.registDate, 'mm') order by to_char(dd.registDate, 'mm') asc ")
+	List<DashboardData> findGroupByColumnData( @Param("sportsEventCode") String sportsEventCode, @Param("year") String year);
 	
-	@Query(value = "SELECT sportsEventCode, count(*) as cnt FROM DashboardData dd WHERE dd.dataType= :dataType and to_char(dd.registDate, 'yyyy') = :year group by dd.sportsEventCode order by cnt DESC ")
-	List<DashboardData> findBestCodeData(@Param("dataType") DataType dataType,  @Param("year") String year);
+	@Query(value = "SELECT sportsEventCode, count(*) as cnt FROM DashboardData dd WHERE to_char(dd.registDate, 'yyyy') = :year group by dd.sportsEventCode order by cnt DESC ")
+	List<DashboardData> findBestCodeData( @Param("year") String year);
 	
-	@Query(value = "SELECT count(*) FROM DashboardData dd WHERE dd.dataType= :dataType ")
-	List<DashboardData> findGroupByAllContent(@Param("dataType") DataType dataType);
+	@Query(value = "SELECT count(*) FROM DashboardData dd ")
+	List<DashboardData> findGroupByAllContent();
 	
-	@Query(value = "SELECT count(*) FROM DashboardData dd WHERE dd.dataType= :dataType and to_char(dd.registDate, 'yyyymmdd') = :today")
-	List<DashboardData> findGroupByTodayContent(@Param("dataType") DataType dataType, @Param("today") String today);
+	@Query(value = "SELECT count(*) FROM DashboardData dd where to_char(dd.registDate, 'yyyymmdd') = :today")
+	List<DashboardData> findGroupByTodayContent( @Param("today") String today);
 }

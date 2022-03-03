@@ -304,140 +304,140 @@ function onClick_detail_video(registDate)
 {
 	
 	
-	console.log(">>>>>>>>>>>"+registDate);
 	
-	
-	
-	if("${loginUser.sportsEvent.isPartition}" == 'true'){
-		
-		var authFromDate = "${loginUser.authFromDate}";
-		var authToDate = "${loginUser.authToDate}";
-		
-		console.log(authFromDate);
-		console.log(authToDate);
-		
-		if(authFromDate == '' && authToDate == ''){
-			var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
-			var userId = "${loginUser.userId}"
-			
-			
-			$.ajax({
-				url : "<c:url value="/service/contentAuth/getContentAuth"/>/" + contentId +"/"+ userId+"/approval",
-				async : false,
-				dataType : "json",
-				data : null, 
-				method : "post",
-				beforeSend : function(xhr, settings ){},
-				error : function (xhr, status, error){},
-				success : function (ajaxData) {
-					console.log("====");
-					console.log(ajaxData);
-					if(ajaxData.resultCode == "Success"){
-						
-						
-						if(ajaxData.contentAuth != null){
-							var today = new Date();
-							
-							var year = today.getFullYear();
-							var month = ('0' + (today.getMonth() + 1)).slice(-2);
-							var day = ('0' + today.getDate()).slice(-2);
-
-							var dateString = year + '' + month  + '' + day;
-							
-							var fromDateTemp = ajaxData.contentAuth.fromDate.substring(0,10).replace(/-/gi, "");
-							var toDateTemp = ajaxData.contentAuth.toDate.substring(0,10).replace(/-/gi, "");
-							
-							if(Number(fromDateTemp) <= Number(dateString) && Number(dateString) <= Number(toDateTemp)){
-								
-							}else{
-								new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
-								return;
-							}
-						}else{
-							new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
-							return;
-						}
-						
-						
-					}else{
-						new bcs_messagebox().openError("승인 상세조회", "승인 조회중 오류 발생 [code="+ajaxData.resultCode+"]", null);
-					}
-				}
-			});
-			
-			
-		}else{
-
-			
-			var today = registDate;   
-
-			var todayTemp = today.substring(0,8);
-			
-			var authFromDateTemp = authFromDate.substring(0,10).replace(/-/gi, "");
-			var authToDateTemp = authToDate.substring(0,10).replace(/-/gi, "");
-
-			
-			console.log(todayTemp);
-			console.log(authFromDateTemp);
-			console.log(authToDateTemp);
-			
-			if(Number(authFromDateTemp) <= Number(todayTemp) && Number(todayTemp) <= Number(authToDateTemp)){
+	if("${loginUser.userType}" != 'Admin'){
+			if("${loginUser.sportsEvent.isPartition}" == 'true'){
 				
-			}else{
+				var authFromDate = "${loginUser.authFromDate}";
+				var authToDate = "${loginUser.authToDate}";
 				
-				var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
-				var userId = "${loginUser.userId}"
+				console.log(authFromDate);
+				console.log(authToDate);
 				
-				
-				$.ajax({
-					url : "<c:url value="/service/contentAuth/getContentAuth"/>/" + contentId +"/"+ userId+"/approval",
-					async : false,
-					dataType : "json",
-					data : null, 
-					method : "post",
-					beforeSend : function(xhr, settings ){},
-					error : function (xhr, status, error){},
-					success : function (ajaxData) {
-						console.log("====");
-						console.log(ajaxData);
-						if(ajaxData.resultCode == "Success"){
-							
-							
-							if(ajaxData.contentAuth != null){
-								var today = new Date();
+				if(authFromDate == '' && authToDate == ''){
+					var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
+					var userId = "${loginUser.userId}"
+					
+					
+					$.ajax({
+						url : "<c:url value="/service/contentAuth/getContentAuth"/>/" + contentId +"/"+ userId+"/approval",
+						async : false,
+						dataType : "json",
+						data : null, 
+						method : "post",
+						beforeSend : function(xhr, settings ){},
+						error : function (xhr, status, error){},
+						success : function (ajaxData) {
+							console.log("====");
+							console.log(ajaxData);
+							if(ajaxData.resultCode == "Success"){
 								
-								var year = today.getFullYear();
-								var month = ('0' + (today.getMonth() + 1)).slice(-2);
-								var day = ('0' + today.getDate()).slice(-2);
-
-								var dateString = year + '' + month  + '' + day;
 								
-								var fromDateTemp = ajaxData.contentAuth.fromDate.substring(0,10).replace(/-/gi, "");
-								var toDateTemp = ajaxData.contentAuth.toDate.substring(0,10).replace(/-/gi, "");
-								
-								if(Number(fromDateTemp) <= Number(dateString) && Number(dateString) <= Number(toDateTemp)){
+								if(ajaxData.contentAuth != null){
+									var today = new Date();
 									
+									var year = today.getFullYear();
+									var month = ('0' + (today.getMonth() + 1)).slice(-2);
+									var day = ('0' + today.getDate()).slice(-2);
+
+									var dateString = year + '' + month  + '' + day;
+									
+									var fromDateTemp = ajaxData.contentAuth.fromDate.substring(0,10).replace(/-/gi, "");
+									var toDateTemp = ajaxData.contentAuth.toDate.substring(0,10).replace(/-/gi, "");
+									
+									if(Number(fromDateTemp) <= Number(dateString) && Number(dateString) <= Number(toDateTemp)){
+										
+									}else{
+										new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+										return;
+									}
 								}else{
 									new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
 									return;
 								}
+								
+								
 							}else{
-								new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
-								return;
+								new bcs_messagebox().openError("승인 상세조회", "승인 조회중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 							}
-							
-							
-						}else{
-							new bcs_messagebox().openError("승인 상세조회", "승인 조회중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 						}
+					});
+					
+					
+				}else{
+
+					
+					var today = registDate;   
+
+					var todayTemp = today.substring(0,8);
+					
+					var authFromDateTemp = authFromDate.substring(0,10).replace(/-/gi, "");
+					var authToDateTemp = authToDate.substring(0,10).replace(/-/gi, "");
+
+					
+					console.log(todayTemp);
+					console.log(authFromDateTemp);
+					console.log(authToDateTemp);
+					
+					if(Number(authFromDateTemp) <= Number(todayTemp) && Number(todayTemp) <= Number(authToDateTemp)){
+						
+					}else{
+						
+						var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
+						var userId = "${loginUser.userId}"
+						
+						
+						$.ajax({
+							url : "<c:url value="/service/contentAuth/getContentAuth"/>/" + contentId +"/"+ userId+"/approval",
+							async : false,
+							dataType : "json",
+							data : null, 
+							method : "post",
+							beforeSend : function(xhr, settings ){},
+							error : function (xhr, status, error){},
+							success : function (ajaxData) {
+								console.log("====");
+								console.log(ajaxData);
+								if(ajaxData.resultCode == "Success"){
+									
+									
+									if(ajaxData.contentAuth != null){
+										var today = new Date();
+										
+										var year = today.getFullYear();
+										var month = ('0' + (today.getMonth() + 1)).slice(-2);
+										var day = ('0' + today.getDate()).slice(-2);
+
+										var dateString = year + '' + month  + '' + day;
+										
+										var fromDateTemp = ajaxData.contentAuth.fromDate.substring(0,10).replace(/-/gi, "");
+										var toDateTemp = ajaxData.contentAuth.toDate.substring(0,10).replace(/-/gi, "");
+										
+										if(Number(fromDateTemp) <= Number(dateString) && Number(dateString) <= Number(toDateTemp)){
+											
+										}else{
+											new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+											return;
+										}
+									}else{
+										new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+										return;
+									}
+									
+									
+								}else{
+									new bcs_messagebox().openError("승인 상세조회", "승인 조회중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+								}
+							}
+						});
+						
+//		 				new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+//		 				return;
 					}
-				});
-				
-// 				new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
-// 				return;
+				}
 			}
-		}
 	}
+	
 	
 	
 	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
