@@ -141,7 +141,7 @@ public class WowzaCURLApi {
 		try {
 			sendPut(url);
 		}catch(Exception ex) {
-			throw new RuntimeException(String.format("deleteStream Error [url = %s] => %s ", url, ex.getMessage()), ex); 
+			throw new RuntimeException(String.format("connectStream Error [url = %s] => %s ", url, ex.getMessage()), ex); 
 		}
 		return url;
 	}

@@ -32,7 +32,7 @@ public class Code
 	private Boolean isDeleted;
 	
 	@Type(type="true_false")
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private Boolean isPartition;
 	
 	

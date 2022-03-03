@@ -38,6 +38,13 @@ function init_contentList()
 	
 	var eventSender = new bcs_ctrl_event($("#contentList"));
 	console.log("<c:url value="/service/content/getContents"/>?" + $("#frmSearch").serialize());
+	
+	$("#sportsEventCodeSelect").change(function(){
+		console.log("값변경 테스트:" + $(this).val());
+		$("#frmSearch").find("[name=sportsEventCode]").val($(this).val());
+		console.log("111 :",$("#frmSearch").find("[name=sportsEventCode]").val());
+
+	});
 	$("#contentList").jqGrid({
 		// data: mydata,
 		url : "<c:url value="/service/content/getContents"/>?" + $("#frmSearch").serialize(),
@@ -55,7 +62,8 @@ function init_contentList()
 		rowNum: 8,
 		rowList: [8,20,30],
 // 	   	colNames:["썸네일", "스포츠종류", "제목", "촬영자", "촬영일자", "등록일자", "contentId"],
-	   	colNames:["썸네일", "스포츠종류", "제목", "촬영일자 / 등록일자", "등록일자","contentId"],
+// 	   	colNames:["썸네일", "스포츠종류", "제목", "촬영일자 / 등록일자", "등록일자","contentId"],
+		colNames:["썸네일", "스포츠종류", "스포츠 종류", "제목", "촬영자", "촬영일자", "촬영일자 / 등록일자", "등록일자","contentId"],
 	   	colModel:[
 			{name:"thumbnail",index:"thumbnail", width:70,align:"center", 
 				formatter: function (cellvalue, options, rowObject) {
@@ -63,20 +71,20 @@ function init_contentList()
 					return "<img src='<c:url value="/content/thumbnail"/>/"+rowObject.contentId+"' height='100%' width='100%'/>";
 				}
 			},
-			{name:"sportsEvent.name",index:"sportsEventName", width:80, align:"left",
+			{name:"sportsEvent.name",index:"sportsEventName", width:80, align:"left", hidden:true},
+			{name:"sportsEvent2",index:"sportsEvent2", width:80, align:"left",
 				formatter: function (cellvalue, options, rowObject) {
 					return rowObject.sportsEvent.name + "\n" + rowObject.recordUser.userName;
 				}
 			},
 			{name:"title",index:"title", width:180, align:"left"},
-// 			{name:"recordUser.userName", index:"recordUserName", width:100, align:"center"},
-			
-			{name:"formatedRecordDate", index:"formatedRecordDate", width:200, align:"center",
+			{name:"recordUser.userName", index:"recordUserName", width:100, align:"center", hidden:true},
+			{name:"formatedRecordDate2", index:"formatedRecordDate2", width:200, align:"center",
 				formatter: function (cellvalue, options, rowObject) {
 						return rowObject.formatedRecordDate + "\n" + rowObject.content.registDate;
 					}
 				},
-// 			{name:"formatedRecordDate", index:"formatedRecordDate", width:200, align:"center"},
+			{name:"formatedRecordDate", index:"formatedRecordDate", width:200, align:"center",hidden:true},
 			{name:"content.registDate", index:"registDate", width:100, align:"center",hidden:true},
 			{name:"contentId", index:"contentId", hidden:true}
 		],
@@ -431,9 +439,7 @@ function onClick_detail_video(registDate)
 								}
 							}
 						});
-						
-//		 				new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
-//		 				return;
+
 					}
 				}
 			}
@@ -642,7 +648,7 @@ function clear_cameraDetail()
 			<!-- 	위치이동 -->
 			<c:choose>					
 				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-					<select class="selectyze" name="sportsEventCode">
+					<select class="selectyze" name="sportsEventCode" id="sportsEventCodeSelect">
 							<option value="">운동종목</option>
 							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
 								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
@@ -661,24 +667,26 @@ function clear_cameraDetail()
 		<div id="lnbWrapT" class="searchContainer">
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="hasNotUsed" value="true" />		
-				<!-- 	위치이동							
-				<c:choose>					
-					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-						<div class="">
-							<select class="selectyze psa" name="sportsEventCode">
-								<option value="">운동종목</option>
-								<c:forEach items="${sprotsEvents}" var="sprotsEvent">
-									<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
-								</c:forEach>
-							</select>
-						</div>
-					</c:when>
-					
-					<c:otherwise>
-						<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
-					</c:otherwise>
-				</c:choose>	
-				//위치이동 -->					
+				<!-- 	위치이동 -->
+				<div style="display:none">							
+					<c:choose>					
+						<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+							<div class="">
+								<select class="selectyze psa" name="sportsEventCode">
+									<option value="">운동종목</option>
+									<c:forEach items="${sprotsEvents}" var="sprotsEvent">
+										<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</c:when>
+						
+						<c:otherwise>
+							<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
+						</c:otherwise>
+					</c:choose>
+				</div>	
+				<!-- //위치이동 -->					
 				<ul>
 					<li>
 						<label for="search_keyword">제목</label> 

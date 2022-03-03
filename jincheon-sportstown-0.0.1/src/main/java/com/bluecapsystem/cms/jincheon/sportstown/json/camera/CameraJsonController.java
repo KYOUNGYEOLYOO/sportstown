@@ -346,7 +346,8 @@ public class CameraJsonController {
 			applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 			streamName = camera.getStreamMetaItems().get(0).getStreamName();
 			streamName = streamName.replace(".stream", ""); 
-			streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+//			streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+			streamServer = camera.getStreamMetaItems().get(0).getStreamServer().getName();
 //			applicationCode = (String) request.getParameter("applicationName");
 //			streamName = (String) request.getParameter("streamName");
 //			streamServer = (String) request.getParameter("serverName");
@@ -424,7 +425,8 @@ public class CameraJsonController {
 			applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 			streamName = camera.getStreamMetaItems().get(0).getStreamName();
 //			streamName = streamName.replace(".stream", ""); disconnect 는 stream이 들어가야됨
-			streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+//			streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+			streamServer = camera.getStreamMetaItems().get(0).getStreamServer().getName();
 //			applicationCode = (String) request.getParameter("applicationName");
 //			streamName = (String) request.getParameter("streamName");
 //			streamServer = (String) request.getParameter("serverName");

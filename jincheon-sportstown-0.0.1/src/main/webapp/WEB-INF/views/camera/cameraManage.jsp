@@ -110,7 +110,7 @@ function onClick_connect(){
 			if(ajaxData.resultCode == "Success"){
 				console.log("success");
 			}else{
-				new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+// 				new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 			}
 		}
 	});
@@ -136,11 +136,11 @@ function onClick_disconnect(){
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
 			console.log("ajaxData.finalUrl : ", ajaxData);
-// 			if(ajaxData.resultCode == "Success"){
-// 				console.log("success");
-// 			}else{
+			if(ajaxData.resultCode == "Success"){
+				console.log("success");
+			}else{
 // 				new bcs_messagebox().openError("카메라관리", "카메라 연결해제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
-// 			}
+			}
 		}
 	});
 }

@@ -26,7 +26,6 @@ $(document).ready(function(){
 	
 	var params = $("#frmSearch").serialize();
 	
-
 	$("#fileList").jqGrid({
 		// data: params,
 		// datatype: "local",
@@ -599,6 +598,11 @@ function init_searchCtrls()
 // 		$("#frmSearch").find("[name=sportsEventCode]").change(function(){
 			console.log("값변경 테스트:" + $(this).val());
 			var sportEventCode = $(this).val();
+			$("#frmSearch").find("[name=sportsEventCode]").val($(this).val());
+			console.log("111 :",$("#frmSearch").find("[name=sportsEventCode]").val());
+			
+		});
+			
 			$("#frmSearch").find("[name=camId]").children(":not(:first)").remove();
 			console.log("service/camera/getAllCameras" + sportEventCode);
 			$.ajax({
@@ -637,7 +641,7 @@ function init_searchCtrls()
 					}
 				}
 			});
-		}).trigger("change");
+		
 // 	}
 }
 
@@ -758,27 +762,29 @@ function callback_selectedUsers(sender, users)
 				<!-- <input type="hidden" name="locationRootCode" value="UPLOAD" /> -->
 				<input type="hidden" name="locationRootCode" value="INGEST" />
 				<input type="hidden" name="hasNotUsed" value="true" />
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}"> --%>
-<!-- 						<div class=""> -->
+				<div style="display:none">
+				<c:choose>
+					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+						<div class="">
 						
-<!-- 							<select class="" name="sportsEventCode" id="sportsEventCodeInput"> -->
+							<select class="" name="sportsEventCode" id="sportsEventCodeInput">
 								
-<!-- 								<option value="">스포츠종목</option> -->
-<%-- 								<c:forEach items="${sprotsEvents}" var="sprotsEvent"> --%>
-<%-- 									<c:set var="isSelected" value="" /> --%>
-<%-- 									<c:if test="${loginUser.sportsEventCode == sprotsEvent.codeId}"> --%>
-<%-- 										<c:set var="isSelected" value="selected" /> --%>
-<%-- 									</c:if> --%>
-<%-- 									<option value="${sprotsEvent.codeId}" ${isSelected}>${sprotsEvent.name}</option> --%>
-<%-- 								</c:forEach> --%>
-<!-- 							</select> -->
-<!-- 						</div> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:otherwise> --%>
-<%-- 						<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/> --%>
-<%-- 					</c:otherwise> --%>
-<%-- 				</c:choose> --%>
+								<option value="">스포츠종목</option>
+								<c:forEach items="${sprotsEvents}" var="sprotsEvent">
+									<c:set var="isSelected" value="" />
+									<c:if test="${loginUser.sportsEventCode == sprotsEvent.codeId}">
+										<c:set var="isSelected" value="selected" />
+									</c:if>
+									<option value="${sprotsEvent.codeId}" ${isSelected}>${sprotsEvent.name}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
+					</c:otherwise>
+				</c:choose>
+				</div>
 				
 				
 <!-- 				<div class=""> -->
