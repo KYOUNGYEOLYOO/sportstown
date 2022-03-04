@@ -106,7 +106,9 @@ $(document).ready(function(){
 	   		id : "camId"
 	   	},
 	   	onSelectRow : function(id){
-	   		open_cameraLive(id);
+// 	   		open_cameraLive(id);
+			//0304 주석처리 녹화상태 페이지 수정해야됨..
+	   		open_cameraLive_rnb(id);
 	   	}
 	});
 });
@@ -261,10 +263,21 @@ function goPage(num){
        
 }
 
-
+/////// 0304 이거 열리는 부분 화면 분할 시켜야됨.. /////// 
 function open_cameraLive(camId)
 {
 	window.open("<c:url value="/camera/live"/>/" + camId, "popup", "height=750,width=910,resizable=no,menubar=no,toolbar=no", true);
+}
+
+
+function open_cameraLive_rnb(camId)
+{
+	console.log("contentId : ", contentId);
+	$("#frmCameraDetails").empty();
+	$("#frmCameraDetails").jqUtils_bcs_loadHTML(
+			"<c:url value="/camera/live"/>/" + camId ,
+			false, "get", null, null
+		);
 }
 </script>
 
@@ -416,6 +429,11 @@ function open_cameraLive(camId)
 		</div>
 
 		<!-- //contents -->
+		<div class="detailContainer">
+			<form id="frmCameraDetails" data-ctrl-view="camera_details" 
+			data-event-reloadList="callback_reloadList">
+			</form>
+		</div>
 
 	</div>
 </div>

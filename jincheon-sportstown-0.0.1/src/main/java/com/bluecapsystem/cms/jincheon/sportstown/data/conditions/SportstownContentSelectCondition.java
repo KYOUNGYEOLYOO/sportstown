@@ -131,5 +131,35 @@ public class SportstownContentSelectCondition implements ISelectCondition, IPagi
 	public void setRecordUserId(String recordUserId) {
 		this.recordUserId = recordUserId;
 	}
+	
+	/**
+	 * @return 녹화 시작일 조건
+	 */
+	public Date getRecordFromDate() {
+		return recordFromDate;
+	}
+
+	/**
+	 * @param recordFromDate
+	 *            녹화 시작일 조건
+	 */
+	public void setRecordFromDate(Date recordFromDate) {
+		this.recordFromDate = recordFromDate;
+	}
+
+	/**
+	 * @return 녹화 종료일 조건
+	 */
+	public Date getRecordToDate() {
+		return recordToDate;
+	}
+
+	/**
+	 * @param recordToDate
+	 *            녹화 종료일 조건
+	 */
+	public void setRecordToDate(Date recordToDate) {
+		this.recordToDate = recordToDate;
+	}
 
 }

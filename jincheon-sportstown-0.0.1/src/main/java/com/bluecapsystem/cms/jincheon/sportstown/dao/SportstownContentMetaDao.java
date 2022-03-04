@@ -19,6 +19,7 @@ import org.apache.commons.lang.IllegalClassException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bcs.util.DateUtil;
 import com.bcs.util.EmptyChecker;
 import com.bluecapsystem.cms.core.dao.IContentMetaRepository;
 import com.bluecapsystem.cms.core.data.condition.IPagingable;
@@ -221,7 +222,12 @@ public class SportstownContentMetaDao implements IContentMetaRepository {
 			where.add(p);
 		}
 		
-		
+		// 0304 쿼리문 추가하려다가 모르겠어서 킵... // condition에 RecordFromDate / getRecordToDate getter, setter 추가완료
+//		if (EmptyChecker.isNotEmpty(condition.getRecordFromDate()) && EmptyChecker.isNotEmpty(condition.getRecordToDate())) {
+//			sql.append(" and ( meta.recordDate >= :recordFromDate and meta.recordDate < :recordToDate) ");
+//			params.put("recordFromDate", condition.getRecordFromDate());
+//			params.put("recordToDate", DateUtil.addDate(condition.getRecordToDate(), 1));
+//		}
 
 		return where;
 	}
