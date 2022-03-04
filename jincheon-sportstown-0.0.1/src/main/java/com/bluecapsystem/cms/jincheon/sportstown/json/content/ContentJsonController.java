@@ -255,6 +255,8 @@ public class ContentJsonController {
 		} finally {
 			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("contents", contents);
+			logger.debug("contents1342214321431243 = {}", condition);
+			logger.debug("contents1342214321431243 = {}", "11111111");
 
 			if (condition.getPaging() != null && condition.getPaging().getEnablePaging()) {
 				JqGridParameterParser.setPaging(mnv, condition.getPaging());

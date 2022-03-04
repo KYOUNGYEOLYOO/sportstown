@@ -26,6 +26,7 @@
 let painting = false;
 let ctx;
 let ctxChange;
+var color;
 let x, y;
 let data, reloadData;
 let shape = "네모";
@@ -199,6 +200,7 @@ function changeColor(value){
 			value = "#00ccff";
 			break;
 	}
+	color = value;
 	ctx.strokeStyle = value;
 	ctxChange.strokeStyle = value;
 }
@@ -216,6 +218,10 @@ function drawShape(cShape){
 	
 	resizeCanvas(canvasShape);
 	window.addEventListener("resize",resizeCanvas(canvasShape),false);
+	
+	ctx.strokeStyle = color;
+	ctxChange.strokeStyle = color;
+	console.log("ctx.strokeStyle113 : ",ctx.strokeStyle);
 	
 	var sX,sY,cX,cY;
 	var canvasX = $(canvas).offset().left;

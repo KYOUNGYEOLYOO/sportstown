@@ -319,7 +319,7 @@ public class IndexJsonController {
 			freeSize = totalSize - useSize;
 	
 			 
-			if(drive.equals("D:\\")) {
+			if(drive.equals("Z:\\")) {
 				
 				System.out.println("\n하드 디스크 이름 : " + drive + "\n");
 				
