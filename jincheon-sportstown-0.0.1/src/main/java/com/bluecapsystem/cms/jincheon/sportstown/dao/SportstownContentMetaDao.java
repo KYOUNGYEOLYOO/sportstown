@@ -220,6 +220,8 @@ public class SportstownContentMetaDao implements IContentMetaRepository {
 			Predicate p = cb.and(cb.equal(root.get("recordUserId"), condition.getRecordUserId()));
 			where.add(p);
 		}
+		
+		
 
 		return where;
 	}

@@ -49,8 +49,6 @@ public class LoginData
 	 */
 	@Column(nullable = false, length=256)
 	private String userId;
-
-	
 	
 	
 

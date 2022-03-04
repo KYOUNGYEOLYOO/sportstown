@@ -446,7 +446,6 @@ function onClick_detail_video(registDate)
 	}
 	
 	
-	
 	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
 	if(typeof contentId == "undefined" || contentId == null)
 	{
