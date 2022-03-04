@@ -347,27 +347,29 @@ function drawChart() {
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
 			if(ajaxData.resultCode == "Success"){
+				
 				console.log(ajaxData.dashboardDatas);
 				
 				var dashboardDatas = ajaxData.dashboardDatas; 
-				var datas = new Array();
+				var datas = new Array("0","0","0","0","0","0","0","0","0","0","0","0");
 				
 				
 				
-				var j=0;
+				
 				for (var i = 0; i < dashboardDatas.length; i++) {
 					var temp = dashboardDatas[i];
 					
-					datas[i] = temp[1];
+					var monthTemp = "";
 					
-					j=i;
+					if(Number(temp[0]) < 10){
+						
+						monthTemp = Number(temp[0].replace("0","")) -1;
+					}
+					datas[monthTemp] = temp[1];
+					
 			    }
 				
 				
-				for(var i= j+1 ; i < 12; i++){
-					
-					datas[i] = 0;
-				}
 				
 				
 				
