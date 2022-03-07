@@ -66,85 +66,123 @@ public class ContentJsonController {
 
 	@RequestMapping("/registContentWithFile")
 	public ModelAndView registContentWithFile(@ModelAttribute Content content, @ModelAttribute SportstownContentMeta meta,
-			@RequestParam("file") MultipartFile file,
+			@RequestParam("file") List<MultipartFile> file,
 			@ModelAttribute DashboardData dashboardData) {
 
-		logger.debug("upload file name [content={}], [meta={}] => {}", content, meta, file.getOriginalFilename());
+		logger.debug("upload file name [content={}], [meta={}] => {}", content, meta, file);
 		IResult resultCode = CommonResult.UnknownError;
 
 		// logger.debug("컨텐츠 & 파일 등록 결과 [content={}] => {}", content, resultCode);
 
-		EntityManager em = emf.createEntityManager();
+		
 
-		em.getTransaction().begin();
+		int i=1;
 
-		_TRANSACTION: {
+		for(MultipartFile mf : file) {
+			
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			
+			_TRANSACTION: {
 			// 파일 부터 등록 시작
-			File uploadDir = StoragePathProperties.getDiretory("UPLOAD");
-			File uploadFile = new File(uploadDir, file.getOriginalFilename());
+				File uploadDir = StoragePathProperties.getDiretory("UPLOAD");
+			
+			
+				
+				
+				
+				String fileNameTemp[] = mf.getOriginalFilename().split("/");
+				
+				
+				
+				File uploadFile = new File(uploadDir, fileNameTemp[fileNameTemp.length-1]);
 
-			FileInstance fileInst = null;
-			try {
-				file.transferTo(uploadFile);
-				fileInst = FileInstance.createInstance("UPLOAD", "UPLOAD", uploadFile);
-				SportstownFileInstanceMeta fileInstMeta = new SportstownFileInstanceMeta();
-				fileInstMeta.setSportsEventCode(meta.getSportsEventCode());
-				fileInstMeta.setRecordUserId(meta.getRecordUserId());
-				fileInst.setOrignFileName(file.getOriginalFilename());
+				FileInstance fileInst = null;
+				try {
+					mf.transferTo(uploadFile);
+					fileInst = FileInstance.createInstance("UPLOAD", "UPLOAD", uploadFile);
+					SportstownFileInstanceMeta fileInstMeta = new SportstownFileInstanceMeta();
+					fileInstMeta.setSportsEventCode(meta.getSportsEventCode());
+					fileInstMeta.setRecordUserId(meta.getRecordUserId());
+					fileInst.setOrignFileName(mf.getOriginalFilename());
 
-				ThumbnailInstance thumbnail = thumbnailServ.createThumbnail("FILE", uploadFile);
-				if (thumbnail != null) {
-					// thumbnail 부터 db 에 등록 한다
-					resultCode = thumbnailServ.registThumbnail(em, thumbnail);
+					ThumbnailInstance thumbnail = thumbnailServ.createThumbnail("FILE", uploadFile);
+					if (thumbnail != null) {
+						// thumbnail 부터 db 에 등록 한다
+						resultCode = thumbnailServ.registThumbnail(em, thumbnail);
+						if (resultCode != CommonResult.Success)
+							break _TRANSACTION;
+
+						fileInst.setThumbnailId(thumbnail.getThumbnailId());
+					}
+					resultCode = fileServ.registFile(em, fileInst, fileInstMeta);
+
 					if (resultCode != CommonResult.Success)
 						break _TRANSACTION;
 
-					fileInst.setThumbnailId(thumbnail.getThumbnailId());
+					SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
+					String descFilePath = String.format("%s/%s.%s", sdf.format(new Date()), fileInst.getFileId(), fileInst.getExtension());
+
+					resultCode = fileServ.transferFile(em, fileInst, "UPLOAD", descFilePath);
+					if (resultCode != CommonResult.Success)
+						break _TRANSACTION;
+
+					ContentInstance ctInst = content.getInstances().get(0);
+					ctInst.setFileId(fileInst.getFileId());
+
+				} catch (Exception ex) {
+					logger.error("컨텐츠 & 파일 저장 중 오류 발생 [content={}] \n{}", content, ExceptionUtils.getFullStackTrace(ex));
 				}
-				resultCode = fileServ.registFile(em, fileInst, fileInstMeta);
 
+				// 컨텐츠 등록
+				meta.setTitle(meta.getTitle().replace(",", ""));
+				
+				if(file.size() > 1) {
+					
+					if(i > 1) {
+						String titleTemp = meta.getTitle().replace(",", "");
+						
+						String titleTemps[] = titleTemp.split("_");
+						
+						meta.setTitle( titleTemps[0]+"_"+i);
+					}else {
+						meta.setTitle(meta.getTitle().replace(",", "")+"_"+i);
+					}
+					
+					
+					
+				}
+				
+				content.setContentMeta(meta);
+				resultCode = contentServ.registContent(em, content);
+				
 				if (resultCode != CommonResult.Success)
 					break _TRANSACTION;
-
-				SimpleDateFormat sdf = new SimpleDateFormat("/yyyy/MM/dd");
-				String descFilePath = String.format("%s/%s.%s", sdf.format(new Date()), fileInst.getFileId(), fileInst.getExtension());
-
-				resultCode = fileServ.transferFile(em, fileInst, "UPLOAD", descFilePath);
-				if (resultCode != CommonResult.Success)
-					break _TRANSACTION;
-
-				ContentInstance ctInst = content.getInstances().get(0);
-				ctInst.setFileId(fileInst.getFileId());
-
-			} catch (Exception ex) {
-				logger.error("컨텐츠 & 파일 저장 중 오류 발생 [content={}] \n{}", content, ExceptionUtils.getFullStackTrace(ex));
+				
+				dashboardData.setUserType(DataType.Contents);
+				dashboardData.setRegistDate(content.getRegistDate());
+				dashboardData.setUserId(meta.getRecordUserId());
+				dashboardData.setSportsEventCode(meta.getSportsEventCode());
+				dashboardData.setContentId(content.getContentId());
+				
+				dashboardDataManageServ.registDashboardData(dashboardData);
+			
+			
+			
 			}
 
-			// 컨텐츠 등록
-			content.setContentMeta(meta);
-			resultCode = contentServ.registContent(em, content);
-			
+			logger.debug("컨텐츠 & 파일 저장결과 [content={}] => {}", content, resultCode);
+	
 			if (resultCode != CommonResult.Success)
-				break _TRANSACTION;
+				em.getTransaction().rollback();
+			else
+				em.getTransaction().commit();
+	
+			em.close();				
+		
 			
-			dashboardData.setUserType(DataType.Contents);
-			dashboardData.setRegistDate(content.getRegistDate());
-			dashboardData.setUserId(meta.getRecordUserId());
-			dashboardData.setSportsEventCode(meta.getSportsEventCode());
-			dashboardData.setContentId(content.getContentId());
-			
-			dashboardDataManageServ.registDashboardData(dashboardData);
-			
+			i++;
 		}
-
-		logger.debug("컨텐츠 & 파일 저장결과 [content={}] => {}", content, resultCode);
-
-		if (resultCode != CommonResult.Success)
-			em.getTransaction().rollback();
-		else
-			em.getTransaction().commit();
-
-		em.close();
 
 		ModelAndView mnv = new ModelAndView("jsonView");
 		mnv.addObject("resultCode", resultCode);
@@ -255,8 +293,7 @@ public class ContentJsonController {
 		} finally {
 			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("contents", contents);
-			logger.debug("contents1342214321431243 = {}", condition);
-			logger.debug("contents1342214321431243 = {}", "11111111");
+			
 
 			if (condition.getPaging() != null && condition.getPaging().getEnablePaging()) {
 				JqGridParameterParser.setPaging(mnv, condition.getPaging());

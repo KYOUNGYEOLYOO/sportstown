@@ -206,6 +206,12 @@ public class SportstownContentMetaDao implements IContentMetaRepository {
 
 			where.add(p);
 		}
+		
+		if (EmptyChecker.isNotEmpty(condition.getTagInfo())) {
+			Predicate p = cb.and(cb.or(cb.like(root.<String>get("tagInfo"), "%" + condition.getTagInfo() + "%")));
+
+			where.add(p);
+		}
 
 		if (EmptyChecker.isNotEmpty(condition.getSportsEventCode())) {
 			Predicate p = cb.and(cb.equal(root.get("sportsEventCode"), condition.getSportsEventCode()));
@@ -222,12 +228,24 @@ public class SportstownContentMetaDao implements IContentMetaRepository {
 			where.add(p);
 		}
 		
-		// 0304 쿼리문 추가하려다가 모르겠어서 킵... // condition에 RecordFromDate / getRecordToDate getter, setter 추가완료
-//		if (EmptyChecker.isNotEmpty(condition.getRecordFromDate()) && EmptyChecker.isNotEmpty(condition.getRecordToDate())) {
-//			sql.append(" and ( meta.recordDate >= :recordFromDate and meta.recordDate < :recordToDate) ");
-//			params.put("recordFromDate", condition.getRecordFromDate());
-//			params.put("recordToDate", DateUtil.addDate(condition.getRecordToDate(), 1));
-//		}
+		
+		if (EmptyChecker.isNotEmpty(condition.getRecordUserId())) {
+			Predicate p = cb.and(cb.equal(root.get("recordUserId"), condition.getRecordUserId()));
+			where.add(p);
+		}
+		
+		if (EmptyChecker.isNotEmpty(condition.getRecordFromDate())) {
+			
+	
+			Predicate p = cb.and(cb.greaterThanOrEqualTo(root.get("recordDate"), condition.getRecordFromDate()));
+			where.add(p);
+		}
+		
+		if (EmptyChecker.isNotEmpty(condition.getRecordToDate())) {
+			
+			Predicate p = cb.and(cb.lessThanOrEqualTo(root.get("recordDate"), DateUtil.addDate(condition.getRecordToDate(), 1)));
+			where.add(p);
+		}
 
 		return where;
 	}

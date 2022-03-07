@@ -34,6 +34,11 @@ public class SportstownContentMeta extends ContentMeta
 	@Lob
 	@Type(type="text")
 	private String summary;
+	
+	@Column(nullable = true)
+	@Lob
+	@Type(type="text")
+	private String tagInfo;
 
 	@Column(nullable = true)
 	private String sportsEventCode;
@@ -136,6 +141,14 @@ public class SportstownContentMeta extends ContentMeta
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getTagInfo() {
+		return tagInfo;
+	}
+
+	public void setTagInfo(String tagInfo) {
+		this.tagInfo = tagInfo;
 	}
 
 	public String getSummary() {

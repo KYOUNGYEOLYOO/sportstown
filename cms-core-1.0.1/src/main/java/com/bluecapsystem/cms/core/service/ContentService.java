@@ -101,10 +101,11 @@ public class ContentService {
 		_TRANS: {
 			try {
 				// 컨텐츠를 등록 한다
+							
 				contentDao.insertContent(em, content);
 
 				String contentId = content.getContentId();
-
+				
 				content.getContentMeta().setContentId(contentId);
 				metaDao.insertContentMeta(em, content, content.getContentMeta());
 
