@@ -1,7 +1,12 @@
 package com.bluecapsystem.cms.jincheon.sportstown.scheduler;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -41,7 +46,12 @@ public class WowzaLogScheduler
 //			return;
 //		}
 //		
+//		
+//		
 //		for (File file : logFiles) {
+//			
+//			
+//			
 //			
 //			boolean fileInfo = file.delete();
 //			
