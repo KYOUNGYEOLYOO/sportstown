@@ -20,12 +20,37 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+	
+	var input = document.querySelector('#file');
+
+	
+	input.addEventListener('change', showTextFile);
+	
+	function showTextFile() {
+		var selectedFiles = input.files;
+		
+		console.log("files");
+		console.log(selectedFiles);
+//	 	const list = document.createElement('ul');
+//	 	preview.appendChild(list);
+//	 	for(const file of selectedFiles) {
+//	 	const listItem = document.createElement('li');
+//	 	const summary = document.createElement('div');
+//	 	summary.textContent = file.webkitRelativePath;
+//	 	listItem.appendChild(summary);
+//	 	list.appendChild(listItem);
+//	 	}
+	}
 });
 </script>
 
 
 <script type="text/javascript">
 
+
+
+	
+	
 function onClick_reload()
 {
 	location.reload();
@@ -143,6 +168,41 @@ function callback_selectedUsers(sender, users)
 	
 	return true;
 }
+
+function fileType(value){
+// 	webkitdirectory directory
+
+	if(value=="singular"){
+		$('#fileArea').html('<input type="file" id="file" name="file" class="inputTxt" data-regist-input/>');
+	}else{
+		$('#fileArea').html('<input type="file" id="file" name="file" class="inputTxt" webkitdirectory directory data-regist-input/>');
+	}
+	
+	var input = document.querySelector('#file');
+
+	
+	input.addEventListener('change', showTextFile2);
+}
+
+function showTextFile2() {
+	
+	var input = document.querySelector('#file');
+	
+	var selectedFiles = input.files;
+	
+	console.log("files");
+	console.log(selectedFiles);
+// 	const list = document.createElement('ul');
+// 	preview.appendChild(list);
+// 	for(const file of selectedFiles) {
+// 	const listItem = document.createElement('li');
+// 	const summary = document.createElement('div');
+// 	summary.textContent = file.webkitRelativePath;
+// 	listItem.appendChild(summary);
+// 	list.appendChild(listItem);
+// 	}
+}
+
 </script>
 
 </head>
@@ -251,8 +311,8 @@ function callback_selectedUsers(sender, users)
 							</dd>
 							<dt>영상유형</dt>
 							<dd class="full">
-								<input type="radio" name="radio01" id="radio01_01" /><label for="radio01_01">개별 영상</label>
-								<input type="radio" name="radio01" id="radio01_02" checked /><label for="radio01_02">묶음 영상</label>
+								<input type="radio" name="radio01" id="radio01_01" onclick="javascript:fileType('singular');" checked/><label for="radio01_01">개별 영상</label>
+								<input type="radio" name="radio01" id="radio01_02" onclick="javascript:fileType('plural');" /><label for="radio01_02">묶음 영상</label>
 							</dd>
 								<!-- 
 									<td data-regist-fileProgress>
@@ -260,8 +320,8 @@ function callback_selectedUsers(sender, users)
 									</td>
 									 -->							
 							<dt>파일</dt>
-							<dd class="full">
-								<input type="file"  name="file" class="inputTxt" data-regist-input/>
+							<dd class="full" id="fileArea">
+								<input type="file" id="file" name="file" class="inputTxt" data-regist-input/>
 							</dd>
 								<!-- 
 									<td data-regist-fileProgress>

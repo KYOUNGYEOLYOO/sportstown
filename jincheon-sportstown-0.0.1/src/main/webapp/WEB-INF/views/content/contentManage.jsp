@@ -281,7 +281,7 @@ function toggleSlomo() {
 
 function onClick_search()
 {
-	console.log("21312312342312 ; ", $("#frmSearch").serialize());
+	
 	$("#contentList").jqGrid("setGridParam", {
 		url : "<c:url value="/service/content/getContents"/>?" + $("#frmSearch").serialize(),
 		page : 1
@@ -740,6 +740,10 @@ function clear_cameraDetail()
 							</c:forEach>
 						</select>
 					</li>
+<!-- 					<li> -->
+<!-- 						<label for="search_keyword">태그</label>  -->
+<!-- 						<input type="text" class="inputTxt" id="search_keyword" name="keyword" /> -->
+<!-- 					</li> -->
 				</ul>
 			</form>
 			<div class="btnWrap">						

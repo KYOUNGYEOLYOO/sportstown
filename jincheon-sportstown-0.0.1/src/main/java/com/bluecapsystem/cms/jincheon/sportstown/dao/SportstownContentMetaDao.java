@@ -19,6 +19,7 @@ import org.apache.commons.lang.IllegalClassException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bcs.util.DateUtil;
 import com.bcs.util.EmptyChecker;
 import com.bluecapsystem.cms.core.dao.IContentMetaRepository;
 import com.bluecapsystem.cms.core.data.condition.IPagingable;
@@ -205,6 +206,12 @@ public class SportstownContentMetaDao implements IContentMetaRepository {
 
 			where.add(p);
 		}
+		
+		if (EmptyChecker.isNotEmpty(condition.getKeyword())) {
+			Predicate p = cb.and(cb.or(cb.like(root.<String>get("summary"), "%" + condition.getKeyword() + "%")));
+
+			where.add(p);
+		}
 
 		if (EmptyChecker.isNotEmpty(condition.getSportsEventCode())) {
 			Predicate p = cb.and(cb.equal(root.get("sportsEventCode"), condition.getSportsEventCode()));
@@ -222,6 +229,23 @@ public class SportstownContentMetaDao implements IContentMetaRepository {
 		}
 		
 		
+		if (EmptyChecker.isNotEmpty(condition.getRecordUserId())) {
+			Predicate p = cb.and(cb.equal(root.get("recordUserId"), condition.getRecordUserId()));
+			where.add(p);
+		}
+		
+		if (EmptyChecker.isNotEmpty(condition.getRecordFromDate())) {
+			
+	
+			Predicate p = cb.and(cb.greaterThanOrEqualTo(root.get("recordDate"), condition.getRecordFromDate()));
+			where.add(p);
+		}
+		
+		if (EmptyChecker.isNotEmpty(condition.getRecordToDate())) {
+			
+			Predicate p = cb.and(cb.lessThanOrEqualTo(root.get("recordDate"), DateUtil.addDate(condition.getRecordToDate(), 1)));
+			where.add(p);
+		}
 
 		return where;
 	}
