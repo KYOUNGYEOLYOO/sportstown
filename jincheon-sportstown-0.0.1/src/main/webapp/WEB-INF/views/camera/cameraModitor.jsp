@@ -33,7 +33,7 @@ function onClick_search()
 		page : 1
 	});
 	$("#cameraList").trigger("reloadGrid");
-	
+	alert("!!!!");
 }
 
 function onClick_searchInit()
