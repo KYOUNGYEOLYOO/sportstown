@@ -33,7 +33,7 @@ function openPopup(){
 	
     if (win == null || typeof(win) == "undefined" || (win == null && win.outerWidth == 0) || (win != null && win.outerHeight == 0) || win.test == "undefined"){
 
-		alert("1팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n만약 팝업 차단 기능을 해제하지 않으면\n시스템이 정상적으로 작동하지 않을수 있습니다.");
+		alert("팝업 차단 기능이 설정되어있습니다\n\n차단 기능을 해제(팝업허용) 한 후 다시 이용해 주십시오.\n\n만약 팝업 차단 기능을 해제하지 않으면\n시스템이 정상적으로 작동하지 않을수 있습니다.");
 
 		if(win){
 		

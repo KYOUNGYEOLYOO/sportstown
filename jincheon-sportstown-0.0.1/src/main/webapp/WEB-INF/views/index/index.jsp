@@ -353,7 +353,7 @@ function drawChart() {
 				var dashboardDatas = ajaxData.dashboardDatas; 
 				var datas = new Array("0","0","0","0","0","0","0","0","0","0","0","0");
 				
-				
+				var ySize = 1;
 				
 				
 				for (var i = 0; i < dashboardDatas.length; i++) {
@@ -366,6 +366,10 @@ function drawChart() {
 						monthTemp = Number(temp[0].replace("0","")) -1;
 					}
 					datas[monthTemp] = temp[1];
+					
+					if(Number(temp[1]) > 10){
+						ySize = 10;
+					}
 					
 			    }
 				
@@ -396,7 +400,7 @@ function drawChart() {
 	                        yAxes: [
 	                            {
 	                                ticks: {
-	                                	stepSize : 1,
+	                                	stepSize : ySize,
 	                                    beginAtZero: true
 	                                }
 	                            }
