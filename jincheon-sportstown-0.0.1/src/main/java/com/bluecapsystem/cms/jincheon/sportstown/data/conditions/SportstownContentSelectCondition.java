@@ -14,6 +14,8 @@ public class SportstownContentSelectCondition implements ISelectCondition, IPagi
 
 	private String keyword;
 	
+	private String tagInfo;
+	
 	private String contentId;
 	
 	private String sportsEventCode;
@@ -72,6 +74,14 @@ public class SportstownContentSelectCondition implements ISelectCondition, IPagi
 		this.paging = paging;
 	}
 
+	public String getTagInfo() {
+		return tagInfo;
+	}
+
+
+	public void setTagInfo(String tagInfo) {
+		this.tagInfo = tagInfo;
+	}
 
 	public String getKeyword() {
 		return keyword;

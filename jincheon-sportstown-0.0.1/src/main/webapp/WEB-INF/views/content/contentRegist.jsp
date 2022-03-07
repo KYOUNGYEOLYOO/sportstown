@@ -951,8 +951,12 @@ function callback_selectedUsers(sender, users)
 							</dd>
 							<dt>설명</dt>
 							<dd class="full">
-								<textarea name="summary" title="설명" rows="5" data-ctrl-contentMeta="summary"></textarea>
+								<textarea name="summary" title="설명" rows="3" data-ctrl-contentMeta="summary"></textarea>
 							</dd>
+							<dt>태그</dt>
+							<dd class="full">
+								<input name="tagInfo" type="text" value="" title="태그" class="inputTxt">
+							</dd>		
 							<dt>파일</dt>
 							<dd class="full">
 								<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly>

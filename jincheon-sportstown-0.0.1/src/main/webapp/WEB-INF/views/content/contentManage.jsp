@@ -740,10 +740,10 @@ function clear_cameraDetail()
 							</c:forEach>
 						</select>
 					</li>
-<!-- 					<li> -->
-<!-- 						<label for="search_keyword">태그</label>  -->
-<!-- 						<input type="text" class="inputTxt" id="search_keyword" name="keyword" /> -->
-<!-- 					</li> -->
+					<li>
+						<label for="search_keyword">태그</label> 
+						<input type="text" class="inputTxt" id="tagInfo" name="tagInfo" />
+					</li>
 				</ul>
 			</form>
 			<div class="btnWrap">						

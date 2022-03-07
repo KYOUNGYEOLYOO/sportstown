@@ -207,8 +207,8 @@ public class SportstownContentMetaDao implements IContentMetaRepository {
 			where.add(p);
 		}
 		
-		if (EmptyChecker.isNotEmpty(condition.getKeyword())) {
-			Predicate p = cb.and(cb.or(cb.like(root.<String>get("summary"), "%" + condition.getKeyword() + "%")));
+		if (EmptyChecker.isNotEmpty(condition.getTagInfo())) {
+			Predicate p = cb.and(cb.or(cb.like(root.<String>get("tagInfo"), "%" + condition.getTagInfo() + "%")));
 
 			where.add(p);
 		}

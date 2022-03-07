@@ -330,7 +330,7 @@ function showTextFile2() {
 									 -->							
 							<dt>태그</dt>
 							<dd class="full">
-								<input type="text" name="title" value="" title="태그" class="inputTxt">
+								<input name="tagInfo" type="text" value="" title="태그" class="inputTxt">
 							</dd>							
 							<dt>설명</dt>
 							<dd class="full">
