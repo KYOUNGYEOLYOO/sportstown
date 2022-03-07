@@ -9,7 +9,7 @@
 .cameraBox > p	{font-size:18px; line-height:1.8; text-align:center; margin:auto;}
 .cameraBox > ul	{display:flex; flex-wrap:wrap; justify-content:center;}
 .cameraBox > ul > li	{display:flex;}
-.cameraBox > ul > li .videocontents	{position:relative;}
+.cameraBox > ul > li .videocontents	{position:relative; background:#000; color:#ffffff;}
 .cameraBox > ul > li:nth-of-type(even)	{margin-left:10px;}
 .cameraBox > ul > li:nth-of-type(n+3)	{margin-top:10px;}
 .cameraBox > ul.camera1pt li	{width:1561px;}

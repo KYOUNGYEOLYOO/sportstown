@@ -85,10 +85,30 @@ function onClick_initMedia()
 }
 
 //220218 edit
+// function change_player_layout()
+// {
+// 	var cntPlayer = $("#playerList > li").length;
+	
+// 	if(cntPlayer == 1)
+// 	{
+// 		$("#playerList").attr("class", "");
+// 		$("#playerList").addClass("camera1pt");
+// 	}else if(cntPlayer <= 2)	
+// 	{
+// 		$("#playerList").attr("class", "");
+// 		$("#playerList").addClass("camera2pt");
+// 	}else
+// 	{
+// 		$("#playerList").attr("class", "");
+// 		$("#playerList").addClass("camera3pt");
+// 	}
+// }
+
+// 0307 edit
 function change_player_layout()
 {
 	var cntPlayer = $("#playerList > li").length;
-	
+
 	if(cntPlayer == 1)
 	{
 		$("#playerList").attr("class", "");
@@ -97,10 +117,14 @@ function change_player_layout()
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera2pt");
-	}else
+	}else if(cntPlayer <= 4)	
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera3pt");
+	}else
+	{
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera4pt");
 	}
 }
 
