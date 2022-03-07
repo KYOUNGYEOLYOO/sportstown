@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -7,12 +7,14 @@
 <%@ page session="false" %>
 <jsp:useBean id="now" class="java.util.Date" />
 <jsp:useBean id="ipFilter" class="com.bluecapsystem.cms.jincheon.sportstown.common.define.IPFilterConstant" />
-
 <link rel="stylesheet" href="<c:url value="/bluecap/css/video-js.css"/>"> 
 <script src="https://unpkg.com/video.js/dist/video.js"></script>
+<script type="text/javascript" src="<c:url value="/bluecap/jwplayer-7.11.3/jwplayer.js"/>"></script>
+<script>jwplayer.key="/cDB/4s47uzPnRb3q/gtzOze04a7CABARZuQWIwYvfQ=";</script>
 
 
- <c:set var="proxyMeta" value="" />
+
+<c:set var="proxyMeta" value="" />
 <c:set var="enablePlayer" value="false" />
 <c:forEach items="${camera.streamMetaItems}" var="streamMeta">
 	<c:if test="${streamMeta.metaClass == 'Proxy'}">
@@ -23,14 +25,13 @@
 	</c:if>
 </c:forEach> 
 
+
+
 <html lang="ko" xml:lang="ko">
-<head>
 
 
 <jsp:include page="/include/head"/>
 
-<script type="text/javascript" src="<c:url value="/bluecap/jwplayer-7.11.3/jwplayer.js"/>"></script>
-<script>jwplayer.key="/cDB/4s47uzPnRb3q/gtzOze04a7CABARZuQWIwYvfQ=";</script>
 <!-- <script type='text/javascript' src="http://jwplayer.mediaserve.com/jwplayer.js"></script> -->
 
 <style type="text/css">
@@ -38,14 +39,7 @@
 </style>
 
 <script type="text/javascript">
-
-$(document).ready(function(){
-	
-	initPalyer();
-});
-
-
-
+/////// document.ready 있던 곳
 </script>
 
 
@@ -64,6 +58,11 @@ $(document).ready(function(){
 
 var videoTag;
 var currentRate = 1;
+
+$(document).ready(function(){
+	
+	initPalyer();
+});
 
 
 function initPalyer()
@@ -98,8 +97,9 @@ function initPalyer()
             src : dvrStreamUrl,
             type: "application/x-mpegURL"
         }],
-        width : 850,
-        height : 437,
+        // 0307 비디오 크기 조절
+        width : 560,
+        height : 315,
         controlBar: {
             pictureInPictureToggle: false,
             currentTimeDisplay: true,
@@ -174,56 +174,72 @@ function onClick_stopRecord()
 <body>
 
 
-<div class="popupWindow">
-	<div class="popupheader">${camera.name} 녹화 보기</div>
-	<div class="popupcontents">
-		<div class="vodregistBox">
+<!-- <div class="popupWindow"> -->
+<%-- 	<div class="popupheader">${camera.name} 녹화 보기</div> --%>
+<!-- 	<div class="popupcontents"> -->
+<!-- 		<div class="vodregistBox"> -->
 
-
-			<div class="vodregist ">
-				<div class="videoview mgb30">
-					<video id="player" width="850" height="437"></video>	
-				</div>
-
-
-				<table class="write_type1 mgb20" summary="">
-					<caption></caption>
-					<colgroup>
-					<col width="150">
-					<col width="*">
-					<col width="150">
-					<col width="*">
-					</colgroup>
-					<tbody>
-						<tr>
-							<th>카메라</th>
-							<td colspan="3">
-								<input type="text" name="sportsEvent" title="카메라" class="type_2" value="${camera.name}" readonly>
-							</td>
-						</tr>
-						<tr>
-							<th>스포츠종목</th>
-							<td colspan="3">
-								<input type="text" name="sportsEvent" title="스포츠종목" class="type_2" value="${camera.sportsEvent.name}" readonly>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-
-				<div class="btnbox alignR">
-					<c:if test="${camera.state == 'Recording'}">
-						<span class="btn_typeA t3"><a href="javascript:onClick_stopRecord();">녹화중지</a></span>
-					</c:if>
-					
-					<span class="btn_typeA t2"><a href="javascript:onClick_close();">닫기</a></span>
-				</div>
-			</div>
-
-		</div>
+	<div class="videoview">
+		<video id="player" style="background:#fafafa"></div>	
 	</div>
+<!-- 			<div class="vodregist "> -->
+<!-- 				<div class="videoview mgb30"> -->
+<!-- 					<video id="player" width="850" height="437"></video>	 -->
+<!-- 				</div> -->
 
 
-</div>
+	<div class="detailWrap">
+		<dl>
+			<dt>제목</dt>
+			<dd class="full"><input type="text" name="sportsEvent" title="카메라" class="type_2" value="${camera.name}" readonly></dd>
+			<dt>종목</dt>
+			<dd class="full"><input type="text" name="sportsEvent" title="스포츠종목" class="type_2" value="${camera.sportsEvent.name}" readonly></dd>
+			<dd>	
+			<c:if test="${camera.state == 'Recording'}">
+ 				<span class="btn_typeA t3"><a href="javascript:onClick_stopRecord();">녹화중지</a></span>
+			</c:if>
+			</dd>
+		</dl> 
+	</div>
+<!-- 	<table class="write_type1 mgb20" summary=""> -->
+<%-- 		<caption></caption> --%>
+<%-- 		<colgroup> --%>
+<%-- 		<col width="150"> --%>
+<%-- 		<col width="*"> --%>
+<%-- 		<col width="150"> --%>
+<%-- 		<col width="*"> --%>
+<%-- 		</colgroup> --%>
+<!-- 		<tbody> -->
+<!-- 			<tr> -->
+<!-- 				<th>카메라</th> -->
+<!-- 				<td colspan="3"> -->
+<%-- 					<input type="text" name="sportsEvent" title="카메라" class="type_2" value="${camera.name}" readonly> --%>
+<!-- 				</td> -->
+<!-- 			</tr> -->
+<!-- 			<tr> -->
+<!-- 				<th>스포츠종목</th> -->
+<!-- 				<td colspan="3"> -->
+<%-- 					<input type="text" name="sportsEvent" title="스포츠종목" class="type_2" value="${camera.sportsEvent.name}" readonly> --%>
+<!-- 				</td> -->
+<!-- 			</tr> -->
+<!-- 		</tbody> -->
+<!-- 	</table> -->
+
+<!-- 	<div class="btnbox alignR"> -->
+<%-- 		<c:if test="${camera.state == 'Recording'}"> --%>
+<!-- 			<span class="btn_typeA t3"><a href="javascript:onClick_stopRecord();">녹화중지</a></span> -->
+<%-- 		</c:if> --%>
+<!-- 	</div>		 -->
+						<!-- 2022 0307 녹화상태 닫기 버튼 삭제 ( 윈도우 팝업 > 3단 분할 ) -->
+<!-- 					<span class="btn_typeA t2"><a href="javascript:onClick_close();">닫기</a></span> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+
+<!-- </div> -->
 
 
 

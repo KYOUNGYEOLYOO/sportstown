@@ -42,6 +42,7 @@
 
 /* 비디오 크기 조절 */
 #player_html5_api {height: 100%}
+#player_html5_api {width: 100%}
 
 /*	grid style	*/
 .ui-jqgrid .ui-jqgrid-htable	{border-top:none}

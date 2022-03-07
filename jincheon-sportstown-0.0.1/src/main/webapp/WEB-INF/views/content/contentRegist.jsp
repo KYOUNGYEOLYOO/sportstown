@@ -461,27 +461,27 @@ var currentRate = 1;
 
 function initPalyer(mediaUrl)
 {
-	jwplayer("player").stop();
-	jwplayer("player").remove();
+	jwplayer("player_small").stop();
+	jwplayer("player_small").remove();
 	
-	jwplayer("player").setup({
+	jwplayer("player_small").setup({
 		"file" : mediaUrl,
 		"width" : "100%",
 		aspectratio: "16:9",
 		autostart : true
 	});
 	
-	jwplayer("player").onReady(function() {
+	jwplayer("player_small").onReady(function() {
 		// Slomo only works for HTML5 and ...
 	    if (jwplayer().getRenderingMode() == "html5") {
 	        videoTag = document.querySelector('video');
 	        // ... browsers that support playbackRate
 	        if(videoTag.playbackRate) 
 	        {
-	        	jwplayer("player").addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
+	        	jwplayer("player_small").addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
 	        }
 	    }
-	    jwplayer("player").addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
+	    jwplayer("player_small").addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
 	});
 	
 	// jwplayer("player").play();
@@ -492,7 +492,7 @@ function toggleSlomo() {
     videoTag.playbackRate = currentRate;
     videoTag.defaultPlaybackRate = currentRate;
     if(navigator.userAgent.toLowerCase().indexOf('firefox') > -1){
-        jwplayer("player").seek(jwplayer("player").getPosition());
+        jwplayer("player_small").seek(jwplayer("player_small").getPosition());
     }
 	return;
 };
@@ -602,7 +602,45 @@ function init_searchCtrls()
 			$("#frmSearch").find("[name=sportsEventCode]").val($(this).val());
 			console.log("111 :",$("#frmSearch").find("[name=sportsEventCode]").val());
 			
-		});
+			$("#frmSearch").find("[name=camId]").children(":not(:first)").remove();
+			console.log("service/camera/getAllCameras" + sportEventCode);
+			$.ajax({
+				url : "<c:url value="/service/camera/getAllCameras"/>/" + sportEventCode,
+				async : false,
+				dataType : "json",
+				method : "post",
+				beforeSend : function(xhr, settings ){},
+				error : function (xhr, status, error){},
+				success : function (ajaxData) {
+					for(var i = 0; i < ajaxData.staticCameras.length; i++)
+					{
+						
+						var $opt = $("<option/>").val(ajaxData.staticCameras[i].camId).text(ajaxData.staticCameras[i].name);
+						$("#frmSearch").find("[name=camId]").append($opt);
+						
+// 						var $li = $("<li/>");
+// 						var $a = $li.append('<a rel="'+ajaxData.staticCameras[i].camId+'" href="#">'+ajaxData.staticCameras[i].name+'</a>');
+						
+						
+// 						$(".UlSelectize").append($a);
+					}
+					
+					
+					for(var i = 0; i < ajaxData.shiftCameras.length; i++)
+					{
+						
+						
+						var $opt = $("<option/>").val(ajaxData.shiftCameras[i].camId).text(ajaxData.shiftCameras[i].name);
+						$("#frmSearch").find("[name=camId]").append($opt);
+// 						var $li = $("<li/>");
+// 						var $a = $li.append('<a rel="'+ajaxData.staticCameras[i].camId+'" href="#">'+ajaxData.staticCameras[i].name+'</a>');
+						
+						
+// 						$(".UlSelectize").append($a);
+					}
+				}
+			});
+		}).trigger("change");
 			
 			$("#frmSearch").find("[name=camId]").children(":not(:first)").remove();
 			console.log("service/camera/getAllCameras" + sportEventCode);
@@ -881,11 +919,11 @@ function callback_selectedUsers(sender, users)
 		<div class="detailContainer">	
 			<div class="vodregistBox">
 				<div class="vodregist">
-					<div class="videoview">
+					<div class="videoview_small" style="height:293px;">
 <!-- 						<video width="100%" controls src=""> -->
 <!-- 							<source src="../../mp4/sample.mp4" type="video/mp4"> -->
 <!-- 						</video> -->
-						<div id="player" style="background:#fafafa"></div>	
+						<video id="player_small" style="background:#fafafa"></video>	
 					</div>
 				<div class="detailWrap">					
 					<form id="frmContent">
