@@ -9,6 +9,8 @@
 <html lang="ko" xml:lang="ko">
 <head>
 
+<link rel="stylesheet" href="<c:url value="/bluecap/css/video-js.css"/>"> 
+<script src="https://unpkg.com/video.js/dist/video.js"></script>
 <jsp:include page="/include/head"/>
 
 
@@ -47,6 +49,8 @@ function onClick_searchInit()
 <script type="text/javascript">
 
 $(document).ready(function(){
+	open_cameraLive_rnb(null);
+	
 	var eventSender = new bcs_ctrl_event($("#cameraList"));
 	$("#cameraList").jqGrid({
 		// data: mydata,
@@ -272,7 +276,7 @@ function open_cameraLive(camId)
 
 function open_cameraLive_rnb(camId)
 {
-	console.log("contentId : ", contentId);
+	console.log("camId : ", camId);
 	$("#frmCameraDetails").empty();
 	$("#frmCameraDetails").jqUtils_bcs_loadHTML(
 			"<c:url value="/camera/live"/>/" + camId ,
@@ -360,7 +364,7 @@ function open_cameraLive_rnb(camId)
 			
 <!-- 		</div> -->
 		<!-- lnbWrap -->
-		<div id="lnbWrap" class="searchContainer">
+		<div id="lnbWrapT" class="searchContainer">
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="hasNotUsed" value="true" />
 
@@ -370,14 +374,16 @@ function open_cameraLive_rnb(camId)
 						<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
 					</li>
 					<li>
-						<select class="selectyze" name="cameraType">
+<!-- 						<select class="selectyze" name="cameraType"> -->
+						<select name="cameraType">
 							<option value="">카메라유형</option>
 							<option value="Static">고정</option>
 							<option value="Shift">유동</option>
 						</select>
 					</li>
 					<li>
-						<select class="selectyze" name="locationCode">
+<!-- 						<select class="selectyze" name="locationCode"> -->
+						<select name="locationCode">
 							<option value="">카메라위치</option>
 							<c:forEach items="${locations}" var="location">
 								<option value="${location.codeId}">${location.name}</option>
@@ -385,7 +391,8 @@ function open_cameraLive_rnb(camId)
 						</select>
 					</li>
 					<li>
-						<select class="selectyze" name="sportsEventCode">
+<!-- 						<select class="selectyze" name="sportsEventCode"> -->
+						<select name="sportsEventCode">
 							<option value="">스포츠종목</option>
 							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
 								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
