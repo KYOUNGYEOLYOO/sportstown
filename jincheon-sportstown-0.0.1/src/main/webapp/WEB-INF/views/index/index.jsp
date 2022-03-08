@@ -41,7 +41,7 @@ function diskInfo(){
 		success : function (ajaxData) {
 			if(ajaxData.resultCode == "Success"){
 				
-				$('#diskInfoTitle').html("NAS 사용량( "+ajaxData.free+" TB / "+ajaxData.total+" TB ) 및 영상 저장 분포");
+				$('#diskInfoTitle').html("NAS 사용량 <font color='#ff0000'>( "+ajaxData.free+" TB / "+ajaxData.total+" TB )</font> 및 영상 저장 분포");
 				$('#progressVar').attr('value',ajaxData.free);
 				$('#progressVar').attr('max',ajaxData.total);
 			}else{

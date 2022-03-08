@@ -799,7 +799,7 @@ function callback_selectedUsers(sender, users)
 				<input type="hidden" name="fileTypeCode" value=""/>
 				<input type="hidden" name="recordUserId" value="${loginUser.userId}" />
 				<!-- <input type="hidden" name="locationRootCode" value="UPLOAD" /> -->
-				<input type="hidden" name="locationRootCode" value="INGEST" />
+				<input type="hidden" name="locationRootCode" value="UPLOAD" />
 				<input type="hidden" name="hasNotUsed" value="true" />
 				<div style="display:none">
 					<c:choose>

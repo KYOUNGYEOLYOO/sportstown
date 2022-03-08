@@ -125,12 +125,12 @@ public class CameraStreamMeta {
 	}
 
 	public String getStreamName() {
-		return streamName.replace(".stream", "");
+		return streamName;
 //		return streamName;
 	}
 
 	public void setStreamName(String streamName) {
-		this.streamName = streamName + ".stream";
+		this.streamName = streamName;
 	}
 	//// 이전 스트림 이름 삭제하기 위한 용도
 	public String getStreamNameBefore() {

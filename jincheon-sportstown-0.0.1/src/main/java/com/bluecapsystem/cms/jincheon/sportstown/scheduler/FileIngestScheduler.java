@@ -58,7 +58,7 @@ public class FileIngestScheduler {
 	@Value("${com.bluecapsystem.cms.jincheon.sportstown.scheduler.FileIngestScheduler.enable}")
 	private final boolean enableTask = true;
 
-	//@Scheduled(fixedDelay = 2000)
+//	@Scheduled(fixedDelay = 2000)
 	@Scheduled(fixedDelay = 2000000)
 	
 	@Transient
@@ -151,6 +151,13 @@ public class FileIngestScheduler {
 							logger.error("fail of transfer file instance => [fileInst = {}]", fileInst);
 							break _TRANSACTION;
 						}
+						
+//						boolean fileInfo = file.delete();
+//						
+//						if(fileInfo != true) {
+//							logger.error("ingest  File delete error [fileName = {}]", file.getPath());
+//							break _TRANSACTION;
+//						}
 					}
 					logger.debug("FileIngestScheduler.registIngestFile 에서 파일을 등록 결과 [fileInstance={}] => {}", fileInst, resultCode);
 				}
