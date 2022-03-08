@@ -148,24 +148,30 @@ function onClick_searchInit()
 function setUserDetail(user)
 {
 	console.log(user);
-	if(user.sportsEvent.isPartition == true){
-		$('#partition_area1').show();
-		$('#partition_area2').show();
-		if(user.authFromDate != null){
-			$("#frmUserDetail").find("input[name=authFromDate]").val(user.authFromDate.substring(0,10));
+	if(user.sportsEvent != null){
+		if(user.sportsEvent.isPartition == true){
+			$('#partition_area1').show();
+			$('#partition_area2').show();
+			if(user.authFromDate != null){
+				$("#frmUserDetail").find("input[name=authFromDate]").val(user.authFromDate.substring(0,10));
+			}else{
+				$("#frmUserDetail").find("input[name=authFromDate]").val("");
+			}
+			if(user.authToDate != null){
+				$("#frmUserDetail").find("input[name=authToDate]").val(user.authToDate.substring(0,10));
+			}else{
+				$("#frmUserDetail").find("input[name=authToDate]").val("");
+			}
+			
 		}else{
-			$("#frmUserDetail").find("input[name=authFromDate]").val("");
+			$('#partition_area1').hide();
+			$('#partition_area2').hide();
 		}
-		if(user.authToDate != null){
-			$("#frmUserDetail").find("input[name=authToDate]").val(user.authToDate.substring(0,10));
-		}else{
-			$("#frmUserDetail").find("input[name=authToDate]").val("");
-		}
-		
 	}else{
 		$('#partition_area1').hide();
 		$('#partition_area2').hide();
 	}
+	
 	
 	$("#frmUserDetail").find("input[name=userId]").val(user.userId);
 	$("#frmUserDetail").find("input[name=loginId]").val(user.loginId);
