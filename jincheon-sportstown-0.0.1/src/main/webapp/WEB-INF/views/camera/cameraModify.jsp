@@ -60,6 +60,7 @@ $(document).ready(function(){
 							eventSender.send("data-event-modify", ajaxData.camera);
 							jpPopup.dialog("close");
 							console.log(" ajaxData.stream : ", ajaxData.stream );
+							location.reload(); // 수정 완료하고나서 화면 재실행 한번 더 해주기
 						}
 						else{
 							console.log(" ajaxData.stream : ", ajaxData.stream );
@@ -171,7 +172,7 @@ function updateToWowza()
 		<h3>${streamMeta.metaClass} 정보 입력</h3>
 		<input type="hidden" name="streamMetaItems[${st.index}].camId" value="${streamMeta.camId}" />
 		<input type="hidden" name="streamMetaItems[${st.index}].metaClass" value="${streamMeta.metaClass}" />
-		<input type="hidden" name="streamMetaItems[${st.index}].streamNameBefore" value="${streamMeta.streamName}" />
+		<input type="hidden" name="streamMetaItems[${st.index}].streamNameBefore" value="${streamMeta.streamName}.replace('.stream','')" />
 		
 		<table summary="">
 			<caption></caption>

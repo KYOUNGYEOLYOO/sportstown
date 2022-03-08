@@ -179,6 +179,7 @@ function onClick_delete()
 						$("#cameraList").jqGrid("delRowData", ajaxData.camId);
 						clear_cameraDetail();
 						mb.close();
+						location.reload();
 					}else{
 						new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 					}

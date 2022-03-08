@@ -798,13 +798,9 @@ function callback_selectedUsers(sender, users)
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="fileTypeCode" value=""/>
 				<input type="hidden" name="recordUserId" value="${loginUser.userId}" />
-<<<<<<< HEAD
-				<input type="hidden" name="locationRootCode" value="UPLOAD" />
 <!-- 				<input type="hidden" name="locationRootCode" value="INGEST" /> -->
-=======
 				<!-- <input type="hidden" name="locationRootCode" value="UPLOAD" /> -->
 				<input type="hidden" name="locationRootCode" value="UPLOAD" />
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 				<input type="hidden" name="hasNotUsed" value="true" />
 				<div style="display:none">
 					<c:choose>

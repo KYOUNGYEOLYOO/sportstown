@@ -55,7 +55,7 @@ $(document).ready(function(){
 							
 							console.log(">>>>>>"+jpPopup.find("form"));
 							
-							
+							location.reload();
 							
 							// 와우자 서버에 올리기
 							//addToWowza();
