@@ -27,10 +27,6 @@
 
 
 
-<html lang="ko" xml:lang="ko">
-
-
-<jsp:include page="/include/head"/>
 
 <!-- <script type='text/javascript' src="http://jwplayer.mediaserve.com/jwplayer.js"></script> -->
 
@@ -135,6 +131,7 @@ function initPalyer()
 	jwplayer("player").onPlay(function() {
 	}); */
 }
+}
 
 
 </script>
@@ -150,6 +147,7 @@ function onClick_close(){
 
 function onClick_stopRecord()
 {
+	console.log("111:??????");
 	var retVal = false;
 	$.ajax({
 		url : "<c:url value="/service/camera/stopRecord"/>/${camera.camId}?isCoercion=true",
@@ -170,8 +168,7 @@ function onClick_stopRecord()
 </script>
 
 
-</head>
-<body>
+
 
 
 <!-- <div class="popupWindow"> -->
@@ -180,7 +177,7 @@ function onClick_stopRecord()
 <!-- 		<div class="vodregistBox"> -->
 
 	<div class="videoview">
-		<video id="player" style="background:#fafafa"></div>	
+<!-- 		<video id="player" style="background:#fafafa"></div>	 -->
 	</div>
 <!-- 			<div class="vodregist "> -->
 <!-- 				<div class="videoview mgb30"> -->
@@ -243,5 +240,3 @@ function onClick_stopRecord()
 
 
 
-</body>
-</html>
