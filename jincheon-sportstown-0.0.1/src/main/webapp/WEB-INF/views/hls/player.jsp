@@ -86,8 +86,8 @@ $(document).ready(function(){
 	
 <c:if test="${enablePlayer == true}">
 
-	var liveStreamUrl = "${ipFilter.filterAddress(loginUser.connectLocation, liveStreamer)}/${proxyMeta.application.name}/${proxyMeta.streamName}.stream/playlist.m3u8";
-	var dvrStreamUrl = "${ipFilter.filterAddress(loginUser.connectLocation, dvrStreamer)}/${proxyMeta.application.name}/${proxyMeta.streamName}.stream/playlist.m3u8?DVR";
+	var liveStreamUrl = "${ipFilter.filterAddress(loginUser.connectLocation, liveStreamer)}/${proxyMeta.application.name}/${proxyMeta.streamName}/playlist.m3u8";
+	var dvrStreamUrl = "${ipFilter.filterAddress(loginUser.connectLocation, dvrStreamer)}/${proxyMeta.application.name}/${proxyMeta.streamName}/playlist.m3u8?DVR";
 	
 	var isLiveOnly = "${camera.isLiveOnly}" == "true";
 	

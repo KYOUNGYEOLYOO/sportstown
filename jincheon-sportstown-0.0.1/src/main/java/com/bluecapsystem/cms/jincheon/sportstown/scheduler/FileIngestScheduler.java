@@ -58,7 +58,7 @@ public class FileIngestScheduler {
 	@Value("${com.bluecapsystem.cms.jincheon.sportstown.scheduler.FileIngestScheduler.enable}")
 	private final boolean enableTask = true;
 
-//	@Scheduled(fixedDelay = 2000)
+//	@Scheduled(fixedDelay = 2000L)
 	@Scheduled(fixedDelay = 2000000)
 	
 	@Transient

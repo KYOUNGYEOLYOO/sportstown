@@ -215,6 +215,10 @@ public class UserJsonController {
 				}
 
 				// 내부 / 외부 접속인지를 판단 한다
+				
+				
+				
+				
 				ConnectLocation cl = IPFilterConstant.checkConnectLocation(request.getRequestURL().toString());
 				user.setConnectLocation(cl);
 
