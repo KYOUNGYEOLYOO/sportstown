@@ -324,7 +324,7 @@ public class CameraJsonController {
 		String streamName = "";
 		String streamServer = "";
 
-//		IResult resultCode = CommonResult.UnknownError;
+		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
@@ -373,6 +373,7 @@ public class CameraJsonController {
 				finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 				break;
 			}
+			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
 //			Enumeration params = request.getParameterNames();
@@ -382,10 +383,12 @@ public class CameraJsonController {
 //			}
 			System.out.println();
 		} finally {
+			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("applicationName", applicationCode);
 			mnv.addObject("streamName", streamName);
 			mnv.addObject("serverName", streamServer);
 			mnv.addObject("finalUrl", finalUrl);
+			
 		}
 
 		return mnv;
@@ -400,7 +403,7 @@ public class CameraJsonController {
 		String streamName = "";
 		String streamServer = "";
 
-//		IResult resultCode = CommonResult.UnknownError;
+		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
@@ -453,6 +456,7 @@ public class CameraJsonController {
 				break;
 			}
 			camServ.changeStateCamera(camId, CameraState.DisCon);
+			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
 //			Enumeration params = request.getParameterNames();
@@ -462,7 +466,7 @@ public class CameraJsonController {
 //			}
 			System.out.println();
 		} finally {
-//			mnv.addObject("resultCode", resultCode);
+			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("applicationName", applicationCode);
 			mnv.addObject("streamName", streamName);
 			mnv.addObject("serverName", streamServer);

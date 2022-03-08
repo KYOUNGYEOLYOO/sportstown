@@ -57,8 +57,7 @@ $(document).ready(function(){
 		viewrecords: true,
 		viewsortcols: [false,'vertical',false],
 		rownumbers: false,
-		rowNum: 10,
-		rowList: [10,20,30],
+// 		rowNum: 10,
 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
 	   	colNames:["썸네일", "파일명", "fileId", "filePath", "fileName"],
 	   	colModel:[
