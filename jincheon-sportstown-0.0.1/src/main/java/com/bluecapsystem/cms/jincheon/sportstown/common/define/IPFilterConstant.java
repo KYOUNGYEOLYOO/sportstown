@@ -34,23 +34,24 @@ public class IPFilterConstant {
 		externalAddressMap = new HashMap<String, String>();
 
 //		// WOWZA Server
-//		externalAddressMap.put("119.65.245.234", "192.168.240.41");
-//		externalAddressMap.put("119.65.245.235", "192.168.240.42");
+		externalAddressMap.put("119.65.245.234", "192.168.240.41");
+		externalAddressMap.put("119.65.245.235", "192.168.240.42");
 //		// WAS Server
-//		externalAddressMap.put("119.65.245.233", "192.168.240.40");
+		externalAddressMap.put("119.65.245.233", "192.168.240.40");
 		
 		// WOWZA Server
-		externalAddressMap.put("192.168.0.107", "192.168.0.107");
+		//externalAddressMap.put("192.168.0.107", "192.168.0.107");
 		
 
 		// test
-		//externalAddressMap.put("localhost", "127.0.0.1");
+		externalAddressMap.put("localhost", "127.0.0.1");
+		externalAddressMap.put("localhost:8080", "127.0.0.1:8080");
 
 		internalAddressMap = new HashMap<String, String>();
 		// 외부 IP 의 key, value 를 바꾸면 됨.
-//		externalAddressMap.forEach((extAddr, interAddr) -> {
-//			internalAddressMap.put(interAddr, extAddr);
-//		});
+		externalAddressMap.forEach((extAddr, interAddr) -> {
+			internalAddressMap.put(interAddr, extAddr);
+		});
 	}
 
 	/**

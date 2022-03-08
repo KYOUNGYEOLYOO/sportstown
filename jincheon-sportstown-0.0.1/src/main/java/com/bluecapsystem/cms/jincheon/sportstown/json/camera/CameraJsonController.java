@@ -981,6 +981,10 @@ public class CameraJsonController {
 			baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 			baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
 			outputPath = propServ.getProperty("WOWZA_PROPERTIES", "RECORD_OUTPUT_PATH").valueToString();
+			
+			
+	
+			
 			chkData = "baseUrl : " + baseUrl + " application : " + application.toString() + " streamFile : "
 					+ streamFile + " outputPath : " + outputPath + " outputFile : " + outputFile;
 			if (EmptyChecker.isEmpty(baseUrl) || EmptyChecker.isEmpty(application) || EmptyChecker.isEmpty(streamFile)

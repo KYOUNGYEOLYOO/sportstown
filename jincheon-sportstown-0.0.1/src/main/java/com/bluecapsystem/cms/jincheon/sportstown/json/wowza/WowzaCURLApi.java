@@ -217,8 +217,8 @@ public class WowzaCURLApi {
 		parameters.put("baseFile", outputFile);
 		parameters.put("fileFormat", "MP4");
 		parameters.put("fileVersionDelegateName", "com.wowza.wms.livestreamrecord.manager.StreamRecorderFileVersionDelegate");
-//		parameters.put("fileTemplate", "${BaseFileName}_${RecordingStartTime}_${SegmentNumber}");
-		parameters.put("fileTemplate", "${SourceStreamName}_${RecordingStartTime}_${SegmentNumber}");
+		parameters.put("fileTemplate", "${BaseFileName}_${RecordingStartTime}_${SegmentNumber}");
+		//parameters.put("fileTemplate", "${SourceStreamName}_${RecordingStartTime}_${SegmentNumber}");
 		//SourceStreamName
 		parameters.put("segmentDuration", 0);
 		parameters.put("segmentSize", 0);
