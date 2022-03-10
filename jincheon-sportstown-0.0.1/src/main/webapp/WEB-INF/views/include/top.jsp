@@ -14,13 +14,17 @@ function onClick_pwdModify()
 	window.open("<c:url value="/user/passwordModify"/>", "popup", "height=390,width=620,resizable=no,menubar=no,toolbar=no", true);
 }
 
+function onClick_mainModify()
+{
+	window.open("<c:url value="/user/mainModify"/>", "popup2", "height=390,width=620,resizable=no,menubar=no,toolbar=no", true);
+}
 
 
 $(document).ready(function(){
 	
 	openPopup();
-	
-	
+	console.log("/////////////////");
+	console.log("${loginUser}");
 	
 });
 
@@ -163,13 +167,13 @@ function changePasswordCheck(){
 			</ul>
 		</div>
 		<!-- //gnb -->
-		<div class="welcome">
-			<p> <span>${loginUser.userName}</span>님 안녕하세요</p>		
+		<div class="welcome" style="width:250px;">
+			<p> ${loginUser.sportsEvent.name} <span>${loginUser.userName}</span>님 안녕하세요</p>		
 			<div>
 <!-- 				<p>사용자를 위한 기능을 제공합니다. </p> -->
 				<ul>
 					<li><a href="javascript:onLogout();">로그아웃</a></li>
-<!-- 					<li><a href="#">사용자 정보 변경</a></li> -->
+					<li><a href="javascript:onClick_mainModify();">사용자 정보 변경</a></li>
 <%-- 					<li><a href="<c:url value="javascript:onClick_pwdModify();" />">비밀 번호 갱신</a></li> --%>
 <%-- 					<li><a href="<c:url value="/admin/adminGraph1" />">임시로 만든 대쉬보드 페이지1</a></li> --%>
 <%-- 					<li><a href="<c:url value="/admin/adminGraph2" />">임시로 만든 통계 페이지2</a></li> --%>

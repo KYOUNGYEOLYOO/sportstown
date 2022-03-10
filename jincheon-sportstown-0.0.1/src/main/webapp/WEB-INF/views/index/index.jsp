@@ -408,6 +408,7 @@ function drawChart() {
 	                    }
 	                }
 	            });
+	            $('#columnchart').attr('style','margin-top: 60px; display: block; width: 935px; height: 467px;');
 
 			}else{
 				new bcs_messagebox().openError("종목별 영상 등록 현황", "데이터 오류 발생 [code="+ajaxData.resultCode+"]", null);

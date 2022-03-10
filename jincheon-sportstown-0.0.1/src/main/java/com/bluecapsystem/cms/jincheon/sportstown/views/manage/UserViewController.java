@@ -76,6 +76,26 @@ public class UserViewController
 		}
 		return mnv;
 	} 
+	
+	@RequestMapping("/mainModify")
+	public ModelAndView mainModify(final HttpSession session)
+	{
+		ModelAndView mnv = new ModelAndView("/user/userMainModify");
+
+//		loadCodes(mnv);
+		User user = null;
+		try {
+			User loginUser = (User) session.getAttribute(UserSessionDefine.LOGIN_USER_SESSION_KEY);
+
+			user = userServ.getUser(loginUser.getUserId(), null);
+			mnv.addObject("user", user);
+			
+//			loadCodes(mnv);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return mnv;
+	} 
 
 
 	@RequestMapping("/select")
