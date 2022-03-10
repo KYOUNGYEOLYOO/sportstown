@@ -152,7 +152,7 @@ public class WowzaCURLApi {
 	 */
 	public String disconnectStream(String baseUrl, String application, String streamName) {
 		Map<String, Object> parameters =new HashMap<String, Object>();
-		String url = String.format("%s/v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications/%s/instances/_definst_/incomingstreams/%s"+".stream"+
+		String url = String.format("%s/v2/servers/_defaultServer_/vhosts/_defaultVHost_/applications/%s/instances/_definst_/incomingstreams/%s"+
 		"/actions/disconnectStream",
 				baseUrl, application, streamName);
 		

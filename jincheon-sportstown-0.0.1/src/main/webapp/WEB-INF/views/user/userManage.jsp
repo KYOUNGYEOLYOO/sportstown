@@ -141,6 +141,10 @@ function callback_modify(sender, user)
 
 
 <script type="text/javascript">
+function onClick_searchInit()
+{
+	location.reload();
+}
 function setUserDetail(user)
 {
 	console.log(user);
@@ -242,7 +246,7 @@ function clearUserDetail()
 				</ul>
 			</form>
 			<div class="btnWrap">
-				<a class="btn reset">초기화</a>	<!-- 초기화 기능 추가 -->
+				<a class="btn reset" href="javascript:onClick_searchInit();">초기화</a>	<!-- 초기화 기능 추가 -->
 				<a class="btn search" href="javascript:onClick_search();">검색</a></span> 
 			</div>
 		</div>

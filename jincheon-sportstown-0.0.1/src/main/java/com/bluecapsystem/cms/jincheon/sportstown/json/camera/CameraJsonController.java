@@ -324,7 +324,7 @@ public class CameraJsonController {
 		String streamName = "";
 		String streamServer = "";
 
-//		IResult resultCode = CommonResult.UnknownError;
+		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
@@ -373,6 +373,7 @@ public class CameraJsonController {
 				finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 				break;
 			}
+			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
 //			Enumeration params = request.getParameterNames();
@@ -382,10 +383,12 @@ public class CameraJsonController {
 //			}
 			System.out.println();
 		} finally {
+			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("applicationName", applicationCode);
 			mnv.addObject("streamName", streamName);
 			mnv.addObject("serverName", streamServer);
 			mnv.addObject("finalUrl", finalUrl);
+			
 		}
 
 		return mnv;
@@ -400,7 +403,7 @@ public class CameraJsonController {
 		String streamName = "";
 		String streamServer = "";
 
-//		IResult resultCode = CommonResult.UnknownError;
+		IResult resultCode = CommonResult.UnknownError;
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
@@ -453,6 +456,7 @@ public class CameraJsonController {
 				break;
 			}
 			camServ.changeStateCamera(camId, CameraState.DisCon);
+			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
 //			Enumeration params = request.getParameterNames();
@@ -462,7 +466,7 @@ public class CameraJsonController {
 //			}
 			System.out.println();
 		} finally {
-//			mnv.addObject("resultCode", resultCode);
+			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("applicationName", applicationCode);
 			mnv.addObject("streamName", streamName);
 			mnv.addObject("serverName", streamServer);
@@ -618,10 +622,10 @@ public class CameraJsonController {
 		EntityManager em = null;
 //		String streamNameBefore = request.getParameter("streamNameBefore");
 		String streamName = camera.getStreamMetaItems().get(0).getStreamName();
-		String streamNameBefore = camera.getStreamMetaItems().get(0).getStreamNameBefore();
+		String streamNameBefore = camera.getStreamMetaItems().get(0).getStreamNameBefore(); 
 		String applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 		String streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
-		String filePath = "Y:\\content\\"+streamNameBefore+".stream";// 파일 형식이 .stream임 ( 텍스트는 .txt )
+		String filePath = "Y:\\content\\"+streamNameBefore;// 파일 형식이 .stream임 ( 텍스트는 .txt )
 		File deleteFile = new File(filePath);
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String ErrorCode = "";
@@ -696,7 +700,8 @@ public class CameraJsonController {
 					String result = "";
 					
 					applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
-					streamName = camera.getStreamMetaItems().get(0).getStreamName();
+					streamName = camera.getStreamMetaItems().get(0).getStreamName(); // 0308 이후로 .stream 붙어서 들어옴.
+					streamName = streamName.replace(".stream", ""); // 추가
 					streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 					streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
 
@@ -858,7 +863,7 @@ public class CameraJsonController {
 		String finalUrl = "";
 		
 		
-		String filePath = "Y:\\content\\"+streamName+".stream";// 파일 형식이 .stream임 ( 텍스트는 .txt )
+		String filePath = "Y:\\content\\"+streamName; // 파일 형식이 .stream임 ( 텍스트는 .txt )
 		File deleteFile = new File(filePath);
 		try {
 			_TRANS:{

@@ -798,6 +798,7 @@ function callback_selectedUsers(sender, users)
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="fileTypeCode" value=""/>
 				<input type="hidden" name="recordUserId" value="${loginUser.userId}" />
+<!-- 				<input type="hidden" name="locationRootCode" value="INGEST" /> -->
 				<!-- <input type="hidden" name="locationRootCode" value="UPLOAD" /> -->
 				<input type="hidden" name="locationRootCode" value="UPLOAD" />
 				<input type="hidden" name="hasNotUsed" value="true" />
@@ -923,7 +924,8 @@ function callback_selectedUsers(sender, users)
 <!-- 						<video width="100%" controls src=""> -->
 <!-- 							<source src="../../mp4/sample.mp4" type="video/mp4"> -->
 <!-- 						</video> -->
-						<video id="player_small" style="background:#fafafa"></video>	
+<!-- 						<video id="player_small" style="background:#fafafa"></video>	 -->
+						<video id="player_small"></video>	
 					</div>
 				<div class="detailWrap">					
 					<form id="frmContent">
