@@ -4,7 +4,9 @@
 
 /* .ui-jqgrid .ui-jqgrid-bdiv { overflow-y: scroll !important; } */
 /* 스크롤바 없애기 프로젝트 */
+.cameraScroll .ui-jqgrid .ui-jqgrid-bdiv {overflow-x: hidden; overflow-y: scroll !important;}
 .ui-jqgrid .ui-jqgrid-bdiv {overflow-x: hidden; overflow-y: hidden;}
+
 /* 녹화재생페이지 팝업창은 스크롤이 있어야됨 */
 #fsDialogId .ui-jqgrid-bdiv {overflow-y: auto !important}
 #fsDialogId .ui-jqgrid tr.jqgfirstrow td {padding: 0 2px 0 2px;border-right-width: 1px; border-right-style: solid; height:auto;}
@@ -39,6 +41,11 @@
 .btn_typeA a {
 	width : 100%;
 }
+
+/* 비디오 에러날때 처리 */
+.vjs-error-display > p{display: none;}
+.vjs-error-display > .vjs-modal-dialog-content {display:none;}
+.vjs-error .vjs-error-display:before {display:none !important;}
 
 /* 비디오 크기 조절 */
 #player_html5_api {height: 100%}

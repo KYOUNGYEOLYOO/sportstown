@@ -65,7 +65,7 @@ $(document).ready(function(){
 		viewrecords: true,
 		viewsortcols: [false,'vertical',false],
 		rownumbers: false,
-		rowNum: 12,
+// 		rowNum: 12,
 	   	colNames:["카메라명",  "카메라위치",  "스포츠종목", "녹화상태", "camId"],
 	   	colModel:[
 	   		{name:"name",index:"name", width:180, align:"center"},
@@ -80,6 +80,9 @@ $(document).ready(function(){
 					{
 						color = "#c9c9c9";
 						text = "대기중";
+					}else if(rowObject.state == "DisCon"){
+						color = "#000000";
+						text = "연결해제";
 					}else{
 						color = "#F90F0F";
 						text = "녹화중";
@@ -93,16 +96,16 @@ $(document).ready(function(){
 // 	   	pager: $("#p_cameraList"),
 		loadComplete : function(data){  
 		    
-		    // 그리드 데이터 총 갯수
-		    var allRowsInGrid = jQuery('#cameraList').jqGrid('getGridParam','records');
+// 		    // 그리드 데이터 총 갯수
+// 		    var allRowsInGrid = jQuery('#cameraList').jqGrid('getGridParam','records');
 		   
-		    // 데이터가 없을 경우 (먼저 태그 초기화 한 후에 적용)
-		    $("#NoData").html("");
-		    if(allRowsInGrid==0){
-		        $("#NoData").html("<br>데이터가 없습니다.<br>");
-		    }
-		    // 처음 currentPage는 널값으로 세팅 (=1)
-		    initPage("cameraList",allRowsInGrid,"");
+// 		    // 데이터가 없을 경우 (먼저 태그 초기화 한 후에 적용)
+// 		    $("#NoData").html("");
+// 		    if(allRowsInGrid==0){
+// 		        $("#NoData").html("<br>데이터가 없습니다.<br>");
+// 		    }
+// 		    // 처음 currentPage는 널값으로 세팅 (=1)
+// 		    initPage("cameraList",allRowsInGrid,"");
 		   
 		},
 	   	jsonReader : {
@@ -413,7 +416,7 @@ function open_cameraLive_rnb(camId)
 		<!-- //lnbWrap -->
 
 		<!-- contents -->
-		<div id="contents">
+		<div id="contents" class="cameraScroll">
 			<div class="vodlistBox">
 				<table id="cameraList" class="list_type1" data-ctrl-view="camera_list" data-event-selectedRow="onSelected_cameraListItem"></table>
 				<div id="NoData"></div>
