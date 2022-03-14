@@ -321,7 +321,7 @@ function clear_cameraDetail()
 		<!-- //lnbWrap -->
 
 		<!-- contents -->
-		<div id="contents">
+		<div id="contents" class="cameraScroll">
 			<div class="vodlistBox">
 				<jsp:include page="/camera/list">
 					<jsp:param value="cameraList" name="listId"/>
