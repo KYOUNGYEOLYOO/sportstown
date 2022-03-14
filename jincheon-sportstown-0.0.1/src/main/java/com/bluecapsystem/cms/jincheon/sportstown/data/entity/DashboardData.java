@@ -31,6 +31,8 @@ public class DashboardData
 		Contents,
 		Archive,
 		Login,
+		View,
+		Download
 	}
 
 
@@ -51,7 +53,7 @@ public class DashboardData
 	/**
 	 * 종목 코드
 	 */
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private String sportsEventCode;
 
 	@OneToOne(optional=true)

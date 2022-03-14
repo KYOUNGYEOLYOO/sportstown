@@ -113,6 +113,8 @@ var statList = new Array();
 
 function monthClick(value){
 	
+	$('#monthTitle').html(value+" 월 통계");
+	
 	statList = new Array();
 	var year = $('#selectYear').val();
 	
@@ -302,6 +304,9 @@ function goList(){
 			</div>
 			
 			<div class="tableContainer" style="height: 636px;overflow: auto;">
+				<div style="padding: 10px 20px;">
+					<h4 style="font-weight: bold;line-height: 40px;" id="monthTitle">월 통계</h4>
+				</div>
 				
 				<table>
 					<caption></caption>

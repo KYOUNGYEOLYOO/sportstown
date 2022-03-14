@@ -112,9 +112,34 @@ $(document).ready(function(){
 
 function onClick_download()
 {
+	
+	var contentId = "${contentId}";
+	
+	registLog(contentId);
  	$(location).attr("href", "<c:url value="/file/download"/>/${contentMeta.content.instances[0].file.fileId}");
  	
 }
+
+function registDownloadLog(value){
+	$.ajax({
+		url : "<c:url value="/service/content/registDownloadLog"/>",
+		async : false,
+		dataType : "json",
+		data : param, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				location.reload();
+			}
+			else{
+				new bcs_messagebox().openError("컨텐츠수정", "컨텐츠수정 오류 발생 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
+}
+
 function onClick_modify()
 {
 	// 이전부터 구현되어 있는 기능이 없었음...
