@@ -79,9 +79,9 @@ function cameraList(){
 					}
 				}
 				
-				$('#wait').html(wait+" 대");
-				$('#recording').html(recording+" 대");
-				$('#ready').html(ready+" 대");
+				$('#wait').html("<font color='#333333'>"+wait+" 대</font>");
+				$('#recording').html("<font color='#ff0000'>"+recording+" 대</font>");
+				$('#ready').html("<font color='#d3d3d3'>"+ready+" 대</font>");
 			    
 			}else{
 				new bcs_messagebox().openError("cameraList 정보", "cameraList 정보 조회 오류 [code="+ajaxData.resultCode+"]", null);
@@ -373,6 +373,9 @@ function drawChart() {
 					
 					if(Number(temp[1]) > 10){
 						ySize = 10;
+					}
+					if(Number(temp[1]) > 100){
+						ySize = 50;
 					}
 					
 			    }

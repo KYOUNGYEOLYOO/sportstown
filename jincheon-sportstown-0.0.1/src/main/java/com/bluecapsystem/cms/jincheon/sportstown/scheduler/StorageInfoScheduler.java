@@ -81,39 +81,41 @@ public class StorageInfoScheduler
 				System.out.println("디스크 사용 용량 : " + freeSize + " TB \n");
 		
 				System.out.println("디스크 남은 용량 : " + useSize + " TB \n");
-			}
 				
-			total = String.format("%.2f", totalSize);
-			free = String.format("%.2f", freeSize);
-			
-			List<StorageInfo> storageInfos = null;
-			StorageInfo storageInfo = new StorageInfo();
-			
-			storageInfo.setTotalInfo(total);
-			storageInfo.setUseInfo(free);
-			
-			try {
-				storageInfos = simServ.getStorageInfos();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			System.out.println("storageInfos.size()>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+storageInfos.size());
-			
-			if(storageInfos.size() > 0) {
-				IResult resultCode = simServ.deleteStorageInfo();
+				total = String.format("%.2f", totalSize);
+				free = String.format("%.2f", freeSize);
 				
+				List<StorageInfo> storageInfos = null;
+				StorageInfo storageInfo = new StorageInfo();
 				
-				if(resultCode == CommonResult.Success) {
+				storageInfo.setTotalInfo(total);
+				storageInfo.setUseInfo(free);
+				
+				try {
+					storageInfos = simServ.getStorageInfos();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				//System.out.println("storageInfos.size()>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+storageInfos.size());
+				
+				if(storageInfos.size() > 0) {
+					IResult resultCode = simServ.deleteStorageInfo();
+					
+					
+					if(resultCode == CommonResult.Success) {
+						
+						simServ.registStorageInfo(storageInfo);
+					}
+				}else {
+					
 					
 					simServ.registStorageInfo(storageInfo);
 				}
-			}else {
-				
-				
-				simServ.registStorageInfo(storageInfo);
 			}
+				
+			
 			
 			
 
