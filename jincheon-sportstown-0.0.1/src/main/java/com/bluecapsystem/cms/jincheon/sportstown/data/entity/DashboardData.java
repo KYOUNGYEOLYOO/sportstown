@@ -68,7 +68,7 @@ public class DashboardData
 	/**
 	 * 컨텐츠 아이디
 	 */
-	@Column(nullable = false, length=256)
+	@Column(nullable = true, length=256)
 	private String contentId;
 	
 	/**

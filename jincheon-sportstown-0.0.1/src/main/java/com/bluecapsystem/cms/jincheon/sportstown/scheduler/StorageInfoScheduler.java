@@ -21,7 +21,7 @@ import com.bluecapsystem.cms.core.result.CommonResult;
 import com.bluecapsystem.cms.core.result.IResult;
 import com.bluecapsystem.cms.core.service.FileInstanceService;
 import com.bluecapsystem.cms.core.service.ThumbnailInstanceService;
-import com.bluecapsystem.cms.jincheon.sportstown.dao.StorageInfoDaoImpl;
+import com.bluecapsystem.cms.jincheon.sportstown.dao.StorageInfoDao;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.LoginData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.StorageInfo;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
@@ -43,8 +43,8 @@ public class StorageInfoScheduler
 //	private final boolean enableTask = true;
 	
 	//매일 한시 실행
-//	@Scheduled(cron = "0 0 1 * * *")
-	@Scheduled(fixedDelay=5000)
+	@Scheduled(cron = "0 0 1 * * *")
+//	@Scheduled(fixedDelay=5000)
 	public void storageCheck()
 	{
 //		if (!enableTask) {

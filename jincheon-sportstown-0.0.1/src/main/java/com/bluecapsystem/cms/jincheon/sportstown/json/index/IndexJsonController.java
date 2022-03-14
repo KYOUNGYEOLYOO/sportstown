@@ -37,6 +37,7 @@ import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.ContentAuthSele
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.ContentAuth;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.LoginData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.StorageInfo;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
@@ -110,7 +111,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardData  = null;
 		try {
 			
-			dashboardData = dashboardDataDao.findBestCodeData(year);
+			dashboardData = dashboardDataDao.findBestCodeData(year, DataType.Contents);
 			
 			
 			
@@ -143,7 +144,7 @@ public class IndexJsonController {
 		
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByColumnData(sportsEventCode,year);
+			dashboardDatas = dashboardDataDao.findGroupByColumnData(sportsEventCode,year, DataType.Contents);
 			
 			
 			
@@ -174,7 +175,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardDatas = null;
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByMonthData(year);
+			dashboardDatas = dashboardDataDao.findGroupByMonthData(year, DataType.Contents);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -201,7 +202,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardDatas = null;
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByData();
+			dashboardDatas = dashboardDataDao.findGroupByData(DataType.Contents);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -239,8 +240,8 @@ public class IndexJsonController {
 			
 			String today = fourteen_format.format(cal.getTime());
 			
-			allContent = dashboardDataDao.findGroupByAllContent();
-			todayContent = dashboardDataDao.findGroupByTodayContent(today);
+			allContent = dashboardDataDao.findGroupByAllContent(DataType.Contents);
+			todayContent = dashboardDataDao.findGroupByTodayContent(today, DataType.Contents);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;

@@ -13,30 +13,94 @@ import javax.persistence.criteria.Root;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.bcs.util.EmptyChecker;
 import com.bluecapsystem.cms.core.data.condition.IPagingable;
 import com.bluecapsystem.cms.core.data.condition.Paging;
 import com.bluecapsystem.cms.core.generator.UniqueIDGenerator;
-import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.DashboardDataSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
-import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
-import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.StorageInfo;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 
 
-
-public interface StorageInfoDao extends JpaRepository<StorageInfo, String>
+@Repository(value = "StorageInfoDao")
+public class StorageInfoDao
 {
-	
+	private static final Logger logger = LoggerFactory.getLogger(StorageInfoDao.class);
 
+	public StorageInfo selectStorageInfo(EntityManager em)
+	{
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		CriteriaQuery<StorageInfo> q = cb.createQuery(StorageInfo.class);
+		Root<StorageInfo> storageInfoRoot = q.from(StorageInfo.class);
+
+		
+		q.select(storageInfoRoot);
+		
+		TypedQuery<StorageInfo> query = em.createQuery(q);
+
+		StorageInfo storageInfo = null;
+
+		try
+		{
+			storageInfo = query.getSingleResult();
+		}catch(NoResultException ex)
+		{
+			storageInfo = null;
+		}
+		return storageInfo;
+	}
 	
-	@Query(value = "DELETE FROM StorageInfo")
-	StorageInfo deleteStorageInfo();
+	public List<StorageInfo> selectStorageInfoList(EntityManager em)
+	{
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+
+		CriteriaQuery<StorageInfo> q = cb.createQuery(StorageInfo.class);
+		Root<StorageInfo> storageInfoRoot = q.from(StorageInfo.class);
+		
+		q.select(storageInfoRoot);
+		
+
+		TypedQuery<StorageInfo> query = em.createQuery(q);
+
+		
+
+		List<StorageInfo> storageInfos = null;
+		try
+		{
+			storageInfos = query.getResultList();
+		}catch(NoResultException ex)
+		{
+			storageInfos = new ArrayList<StorageInfo>();
+		}
+		return storageInfos;
+
+	}
+
+
+
+
+	public void insertStorageInfo(EntityManager em, StorageInfo storageInfo)
+	{
+	
+		Long infoId = UniqueIDGenerator.createNumber();
+		storageInfo.setInfoId(infoId.toString());
+		
+		logger.debug("스토리지 정보를 등록 합니다 [storageInfo={}]", storageInfo);
+		em.persist(storageInfo);
+	}
+
+	public void deleteStorageInfo(EntityManager em, StorageInfo storageInfo)
+	{
+	
+		
+		
+		logger.debug("스토리지 정보를 삭제 합니다 [storageInfo={}]", storageInfo);
+		em.remove(storageInfo);
+	}
+
+
 	
 }

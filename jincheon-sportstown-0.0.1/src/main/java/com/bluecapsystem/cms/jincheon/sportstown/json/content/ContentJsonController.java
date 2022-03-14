@@ -209,7 +209,7 @@ public class ContentJsonController {
 			if (resultCode != CommonResult.Success)
 				break _TRANSACTION;
 			
-			dashboardData.setUserType(DataType.Archive);
+			dashboardData.setUserType(DataType.Contents);
 			dashboardData.setRegistDate(content.getRegistDate());
 			dashboardData.setUserId(meta.getRecordUserId());
 			dashboardData.setSportsEventCode(meta.getSportsEventCode());

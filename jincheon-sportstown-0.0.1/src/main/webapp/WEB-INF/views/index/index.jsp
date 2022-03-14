@@ -54,7 +54,7 @@ function diskInfo(){
 
 function cameraList(){
 	$.ajax({
-		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true",
+		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true&stateString=All",
 		async : false,
 		dataType : "json",
 		data : null, 
@@ -421,6 +421,12 @@ function drawChart() {
 	});
 	
   }
+  
+  function cameraInfo(value){
+	  
+	  location.href='<c:url value="/camera/monitor/'+value+'"/>';
+	  
+  }
 
 </script>
 </head>
@@ -509,12 +515,12 @@ function drawChart() {
 						<dt>촬영 현황</dt>
 						<dd>
 							<dl>
-								<dt>촬영</dt>
-								<dd id="recording">0 대</dd>
-								<dt>사용</dt>
-								<dd id="wait">0 대</dd>
-								<dt>미사용</dt>
-								<dd id="ready">0 대</dd>
+								<dt onClick="javascipt:cameraInfo('Recording');">촬영</dt>
+								<dd onClick="javascipt:cameraInfo('Recording');" id="recording">0 대</dd>
+								<dt onClick="javascipt:cameraInfo('Wait');">사용</dt>
+								<dd onClick="javascipt:cameraInfo('Wait');" id="wait">0 대</dd>
+								<dt onClick="javascipt:cameraInfo('DisCon');">미사용</dt>
+								<dd onClick="javascipt:cameraInfo('DisCon');" id="ready">0 대</dd>
 							</dl>
 						</dd>
 					</dl>

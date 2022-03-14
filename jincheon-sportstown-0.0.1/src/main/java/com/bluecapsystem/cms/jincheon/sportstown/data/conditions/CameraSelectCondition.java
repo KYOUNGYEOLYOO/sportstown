@@ -3,6 +3,7 @@ package com.bluecapsystem.cms.jincheon.sportstown.data.conditions;
 import com.bluecapsystem.cms.core.data.condition.IPagingable;
 import com.bluecapsystem.cms.core.data.condition.ISelectCondition;
 import com.bluecapsystem.cms.core.data.condition.Paging;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.Camera.CameraState;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.Camera.CameraType;
 
 public class CameraSelectCondition implements ISelectCondition, IPagingable
@@ -31,6 +32,10 @@ public class CameraSelectCondition implements ISelectCondition, IPagingable
 	 * 검색 키워드
 	 */
 	private String keyword;
+	
+	private String stateString;
+	
+	private CameraState state;
 	
 	
 	private Paging paging;
@@ -105,6 +110,21 @@ public class CameraSelectCondition implements ISelectCondition, IPagingable
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+	
+	public String getStateString() {
+		return stateString;
+	}
+
+	public void setStateString(String stateString) {
+		this.stateString = stateString;
+	}
+	public CameraState getState() {
+		return state;
+	}
+
+	public void setState(CameraState state) {
+		this.state = state;
+	}
 
 	public Boolean getHasStreamMeta() {
 		return hasStreamMeta;
@@ -137,6 +157,10 @@ public class CameraSelectCondition implements ISelectCondition, IPagingable
 	public void setSportsEventCode(String sportsEventCode) {
 		this.sportsEventCode = sportsEventCode;
 	}
+
+
+
+
 
 	
 	

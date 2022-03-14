@@ -19,7 +19,7 @@ import com.bluecapsystem.cms.jincheon.sportstown.dao.DashboardDataDaoImpl;
 import com.bluecapsystem.cms.jincheon.sportstown.dao.LoginDataDao;
 import com.bluecapsystem.cms.jincheon.sportstown.dao.LoginDataDaoImpl;
 import com.bluecapsystem.cms.jincheon.sportstown.dao.StorageInfoDao;
-import com.bluecapsystem.cms.jincheon.sportstown.dao.StorageInfoDaoImpl;
+import com.bluecapsystem.cms.jincheon.sportstown.dao.StorageInfoDao;
 import com.bluecapsystem.cms.jincheon.sportstown.dao.UserDao;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.DashboardDataSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.LoginDataSelectCondition;
@@ -42,9 +42,7 @@ public class StorageInfoManageService
 	@Autowired
 	private StorageInfoDao storageInfoDao;
 	
-	@Autowired
-	private StorageInfoDaoImpl storageInfoDaoImpl;
-	
+
 	
 	public List<StorageInfo> getStorageInfos() throws Exception
 	{
@@ -53,7 +51,7 @@ public class StorageInfoManageService
 
 		try
 		{
-			storageInfoList = storageInfoDaoImpl.selectStorageInfoList(em);
+			storageInfoList = storageInfoDao.selectStorageInfoList(em);
 		}catch(Exception ex)
 		{
 			logger.error("스토리지 목록 조회의 오류 발생 \n{}",
@@ -84,7 +82,7 @@ public class StorageInfoManageService
 							
 				
 				// DB 에 login 데이터를 등록 한다
-				storageInfoDaoImpl.insertStorageInfo(em, storageInfo);
+				storageInfoDao.insertStorageInfo(em, storageInfo);
 				result = CommonResult.Success;
 				break _TRANS;
 				
@@ -122,7 +120,7 @@ public class StorageInfoManageService
 				em.getTransaction().begin();
 				
 				
-				StorageInfo storageInfo = storageInfoDaoImpl.selectStorageInfo(em); 
+				StorageInfo storageInfo = storageInfoDao.selectStorageInfo(em); 
 				
 			
 				if( storageInfo == null)
@@ -133,7 +131,7 @@ public class StorageInfoManageService
 				
 				
 				// DB 에 스토리지정보를 삭제 한다
-				storageInfoDaoImpl.deleteStorageInfo(em,storageInfo);
+				storageInfoDao.deleteStorageInfo(em,storageInfo);
 				result = CommonResult.Success;
 				em.getTransaction().commit();
 				break _TRANS;
