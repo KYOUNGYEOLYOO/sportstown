@@ -33,8 +33,8 @@ public class IngestFileScheduler
 //	private final boolean enableTask = true;
 	
 	//월요일 한시 실행
-//	@Scheduled(cron = "0 0 1 ? * MON")
-	public void wowzaLogCheck()
+	@Scheduled(cron = "0 0 1 ? * MON")
+	public void ingestFileCheck()
 	{
 //		if (!enableTask) {
 //			return;

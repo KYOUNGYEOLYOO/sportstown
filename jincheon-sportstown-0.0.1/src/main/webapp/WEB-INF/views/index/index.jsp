@@ -40,10 +40,11 @@ function diskInfo(){
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
 			if(ajaxData.resultCode == "Success"){
-				
-				$('#diskInfoTitle').html("NAS 사용량 <font color='#ff0000'>( "+ajaxData.free+" TB / "+ajaxData.total+" TB )</font> 및 영상 저장 분포");
-				$('#progressVar').attr('value',ajaxData.free);
-				$('#progressVar').attr('max',ajaxData.total);
+// 				console.log("====>>>>>");
+// 				console.log(ajaxData);
+				$('#diskInfoTitle').html("NAS 사용량 <font color='#ff0000'>( "+ajaxData.storageInfos[0].useInfo+" TB / "+ajaxData.storageInfos[0].totalInfo+" TB )</font> 및 영상 저장 분포");
+				$('#progressVar').attr('value',ajaxData.storageInfos[0].useInfo);
+				$('#progressVar').attr('max',ajaxData.storageInfos[0].totalInfo);
 			}else{
 				new bcs_messagebox().openError("disk 정보", "disk 정보  오류 [code="+ajaxData.resultCode+"]", null);
 			}
@@ -337,6 +338,9 @@ function drawChart() {
 	var year = $('#selectYear').val();
 	var code = $('#selectCode').val();
 	
+	$('#columnchart').remove(); // this is my <canvas> element
+	$('#graph-container').append('<canvas id="columnchart"><canvas>');
+	
 	$.ajax({
 		url : "<c:url value="/service/index/columnChartData"/>/"+code+"/"+year,
 		async : false,
@@ -523,7 +527,7 @@ function drawChart() {
 					
 						</select>
 					</div>
-					<div class="" id="">
+					<div class="" id="graph-container">
 						<canvas id="columnchart" style="margin-top: 60px;"></canvas>
 					</div>
 				</div>
