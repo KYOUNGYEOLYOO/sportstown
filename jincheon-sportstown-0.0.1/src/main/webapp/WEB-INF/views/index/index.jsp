@@ -42,9 +42,13 @@ function diskInfo(){
 			if(ajaxData.resultCode == "Success"){
 // 				console.log("====>>>>>");
 // 				console.log(ajaxData);
-				$('#diskInfoTitle').html("NAS 사용량 <font color='#ff0000'>( "+ajaxData.storageInfos[0].useInfo+" TB / "+ajaxData.storageInfos[0].totalInfo+" TB )</font> 및 영상 저장 분포");
-				$('#progressVar').attr('value',ajaxData.storageInfos[0].useInfo);
-				$('#progressVar').attr('max',ajaxData.storageInfos[0].totalInfo);
+
+				if(ajaxData.storageInfos.length > 0){
+					$('#diskInfoTitle').html("NAS 사용량 <font color='#ff0000'>( "+ajaxData.storageInfos[0].useInfo+" TB / "+ajaxData.storageInfos[0].totalInfo+" TB )</font> 및 영상 저장 분포");
+					$('#progressVar').attr('value',ajaxData.storageInfos[0].useInfo);
+					$('#progressVar').attr('max',ajaxData.storageInfos[0].totalInfo);
+				}
+				
 			}else{
 				new bcs_messagebox().openError("disk 정보", "disk 정보  오류 [code="+ajaxData.resultCode+"]", null);
 			}

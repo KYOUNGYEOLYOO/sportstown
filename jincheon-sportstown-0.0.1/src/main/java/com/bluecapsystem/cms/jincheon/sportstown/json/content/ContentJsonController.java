@@ -32,6 +32,7 @@ import com.bluecapsystem.cms.core.result.CommonResult;
 import com.bluecapsystem.cms.core.result.IResult;
 import com.bluecapsystem.cms.core.service.ContentService;
 import com.bluecapsystem.cms.core.service.FileInstanceService;
+import com.bluecapsystem.cms.core.service.TcJobService;
 import com.bluecapsystem.cms.core.service.ThumbnailInstanceService;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.SportstownContentSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
@@ -62,7 +63,8 @@ public class ContentJsonController {
 	@Autowired
 	private DashboardDataManageService dashboardDataManageServ;
 	
-	
+	@Autowired
+	private TcJobService tcJobService;
 
 	@RequestMapping("/registContentWithFile")
 	public ModelAndView registContentWithFile(@ModelAttribute Content content, @ModelAttribute SportstownContentMeta meta,
@@ -167,6 +169,9 @@ public class ContentJsonController {
 				
 				dashboardDataManageServ.registDashboardData(dashboardData);
 			
+				
+				
+				
 			
 			
 			}
@@ -216,6 +221,7 @@ public class ContentJsonController {
 			dashboardData.setContentId(content.getContentId());
 			
 			dashboardDataManageServ.registDashboardData(dashboardData);
+			
 			
 		}
 		

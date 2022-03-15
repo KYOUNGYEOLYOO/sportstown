@@ -177,7 +177,8 @@ public class FileInstanceService {
 
 				if (metaDao != null)
 					metaDao.insert(em, file, meta);
-
+				
+				
 				result = CommonResult.Success;
 			}
 		} catch (Exception ex) {
