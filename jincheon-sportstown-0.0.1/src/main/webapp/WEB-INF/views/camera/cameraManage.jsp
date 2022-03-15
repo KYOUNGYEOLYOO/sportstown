@@ -181,6 +181,7 @@ function onClick_delete()
 						mb.close();
 						location.reload();
 					}else{
+						console.log("finalurl",ajaxData.finalUrl);
 						new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 					}
 				}
