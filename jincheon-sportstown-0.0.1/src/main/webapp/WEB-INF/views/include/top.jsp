@@ -154,6 +154,7 @@ function changePasswordCheck(){
 							<li data-sub-menu-id="cameraMonitor" ><a href="<c:url value="/camera/monitor/All"/>">녹화상태</a></li>
 							<li data-sub-menu-id="codeManage" ><a href="<c:url value="/code/manage"/>">코드관리</a></li>
 							<li data-sub-menu-id="statisticsManage" ><a href="<c:url value="/statistics/index"/>">통계</a></li>
+							<li data-sub-menu-id="jobManage" ><a href="<c:url value="/job/index"/>">작업관리</a></li>
 <!-- 							<li><a href="../04/05.html">공지사항</a></li> -->
 						</ul>
 						</div>

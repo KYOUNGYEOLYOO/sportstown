@@ -18,11 +18,13 @@ import com.bcs.util.EmptyChecker;
 import com.bluecapsystem.cms.core.dao.ContentDao;
 import com.bluecapsystem.cms.core.dao.ContentInstanceDao;
 import com.bluecapsystem.cms.core.dao.IContentMetaRepository;
+import com.bluecapsystem.cms.core.dao.TcJobDao;
 import com.bluecapsystem.cms.core.data.condition.ISelectCondition;
 import com.bluecapsystem.cms.core.data.entity.Content;
 import com.bluecapsystem.cms.core.data.entity.ContentInstance;
 import com.bluecapsystem.cms.core.data.entity.ContentMeta;
 import com.bluecapsystem.cms.core.data.entity.FileInstance;
+import com.bluecapsystem.cms.core.data.entity.TcJob;
 import com.bluecapsystem.cms.core.result.CommonResult;
 import com.bluecapsystem.cms.core.result.IResult;
 
@@ -36,7 +38,10 @@ public class ContentService {
 
 	@Autowired
 	private ContentDao contentDao;
-
+	
+	@Autowired
+	private TcJobDao tcJobDao;
+	
 	@Autowired
 	private ContentInstanceDao instanceDao;
 
@@ -127,6 +132,17 @@ public class ContentService {
 					result = fileServ.transferFile(em, fileInstance, "CONTENT", descFilePath);
 					if (result != CommonResult.Success)
 						break _TRANS;
+					
+
+					TcJob tcjob = new TcJob();
+					
+					tcjob.setContentId(content.getContentId());
+					tcjob.setFileName(fileInstance.getFileName());
+					tcjob.setFilePath(fileInstance.getFilePath());
+					tcjob.setState("W");
+					
+					tcJobDao.insertTcJob(em, tcjob);
+					
 				}
 				result = CommonResult.Success;
 				break _TRANS;
