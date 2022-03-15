@@ -864,7 +864,9 @@ public class CameraJsonController {
 		
 		
 		String filePath = "Y:\\content\\"+streamName; // 파일 형식이 .stream임 ( 텍스트는 .txt )
+		
 		File deleteFile = new File(filePath);
+		
 		try {
 			_TRANS:{
 				resultCode = camServ.deleteCamera(camId);
@@ -928,7 +930,7 @@ public class CameraJsonController {
 
 		logger.debug("카메라 삭제 요청 결과 [camId={}] => {}", camId, _resultCode);
 
-		mnv.addObject("finalUrl", "/"+ applicationCode +"/"+ streamName);
+		mnv.addObject("finalUrl", filePath);
 		mnv.addObject("camId", camId);
 		mnv.addObject("resultCode", _resultCode);
 		return mnv;
