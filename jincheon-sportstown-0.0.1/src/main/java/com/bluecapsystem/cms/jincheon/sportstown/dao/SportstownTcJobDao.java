@@ -21,13 +21,13 @@ import org.springframework.stereotype.Repository;
 import com.bcs.util.EmptyChecker;
 import com.bluecapsystem.cms.core.data.condition.IPagingable;
 import com.bluecapsystem.cms.core.data.condition.Paging;
-import com.bluecapsystem.cms.core.data.entity.TcJob;
 import com.bluecapsystem.cms.core.generator.UniqueIDGenerator;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.DashboardDataSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.LoginData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownTcJob;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.TcJob;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 
 

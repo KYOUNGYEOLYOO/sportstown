@@ -1,4 +1,4 @@
-package com.bluecapsystem.cms.core.data.entity;
+package com.bluecapsystem.cms.jincheon.sportstown.data.entity;
 
 
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.bluecapsystem.cms.core.data.condition;
+package com.bluecapsystem.cms.jincheon.sportstown.data.conditions;
 
 import com.bluecapsystem.cms.core.data.condition.IPagingable;
 import com.bluecapsystem.cms.core.data.condition.ISelectCondition;

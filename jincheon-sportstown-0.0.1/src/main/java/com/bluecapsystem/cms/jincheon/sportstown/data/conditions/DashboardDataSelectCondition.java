@@ -3,6 +3,7 @@ package com.bluecapsystem.cms.jincheon.sportstown.data.conditions;
 import com.bluecapsystem.cms.core.data.condition.IPagingable;
 import com.bluecapsystem.cms.core.data.condition.ISelectCondition;
 import com.bluecapsystem.cms.core.data.condition.Paging;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 
 public class DashboardDataSelectCondition implements ISelectCondition
 {
@@ -18,7 +19,7 @@ public class DashboardDataSelectCondition implements ISelectCondition
 	/**
 	 * data 종류
 	 */
-	private String dataType;
+	private DataType dataType;
 	
 	
 	/**
@@ -31,12 +32,13 @@ public class DashboardDataSelectCondition implements ISelectCondition
 	
 	public DashboardDataSelectCondition()
 	{
-		this(null);
+		this(null,null);
 	}
 	
-	public DashboardDataSelectCondition(String contentId)
+	public DashboardDataSelectCondition(String contentId, DataType dataType)
 	{
 		this.contentId = contentId;
+		this.dataType = dataType;
 	}
 	
 	@Override
@@ -64,11 +66,11 @@ public class DashboardDataSelectCondition implements ISelectCondition
 		this.dataId = dataId;
 	}
 
-	public String getDataType() {
+	public DataType getDataType() {
 		return dataType;
 	}
 
-	public void settDataType(String dataType) {
+	public void settDataType(DataType dataType) {
 		this.dataType = dataType;
 	}
 

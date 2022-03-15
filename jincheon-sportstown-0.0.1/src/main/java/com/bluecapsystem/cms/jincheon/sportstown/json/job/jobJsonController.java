@@ -29,7 +29,6 @@ import com.bluecapsystem.cms.core.data.entity.Code;
 import com.bluecapsystem.cms.core.result.CommonResult;
 import com.bluecapsystem.cms.core.result.IResult;
 import com.bluecapsystem.cms.core.service.CodeService;
-import com.bluecapsystem.cms.core.service.TcJobService;
 import com.bluecapsystem.cms.jincheon.sportstown.common.define.IPFilterConstant;
 import com.bluecapsystem.cms.jincheon.sportstown.common.define.UserSessionDefine;
 import com.bluecapsystem.cms.jincheon.sportstown.dao.DashboardDataDao;
@@ -49,6 +48,7 @@ import com.bluecapsystem.cms.jincheon.sportstown.data.result.UserResult;
 import com.bluecapsystem.cms.jincheon.sportstown.json.utils.JqGridParameterParser;
 import com.bluecapsystem.cms.jincheon.sportstown.service.ContentAuthManageService;
 import com.bluecapsystem.cms.jincheon.sportstown.service.StorageInfoManageService;
+import com.bluecapsystem.cms.jincheon.sportstown.service.TcJobService;
 import com.bluecapsystem.cms.jincheon.sportstown.service.UserManageService;
 
 @RestController
@@ -93,6 +93,32 @@ public class jobJsonController {
 		
 	}
 	
-	
+	@RequestMapping("/request/{tcId}")
+	public ModelAndView request(HttpServletRequest request,
+			@PathVariable("tcId") String tcId) {
+
+		ModelAndView mnv = new ModelAndView("jsonView");
+		
+		
+		
+		IResult resultCode = CommonResult.UnknownError;
+		
+		try {
+			
+			resultCode = tcJobServ.modifyTcJob(tcId, "W");
+			
+		} catch (Exception ex) {
+			resultCode = CommonResult.SystemError;
+		} finally {
+			mnv.addObject("resultCode", resultCode);
+			
+			
+		}
+
+		
+		
+		return mnv;
+		
+	}
 	
 }

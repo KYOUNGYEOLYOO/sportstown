@@ -20,6 +20,7 @@ import com.bluecapsystem.cms.jincheon.sportstown.dao.UserDao;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.DashboardDataSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 import com.bluecapsystem.cms.jincheon.sportstown.data.result.UserResult;
 
@@ -131,7 +132,7 @@ public class DashboardDataManageService
 				em.getTransaction().begin();
 				
 				// 기존 대시보드 데이터를 확인한다\
-				DashboardData dashboardData = dashboardDataDaoImpl.selectDashboard(em, new DashboardDataSelectCondition(contentId)); 
+				DashboardData dashboardData = dashboardDataDaoImpl.selectDashboard(em, new DashboardDataSelectCondition(contentId, DataType.Contents)); 
 				if( dashboardData == null)
 				{
 					result = UserResult.UserNotFound;

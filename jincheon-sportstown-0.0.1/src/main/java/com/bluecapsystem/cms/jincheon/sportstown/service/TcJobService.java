@@ -1,4 +1,4 @@
-package com.bluecapsystem.cms.core.service;
+package com.bluecapsystem.cms.jincheon.sportstown.service;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,16 +18,16 @@ import org.springframework.stereotype.Service;
 
 import com.bluecapsystem.cms.core.dao.FileInstanceDao;
 import com.bluecapsystem.cms.core.dao.IFileInstanceMetaRepository;
-import com.bluecapsystem.cms.core.dao.TcJobDao;
 import com.bluecapsystem.cms.core.data.condition.FileInstanceSelectCondition;
-import com.bluecapsystem.cms.core.data.condition.TcJobSelectCondition;
 import com.bluecapsystem.cms.core.data.entity.FileInstance;
 import com.bluecapsystem.cms.core.data.entity.FileInstanceMeta;
-import com.bluecapsystem.cms.core.data.entity.TcJob;
 import com.bluecapsystem.cms.core.properties.StoragePathProperties;
 import com.bluecapsystem.cms.core.result.CommonResult;
 import com.bluecapsystem.cms.core.result.FileInstanceResult;
 import com.bluecapsystem.cms.core.result.IResult;
+import com.bluecapsystem.cms.jincheon.sportstown.dao.TcJobDao;
+import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.TcJobSelectCondition;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.TcJob;
 
 
 @Service("TcJobService")

@@ -21,10 +21,8 @@ import org.springframework.stereotype.Component;
 
 import com.bcs.transcorder.ffmpeg.FFMpegProcess;
 import com.bcs.transcorder.ffmpeg.FFmpegStream;
-import com.bluecapsystem.cms.core.data.condition.TcJobSelectCondition;
 import com.bluecapsystem.cms.core.data.entity.Code;
 import com.bluecapsystem.cms.core.data.entity.FileInstance;
-import com.bluecapsystem.cms.core.data.entity.TcJob;
 import com.bluecapsystem.cms.core.data.entity.ThumbnailInstance;
 import com.bluecapsystem.cms.core.properties.FFMpegProperties;
 import com.bluecapsystem.cms.core.properties.StoragePathProperties;
@@ -33,12 +31,14 @@ import com.bluecapsystem.cms.core.result.FileInstanceResult;
 import com.bluecapsystem.cms.core.result.IResult;
 import com.bluecapsystem.cms.core.service.CodeService;
 import com.bluecapsystem.cms.core.service.FileInstanceService;
-import com.bluecapsystem.cms.core.service.TcJobService;
 import com.bluecapsystem.cms.core.service.ThumbnailInstanceService;
+import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.TcJobSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.Camera;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownFileInstanceMeta;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.TcJob;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 import com.bluecapsystem.cms.jincheon.sportstown.service.CameraManageService;
+import com.bluecapsystem.cms.jincheon.sportstown.service.TcJobService;
 import com.bluecapsystem.cms.jincheon.sportstown.service.UserManageService;
 
 @Component
@@ -114,7 +114,7 @@ public class TcJobScheduler {
 					File input = new File(contentDir , filePath+fileName);
 					File output = new File(contentDir , filePath+temp[0]+"_0."+temp[1]);
 					
-					FFMpegProcess ffProc = new  FFMpegProcess(FFMpegProperties.getFFfmpeg(), input, "-s 1280*720 -c:a copy",  output);
+					FFMpegProcess ffProc = new  FFMpegProcess(FFMpegProperties.getFFfmpeg(), input, "",  output);
 					
 					String command = ffProc.commandString();
 					

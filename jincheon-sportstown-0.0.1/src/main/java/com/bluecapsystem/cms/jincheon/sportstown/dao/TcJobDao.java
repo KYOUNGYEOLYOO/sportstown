@@ -1,4 +1,4 @@
-package com.bluecapsystem.cms.core.dao;
+package com.bluecapsystem.cms.jincheon.sportstown.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,9 @@ import org.springframework.stereotype.Repository;
 import com.bcs.util.EmptyChecker;
 import com.bluecapsystem.cms.core.data.condition.IPagingable;
 import com.bluecapsystem.cms.core.data.condition.Paging;
-import com.bluecapsystem.cms.core.data.condition.TcJobSelectCondition;
-import com.bluecapsystem.cms.core.data.entity.TcJob;
 import com.bluecapsystem.cms.core.generator.UniqueIDGenerator;
+import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.TcJobSelectCondition;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.TcJob;
 
 
 

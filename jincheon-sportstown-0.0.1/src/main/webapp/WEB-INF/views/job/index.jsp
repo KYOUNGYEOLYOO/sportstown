@@ -60,7 +60,28 @@ function jobList(){
 
 
 function onClick_tcRequest(tcId){
-	alert(tcId);
+	$.ajax({
+		url : "<c:url value="/service/job/request"/>/"+tcId,
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			if(ajaxData.resultCode == "Success"){
+				
+				var msgBox = new bcs_messagebox().open("TC 재요청", "재요청 성공", false, { 
+					"확인" : function(){
+						location.reload();
+					}
+				});
+				
+			}else{
+				new bcs_messagebox().openError("작업 리스트", "데이터 오류 발생 [code="+ajaxData.resultCode+"]", null);
+			}
+		}
+	});
 }
 
 </script>

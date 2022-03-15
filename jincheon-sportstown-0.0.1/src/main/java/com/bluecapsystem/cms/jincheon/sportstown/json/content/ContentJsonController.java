@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import com.bluecapsystem.cms.core.data.condition.Paging;
 import com.bluecapsystem.cms.core.data.entity.Content;
 import com.bluecapsystem.cms.core.data.entity.ContentInstance;
@@ -32,15 +33,17 @@ import com.bluecapsystem.cms.core.result.CommonResult;
 import com.bluecapsystem.cms.core.result.IResult;
 import com.bluecapsystem.cms.core.service.ContentService;
 import com.bluecapsystem.cms.core.service.FileInstanceService;
-import com.bluecapsystem.cms.core.service.TcJobService;
 import com.bluecapsystem.cms.core.service.ThumbnailInstanceService;
+import com.bluecapsystem.cms.jincheon.sportstown.dao.TcJobDao;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.SportstownContentSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownContentMeta;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownFileInstanceMeta;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.TcJob;
 import com.bluecapsystem.cms.jincheon.sportstown.json.utils.JqGridParameterParser;
 import com.bluecapsystem.cms.jincheon.sportstown.service.DashboardDataManageService;
+import com.bluecapsystem.cms.jincheon.sportstown.service.TcJobService;
 
 @RestController
 @RequestMapping("/service/content")
@@ -171,9 +174,6 @@ public class ContentJsonController {
 			
 				
 				
-				
-			
-			
 			}
 
 			logger.debug("컨텐츠 & 파일 저장결과 [content={}] => {}", content, resultCode);
@@ -183,15 +183,50 @@ public class ContentJsonController {
 			else
 				em.getTransaction().commit();
 	
+			
+			insertTcJob(content.getContentId());
+			
 			em.close();				
 		
+			
 			
 			i++;
 		}
 
+		
+		
 		ModelAndView mnv = new ModelAndView("jsonView");
 		mnv.addObject("resultCode", resultCode);
 		return mnv;
+	}
+	
+	public void insertTcJob(String contentId) {
+		
+		SportstownContentMeta metaTemp = (SportstownContentMeta) contentServ.getContent(contentId);
+		
+		String fileId= metaTemp.getContent().getInstances().get(0).getFileId();
+		
+		FileInstance fileTemp = null;
+		try {
+			fileTemp = fileServ.getFileinstance(fileId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		TcJob tcjob = new TcJob();
+		
+		
+		
+		tcjob.setContentId(contentId);
+		tcjob.setFileName(fileTemp.getFileName());
+		tcjob.setFilePath(fileTemp.getFilePath());
+		tcjob.setState("W");
+		
+		
+
+		tcJobService.registTcJob(tcjob);
 	}
 
 	@RequestMapping("/registContent")
@@ -250,7 +285,7 @@ public class ContentJsonController {
 
 			
 			
-			dashboardData.setUserType(DataType.Contents);
+			dashboardData.setUserType(DataType.Download);
 			dashboardData.setRegistDate(content.getRegistDate());
 			dashboardData.setUserId(meta.getRecordUserId());
 			dashboardData.setSportsEventCode(meta.getSportsEventCode());

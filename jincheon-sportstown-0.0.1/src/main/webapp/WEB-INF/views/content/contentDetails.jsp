@@ -85,21 +85,18 @@ $(document).ready(function(){
 	
 	$("#frmContent").find("[data-ctrl-contentMeta=contentUserNames]").click(function(){
 		$("#frmSelectedUsers").empty();
-		console.log("111");
+	
 		$("#frmContent").find("[data-ctrl-contentMeta=contentUserId]").each(function(){
-			console.log($(this).val());
-			console.log("112");
+			
 			$("#frmSelectedUsers").append($("<input type='hidden' name='selectedUserIds' />").val($(this).val()));
 		});
 		
-		console.log("113");
+	
 		var sportsEentCode = $("#frmContent").find("[name=sportsEventCode]").val();
-		console.log(sportsEentCode);
+		
 		$("#frmUserSearch").find("[name=sportsEventCode]").val(sportsEentCode);
 		var param = $("#frmUserSearch").serialize();
-		console.log("114");
 		
-		console.log(param);
 		$("[data-ctrl-view=user_select]").empty();
 		$("[data-ctrl-view=user_select]").jqUtils_bcs_loadHTML(
 				"<c:url value="/user/select"/>?" + param,
