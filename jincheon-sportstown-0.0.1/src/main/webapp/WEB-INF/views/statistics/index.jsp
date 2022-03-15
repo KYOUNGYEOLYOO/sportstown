@@ -270,34 +270,34 @@ function goList(){
 				
 					<thead>
 						<tr>
-							<th onClick="javascript:monthClick('01')">1월</th>
-							<th onClick="javascript:monthClick('02')">2월</th>
-							<th onClick="javascript:monthClick('03')">3월</th>
-							<th onClick="javascript:monthClick('04')">4월</th>
-							<th onClick="javascript:monthClick('05')">5월</th>
-							<th onClick="javascript:monthClick('06')">6월</th>
-							<th onClick="javascript:monthClick('07')">7월</th>
-							<th onClick="javascript:monthClick('08')">8월</th>
-							<th onClick="javascript:monthClick('09')">9월</th>
-							<th onClick="javascript:monthClick('10')">10월</th>
-							<th onClick="javascript:monthClick('11')">11월</th>
-							<th onClick="javascript:monthClick('12')">12월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('01')">1월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('02')">2월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('03')">3월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('04')">4월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('05')">5월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('06')">6월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('07')">7월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('08')">8월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('09')">9월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('10')">10월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('11')">11월</th>
+							<th style='cursor:pointer;' onClick="javascript:monthClick('12')">12월</th>
 						</tr>
 					</thead>
 					<tbody>
 					<tr>
-						<td id="01_area" onClick="javascript:monthClick('01')">0</td>
-						<td id="02_area" onClick="javascript:monthClick('02')">0</td>
-						<td id="03_area" onClick="javascript:monthClick('03')">0</td>
-						<td id="04_area" onClick="javascript:monthClick('04')">0</td>
-						<td id="05_area" onClick="javascript:monthClick('05')">0</td>
-						<td id="06_area" onClick="javascript:monthClick('06')">0</td>
-						<td id="07_area" onClick="javascript:monthClick('07')">0</td>
-						<td id="08_area" onClick="javascript:monthClick('08')">0</td>
-						<td id="09_area" onClick="javascript:monthClick('09')">0</td>
-						<td id="10_area" onClick="javascript:monthClick('10')">0</td>
-						<td id="11_area" onClick="javascript:monthClick('11')">0</td>
-						<td id="12_area" onClick="javascript:monthClick('12')">0</td>
+						<td style='cursor:pointer;' id="01_area" onClick="javascript:monthClick('01')">0</td>
+						<td style='cursor:pointer;' id="02_area" onClick="javascript:monthClick('02')">0</td>
+						<td style='cursor:pointer;' id="03_area" onClick="javascript:monthClick('03')">0</td>
+						<td style='cursor:pointer;' id="04_area" onClick="javascript:monthClick('04')">0</td>
+						<td style='cursor:pointer;' id="05_area" onClick="javascript:monthClick('05')">0</td>
+						<td style='cursor:pointer;' id="06_area" onClick="javascript:monthClick('06')">0</td>
+						<td style='cursor:pointer;' id="07_area" onClick="javascript:monthClick('07')">0</td>
+						<td style='cursor:pointer;' id="08_area" onClick="javascript:monthClick('08')">0</td>
+						<td style='cursor:pointer;' id="09_area" onClick="javascript:monthClick('09')">0</td>
+						<td style='cursor:pointer;' id="10_area" onClick="javascript:monthClick('10')">0</td>
+						<td style='cursor:pointer;' id="11_area" onClick="javascript:monthClick('11')">0</td>
+						<td style='cursor:pointer;' id="12_area" onClick="javascript:monthClick('12')">0</td>
 					</tr>
 				</tbody>
 				</table>

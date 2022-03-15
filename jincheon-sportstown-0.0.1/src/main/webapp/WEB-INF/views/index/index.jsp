@@ -522,12 +522,12 @@ function drawChart() {
 						<dt>촬영 현황</dt>
 						<dd>
 							<dl>
-								<dt onClick="javascipt:cameraInfo('Recording');">촬영</dt>
-								<dd onClick="javascipt:cameraInfo('Recording');" id="recording">0 대</dd>
-								<dt onClick="javascipt:cameraInfo('Wait');">사용</dt>
-								<dd onClick="javascipt:cameraInfo('Wait');" id="wait">0 대</dd>
-								<dt onClick="javascipt:cameraInfo('DisCon');">미사용</dt>
-								<dd onClick="javascipt:cameraInfo('DisCon');" id="ready">0 대</dd>
+								<dt style='cursor:pointer;' onClick="javascipt:cameraInfo('Recording');">촬영</dt>
+								<dd style='cursor:pointer;' onClick="javascipt:cameraInfo('Recording');" id="recording">0 대</dd>
+								<dt style='cursor:pointer;' onClick="javascipt:cameraInfo('Wait');">사용</dt>
+								<dd style='cursor:pointer;' onClick="javascipt:cameraInfo('Wait');" id="wait">0 대</dd>
+								<dt style='cursor:pointer;' onClick="javascipt:cameraInfo('DisCon');">미사용</dt>
+								<dd style='cursor:pointer;' onClick="javascipt:cameraInfo('DisCon');" id="ready">0 대</dd>
 							</dl>
 						</dd>
 					</dl>
