@@ -29,7 +29,7 @@ public class Camera {
 	}
 
 	public enum CameraState {
-		Recording, Wait, DisCon
+		Recording, Wait, DisCon , All
 	}
 
 	/**

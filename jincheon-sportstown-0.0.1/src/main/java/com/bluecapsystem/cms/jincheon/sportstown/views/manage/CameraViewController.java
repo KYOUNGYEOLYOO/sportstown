@@ -47,8 +47,8 @@ public class CameraViewController {
 	private PropertyService propServ;
 
 
-	@RequestMapping("/monitor")
-	public ModelAndView monitor()
+	@RequestMapping("/monitor/{state}")
+	public ModelAndView monitor(@PathVariable("state") String state)
 	{
 		ModelAndView mnv = new ModelAndView("/camera/cameraModitor");
 		try
@@ -59,6 +59,8 @@ public class CameraViewController {
 			ex.printStackTrace();
 		}
 
+		
+		mnv.addObject("state", state);
 		return mnv;
 	}
 

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,9 +29,12 @@ import com.bluecapsystem.cms.core.service.PropertyService;
 import com.bluecapsystem.cms.core.service.ThumbnailInstanceService;
 import com.bluecapsystem.cms.jincheon.sportstown.common.define.UserSessionDefine;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownContentMeta;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User.UserType;
+import com.bluecapsystem.cms.jincheon.sportstown.service.DashboardDataManageService;
 import com.bluecapsystem.cms.jincheon.sportstown.service.UserManageService;
 
 @Controller
@@ -52,6 +56,9 @@ public class ContentController {
 
 	@Autowired
 	private ThumbnailInstanceService thumbnailServ;
+	
+	@Autowired
+	private DashboardDataManageService dashboardDataManageServ;
 
 	@RequestMapping("/search")
 	public ModelAndView search() {
@@ -114,6 +121,10 @@ public class ContentController {
 			mnv.addObject("contentMeta", meta);
 
 			loadCodes(mnv);
+			
+			
+			
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -121,7 +132,8 @@ public class ContentController {
 	}
 	
 	@RequestMapping("/detail/{contentId}"+"/video")
-	public ModelAndView detail_video(final HttpSession session, @PathVariable("contentId") final String contentId) {
+	public ModelAndView detail_video(final HttpSession session, @PathVariable("contentId") final String contentId,
+			@ModelAttribute DashboardData dashboardData) {
 		ModelAndView mnv = new ModelAndView("/content/contentDetails");
 		String resultCode = "false";
 		try {
@@ -140,7 +152,15 @@ public class ContentController {
 			mnv.addObject("resultCode", resultCode);
 
 			loadCodes(mnv);
-			logger.debug("111111111111111" + resultCode);
+			
+			
+			dashboardData.setUserType(DataType.View);
+			dashboardData.setUserId(meta.getRecordUserId());
+			dashboardData.setSportsEventCode(meta.getSportsEventCode());
+			dashboardData.setContentId(meta.getContentId());
+			
+			dashboardDataManageServ.registDashboardData(dashboardData);
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

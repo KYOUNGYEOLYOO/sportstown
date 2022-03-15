@@ -20,6 +20,7 @@ import com.bluecapsystem.cms.core.properties.StoragePathProperties;
 import com.bluecapsystem.cms.core.service.FileInstanceService;
 import com.bluecapsystem.cms.core.service.ThumbnailInstanceService;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.SportstownFileInstanceSelectCondition;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 
 @Controller
 @RequestMapping("/file")

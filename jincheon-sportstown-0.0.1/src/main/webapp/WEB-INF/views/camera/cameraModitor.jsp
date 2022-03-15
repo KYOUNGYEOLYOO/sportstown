@@ -28,6 +28,7 @@ $(document).ready(function(){
 
 function onClick_search()
 {
+	
 	$("#cameraList").jqGrid("setGridParam", {
 		url : "<c:url value="/service/camera/getCameras"/>?" + $("#frmSearch").serialize(),
 		page : 1
@@ -51,10 +52,24 @@ function onClick_searchInit()
 $(document).ready(function(){
 	open_cameraLive_rnb(null);
 	
+	if("${state}" == 'All'){
+		$('#stateString').val("All").prop("selected", true);
+	}
+	if("${state}" == 'Recording'){
+		$('#stateString').val("Recording").prop("selected", true);
+	}
+	if("${state}" == 'Wait'){
+		
+		$('#stateString').val("Wait").prop("selected", true);
+	}
+	if("${state}" == 'DisCon'){
+		$('#stateString').val("DisCon").prop("selected", true);
+	}
+	
 	var eventSender = new bcs_ctrl_event($("#cameraList"));
 	$("#cameraList").jqGrid({
 		// data: mydata,
-		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true",
+		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true&stateString=${state}",
 		datatype: "json",
 		mtype: "get",
 	   	width: "auto",
@@ -400,6 +415,15 @@ function open_cameraLive_rnb(camId)
 							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
 								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
 							</c:forEach>
+						</select>
+					</li>
+					<li>
+<!-- 						<select class="selectyze" name="cameraType"> -->
+						<select name="stateString" id="stateString">
+							<option value="All">녹화상태</option>
+							<option value="Recording">촬영</option>
+							<option value="Wait">사용</option>
+							<option value="DisCon">미사용</option>
 						</select>
 					</li>
 				</ul>

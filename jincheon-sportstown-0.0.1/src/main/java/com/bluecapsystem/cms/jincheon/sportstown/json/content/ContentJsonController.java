@@ -209,7 +209,7 @@ public class ContentJsonController {
 			if (resultCode != CommonResult.Success)
 				break _TRANSACTION;
 			
-			dashboardData.setUserType(DataType.Archive);
+			dashboardData.setUserType(DataType.Contents);
 			dashboardData.setRegistDate(content.getRegistDate());
 			dashboardData.setUserId(meta.getRecordUserId());
 			dashboardData.setSportsEventCode(meta.getSportsEventCode());
@@ -224,6 +224,46 @@ public class ContentJsonController {
 		logger.debug("컨텐츠 등록 결과 [content={}] => {}", content, resultCode);
 		mnv.addObject("content", content);
 		mnv.addObject("resultCode", resultCode);
+		return mnv;
+	}
+	
+	@RequestMapping("/registDownloadLog")
+	public ModelAndView registDownloadLog(@ModelAttribute Content content, @ModelAttribute SportstownContentMeta meta,
+			@ModelAttribute DashboardData dashboardData) {
+		ModelAndView mnv = new ModelAndView("jsonView");
+
+		EntityManager em = emf.createEntityManager();
+
+		IResult resultCode = CommonResult.UnknownError;
+		
+		em.getTransaction().begin();
+
+		_TRANSACTION: {
+			
+			content.setContentMeta(meta);
+
+			
+			
+			dashboardData.setUserType(DataType.Contents);
+			dashboardData.setRegistDate(content.getRegistDate());
+			dashboardData.setUserId(meta.getRecordUserId());
+			dashboardData.setSportsEventCode(meta.getSportsEventCode());
+			dashboardData.setContentId(content.getContentId());
+			
+			resultCode = dashboardDataManageServ.registDashboardData(dashboardData);
+			
+			if (resultCode != CommonResult.Success)
+				break _TRANSACTION;
+			
+			
+		}
+		
+		
+
+		logger.debug("다운로드 로그  결과 [content={}] => {}", content, resultCode);
+		mnv.addObject("content", content);
+		mnv.addObject("resultCode", resultCode);
+
 		return mnv;
 	}
 

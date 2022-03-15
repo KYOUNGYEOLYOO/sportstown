@@ -22,6 +22,7 @@ import com.bluecapsystem.cms.core.generator.UniqueIDGenerator;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.CameraSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.Camera;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.CameraStreamMeta;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.Camera.CameraState;
 
 
 @Repository(value = "CameraDao")
@@ -180,6 +181,15 @@ public class CameraDao
 					cb.like(rootCam.<String>get("name"), "%" + condition.getKeyword() + "%")
 				);
 			conditions.add(p);
+		}
+		
+		if(EmptyChecker.isNotEmpty(condition.getState()))
+		{
+			if(!condition.getStateString().equals("All")) {
+				Predicate p = cb.and(cb.equal(rootCam.get("state"), condition.getState()));
+				conditions.add(p);
+			}
+			
 		}
 		
 		return conditions;

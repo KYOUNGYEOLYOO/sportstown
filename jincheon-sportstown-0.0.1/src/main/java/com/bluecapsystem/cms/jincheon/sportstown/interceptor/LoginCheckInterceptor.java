@@ -75,8 +75,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor
 		}
 		
 		if(user != null) {
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>bcs>>>>>>>>");
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>bcs>>>>>>>>"+user.getUserId());
+			
 			LoginData loginData = new LoginData();
 			loginData.setUserId(user.getUserId());
 			

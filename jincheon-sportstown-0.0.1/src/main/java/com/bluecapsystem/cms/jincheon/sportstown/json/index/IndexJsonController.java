@@ -37,12 +37,15 @@ import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.ContentAuthSele
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.ContentAuth;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.LoginData;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.StorageInfo;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.User.ConnectLocation;
 import com.bluecapsystem.cms.jincheon.sportstown.data.result.UserResult;
 import com.bluecapsystem.cms.jincheon.sportstown.json.utils.JqGridParameterParser;
 import com.bluecapsystem.cms.jincheon.sportstown.service.ContentAuthManageService;
+import com.bluecapsystem.cms.jincheon.sportstown.service.StorageInfoManageService;
 import com.bluecapsystem.cms.jincheon.sportstown.service.UserManageService;
 
 @RestController
@@ -61,6 +64,9 @@ public class IndexJsonController {
 	
 	@Autowired
 	private CodeService codeServ;
+	
+	@Autowired
+	private StorageInfoManageService simServ;
 	
 	@RequestMapping("/selectCode")
 	public ModelAndView selectCode(HttpServletRequest request) {
@@ -105,7 +111,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardData  = null;
 		try {
 			
-			dashboardData = dashboardDataDao.findBestCodeData(year);
+			dashboardData = dashboardDataDao.findBestCodeData(year, DataType.Contents);
 			
 			
 			
@@ -138,7 +144,7 @@ public class IndexJsonController {
 		
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByColumnData(sportsEventCode,year);
+			dashboardDatas = dashboardDataDao.findGroupByColumnData(sportsEventCode,year, DataType.Contents);
 			
 			
 			
@@ -169,7 +175,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardDatas = null;
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByMonthData(year);
+			dashboardDatas = dashboardDataDao.findGroupByMonthData(year, DataType.Contents);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -196,7 +202,7 @@ public class IndexJsonController {
 		List<DashboardData> dashboardDatas = null;
 		try {
 			
-			dashboardDatas = dashboardDataDao.findGroupByData();
+			dashboardDatas = dashboardDataDao.findGroupByData(DataType.Contents);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -234,8 +240,8 @@ public class IndexJsonController {
 			
 			String today = fourteen_format.format(cal.getTime());
 			
-			allContent = dashboardDataDao.findGroupByAllContent();
-			todayContent = dashboardDataDao.findGroupByTodayContent(today);
+			allContent = dashboardDataDao.findGroupByAllContent(DataType.Contents);
+			todayContent = dashboardDataDao.findGroupByTodayContent(today, DataType.Contents);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			resultCode = CommonResult.SystemError;
@@ -300,48 +306,20 @@ public class IndexJsonController {
 		
 		IResult resultCode = CommonResult.UnknownError;
 		
-		String  drive;
-		double  totalSize, freeSize, useSize;     
-		
-		String total="";
-		String free="";
-
-		File[] roots = File.listRoots();
-
-		for (File root : roots) {
-
-		          
-
-			drive = root.getAbsolutePath();
-	
-			totalSize = root.getTotalSpace() / Math.pow(1024, 4);
-			useSize = root.getUsableSpace() / Math.pow(1024, 4);
-			freeSize = totalSize - useSize;
-	
-			 
-			if(drive.equals("Z:\\")) {
-				
-				System.out.println("\n하드 디스크 이름 : " + drive + "\n");
-				
-				System.out.println("전체 디스크 용량 : " + totalSize + " TB \n");
-		
-				System.out.println("디스크 사용 용량 : " + freeSize + " TB \n");
-		
-				System.out.println("디스크 남은 용량 : " + useSize + " TB \n");
-			}
-				
-			total = String.format("%.2f", totalSize);
-			free = String.format("%.2f", freeSize);
-			
+		List<StorageInfo> storageInfos = null;
+		try {
+			storageInfos = simServ.getStorageInfos();
 			resultCode = CommonResult.Success;
-
+		} catch (Exception ex) {
+			resultCode = CommonResult.SystemError;
+		} finally {
+			mnv.addObject("resultCode", resultCode);
+			mnv.addObject("storageInfos", storageInfos);
+			
 		}
 		
 		resultCode = CommonResult.Success;
 		mnv.addObject("resultCode", resultCode);
-		mnv.addObject("total", total);
-		mnv.addObject("free", free);
-		
 		
 		return mnv;
 		

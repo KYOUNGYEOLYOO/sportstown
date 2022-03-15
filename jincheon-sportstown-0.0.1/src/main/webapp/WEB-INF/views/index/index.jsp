@@ -40,10 +40,11 @@ function diskInfo(){
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
 			if(ajaxData.resultCode == "Success"){
-				
-				$('#diskInfoTitle').html("NAS 사용량 <font color='#ff0000'>( "+ajaxData.free+" TB / "+ajaxData.total+" TB )</font> 및 영상 저장 분포");
-				$('#progressVar').attr('value',ajaxData.free);
-				$('#progressVar').attr('max',ajaxData.total);
+// 				console.log("====>>>>>");
+// 				console.log(ajaxData);
+				$('#diskInfoTitle').html("NAS 사용량 <font color='#ff0000'>( "+ajaxData.storageInfos[0].useInfo+" TB / "+ajaxData.storageInfos[0].totalInfo+" TB )</font> 및 영상 저장 분포");
+				$('#progressVar').attr('value',ajaxData.storageInfos[0].useInfo);
+				$('#progressVar').attr('max',ajaxData.storageInfos[0].totalInfo);
 			}else{
 				new bcs_messagebox().openError("disk 정보", "disk 정보  오류 [code="+ajaxData.resultCode+"]", null);
 			}
@@ -53,7 +54,7 @@ function diskInfo(){
 
 function cameraList(){
 	$.ajax({
-		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true",
+		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true&stateString=All",
 		async : false,
 		dataType : "json",
 		data : null, 
@@ -78,9 +79,9 @@ function cameraList(){
 					}
 				}
 				
-				$('#wait').html(wait+" 대");
-				$('#recording').html(recording+" 대");
-				$('#ready').html(ready+" 대");
+				$('#wait').html("<font color='#333333'>"+wait+" 대</font>");
+				$('#recording').html("<font color='#ff0000'>"+recording+" 대</font>");
+				$('#ready').html("<font color='#d3d3d3'>"+ready+" 대</font>");
 			    
 			}else{
 				new bcs_messagebox().openError("cameraList 정보", "cameraList 정보 조회 오류 [code="+ajaxData.resultCode+"]", null);
@@ -337,6 +338,9 @@ function drawChart() {
 	var year = $('#selectYear').val();
 	var code = $('#selectCode').val();
 	
+	$('#columnchart').remove(); // this is my <canvas> element
+	$('#graph-container').append('<canvas id="columnchart"><canvas>');
+	
 	$.ajax({
 		url : "<c:url value="/service/index/columnChartData"/>/"+code+"/"+year,
 		async : false,
@@ -369,6 +373,9 @@ function drawChart() {
 					
 					if(Number(temp[1]) > 10){
 						ySize = 10;
+					}
+					if(Number(temp[1]) > 100){
+						ySize = 50;
 					}
 					
 			    }
@@ -416,6 +423,12 @@ function drawChart() {
 		}
 	});
 	
+  }
+  
+  function cameraInfo(value){
+	  
+	  location.href='<c:url value="/camera/monitor/'+value+'"/>';
+	  
   }
 
 </script>
@@ -505,12 +518,12 @@ function drawChart() {
 						<dt>촬영 현황</dt>
 						<dd>
 							<dl>
-								<dt>촬영</dt>
-								<dd id="recording">0 대</dd>
-								<dt>사용</dt>
-								<dd id="wait">0 대</dd>
-								<dt>미사용</dt>
-								<dd id="ready">0 대</dd>
+								<dt onClick="javascipt:cameraInfo('Recording');">촬영</dt>
+								<dd onClick="javascipt:cameraInfo('Recording');" id="recording">0 대</dd>
+								<dt onClick="javascipt:cameraInfo('Wait');">사용</dt>
+								<dd onClick="javascipt:cameraInfo('Wait');" id="wait">0 대</dd>
+								<dt onClick="javascipt:cameraInfo('DisCon');">미사용</dt>
+								<dd onClick="javascipt:cameraInfo('DisCon');" id="ready">0 대</dd>
 							</dl>
 						</dd>
 					</dl>
@@ -523,7 +536,7 @@ function drawChart() {
 					
 						</select>
 					</div>
-					<div class="" id="">
+					<div class="" id="graph-container">
 						<canvas id="columnchart" style="margin-top: 60px;"></canvas>
 					</div>
 				</div>

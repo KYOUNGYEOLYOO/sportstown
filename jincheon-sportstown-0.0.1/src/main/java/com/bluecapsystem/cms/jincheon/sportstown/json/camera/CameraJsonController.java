@@ -38,10 +38,13 @@ import com.bluecapsystem.cms.jincheon.sportstown.data.entity.Camera;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.Camera.CameraState;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.Camera.CameraType;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.CameraStreamMeta;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.CameraStreamMeta.WowzaMetaClass;
+import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData.DataType;
 import com.bluecapsystem.cms.jincheon.sportstown.json.utils.JqGridParameterParser;
 import com.bluecapsystem.cms.jincheon.sportstown.json.wowza.WowzaCURLApi;
 import com.bluecapsystem.cms.jincheon.sportstown.service.CameraManageService;
+import com.bluecapsystem.cms.jincheon.sportstown.service.DashboardDataManageService;
 import com.google.gson.Gson;
 
 @RestController
@@ -54,6 +57,9 @@ public class CameraJsonController {
 
 	@Autowired
 	private CameraManageService camServ;
+	
+	@Autowired
+	private DashboardDataManageService dashboardDataManageServ;
 
 	@CrossOrigin
 	@RequestMapping(value = "/getCameras")
@@ -63,7 +69,24 @@ public class CameraJsonController {
 
 		Paging paging = JqGridParameterParser.getPaging(request);
 		condition.setPaging(paging);
-
+		
+		
+		
+		if(condition.getStateString().equals("All")) {
+			condition.setState(CameraState.All);
+		}
+		if(condition.getStateString().equals("Recording")) {
+			condition.setState(CameraState.Recording);
+		}
+		if(condition.getStateString().equals("Wait")) {
+			condition.setState(CameraState.Wait);
+		}
+		if(condition.getStateString().equals("DisCon")) {
+			condition.setState(CameraState.DisCon);
+		}
+		
+		
+		
 		IResult resultCode = CommonResult.UnknownError;
 		List<Camera> cameras = null;
 		try {
@@ -944,7 +967,8 @@ public class CameraJsonController {
 	@RequestMapping("/record/{camId}")
 	public ModelAndView record(@PathVariable("camId") String camId,
 			@RequestParam(name = "recordUserId") String recordUserId,
-			@RequestParam(name = "sportsEventCode") String sportsEventCode) {
+			@RequestParam(name = "sportsEventCode") String sportsEventCode,
+			@ModelAttribute DashboardData dashboardData) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 		Boolean isSuccess = false;
 		String message = "";
@@ -1007,6 +1031,14 @@ public class CameraJsonController {
 				message = (String) stopResultMap.get("message");
 				camServ.changeStateCamera(camId, CameraState.Recording);
 			}
+			
+			
+			dashboardData.setUserType(DataType.Archive);
+			dashboardData.setUserId(recordUserId);
+			dashboardData.setSportsEventCode(sportsEventCode);
+			dashboardData.setContentId("");
+			
+			dashboardDataManageServ.registDashboardData(dashboardData);
 
 		} catch (Exception ex) {
 			logger.error("녹화 시작 오류 발생 recordStop [camId = {}]\n{}", //

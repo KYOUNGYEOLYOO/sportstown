@@ -453,6 +453,8 @@ function onClick_detail_video(registDate)
 		return;
 	}
 	
+	
+	
 	console.log("contentId : ", contentId);
 	$("#frmContentDetails").empty();
 	$("#frmContentDetails").jqUtils_bcs_loadHTML(
