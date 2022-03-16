@@ -76,6 +76,7 @@ function test(){
 // 		        }
 		    }
 			this.addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
+			
 		});	
 		
 }
