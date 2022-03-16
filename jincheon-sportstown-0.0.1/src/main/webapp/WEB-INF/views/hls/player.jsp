@@ -342,6 +342,7 @@ $(document).ready(function(){
 		
 			<video id="player_${camera.camId}" class="video-js" data-ctrl-view="live_player" data-camera-camId="${camera.camId}" >
 			</video>
+			<button class="player cannvas"></button>
 <!-- 			<button class="player cannvas"></button> -->
 		</div>
 		
