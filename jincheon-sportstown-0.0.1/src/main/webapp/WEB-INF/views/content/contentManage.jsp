@@ -312,16 +312,14 @@ function onClick_detail()
 function onClick_detail_video(registDate)
 {
 	
-	
+	var authChk = "S";
 	
 	if("${loginUser.userType}" != 'Admin'){
 			if("${loginUser.sportsEvent.isPartition}" == 'true'){
 				
 				var authFromDate = "${loginUser.authFromDate}";
 				var authToDate = "${loginUser.authToDate}";
-				
-				console.log(authFromDate);
-				console.log(authToDate);
+			
 				
 				if(authFromDate == '' && authToDate == ''){
 					var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
@@ -357,10 +355,12 @@ function onClick_detail_video(registDate)
 									if(Number(fromDateTemp) <= Number(dateString) && Number(dateString) <= Number(toDateTemp)){
 										
 									}else{
+										authChk = "E";
 										new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
 										return;
 									}
 								}else{
+									authChk = "E";
 									new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
 									return;
 								}
@@ -425,10 +425,12 @@ function onClick_detail_video(registDate)
 										if(Number(fromDateTemp) <= Number(dateString) && Number(dateString) <= Number(toDateTemp)){
 											
 										}else{
+											authChk = "E";
 											new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
 											return;
 										}
 									}else{
+										authChk = "E";
 										new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
 										return;
 									}
@@ -445,6 +447,9 @@ function onClick_detail_video(registDate)
 			}
 	}
 	
+	if(authChk = "E"){
+		return false;
+	}
 	
 	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
 	if(typeof contentId == "undefined" || contentId == null)
