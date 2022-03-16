@@ -11,7 +11,7 @@ $(document).ready(function(){
 	var eventSender = new bcs_ctrl_event($("#${listId}"));
 	$("#${listId}").jqGrid({
 		// data: mydata,
-		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true",
+		url: "<c:url value="/service/camera/getCameras"/>?hasNotUsed=true&stateString=All",
 		datatype: "json",
 		mtype: "get",
 	   	width: "auto",
@@ -24,7 +24,7 @@ $(document).ready(function(){
 		viewrecords: true,
 		viewsortcols: [false,'vertical',false],
 		rownumbers: false,
-// 		rowNum: 12,    //20,
+		rowNum: 500,    //20,
 // 		rowList: [20,50,100],
 	   	colNames:["카메라명",  "카메라위치",  "스포츠종목", "camId"],
 	   	colModel:[

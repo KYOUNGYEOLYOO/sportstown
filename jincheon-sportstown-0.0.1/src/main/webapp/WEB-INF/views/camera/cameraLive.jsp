@@ -16,9 +16,9 @@
 
 <c:set var="proxyMeta" value="" />
 <c:set var="enablePlayer" value="false" />
-<c:forEach items="${camera.streamMetaItems}" var="streamMeta">
-	<c:if test="${streamMeta.metaClass == 'Proxy'}">
-		<c:set var="proxyMeta" value="${streamMeta}" />
+<c:forEach items="${camera.streamMetaItems}" var="streamMetas">
+	<c:if test="${streamMetas.metaClass == 'Proxy'}">
+		<c:set var="proxyMeta" value="${streamMetas}" />
 		<c:set var="enablePlayer" value="true" />
 		<c:set var="liveStreamer"  value="${fn:replace(liveStreamer, '{STREAM_SERVER}', proxyMeta.streamServer.name)}"/>
 		<c:set var="dvrStreamer"  value="${fn:replace(dvrStreamer, '{STREAM_SERVER}', proxyMeta.streamServer.name)}"/>
@@ -66,7 +66,7 @@ function initPalyer()
 	console.log("login location ==> ${loginUser.connectLocation}");
 	console.log("streamer ==> ${streamer}");
 	// var  mediaUrl = "${streamer}/${streamMeta.application.name}/${streamMeta.streamName}"
-	var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, streamer)}/${streamMeta.application.name}/${streamMeta.streamName}.stream";
+	var  mediaUrl = "${ipFilter.filterAddress(loginUser.connectLocation, streamer)}/${streamMeta.application.name}/${streamMeta.streamName}";
 	// mediaUrl = "<c:url value="/resources/mp4/sample.mp4"/>";
 	// mediaUrl = "http://223.26.218.116:1935/vod/_definst_/mp4:test/bcs.mp4/playlist.m3u8";
 	console.log(mediaUrl);
@@ -76,8 +76,7 @@ function initPalyer()
 	var streamUrl = mediaUrl + "/playlist.m3u8"
 		
 	dvrStreamUrl = streamUrl;
-	console.log('dvrStreamUrl : ' + dvrStreamUrl)
-
+	console.log('dvrStreamUrl : ' + dvrStreamUrl);
 	
 	var videoObj = videojs("player", {
 		
@@ -131,7 +130,7 @@ function initPalyer()
 	jwplayer("player").onPlay(function() {
 	}); */
 }
-}
+
 
 
 </script>
@@ -147,7 +146,7 @@ function onClick_close(){
 
 function onClick_stopRecord()
 {
-	console.log("111:??????");
+
 	var retVal = false;
 	$.ajax({
 		url : "<c:url value="/service/camera/stopRecord"/>/${camera.camId}?isCoercion=true",
@@ -177,7 +176,7 @@ function onClick_stopRecord()
 <!-- 		<div class="vodregistBox"> -->
 
 	<div class="videoview">
-<!-- 		<video id="player" style="background:#fafafa"></div>	 -->
+		<video id="player" style="background:#fafafa"></div>	
 	</div>
 <!-- 			<div class="vodregist "> -->
 <!-- 				<div class="videoview mgb30"> -->

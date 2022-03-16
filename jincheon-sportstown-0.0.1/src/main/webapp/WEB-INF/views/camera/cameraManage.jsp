@@ -279,7 +279,7 @@ function clear_cameraDetail()
 		<div id="lnbWrap" class="searchContainer">
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="hasNotUsed" value="true" />
-
+				<input type="hidden" name="stateString" value="All" />
 				<ul>				
 					<li>
 						<label for="search_keyword">카메라명</label> 

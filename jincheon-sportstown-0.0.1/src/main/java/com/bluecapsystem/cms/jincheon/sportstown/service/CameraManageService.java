@@ -78,7 +78,7 @@ public class CameraManageService
 
 	public List<Camera> getCameras(CameraSelectCondition condition) throws Exception
 	{
-		logger.info("getCmaeras///////////////////////11111");
+		
 		EntityManager em = emf.createEntityManager();
 		List<Camera> cameras = null;
 
@@ -96,8 +96,7 @@ public class CameraManageService
 		{
 			em.close();
 		}
-		logger.info("getCmaeras///////////////////////2222222");
-		logger.info("cameras : " + cameras);
+		
 		return cameras;
 	}
 

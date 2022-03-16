@@ -80,7 +80,7 @@ $(document).ready(function(){
 		viewrecords: true,
 		viewsortcols: [false,'vertical',false],
 		rownumbers: false,
-// 		rowNum: 12,
+		rowNum: 500,
 	   	colNames:["카메라명",  "카메라위치",  "스포츠종목", "녹화상태", "camId"],
 	   	colModel:[
 	   		{name:"name",index:"name", width:180, align:"center"},

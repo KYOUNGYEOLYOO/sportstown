@@ -72,23 +72,23 @@ public class CameraDao
 		
 		TypedQuery<Camera> query = em.createQuery(queryCam);
 
-		if(condition instanceof IPagingable)
-		{
-			Paging paging = ((IPagingable) condition).getPaging();
-			if(paging != null && paging.getEnablePaging() == true)
-			{
-				query.setFirstResult(paging.getFirstResult());
-				query.setMaxResults(paging.getPageSize());
-				
-				// 사용자 정보의 total count 를 가져온다
-				CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
-				countQuery.select(cb.count(countQuery.from(Camera.class)));
-				countQuery.where(qWhere.toArray(new Predicate[]{}));
-				
-				Long totalCount = em.createQuery(countQuery).getSingleResult();
-				paging.setTotalCount(totalCount);
-			}
-		}
+//		if(condition instanceof IPagingable)
+//		{
+//			Paging paging = ((IPagingable) condition).getPaging();
+//			if(paging != null && paging.getEnablePaging() == true)
+//			{
+//				query.setFirstResult(paging.getFirstResult());
+//				query.setMaxResults(paging.getPageSize());
+//				
+//				// 사용자 정보의 total count 를 가져온다
+//				CriteriaQuery<Long> countQuery = cb.createQuery(Long.class);
+//				countQuery.select(cb.count(countQuery.from(Camera.class)));
+//				countQuery.where(qWhere.toArray(new Predicate[]{}));
+//				
+//				Long totalCount = em.createQuery(countQuery).getSingleResult();
+//				paging.setTotalCount(totalCount);
+//			}
+//		}
 		
 		List<Camera> cameras = null;
 		try
