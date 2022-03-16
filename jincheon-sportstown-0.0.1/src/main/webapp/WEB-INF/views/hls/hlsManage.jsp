@@ -149,7 +149,12 @@ function callback_removePlayer(sender, camId)
 function change_player_layout()
 {
 	var cntPlayer = $("#playerList > li").length;
-
+// 	var h = $(".cameraBox").height();
+// 	var w = $(".cameraBox").width();
+	
+// 	console.log("h, w :", h,w);
+	
+	
 	if(cntPlayer == 1)
 	{
 		$("#playerList").attr("class", "");
@@ -162,11 +167,24 @@ function change_player_layout()
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera3pt");
+	}else if(cntPlayer <=6){
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera4pt");		
 	}else
 	{
+// 		$("#playerList").attr("class", "");
+// 		$("#playerList").addClass("camera4pt");
 		$("#playerList").attr("class", "");
-		$("#playerList").addClass("camera4pt");
+		$("#playerList").addClass("camera5pt");
 	}
+	
+// 	$(".camera1pt").children('li').css({height:h, width:w});// 카메라 1개
+// 	$(".camera2pt").children('li').css({width: 'calc(w/2)-5'});// 카메라 2개
+// 	$(".camera3pt").children('li').css({height:h, width:w});// 카메라 3~4개
+// 	$(".camera4pt").children('li').css({height:h, width:w});// 카메라 5~6개
+// 	$(".camera5pt").children('li').css({height:h, width:w});// 카메라 7~개
+	
+	
 }
 
 </script>
