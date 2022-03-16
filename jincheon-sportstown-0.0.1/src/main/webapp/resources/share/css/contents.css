@@ -7,24 +7,40 @@
 /* �����ȭ */
 .cameraBox { /*width:100%;*/ height:100%; display:flex;justify-content:center;/*align-items:center;*/padding:10px;}
 .cameraBox > p	{font-size:18px; line-height:1.8; text-align:center; margin:auto;}
-.cameraBox > ul	{display:flex; flex-wrap:wrap; justify-content:center;}
+.cameraBox > ul	{display:flex; flex-wrap:wrap; justify-content:center; align-content:center;}
+.cameraBox > ul.camera1pt	{width: 100%;}
+.cameraBox > ul.camera2pt	{width: 100%;}
+.cameraBox > ul.camera3pt	{width: 100%;}
+.cameraBox > ul.camera4pt	{width: 100%;}
+.cameraBox > ul.camera5pt	{width: 100%;}
+
 .cameraBox > ul > li	{display:flex;}
 .cameraBox > ul > li .videocontents	{position:relative; background:#000; color:#ffffff;}
 .cameraBox > ul > li:nth-of-type(even)	{margin-left:10px;}
 .cameraBox > ul > li:nth-of-type(n+3)	{margin-top:10px;}
 .cameraBox > ul.camera1pt li	{width:1561px;}
-.cameraBox > ul.camera2pt li	{width:945px;}
-.cameraBox > ul.camera3pt li	{width:772px;}
-.cameraBox > ul.camera4pt li	{width:506px;}
+.cameraBox > ul.camera2pt li	{width:calc(50% + -5px); height:532px}
+.cameraBox > ul.camera3pt li	{width:calc(40%); height:calc(50% + -5px)}
+.cameraBox > ul.camera4pt li	{width:calc(33% + -5px); height:calc(42% + -5px)}
+.cameraBox > ul.camera5pt li	{width:calc(27% + -5px); height:calc(33% + -5px)}
+/* .cameraBox > ul.camera1pt li	{width:1561px;} */
+/* .cameraBox > ul.camera2pt li	{width:945px;} */
+/* .cameraBox > ul.camera3pt li	{width:772px;} */
+/* .cameraBox > ul.camera4pt li	{width:506px;} */
+
 
 /* .camera1pt li .videocontents {height:878px;} */
 .camera1pt li .videocontents {height:836px;}
 .camera2pt li .videocontents {height:532px;}
-.camera3pt li .videocontents {height:413px;}
-.camera4pt li .videocontents {height:272px;}
+.camera3pt li .videocontents {height:calc(100%);}
+.camera4pt li .videocontents {height:calc(100%);}
 .camera4pt {align-content: flex-start;}
 .camera4pt > li	{margin: 0px 0px 10px 10px !important;}
 .camera4pt > li:nth-of-type(3n+1)	{margin-left:0px !important;}
+.camera5pt li .videocontents {height:calc(100%);}
+.camera5pt {align-content: flex-start;}
+.camera5pt > li	{margin: 0px 0px 10px 10px !important;}
+.camera5pt > li:nth-of-type(3n+1)	{margin-left:0px !important;}
 /* .camera4pt > li:nth-of-type(3n+2)	{margin-bottom:0px !important;} */
 /* .camera4pt > li:nth-of-type(n+4)	{margin-top:0px !important;} */
 /* .camera3pt li .videocontents {height:434px;} */
@@ -38,15 +54,27 @@
 @media screen and (min-height: 1079px){
 	.cameraBox > ul > li:nth-child(n+3)	{/*margin-top:24px;*/}
 	.cameraBox > ul > li	{/*margin:0 !important;*/}
-	.cameraBox > ul.camera1pt li	{width:1920px;}
-	.cameraBox > ul.camera2pt li	{width:955px}
-	.cameraBox > ul.camera3pt li	{width:946px;}
-	.cameraBox > ul.camera4pt li	{width:615px;}
+/* 	.cameraBox > ul.camera1pt li	{width:1920px;} */
+/* 	.cameraBox > ul.camera2pt li	{width:955px} */
+/* 	.cameraBox > ul.camera3pt li	{width:946px;} */
+/* 	.cameraBox > ul.camera4pt li	{width:615px;} */
+	.cameraBox > ul.camera1pt li	{width:100%;}
+	.cameraBox > ul.camera2pt li	{width:calc(50% + -5px); height:532px}
+	.cameraBox > ul.camera3pt li	{width:calc(40%); height:calc(50% + -5px)}
+	.cameraBox > ul.camera4pt li	{width:calc(33% + -5px); height:calc(34% + -5px)}
+	.cameraBox > ul.camera5pt li	{width:calc(33% + -5px); height:calc(33% + -5px)}
 
-	.camera1pt li .videocontents {height:1080px;}
-	.camera2pt li .videocontents {height:537px;}
-	.camera3pt li .videocontents {height:532px;}
-	.camera4pt li .videocontents {height:352px;}
+	.camera1pt li .videocontents {height:836px;}
+	.camera2pt li .videocontents {height:532px;}
+	.camera3pt li .videocontents {height:calc(100%);}	
+	.camera4pt li .videocontents {height:calc(100%);}
+	.camera5pt li .videocontents {height:calc(100%);}
+		
+/* 	.camera1pt li .videocontents {height:1080px;} */
+/* 	.camera2pt li .videocontents {height:537px;} */
+/* 	.camera3pt li .videocontents {height:532px;} */
+/* 	.camera4pt li .videocontents {height:352px;} */
+/* 	.camera5pt li .videocontents {height:352px;} */
 	
 	#headerWrap,#footerWrap	{display:none;}
 	#container.full #contentsWrap	{height:100vh !important; }
