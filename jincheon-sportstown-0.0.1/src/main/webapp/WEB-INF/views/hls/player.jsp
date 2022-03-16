@@ -139,6 +139,24 @@ $(document).ready(function(){
         }
 	});
 	
+	/* 시간 앞으로 땡기고 뒤로 미는 거 */
+	$playerLi.find(".up").click(function(){
+		// this << 버튼이야
+		// $playerLi << id가 정해져있는 player
+		var time = $playerLi.find("#time");
+		if(time.val() != '0'){
+			time.attr("value", parseInt(time.val()) + 1);
+		}
+// 		console.log("12131321",time.val());
+// 		console.log("playerLI??? : ",$playerLi);
+// 		console.log("this??? : ",$(this));
+	})
+	
+	$playerLi.find('.down').click(function(){
+		var time = $playerLi.find("#time");
+		time.attr("value", parseInt(time.val()) -1);
+	})
+	
 	
 		
 	/* rec 버튼 event */
@@ -306,7 +324,7 @@ $(document).ready(function(){
 			<div class="videoicons">
 				<div class="speedWrap">
 					<button class="down" />
-					<input type="text" value="-4" />
+					<input type="text" id="time" value="-4" />
 					<button class="up" />
 				</div>
 				<c:if test="${camera.isLiveOnly != true}">
