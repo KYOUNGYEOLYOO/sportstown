@@ -310,7 +310,7 @@ function callback_selectedUsers(sender, users)
 		<div class="btnWrap">
 <!-- 			<a class="btn download">다운로드</a>		 -->
 			<a class="btn download" href="javascript:onClick_download();">다운로드</a>		
-			<a class="btn write" href="javascript:onClick_auth();">승인요청</a>		
+<!-- 			<a class="btn write" href="javascript:onClick_auth();">승인요청</a>		 -->
 			<div class="btnWrap">
 				<a class="btn delete" href="javascript:onClick_delete();">삭제</a> 
 				<a class="btn edit" href="javascript:onClick_modify();">수정</a>					
