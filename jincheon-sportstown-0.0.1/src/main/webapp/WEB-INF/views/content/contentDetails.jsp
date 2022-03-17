@@ -77,7 +77,7 @@ function test(){
 // 		        }
 		    }
 			this.addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
-			
+			this.addButton("<c:url value="/resources/images/contents/btn_canvas.png"/>","canvas", startCanvas,"canvas");
 		});	
 		
 }
@@ -230,9 +230,11 @@ function callback_selectedUsers(sender, users)
 
 </script>
 
-
-	<div class="videoview">
-		<div id="player" style="background:#fafafa"></div>	
+	<div class="videobox">
+		<div class="videoview">
+			<div id="player" style="background:#fafafa"></div>
+<!-- 			<button class="player cannvas"></button> -->
+		</div>
 	</div>
 	
 	<div title="사용자조회" class="bcs_dialog_hide" data-ctrl-view="user_select" data-event-selected="callback_selectedUsers" data-param-selectedUserId="frmSelectedUsers">

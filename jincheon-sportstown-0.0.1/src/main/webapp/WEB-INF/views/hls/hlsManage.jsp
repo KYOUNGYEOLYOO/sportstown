@@ -96,42 +96,42 @@ $(document).ready(function(){
 	$(document).on('click', '#lnbWrap.video > p.toggle', function() {	        
 		$(this).parent().toggleClass("menuopen");
 		
-	// canvas 영상녹화에 추가
-	$(document).on('click', '.player.cannvas', function() {	        
-		$("#wrapper").addClass("canvasopen");
-		addCanvas();
-	});		
-	$(document).on('click', '.canvasMenuWrap > ul > li > p', function() {	        
-		$(this).toggleClass("open");
-	});		
-	$(document).on('click', '.canvasMenuWrap > ul a', function() {	
-		$(".canvasMenuWrap .eraser").removeClass("on");
-		$(this).parent().siblings().removeClass("on");
-		$(this).parent().addClass("on");
-	});
-	$(document).on('click', '.canvasMenuWrap .width a', function() {
-		changeWidth($(this).context.innerHTML);
-	});
-	$(document).on('click', '.canvasMenuWrap .figure a', function() {
-		drawShape($(this).context.innerHTML);
-	});
-	$(document).on('click', '.canvasMenuWrap .color a', function() {
-		changeColor($(this).context.innerHTML);
-	});
-	$(document).on('click', '.canvasMenuWrap .eraser a', function() {	        
-		$(".canvasMenuWrap").find("li").removeClass("on");
-		eraseCanvas();
-		$(this).parent().addClass("on");
-	});	
-	$(document).on('click', '.canvasMenuWrap .reset p', function() {	        
-		$(".canvasMenuWrap").find("li").removeClass("on");
-		clrCanvas($("#canvas"));
-	});		
-	$(document).on('click', '.canvasMenuWrap > p.close', function() {	        
-		$("#wrapper").removeClass("canvasopen");
-		$(".canvasMenuWrap").find("li").removeClass("on");
-		delCanvas($("#canvas"),$("#canvasChange"));
-	});		
+// 	// canvas 영상녹화에 추가
+// 	$(document).on('click', '.player.cannvas', function() {	        
+// 		$("#wrapper").addClass("canvasopen");
+// 		addCanvas();
+// 	});		
+// 	$(document).on('click', '.canvasMenuWrap > ul > li > p', function() {	        
+// 		$(this).toggleClass("open");
+// 	});		
+// 	$(document).on('click', '.canvasMenuWrap > ul a', function() {	
+// 		$(".canvasMenuWrap .eraser").removeClass("on");
+// 		$(this).parent().siblings().removeClass("on");
+// 		$(this).parent().addClass("on");
+// 	});
+// 	$(document).on('click', '.canvasMenuWrap .width a', function() {
+// 		changeWidth($(this).context.innerHTML);
+// 	});
+// 	$(document).on('click', '.canvasMenuWrap .figure a', function() {
+// 		drawShape($(this).context.innerHTML);
+// 	});
+// 	$(document).on('click', '.canvasMenuWrap .color a', function() {
+// 		changeColor($(this).context.innerHTML);
+// 	});
+// 	$(document).on('click', '.canvasMenuWrap .eraser a', function() {	        
+// 		$(".canvasMenuWrap").find("li").removeClass("on");
+// 		eraseCanvas();
+// 		$(this).parent().addClass("on");
+// 	});	
+// 	$(document).on('click', '.canvasMenuWrap .reset p', function() {	        
+// 		$(".canvasMenuWrap").find("li").removeClass("on");
+// 		clrCanvas($("#canvas"));
+// 	});		
+// 	$(document).on('click', '.canvasMenuWrap > p.close', function() {	        
+// 		$("#wrapper").removeClass("canvasopen");
+// 		$(".canvasMenuWrap").find("li").removeClass("on");
+// 		delCanvas($("#canvas"),$("#canvasChange"));
+// 	});		
 });	
 	
 	
@@ -598,49 +598,49 @@ function canvasTest()
 			</div>
 			<button class="fullScreen" id="fullscreen" onclick="fullScreen()" />
 		</div>
-		<!-- 	canvas -->
-		<div class="canvasContainer">
-			<div class="canvasWrap" id="canvasWrap">
-				<div class="canvasMenuWrap" >
-					<ul>
-						<li class="figure">
-							<p>도형</p>
-							<ul>
-								<li class="quadrangle"><a href="#">네모</a></li>
-								<li class="circle"><a href="#">원</a></li>
-								<li class="line"><a href="#">자유선</a></li>
-							</ul>
-						</li>
-						<li class="color">
-							<p>색깔</p>
-							<ul>
-								<li class="blue"><a href="#">파랑</a></li>
-								<li class="red"><a href="#">빨강</a></li>
-								<li class="green"><a href="#">초록</a></li>
-								<li class="black"><a href="#">검정</a></li>
-								<li class="skiblue"><a href="#">하늘색</a></li>				
-							</ul>
-						</li>
-						<li class="width">
-							<p>두께</p>
-							<ul>
-								<li class="thin"><a href="#">얇은 거</a></li>
-								<li class="normal"><a href="#">보통</a></li>
-								<li class="bold"><a href="#">두꺼운 거</a></li>
-							</ul>
-						</li>
-						<li class="eraser">
-							<a href="#">지우개</a>
-						</li>		
-						<li class="reset">
-							<p>초기화</p>
-						</li>				
-					</ul>
-					<p class="close">닫기</p>
-				</div>			
-			</div>
-		</div>		
-		<!-- 	//canvas -->
+<!-- 		<!-- 	canvas --> -->
+<!-- 		<div class="canvasContainer"> -->
+<!-- 			<div class="canvasWrap" id="canvasWrap"> -->
+<!-- 				<div class="canvasMenuWrap" > -->
+<!-- 					<ul> -->
+<!-- 						<li class="figure"> -->
+<!-- 							<p>도형</p> -->
+<!-- 							<ul> -->
+<!-- 								<li class="quadrangle"><a href="#">네모</a></li> -->
+<!-- 								<li class="circle"><a href="#">원</a></li> -->
+<!-- 								<li class="line"><a href="#">자유선</a></li> -->
+<!-- 							</ul> -->
+<!-- 						</li> -->
+<!-- 						<li class="color"> -->
+<!-- 							<p>색깔</p> -->
+<!-- 							<ul> -->
+<!-- 								<li class="blue"><a href="#">파랑</a></li> -->
+<!-- 								<li class="red"><a href="#">빨강</a></li> -->
+<!-- 								<li class="green"><a href="#">초록</a></li> -->
+<!-- 								<li class="black"><a href="#">검정</a></li> -->
+<!-- 								<li class="skiblue"><a href="#">하늘색</a></li>				 -->
+<!-- 							</ul> -->
+<!-- 						</li> -->
+<!-- 						<li class="width"> -->
+<!-- 							<p>두께</p> -->
+<!-- 							<ul> -->
+<!-- 								<li class="thin"><a href="#">얇은 거</a></li> -->
+<!-- 								<li class="normal"><a href="#">보통</a></li> -->
+<!-- 								<li class="bold"><a href="#">두꺼운 거</a></li> -->
+<!-- 							</ul> -->
+<!-- 						</li> -->
+<!-- 						<li class="eraser"> -->
+<!-- 							<a href="#">지우개</a> -->
+<!-- 						</li>		 -->
+<!-- 						<li class="reset"> -->
+<!-- 							<p>초기화</p> -->
+<!-- 						</li>				 -->
+<!-- 					</ul> -->
+<!-- 					<p class="close">닫기</p> -->
+<!-- 				</div>			 -->
+<!-- 			</div> -->
+<!-- 		</div>		 -->
+<!-- 		<!-- 	//canvas --> -->
 		<!-- //contents -->
 	</div>
 </div>

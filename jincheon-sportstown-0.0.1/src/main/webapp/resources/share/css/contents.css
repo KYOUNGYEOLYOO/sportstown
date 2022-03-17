@@ -100,6 +100,9 @@
 .videobox .player.cannvas	{opacity:.2; position:absolute; z-index:1; right:20px; top:60px; width:48px; height:48px; border-radius:4px; background:#5a79ba url(../../images/contents/btn_canvas.png) no-repeat 50% 50%;}
 .videobox:hover .player.cannvas	{opacity:1;}
 .videobox .player.cannvas:hover	{/*background-color:#d3222a;*/}
+.videobox .player.cannvas.popUp	{opacity:.2; position:absolute; z-index:1; left:40px; top:60px; width:48px; height:48px; border-radius:4px; background:#5a79ba url(../../images/contents/btn_canvas.png) no-repeat 50% 50%;}
+.videobox:hover .player.cannvas.popUp	{opacity:1;}
+.videobox .player.cannvas.popUp:hover	{/*background-color:#d3222a;*/}
 
 
 .videobox .videohead .videotitle { width : 245px; padding-left : 10px; }

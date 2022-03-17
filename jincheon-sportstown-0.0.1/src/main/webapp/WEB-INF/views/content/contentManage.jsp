@@ -23,12 +23,56 @@
 $(document).ready(function(){
 	init_contentList();
 	set_contentDetails(null);
+	
+	// 캔버스 기능 추가
+// 	$(document).on('click', '.player.cannvas', function() {	        
+// 		$("#wrapper").addClass("canvasopen");
+// 		addCanvas();
+// 	});		
+	$(document).on('click', '.canvasMenuWrap > ul > li > p', function() {	        
+		$(this).toggleClass("open");
+	});		
+	$(document).on('click', '.canvasMenuWrap > ul a', function() {	
+		$(".canvasMenuWrap .eraser").removeClass("on");
+		$(this).parent().siblings().removeClass("on");
+		$(this).parent().addClass("on");
+	});
+	$(document).on('click', '.canvasMenuWrap .width a', function() {
+		changeWidth($(this).context.innerHTML);
+	});
+	$(document).on('click', '.canvasMenuWrap .figure a', function() {
+		drawShape($(this).context.innerHTML);
+	});
+	$(document).on('click', '.canvasMenuWrap .color a', function() {
+		changeColor($(this).context.innerHTML);
+	});
+	$(document).on('click', '.canvasMenuWrap .eraser a', function() {	        
+		$(".canvasMenuWrap").find("li").removeClass("on");
+		eraseCanvas();
+		$(this).parent().addClass("on");
+	});	
+	$(document).on('click', '.canvasMenuWrap .reset p', function() {	        
+		$(".canvasMenuWrap").find("li").removeClass("on");
+		clrCanvas($("#canvas"));
+	});		
+	$(document).on('click', '.canvasMenuWrap > p.close', function() {	        
+		$("#wrapper").removeClass("canvasopen");
+		$(".canvasMenuWrap").find("li").removeClass("on");
+		delCanvas($("#canvas"),$("#canvasChange"));
+	});		
 });
 </script>
 
 
 
 <script type="text/javascript">
+
+
+function startCanvas(){
+
+	$("#wrapper").addClass("canvasopen");
+	addCanvas();
+}
 
 function init_contentList()
 {
@@ -649,207 +693,202 @@ function clear_cameraDetail()
 <!-- //skip navi -->
 
 <div id="wrapper">	
-<!-- header -->
-<jsp:include page="/include/top">
-	<jsp:param value="search" name="mainMenu"/>
-	<jsp:param value="contentManage" name="subMenu"/>
-</jsp:include>
-<!-- //header -->
-<div title="승인요청" class="bcs_dialog_hide" data-ctrl-view="content_auth" >
-</div>
-<!-- container -->
-<div id="container">
-	<div class="titleWrap">
-		<h2>영상검색</h2>
-		<div class="selectWrap">
-			<!-- 	위치이동 -->
-			<c:choose>					
-				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-					<select class="selectyze" name="sportsEventCode" id="sportsEventCodeSelect">
-							<option value="">운동종목</option>
-							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
-								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
-							</c:forEach>
-					</select>
-				</c:when>					
-				<c:otherwise>
-					<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
-				</c:otherwise>
-			</c:choose>	
-			<!-- 	//위치이동 -->
-		</div>
+	<!-- header -->
+	<jsp:include page="/include/top">
+		<jsp:param value="search" name="mainMenu"/>
+		<jsp:param value="contentManage" name="subMenu"/>
+	</jsp:include>
+	<!-- //header -->
+	<div title="승인요청" class="bcs_dialog_hide" data-ctrl-view="content_auth" >
 	</div>
-	<div id="contentsWrap">
-		<!-- lnbWrap -->
-		<div id="lnbWrapT" class="searchContainer">
-			<form id="frmSearch" onSubmit="return false;">
-				<input type="hidden" name="hasNotUsed" value="true" />		
+	<!-- container -->
+	<div id="container">
+		<div class="titleWrap">
+			<h2>영상검색</h2>
+			<div class="selectWrap">
 				<!-- 	위치이동 -->
-				<div style="display:none">							
-					<c:choose>					
-						<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-							<div class="">
-								<select class="selectyze psa" name="sportsEventCode">
-									<option value="">운동종목</option>
-									<c:forEach items="${sprotsEvents}" var="sprotsEvent">
-										<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
-									</c:forEach>
-								</select>
+				<c:choose>					
+					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+						<select class="selectyze" name="sportsEventCode" id="sportsEventCodeSelect">
+								<option value="">운동종목</option>
+								<c:forEach items="${sprotsEvents}" var="sprotsEvent">
+									<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
+								</c:forEach>
+						</select>
+					</c:when>					
+					<c:otherwise>
+						<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
+					</c:otherwise>
+				</c:choose>	
+				<!-- 	//위치이동 -->
+			</div>
+		</div>
+		<div id="contentsWrap">
+			<!-- lnbWrap -->
+			<div id="lnbWrapT" class="searchContainer">
+				<form id="frmSearch" onSubmit="return false;">
+					<input type="hidden" name="hasNotUsed" value="true" />		
+					<!-- 	위치이동 -->
+					<div style="display:none">							
+						<c:choose>					
+							<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+								<div class="">
+									<select class="selectyze psa" name="sportsEventCode">
+										<option value="">운동종목</option>
+										<c:forEach items="${sprotsEvents}" var="sprotsEvent">
+											<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</c:when>
+							
+							<c:otherwise>
+								<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
+							</c:otherwise>
+						</c:choose>
+					</div>	
+					<!-- //위치이동 -->					
+					<ul>
+						<li>
+							<label for="search_keyword">제목</label> 
+							<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
+						</li>
+						<li>
+							<p>촬영일</p>
+							<div class="datepickerBox">
+								<label for="registFromDate">From</label>
+								<input type="text" id="recordFromDate" name="recordFromDate" class="inputTxt date" value="<fmt:formatDate value="${fromDate}" pattern="yyyy-MM-dd"/>"/>
 							</div>
-						</c:when>
-						
-						<c:otherwise>
-							<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
-						</c:otherwise>
-					</c:choose>
-				</div>	
-				<!-- //위치이동 -->					
-				<ul>
-					<li>
-						<label for="search_keyword">제목</label> 
-						<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
-					</li>
-					<li>
-						<p>촬영일</p>
-						<div class="datepickerBox">
-							<label for="registFromDate">From</label>
-							<input type="text" id="recordFromDate" name="recordFromDate" class="inputTxt date" value="<fmt:formatDate value="${fromDate}" pattern="yyyy-MM-dd"/>"/>
-						</div>
-						<div class="datepickerBox">
-							<label for="registToDate">To</label>
-							<input type="text" id="recordToDate" name="recordToDate" class="inputTxt date" value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>					
-						</div>
-					</li>
-					<li>
-						<label for="search_tagUserId">소유자</label> 
-						<select class="selectyze" name="tagUserId" id="search_tagUserId">
-							<option value="">선택하세요</option>
-							<c:forEach items="${users}" var="user">
-								<c:choose>
-									<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-										<option value="${user.userId}">${user.userName}</option>
-									</c:when>
-									<c:otherwise>
-										<c:if test="${user.sportsEventCode == loginUser.sportsEventCode}">
+							<div class="datepickerBox">
+								<label for="registToDate">To</label>
+								<input type="text" id="recordToDate" name="recordToDate" class="inputTxt date" value="<fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd"/>"/>					
+							</div>
+						</li>
+						<li>
+							<label for="search_tagUserId">소유자</label> 
+							<select class="selectyze" name="tagUserId" id="search_tagUserId">
+								<option value="">선택하세요</option>
+								<c:forEach items="${users}" var="user">
+									<c:choose>
+										<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
 											<option value="${user.userId}">${user.userName}</option>
-										</c:if>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</select>
-					</li>
-					<li>
-						<label for="search_recordUserId">촬영자</label> 
-						<select class="selectyze" name="recordUserId" id="search_recordUserId">
-							<option value="">선택하세요</option>
-							<c:forEach items="${users}" var="user">
-							<%--	<option value="${user.userId}">${user.userName}</option> --%>
-								<c:choose>
-									<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-										<option value="${user.userId}">${user.userName}</option>
-									</c:when>
-									<c:otherwise>
-										<c:if test="${user.sportsEventCode == loginUser.sportsEventCode}">
+										</c:when>
+										<c:otherwise>
+											<c:if test="${user.sportsEventCode == loginUser.sportsEventCode}">
+												<option value="${user.userId}">${user.userName}</option>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</select>
+						</li>
+						<li>
+							<label for="search_recordUserId">촬영자</label> 
+							<select class="selectyze" name="recordUserId" id="search_recordUserId">
+								<option value="">선택하세요</option>
+								<c:forEach items="${users}" var="user">
+								<%--	<option value="${user.userId}">${user.userName}</option> --%>
+									<c:choose>
+										<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
 											<option value="${user.userId}">${user.userName}</option>
-										</c:if>
-									</c:otherwise>
-								</c:choose>
-								
-							</c:forEach>
-						</select>
-					</li>
-					<li>
-						<label for="search_keyword">태그</label> 
-						<input type="text" class="inputTxt" id="tagInfo" name="tagInfo" />
-					</li>
-				</ul>
-			</form>
-			<div class="btnWrap">						
-				<a class="btn reset" href="javascript:onClick_searchInit();">초기화</a>
-				<a class="btn search" href="javascript:onClick_search();">검색</a> 
-			</div>				
-		</div>
-		<!-- //lnbWrap -->
-		<!-- contents -->
-		<div id="contents">
-			<div class="vodlistBox thum">
-				<table id="contentList" class="list_type1" data-ctrl-view="content_list" data-event-selectedRow="onSelected_cameraListItem"></table>
-<!-- 				<div id="p_contentList" data-ctrl-view="content_list_pager"></div> -->
-				<div id="NoData"></div>
-				<div id="paginate" class="paginate">
-					
-<!-- 					<a class='btn first'></a> -->
-<!-- 					<a class='btn pre'></a> -->
-<!-- 					<a class='btn pre none'></a> -->
-					
-<!-- 					<a><strong>1</strong></a> -->
-<!-- 					<a>2</a> -->
-					
-<!-- 					<a class='btn next none'></a> -->
-<!-- 					<a class='btn next'></a> -->
-<!-- 					<a class='btn last'></a> -->
-				</div>
-			</div>
-
-			<div>
-				<form id="frmCameraDetail">
+										</c:when>
+										<c:otherwise>
+											<c:if test="${user.sportsEventCode == loginUser.sportsEventCode}">
+												<option value="${user.userId}">${user.userName}</option>
+											</c:if>
+										</c:otherwise>
+									</c:choose>
+									
+								</c:forEach>
+							</select>
+						</li>
+						<li>
+							<label for="search_keyword">태그</label> 
+							<input type="text" class="inputTxt" id="tagInfo" name="tagInfo" />
+						</li>
+					</ul>
 				</form>
-<!-- 				<div class="btnbox alignR"> -->
-<!-- 					<span class="btn_typeA t1"><a href="javascript:onClick_detail();">상세보기</a></span>  -->
-<!-- 					<span class="btn_typeA t4"><a href="javascript:onClick_modify();">수정</a></span>  -->
-<!-- 					<span class="btn_typeA t2"><a href="javascript:onClick_delete();">삭제</a></span> -->
-<!-- 				</div> -->
+				<div class="btnWrap">						
+					<a class="btn reset" href="javascript:onClick_searchInit();">초기화</a>
+					<a class="btn search" href="javascript:onClick_search();">검색</a> 
+				</div>				
+			</div>
+			<!-- //lnbWrap -->
+			<!-- contents -->
+			<div id="contents">
+				<div class="vodlistBox thum">
+					<table id="contentList" class="list_type1" data-ctrl-view="content_list" data-event-selectedRow="onSelected_cameraListItem"></table>
+	
+					<div id="NoData"></div>
+					<div id="paginate" class="paginate">
+						
+					</div>
+				</div>
+	
+				<div>
+					<form id="frmCameraDetail">
+					</form>
+	
+				</div>
+	
 			</div>
 
-		</div>
-
-		<!-- //contents -->
-		<div class="detailContainer">
-			<form id="frmContentDetails" data-ctrl-view="content_details" 
-			data-event-reloadList="callback_reloadList">
-			</form>
-<!-- 			<div class="videoview"> -->
-<!-- 				<div id="player" style="background:#fafafa"></div>	 -->
-<!-- 			</div> -->
-<!-- 			<div class="detailWrap"> -->
-<!-- 				<dl> -->
-<!-- 					<dt>제목</dt> -->
-<%-- 					<dd class="full"><input type="text" name="title" title="제목" class="inputTxt" value="${contentMeta.title}" readonly></dd> --%>
-<!-- 					<dt>종목</dt> -->
-<%-- 					<dd><input type="text" name="sportsEvent" title="종목" class="inputTxt" value="${contentMeta.sportsEvent.name}" readonly></dd> --%>
-<!-- 					<dt class="ml20">소유자</dt> -->
-<%-- 					<dd><input type="text" name="tagUser" title="소유자" class="inputTxt" value="${contentMeta.contentUserNames}" readonly></dd> --%>
-<!-- 					<dt>녹화자</dt> -->
-<%-- 					<dd><input type="text" name=recordUser title="녹화자" class="inputTxt" value="${contentMeta.recordUser.userName}" readonly></dd> --%>
-<!-- 					<dt class="ml20">녹화일자</dt> -->
-<!-- 					<dd> -->
-<!-- 						<div class="datepickerBox"> -->
-<%-- 							<input type="text" id="recordFromDate" name="recordDate" class="inputTxt date"  value="<fmt:formatDate value="${contentMeta.recordDate}" pattern="yyyy-MM-dd" />" readonly/> --%>
-<!-- 						</div>					 -->
-<!-- 					</dd> -->
-<!-- 					<dt>설명</dt> -->
-<%-- 					<dd class="full"><textarea name="summary" title="설명" readonly>${contentMeta.summary}</textarea></dd> --%>
-<!-- 					<dt>파일</dt> -->
-<!-- 					<dd class="full"> -->
-<!-- 						<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly> -->
-<!-- 						<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						 -->
-<!-- 					</dd>						 -->
-<!-- 				</dl> -->
-<!-- 				<div class="btnWrap"> -->
-<!-- 					<a class="btn download">다운로드</a>		 -->
-<!-- 					<div class="btnWrap"> -->
-<!-- 						<a class="btn delete">삭제</a>  -->
-<!-- 						<a class="btn edit">수정</a>					 -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
+			<!-- //contents -->
+			<div class="detailContainer">
+				<form id="frmContentDetails" data-ctrl-view="content_details" 
+				data-event-reloadList="callback_reloadList">
+				</form>
+				
+			</div>
+			<!-- 	canvas -->
+			<div class="canvasContainer">
+				<div class="canvasWrap" id="canvasWrap">
+					<div class="canvasMenuWrap" >
+						<ul>
+							<li class="figure">
+								<p>도형</p>
+								<ul>
+									<li class="quadrangle"><a href="#">네모</a></li>
+									<li class="circle"><a href="#">원</a></li>
+									<li class="line"><a href="#">자유선</a></li>
+								</ul>
+							</li>
+							<li class="color">
+								<p>색깔</p>
+								<ul>
+									<li class="blue"><a href="#">파랑</a></li>
+									<li class="red"><a href="#">빨강</a></li>
+									<li class="green"><a href="#">초록</a></li>
+									<li class="black"><a href="#">검정</a></li>
+									<li class="skiblue"><a href="#">하늘색</a></li>				
+								</ul>
+							</li>
+							<li class="width">
+								<p>두께</p>
+								<ul>
+									<li class="thin"><a href="#">얇은 거</a></li>
+									<li class="normal"><a href="#">보통</a></li>
+									<li class="bold"><a href="#">두꺼운 거</a></li>
+								</ul>
+							</li>
+							<li class="eraser">
+								<a href="#">지우개</a>
+							</li>		
+							<li class="reset">
+								<p>초기화</p>
+							</li>				
+						</ul>
+						<p class="close">닫기</p>
+					</div>			
+				</div>
+			</div>		
+			<!-- 	//canvas -->
 		</div>
 	</div>
-</div>
-<!-- //container -->
-<!-- footer -->
-<jsp:include page="/include/footer" />
-<!-- //footer -->
+	<!-- //container -->
+	<!-- footer -->
+	<jsp:include page="/include/footer" />
+	<!-- //footer -->
 </div>
 
 </body>
