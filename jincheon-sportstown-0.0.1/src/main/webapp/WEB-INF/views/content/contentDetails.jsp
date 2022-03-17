@@ -18,7 +18,7 @@
 
 <c:set var="contentMeta_video" value=""/>
 <%-- <c:set var="vodStreamer" value=""/> --%>
-<c:set var="contentRootUri" value=""/>
+<%-- <c:set var="contentRootUri" value=""/> --%>
 
 <script type="text/javascript">
 var videoTag;
@@ -45,6 +45,7 @@ function test(){
 // 	alert("111");
 
 	console.log("login location ==> ${loginUser.connectLocation}");
+	console.log("contentRootUri ==> ${contentRootUri}");
 	console.log("vodStreamer ==> ${vodStreamer}");
 	console.log("streamUrl ==> ${streamUrl}");
 	console.log("streamFile ==> ${streamFile}");
