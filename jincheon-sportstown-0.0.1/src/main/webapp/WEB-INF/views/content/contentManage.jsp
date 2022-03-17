@@ -456,7 +456,7 @@ function onClick_detail_video(registDate)
 		return;
 	}
 	
-	if(authChk = "E"){
+	if(authChk == "E"){
 		return false;
 	}
 	
