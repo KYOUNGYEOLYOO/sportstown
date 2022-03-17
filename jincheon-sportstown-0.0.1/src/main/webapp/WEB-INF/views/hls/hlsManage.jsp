@@ -95,43 +95,8 @@ $(document).ready(function(){
 	//	220214 add
 	$(document).on('click', '#lnbWrap.video > p.toggle', function() {	        
 		$(this).parent().toggleClass("menuopen");
-		
-// 	// canvas 영상녹화에 추가
-// 	$(document).on('click', '.player.cannvas', function() {	        
-// 		$("#wrapper").addClass("canvasopen");
-// 		addCanvas();
-// 	});		
-// 	$(document).on('click', '.canvasMenuWrap > ul > li > p', function() {	        
-// 		$(this).toggleClass("open");
-// 	});		
-// 	$(document).on('click', '.canvasMenuWrap > ul a', function() {	
-// 		$(".canvasMenuWrap .eraser").removeClass("on");
-// 		$(this).parent().siblings().removeClass("on");
-// 		$(this).parent().addClass("on");
-// 	});
-// 	$(document).on('click', '.canvasMenuWrap .width a', function() {
-// 		changeWidth($(this).context.innerHTML);
-// 	});
-// 	$(document).on('click', '.canvasMenuWrap .figure a', function() {
-// 		drawShape($(this).context.innerHTML);
-// 	});
-// 	$(document).on('click', '.canvasMenuWrap .color a', function() {
-// 		changeColor($(this).context.innerHTML);
-// 	});
-// 	$(document).on('click', '.canvasMenuWrap .eraser a', function() {	        
-// 		$(".canvasMenuWrap").find("li").removeClass("on");
-// 		eraseCanvas();
-// 		$(this).parent().addClass("on");
-// 	});	
-// 	$(document).on('click', '.canvasMenuWrap .reset p', function() {	        
-// 		$(".canvasMenuWrap").find("li").removeClass("on");
-// 		clrCanvas($("#canvas"));
-// 	});		
-// 	$(document).on('click', '.canvasMenuWrap > p.close', function() {	        
-// 		$("#wrapper").removeClass("canvasopen");
-// 		$(".canvasMenuWrap").find("li").removeClass("on");
-// 		delCanvas($("#canvas"),$("#canvasChange"));
-// 	});		
+	
+	
 });	
 	
 	
@@ -387,6 +352,7 @@ function onClick_record(sender, camId)
 	return true;
 }
 
+
 function onClick_liveRecord(sender, camId)
 {
 	var playerId = $playerLi.find("[data-ctrl-view=live_player]").attr("id");
@@ -455,16 +421,44 @@ function onClick_liveRecordAll()
 	});
 }
 
-function canvasTest()
+function onClick_connectAll()
 {
-	$("#canvas").empty();
-	$("#canvas").jqUtils_bcs_loadHTML(
-			"<c:url value="/canvas/canvasPop"/>" ,
-			false, "get", null, null
-		);
-	console.log('canvas_pop');
-	
-	$(".ui-front").appendTo("#container");
+	console.log("connectAll");
+	console.log("sportsEventCode ", $("#sportsEvent").val());
+	var sportsEventCode = $("#sportsEvent").val();
+	$.ajax({
+		url : "<c:url value="/service/camera/connectStreamW/{sportsEventCode}"/>",
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			location.reload();
+				
+		}
+	});
+}
+
+function onClick_disConnectAll()
+{
+	console.log("connectAll");
+	console.log("sportsEventCode ", $("#sportsEvent").val());
+	var sportsEventCode = $("#sportsEvent").val();
+	$.ajax({
+		url : "<c:url value="/service/camera/connectStreamW/{sportsEventCode}"/>",
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+			location.reload();
+				
+		}
+	});
 }
 
 </script>
@@ -511,25 +505,8 @@ function canvasTest()
 				<div class="btnWrap player">
 					<a class="btn rec" href="javascript:onClick_recordAll();">Rec</a>
 					<a class="btn stop" href="javascript:onClick_stopRecordAll();">Stop</a>
-					<a class="btn back" href="javascript:onClick_backRecordAll();">Back</a>
-					<a class="btn live" href="javascript:onClick_liveRecordAll();">Live</a>
-					<!-- 
-					<a class="btn" href="javascript:onClick_recordAll();">전체녹화</a>
-					<a class="btn" href="javascript:onClick_stopRecordAll();">전체스톱</a>
-					<a class="btn" href="javascript:onClick_backRecordAll();">전체뒤로</a>
-					<a class="btn" href="javascript:onClick_liveRecordAll();">전체라이브</a>		
-					 -->
-<!-- 					<div class="canvasBtnWrap"> -->
-<!-- 						<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div> -->
-<!-- 						<div id="canvasBtn" onclick="addCanvas();">캔버스</div> -->
-<!-- 						<button id="drawing" onclick="drawCanvas()">draw</button> -->
-<!-- 						<button id="shape" onclick="drawShape()">shape</button> -->
-<!-- 						<button id="eraser" onclick="eraseCanvas()">eraser</button> -->
-<!-- 						<button id="clear" onclick="clrCanvas(document.getElementById('canvas'))">clear</button> -->
-<!-- 						<button id="color" onclick="changeColor('blue')">color</button> -->
-<!-- 						<button id="thickness" onclick="changeWidth(10)">thickness</button> -->
-<!-- 						<button id="close" onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>				 -->
-<!-- 					</div> -->
+					<a class="btn back" href="javascript:onClick_connectAll();">연결</a>
+					<a class="btn live" href="javascript:onClick_disConnectAll();">해제</a>
 					 	
 				</div> 	
 			</div>		
@@ -598,49 +575,6 @@ function canvasTest()
 			</div>
 			<button class="fullScreen" id="fullscreen" onclick="fullScreen()" />
 		</div>
-<!-- 		<!-- 	canvas --> -->
-<!-- 		<div class="canvasContainer"> -->
-<!-- 			<div class="canvasWrap" id="canvasWrap"> -->
-<!-- 				<div class="canvasMenuWrap" > -->
-<!-- 					<ul> -->
-<!-- 						<li class="figure"> -->
-<!-- 							<p>도형</p> -->
-<!-- 							<ul> -->
-<!-- 								<li class="quadrangle"><a href="#">네모</a></li> -->
-<!-- 								<li class="circle"><a href="#">원</a></li> -->
-<!-- 								<li class="line"><a href="#">자유선</a></li> -->
-<!-- 							</ul> -->
-<!-- 						</li> -->
-<!-- 						<li class="color"> -->
-<!-- 							<p>색깔</p> -->
-<!-- 							<ul> -->
-<!-- 								<li class="blue"><a href="#">파랑</a></li> -->
-<!-- 								<li class="red"><a href="#">빨강</a></li> -->
-<!-- 								<li class="green"><a href="#">초록</a></li> -->
-<!-- 								<li class="black"><a href="#">검정</a></li> -->
-<!-- 								<li class="skiblue"><a href="#">하늘색</a></li>				 -->
-<!-- 							</ul> -->
-<!-- 						</li> -->
-<!-- 						<li class="width"> -->
-<!-- 							<p>두께</p> -->
-<!-- 							<ul> -->
-<!-- 								<li class="thin"><a href="#">얇은 거</a></li> -->
-<!-- 								<li class="normal"><a href="#">보통</a></li> -->
-<!-- 								<li class="bold"><a href="#">두꺼운 거</a></li> -->
-<!-- 							</ul> -->
-<!-- 						</li> -->
-<!-- 						<li class="eraser"> -->
-<!-- 							<a href="#">지우개</a> -->
-<!-- 						</li>		 -->
-<!-- 						<li class="reset"> -->
-<!-- 							<p>초기화</p> -->
-<!-- 						</li>				 -->
-<!-- 					</ul> -->
-<!-- 					<p class="close">닫기</p> -->
-<!-- 				</div>			 -->
-<!-- 			</div> -->
-<!-- 		</div>		 -->
-<!-- 		<!-- 	//canvas --> -->
 		<!-- //contents -->
 	</div>
 </div>
@@ -651,27 +585,5 @@ function canvasTest()
 <jsp:include page="/include/footer" />
 <!-- //footer -->
 </div>
-<%--20211215 --%>
-<!-- 
-<div id="styleBtn" style="display: flex; position:absolute; 
-	top: 60px; right: 0px; z-index: 4;">
-	<button style="margin-right:10px" id="fullscreen"
-	onclick="fullScreen()">screen</button>
-	<button style="margin-right:10px" id="drawing"
-	onclick="drawCanvas()">draw</button>
-	<button style="margin-right:10px" id="shape"
-	onclick="drawShape()">shape</button>
-	<button style="margin-right:10px" id="eraser"
-	onclick="eraseCanvas()">eraser</button>
-	<button style="margin-right:10px" id="clear"
-	onclick="clrCanvas(document.getElementById('canvas'))">clear</button>
-	<button style="margin-right:10px" id="color"
-	onclick="changeColor('blue')">color</button>
-	<button style="margin-right:10px" id="thickness"
-	onclick="changeWidth(10)">thickness</button>
-	<button style="margin-right:10px" id="close"
-	onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>
-</div>
- -->
 </body>
 </html>

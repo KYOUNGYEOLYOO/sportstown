@@ -339,6 +339,158 @@ public class CameraJsonController {
 	 * streamName); mnv.addObject("streamServer", streamServer);
 	 * mnv.addObject("streamSourceUrl", streamSourceUrl); } return mnv; }
 	 */
+	public void function1(Camera camera){
+		String baseUrl = null;
+		
+		String applicationCode = "";
+		String streamName = "";
+		String streamServer = "";
+
+		WowzaCURLApi wowzaApi = new WowzaCURLApi();
+		String finalUrl = "";
+
+		applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+		streamName = camera.getStreamMetaItems().get(0).getStreamName();
+		streamName = streamName.replace(".stream", ""); 
+//		streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+		streamServer = camera.getStreamMetaItems().get(0).getStreamServer().getName();
+//		applicationCode = (String) request.getParameter("applicationName");
+//		streamName = (String) request.getParameter("streamName");
+//		streamServer = (String) request.getParameter("serverName");
+
+		baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+		baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+
+		switch (applicationCode) {
+		case "Dlive":
+			applicationCode = "Dlive";
+			finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
+			break;
+		case "live":
+			applicationCode = "live";
+			finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
+			break;
+		case "vod":
+			applicationCode = "vod";
+			finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
+			break;
+		default:
+			applicationCode = "Dlive";
+			finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
+			break;
+		}
+	}
+	
+	public void function2(Camera camera){
+		
+		
+		String baseUrl = null;
+		
+		String applicationCode = "";
+		String streamName = "";
+		String streamServer = "";
+		
+		WowzaCURLApi wowzaApi = new WowzaCURLApi();
+		String finalUrl = "";
+
+		
+		applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+		streamName = camera.getStreamMetaItems().get(0).getStreamName();
+		streamServer = camera.getStreamMetaItems().get(0).getStreamServer().getName();
+
+		baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+		baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+
+		switch (applicationCode) {
+		case "Dlive":
+			applicationCode = "Dlive";
+			finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+			break;
+		case "live":
+			applicationCode = "live";
+			finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+			break;
+		case "vod":
+			applicationCode = "vod";
+			finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+			break;
+		default:
+			applicationCode = "Dlive";
+			finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+			break;
+		
+		}
+	}
+	
+	@RequestMapping(value = "/connectStreamW/{sportsEventCode}")
+	public ModelAndView connectStreamW(@PathVariable("sportsEventCode") String sportsEventCode) {
+		ModelAndView mnv = new ModelAndView("jsonView");
+
+		List<Camera> staticCameras ;
+		List<Camera> shiftCameras ;
+
+
+		try {
+			CameraSelectCondition camCondition = new CameraSelectCondition();
+			camCondition.setSportsEventCode(sportsEventCode);
+			staticCameras = camServ.getCameras(camCondition);
+			mnv.addObject("staticCameras", staticCameras);
+
+			System.out.println("/////////////////static camera : " + staticCameras);
+			camCondition = new CameraSelectCondition();
+			camCondition.setCameraType(CameraType.Shift);
+
+			shiftCameras = Collections.emptyList();
+			if (staticCameras.size() > 0 && EmptyChecker.isNotEmpty(staticCameras.get(0).getLocationCode())) {
+				camCondition.setLocationCode(staticCameras.get(0).getLocationCode());
+				shiftCameras = camServ.getCameras(camCondition);
+			}
+			mnv.addObject("shiftCameras", shiftCameras);
+			System.out.println("shift camera : " + shiftCameras);
+			
+			staticCameras.forEach(camera -> function1(camera));
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return mnv;
+	}
+	
+	@RequestMapping(value = "/disconnectStreamW/{sportsEventCode}")
+	public ModelAndView disconnectStreamW(@PathVariable("sportsEventCode") String sportsEventCode) {
+		ModelAndView mnv = new ModelAndView("jsonView");
+
+		List<Camera> staticCameras ;
+		List<Camera> shiftCameras ;
+
+
+		try {
+			CameraSelectCondition camCondition = new CameraSelectCondition();
+			camCondition.setSportsEventCode(sportsEventCode);
+			staticCameras = camServ.getCameras(camCondition);
+			mnv.addObject("staticCameras", staticCameras);
+
+			System.out.println("/////////////////static camera : " + staticCameras);
+			camCondition = new CameraSelectCondition();
+			camCondition.setCameraType(CameraType.Shift);
+
+			shiftCameras = Collections.emptyList();
+			if (staticCameras.size() > 0 && EmptyChecker.isNotEmpty(staticCameras.get(0).getLocationCode())) {
+				camCondition.setLocationCode(staticCameras.get(0).getLocationCode());
+				shiftCameras = camServ.getCameras(camCondition);
+			}
+			mnv.addObject("shiftCameras", shiftCameras);
+			System.out.println("shift camera : " + shiftCameras);
+			
+			staticCameras.forEach(camera -> function2(camera));
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return mnv;
+	}
 	
 	@RequestMapping(value = "/connectStreamW/{camId}")
 	public ModelAndView connectStreamW(@PathVariable("camId") String camId,
