@@ -356,12 +356,12 @@ function onClick_detail_video(registDate)
 										
 									}else{
 										authChk = "E";
-										new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+										requestAuth();
 										return;
 									}
 								}else{
 									authChk = "E";
-									new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+									requestAuth();
 									return;
 								}
 								
@@ -426,12 +426,12 @@ function onClick_detail_video(registDate)
 											
 										}else{
 											authChk = "E";
-											new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+											requestAuth();
 											return;
 										}
 									}else{
 										authChk = "E";
-										new bcs_messagebox().open("영상검색", "권한이 없습니다.", null);
+										requestAuth();
 										return;
 									}
 									
@@ -447,9 +447,7 @@ function onClick_detail_video(registDate)
 			}
 	}
 	
-	if(authChk = "E"){
-		return false;
-	}
+	
 	
 	var contentId = $("#contentList").jqGrid("getGridParam", "selrow");
 	if(typeof contentId == "undefined" || contentId == null)
@@ -458,7 +456,9 @@ function onClick_detail_video(registDate)
 		return;
 	}
 	
-	
+	if(authChk = "E"){
+		return false;
+	}
 	
 	console.log("contentId : ", contentId);
 	$("#frmContentDetails").empty();
@@ -491,6 +491,17 @@ function onClick_detail_video(registDate)
 // 				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 // 			}
 // 		});		
+}
+
+function requestAuth(){
+	var mb = new bcs_messagebox().open("영상검색 - 권한 문제", "권한 요청 하시겠습니까?", null, {
+		"확인" : function(){
+			onClick_auth();
+			mb.close();
+		},
+		"닫기" : function(){ mb.close(); }
+	});
+	
 }
 
 function set_contentDetails(contentId)
