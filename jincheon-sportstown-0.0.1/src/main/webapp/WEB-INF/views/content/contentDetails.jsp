@@ -114,12 +114,16 @@ function onClick_download()
 	
 	var contentId = "${contentId}";
 	
-	registLog(contentId);
+	registDownloadLog(contentId);
  	$(location).attr("href", "<c:url value="/file/download"/>/${contentMeta.content.instances[0].file.fileId}");
  	
 }
 
 function registDownloadLog(value){
+	
+	var param = $("#frmContent").serialize();
+	console.log(param);
+	
 	$.ajax({
 		url : "<c:url value="/service/content/registDownloadLog"/>",
 		async : false,
@@ -130,10 +134,10 @@ function registDownloadLog(value){
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
 			if(ajaxData.resultCode == "Success"){
-				location.reload();
+				//location.reload();
 			}
 			else{
-				new bcs_messagebox().openError("컨텐츠수정", "컨텐츠수정 오류 발생 [code="+ajaxData.resultCode+"]", null);
+				//new bcs_messagebox().openError("컨텐츠수정", "컨텐츠수정 오류 발생 [code="+ajaxData.resultCode+"]", null);
 			}
 		}
 	});

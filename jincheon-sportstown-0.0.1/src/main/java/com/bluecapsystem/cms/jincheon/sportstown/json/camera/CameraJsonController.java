@@ -670,7 +670,7 @@ public class CameraJsonController {
 			String baseUrl = null;
 			String application = null;
 			String streamFile = null;
-
+			
 			applicationCode = (String) request.getParameter("applicationName");
 			streamName = (String) request.getParameter("streamName");
 			streamServer = (String) request.getParameter("serverName");
@@ -744,11 +744,7 @@ public class CameraJsonController {
 			streamServer = (String) request.getParameter("serverName");
 			streamSourceUrl = (String) request.getParameter("streamSourceUrl");
 
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>");
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + applicationCode);
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + streamName);
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + streamServer);
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + streamSourceUrl);
+			
 
 			baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 			// 여기서 에러가 남... nullpointerException이래 해결..
@@ -851,11 +847,11 @@ public class CameraJsonController {
 				if(deleteFile.exists()) {
 					deleteFile.delete();
 					_resultCode = CommonResult.Success;
-					logger.debug("1111111111111111111111111111o1");
+					
 					ErrorCode = "success";
 				}else{
 					_resultCode = CommonResult.UnknownError;
-					logger.debug("1111111111111111111111111111o");
+					
 					ErrorCode = "delete error";
 				}
 				// 여기까지가 삭제
@@ -1039,6 +1035,10 @@ public class CameraJsonController {
 		String streamName = camera.getStreamMetaItems().get(0).getStreamName();
 		String finalUrl = "";
 		
+		System.out.println(">>>>>>>>>>>>>>>>");
+		System.out.println(applicationCode);
+		System.out.println(streamServer);
+		System.out.println(streamName);
 		
 		String filePath = "Y:\\content\\"+streamName; // 파일 형식이 .stream임 ( 텍스트는 .txt )
 		File deleteFile = new File(filePath);
@@ -1053,6 +1053,10 @@ public class CameraJsonController {
 				
 				code = em.find(Code.class, applicationCode);
 				applicationCode = code.getName();
+				
+				System.out.println(">>>>>>>>>>>>>>>>");
+				System.out.println(applicationCode);
+				System.out.println(streamServer);
 				
 				String baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 				baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
@@ -1086,10 +1090,10 @@ public class CameraJsonController {
 				if(deleteFile.exists()) {
 					deleteFile.delete();
 					_resultCode = CommonResult.Success;
-					logger.debug("1111111111111111111111111111o1");
+					
 				}else{
 					_resultCode = CommonResult.SystemError;
-					logger.debug("1111111111111111111111111111o");
+					
 				}
 			}
 		}catch(Exception e){
