@@ -503,7 +503,6 @@ function canvasTest()
 		<h2>영상녹화</h2>				
 	</div>
 	<div id="contentsWrap">
-	<form id="canvas"></form>
 	
 		<!-- lnbWrap -->
 		<div id="lnbWrap" class="video">

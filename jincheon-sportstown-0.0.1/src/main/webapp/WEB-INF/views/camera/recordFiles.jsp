@@ -27,6 +27,7 @@ $(document).ready(function(){
 	
 	initPalyer();
 	
+	console.log("1111111111");
 	// canvas 영상녹화 팝업에 추가
 	$(document).on('click', '.player.cannvas', function() {	        
 		$("#wrapper").addClass("canvasopen");
