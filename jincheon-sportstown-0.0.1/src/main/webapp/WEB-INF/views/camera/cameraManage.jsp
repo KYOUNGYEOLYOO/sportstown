@@ -143,7 +143,7 @@ function onClick_disconnect(){
 			if(ajaxData.resultCode == "Success"){
 				console.log("success");
 				alert("연결해제 성공");
-// 				location.reload();
+				location.reload();
 			}else{
 				console.log("fail이다...");
 				alert("연결해제 실패");

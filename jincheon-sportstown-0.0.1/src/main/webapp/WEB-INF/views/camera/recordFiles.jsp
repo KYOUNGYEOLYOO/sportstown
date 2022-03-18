@@ -27,12 +27,6 @@ $(document).ready(function(){
 	
 	initPalyer();
 	
-	console.log("1111111111");
-	// canvas 영상녹화 팝업에 추가
-	$(document).on('click', '.player.cannvas.popUp', function() {	        
-		$("#wrapper").addClass("canvasopen");
-		addCanvas();
-	});		
 	$(document).on('click', '.canvasMenuWrap > ul > li > p', function() {	        
 		$(this).toggleClass("open");
 	});		
@@ -42,6 +36,7 @@ $(document).ready(function(){
 		$(this).parent().addClass("on");
 	});
 	$(document).on('click', '.canvasMenuWrap .width a', function() {
+//	 	alert($(this).context.innerHTML);
 		changeWidth($(this).context.innerHTML);
 	});
 	$(document).on('click', '.canvasMenuWrap .figure a', function() {
@@ -63,7 +58,14 @@ $(document).ready(function(){
 		$("#wrapper").removeClass("canvasopen");
 		$(".canvasMenuWrap").find("li").removeClass("on");
 		delCanvas($("#canvas"),$("#canvasChange"));
-	});		
+		
+		$("#player").attr('style','width:560;height:315;');
+		$("#videoview").attr('style','height: 335px;padding: 20px 20px 0; position: relative;');
+		
+		
+		
+		document.webkitExitFullscreen();
+	});
 });
 </script>
 
@@ -96,8 +98,8 @@ function initPalyer()
 	jwplayer("player").setup({
 		flashplayer: "<c:url value="/bluecap"/>/jwplayer/jwplayer.flash.swf",
 		"file" : mediaUrl,
-		"width" : 850,
-		"height" : 437,
+		"width" : "100%",
+		"height" : "65%",
 		// 'provider': 'rtmp',
 		autostart : true
 	});
@@ -118,6 +120,7 @@ function initPalyer()
 		
 		
 	    jwplayer("player").addButton("<c:url value="/resources/images/player/btn_slomo.170623.png"/>","Toggle Slow Motion", toggleSlomo,"slomo");
+	    this.addButton("<c:url value="/resources/images/contents/btn_canvas.png"/>","canvas", startCanvas,"canvas");
 // 	    jwplayer("player").addButton("","","","cannvas","");
 // 	    $("#player").find("[button=cannvas]").attr("class","");
 // 	    $("#player").find("[button=cannvas]").addClass("player cannvas");
@@ -160,7 +163,46 @@ function onClick_download()
  	$(location).attr("href", "<c:url value="/file/download"/>/${currentFileId}");
 }
 
+function startCanvas(){
 
+	$("#wrapper").addClass("canvasopen");
+	
+	
+
+	var container = document.getElementById("wrapper");
+
+	if (!document.fullscreenElement) {
+		
+		addCanvas3();
+		
+		$("#player").attr('style','width:100%;height:100%;');
+// 		$("#videoview").attr('style','height: 100%;padding: 20px 20px 0; position: relative;');
+		container.webkitRequestFullscreen();
+	} else {
+		$("#player").attr('style','width:100%;height:65%;');
+// 		$("#videoview").attr('style','height: 335px;padding: 20px 20px 0; position: relative;');
+		
+		
+		
+		document.webkitExitFullscreen();
+	}
+	
+	
+}
+
+
+document.addEventListener('fullscreenchange', exitHandler);
+document.addEventListener('webkitfullscreenchange', exitHandler);
+document.addEventListener('mozfullscreenchange', exitHandler);
+document.addEventListener('MSFullscreenChange', exitHandler);
+
+function exitHandler() {
+    if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+    	$("#player").attr('style','width:100%;height:65%;');
+// 		$("#videoview").attr('style','height: 335px;padding: 20px 20px 0; position: relative;');
+		document.webkitExitFullscreen();
+    }
+}  
 </script>
 
 
@@ -168,108 +210,102 @@ function onClick_download()
 
 </head>
 <body>
-
-<div id="wrapper">
-
-<div class="popupWindow">
-	<div class="popupheader">${camera.name} 녹화 보기</div>
-	<div id='container'>
-		<div class="popupcontents">
-			<div class="vodregistBox">
+<div id="wrappers" style="width:100%; height:100%">
+	<div id="wrapper" style="width:100%; height:100%">
 	
-				<div class="vodregist ">
-					<div class="videobox">
-					<div class="videoview mgb30">
-						<video id="player"></video>	
-						<button class="player cannvas popUp"></button>
-					</div>
-					</div>
-	
-					<table class="write_type1 mgb20" summary="">
-						<caption></caption>
-						<colgroup>
-						<col width="150">
-						<col width="*">
-						<col width="150">
-						<col width="*">
-						</colgroup>
-						<tbody>
-							<tr>
-								<th>카메라</th>
-								<td colspan="3">
-									<input type="text" name="sportsEvent" title="카메라" class="type_2" value="${camera.name}" readonly>
-								</td>
-							</tr>
-							<tr>
-								<th>스포츠종목</th>
-								<td colspan="3">
-									<input type="text" name="sportsEvent" title="스포츠종목" class="type_2" value="${camera.sportsEvent.name}" readonly>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					
-					<!-- 		0316 영상녹화에서 녹화된거 바로 눌러서 오는 팝업		 -->
-					<!--	캔버스 추가	 -->
-					<!-- 	canvas -->
-					<div class="canvasContainer">
-						<div class="canvasWrap" id="canvasWrap">
-							<div class="canvasMenuWrap" >
-								<ul>
-									<li class="figure">
-										<p>도형</p>
+	<div class="popupWindow" style="width:100%; height:100%">
+		<div class="popupheader">${camera.name} 녹화 보기</div>
+		<div id='container' style="width:100%; height:100%">
+	<!-- 		<div class="popupcontents"> -->
+	<!-- 			<div class="vodregistBox"> -->
+		
+	<!-- 				<div class="vodregist "> -->
+	<!-- 					<div class="videobox"> -->
+	<!-- 					<div class="videoview mgb30"> -->
+							<video id="player"></video>
+							<!-- 						//canvas -->	
+							<div class="canvasContainer">
+								<div class="canvasWrap" id="canvasWrap">
+									<div class="canvasMenuWrap" >
 										<ul>
-											<li class="quadrangle"><a href="#">네모</a></li>
-											<li class="circle"><a href="#">원</a></li>
-											<li class="line"><a href="#">자유선</a></li>
+											<li class="figure">
+												<p>도형</p>
+												<ul>
+													<li class="quadrangle"><a href="#">네모</a></li>
+													<li class="circle"><a href="#">원</a></li>
+													<li class="line"><a href="#">자유선</a></li>
+												</ul>
+											</li>
+											<li class="color">
+												<p>색깔</p>
+												<ul>
+													<li class="blue"><a href="#">파랑</a></li>
+													<li class="red"><a href="#">빨강</a></li>
+													<li class="green"><a href="#">초록</a></li>
+													<li class="black"><a href="#">검정</a></li>
+													<li class="skiblue"><a href="#">하늘색</a></li>				
+												</ul>
+											</li>
+											<li class="width">
+												<p>두께</p>
+												<ul>
+													<li class="thin"><a href="#">얇은 거</a></li>
+													<li class="normal"><a href="#">보통</a></li>
+													<li class="bold"><a href="#">두꺼운 거</a></li>
+												</ul>
+											</li>
+											<li class="eraser">
+												<a href="#">지우개</a>
+											</li>		
+											<li class="reset">
+												<p>초기화</p>
+											</li>				
 										</ul>
-									</li>
-									<li class="color">
-										<p>색깔</p>
-										<ul>
-											<li class="blue"><a href="#">파랑</a></li>
-											<li class="red"><a href="#">빨강</a></li>
-											<li class="green"><a href="#">초록</a></li>
-											<li class="black"><a href="#">검정</a></li>
-											<li class="skiblue"><a href="#">하늘색</a></li>				
-										</ul>
-									</li>
-									<li class="width">
-										<p>두께</p>
-										<ul>
-											<li class="thin"><a href="#">얇은 거</a></li>
-											<li class="normal"><a href="#">보통</a></li>
-											<li class="bold"><a href="#">두꺼운 거</a></li>
-										</ul>
-									</li>
-									<li class="eraser">
-										<a href="#">지우개</a>
-									</li>		
-									<li class="reset">
-										<p>초기화</p>
-									</li>				
-								</ul>
-								<p class="close">닫기</p>
-							</div>			
-						</div>
-					</div>		
-					<!-- 	//canvas -->
-	
-					<div class="btnbox alignR">
-						<span class="btn_typeA"><a href="javascript:onClick_download();">다운로드</a></span>
-	<!-- 					<span class="btn_typeA t1"><a href="#">저장</a></span> <span -->
-							<span class="btn_typeA t2"><a href="javascript:onClick_close();">닫기</a></span>
-					</div>
-				</div>
-	
+										<p class="close">닫기</p>
+									</div>			
+								</div>
+							</div>		
+	<!-- 						//canvas -->
+	<!-- 					</div> -->
+	<!-- 					</div> -->
+	<!-- 				</div> -->
+	<!-- 			</div> -->
+	<!-- 		</div> -->
+		
+						
+			<table class="write_type1 mgb20" summary="">
+				<caption></caption>
+				<colgroup>
+				<col width="150">
+				<col width="*">
+				<col width="150">
+				<col width="*">
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>카메라</th>
+						<td colspan="3">
+							<input type="text" name="sportsEvent" title="카메라" class="type_2" value="${camera.name}" readonly>
+						</td>
+					</tr>
+					<tr>
+						<th>스포츠종목</th>
+						<td colspan="3">
+							<input type="text" name="sportsEvent" title="스포츠종목" class="type_2" value="${camera.sportsEvent.name}" readonly>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="btnbox alignR">
+				<span class="btn_typeA"><a href="javascript:onClick_download();">다운로드</a></span>
+		<!-- 					<span class="btn_typeA t1"><a href="#">저장</a></span> <span -->
+				<span class="btn_typeA t2"><a href="javascript:onClick_close();">닫기</a></span>
 			</div>
 		</div>
 	</div>
-
-
-</div>
-
-
+	
+	
+	</div>
 </div>
 </body>
 </html>

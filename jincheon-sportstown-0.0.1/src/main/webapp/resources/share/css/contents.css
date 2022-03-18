@@ -18,9 +18,9 @@
 .cameraBox > ul > li .videocontents	{position:relative; background:#000; color:#ffffff;}
 .cameraBox > ul > li:nth-of-type(even)	{margin-left:10px;}
 .cameraBox > ul > li:nth-of-type(n+3)	{margin-top:10px;}
-.cameraBox > ul.camera1pt li	{width:1561px;}
+.cameraBox > ul.camera1pt li	{width:1488px;}
 .cameraBox > ul.camera2pt li	{width:calc(50% + -5px); height:532px}
-.cameraBox > ul.camera3pt li	{width:calc(40%); height:calc(50% + -5px)}
+.cameraBox > ul.camera3pt li	{width:calc(39% + -5px); height:calc(50% + -5px)}
 .cameraBox > ul.camera4pt li	{width:calc(33% + -5px); height:calc(42% + -5px)}
 .cameraBox > ul.camera5pt li	{width:calc(27% + -5px); height:calc(33% + -5px)}
 /* .cameraBox > ul.camera1pt li	{width:1561px;} */
@@ -60,12 +60,12 @@
 /* 	.cameraBox > ul.camera4pt li	{width:615px;} */
 	.cameraBox > ul.camera1pt li	{width:100%;}
 	.cameraBox > ul.camera2pt li	{width:calc(50% + -5px); height:532px}
-	.cameraBox > ul.camera3pt li	{width:calc(40%); height:calc(50% + -5px)}
+	.cameraBox > ul.camera3pt li	{width:calc(50% + -6px); height:calc(50% + -5px)}
 	.cameraBox > ul.camera4pt li	{width:calc(33% + -5px); height:calc(34% + -5px)}
 	.cameraBox > ul.camera5pt li	{width:calc(33% + -5px); height:calc(33% + -5px)}
 
-	.camera1pt li .videocontents {height:836px;}
-	.camera2pt li .videocontents {height:532px;}
+	.camera1pt li .videocontents {height:1080px;}
+	.camera2pt li .videocontents {height:537px;}
 	.camera3pt li .videocontents {height:calc(100%);}	
 	.camera4pt li .videocontents {height:calc(100%);}
 	.camera5pt li .videocontents {height:calc(100%);}

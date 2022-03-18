@@ -435,8 +435,8 @@ function onClick_connectAll()
 		beforeSend : function(xhr, settings ){},
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
-// 			location.reload();
-				
+			location.reload();
+			alert("연결 성공");
 		}
 	});
 }
@@ -460,14 +460,8 @@ function onClick_disConnectAll()
 			alert("disConnectAll Error");
 		},
 		success : function (ajaxData) {
-// 			location.reload();
-			alert("123");
-// 			console.log("staticCameras",ajaxData.staticCameras);
-// 			console.log("camera",ajaxData.camera);
-// 			console.log("camera1",ajaxData.camera1);
-// 			staticCameras = ajaxData.staticCameras;
-// 			camera = ajaxData.camera;
-// 			camera1 = ajaxData.camera1;
+			location.reload();
+			alert("연결 해제 성공");
 		}
 	});
 }

@@ -82,6 +82,14 @@ function resizeCanvas2(canvas){
 	console.log("ctx.strokeStyle112 : ",ctx.strokeStyle);
 }
 
+function resizeCanvas3(canvas){
+	canvas.width = 1920;
+	canvas.height = 1080;
+	ctx.strokeStyle = "#ff0000";
+	ctxChange.strokeStyle = "#ff0000";
+	console.log("ctx.strokeStyle112 : ",ctx.strokeStyle);
+}
+
 function addCanvas2(){
 	console.log("시작이 된거 같은데??1111111111");
 	
@@ -114,6 +122,39 @@ function addCanvas2(){
 	// 이유는 모르겠는데 실행 안됨 이 내용들을 setAttribute에서 바로 실행
 	// 사실 실행되는거였는데 이거 코드 자체가 수정이 적용이 안되고 있었음.. >> 인터넷 캐시 삭제후 적용..  
 	window.addEventListener("resize",resizeCanvas2(canvas), false);	
+	canvas.addEventListener("mousemove",onMouseMove);
+	canvas.addEventListener("mousedown",startPainting);
+	canvas.addEventListener("mouseup",stopPainting);
+	canvas.addEventListener("mouseleave",stopPainting);
+	
+}
+
+function addCanvas3(){
+	
+	const canvasChange = document.createElement("canvas");
+	canvasChange.setAttribute("id","canvasChange");
+	document.getElementById("canvasWrap").appendChild(canvasChange);
+	canvasChange.setAttribute("style","position: absolute; top: 0px; left: 0px;"+
+	"z-index: 1; background-color: transparent;");
+	
+	
+	const canvas = document.createElement("canvas");
+	canvas.setAttribute("id", "canvas");
+	document.getElementById("canvasWrap").appendChild(canvas);
+	canvas.setAttribute("background-color","transparent");
+	canvas.setAttribute("style","position: absolute; top: 0px; left: 0px;"+
+	"z-index: 2; ");
+	
+		
+	ctx = canvas.getContext("2d");
+	ctxChange = canvasChange.getContext("2d");
+	
+	ctx.strokeStyle = "#ff0000";
+	ctxChange.strokeStyle = "#ff0000";
+	console.log("ctx.strokeStyle111 : ",ctx.strokeStyle);
+	
+	resizeCanvas3(canvas); 
+	window.addEventListener("resize",resizeCanvas3(canvas), false);	
 	canvas.addEventListener("mousemove",onMouseMove);
 	canvas.addEventListener("mousedown",startPainting);
 	canvas.addEventListener("mouseup",stopPainting);

@@ -28,6 +28,7 @@ import com.bcs.util.EmptyChecker;
 import com.bluecapsystem.cms.core.data.condition.Paging;
 import com.bluecapsystem.cms.core.data.entity.Code;
 import com.bluecapsystem.cms.core.data.entity.Property;
+import com.bluecapsystem.cms.core.properties.StoragePathProperties;
 import com.bluecapsystem.cms.core.result.CommonResult;
 import com.bluecapsystem.cms.core.result.EmResult;
 import com.bluecapsystem.cms.core.result.IResult;
@@ -212,8 +213,8 @@ public class CameraJsonController {
 
 				String result = "";
 				applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
-				streamName = camera.getStreamMetaItems().get(0).getStreamName();
-				streamName = streamName.replace(".stream", "");
+				streamName = camera.getStreamMetaItems().get(0).getStreamName(); // 0308 이후로 .stream 붙어서 들어옴.
+				streamName = streamName.replace(".stream", ""); // 추가
 				streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 				
 
@@ -358,11 +359,14 @@ public class CameraJsonController {
 		
 		applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 		streamName = camera.getStreamMetaItems().get(0).getStreamName();
+		streamName = streamName.replace(".stream", ""); 
 		streamServer = camera.getStreamMetaItems().get(0).getStreamServer().getName();
 
 		baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 		baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
 
+		
+		
 		switch (applicationCode) {
 		case "Dlive":
 			applicationCode = "Dlive";
@@ -443,18 +447,6 @@ public class CameraJsonController {
 			staticCameras = camServ.getCameras(camCondition);
 			mnv.addObject("staticCameras", staticCameras);
 
-//			System.out.println("/////////////////static camera : " + staticCameras);
-//			camCondition = new CameraSelectCondition();
-//			camCondition.setCameraType(CameraType.Shift);
-
-//			shiftCameras = Collections.emptyList();
-//			if (staticCameras.size() > 0 && EmptyChecker.isNotEmpty(staticCameras.get(0).getLocationCode())) {
-//				camCondition.setLocationCode(staticCameras.get(0).getLocationCode());
-//				shiftCameras = camServ.getCameras(camCondition);
-//			}
-//			mnv.addObject("shiftCameras", shiftCameras);
-//			System.out.println("shift camera : " + shiftCameras);
-			
 			staticCameras.forEach(camera -> function1(camera));
 
 		} catch (Exception ex) {
@@ -507,13 +499,7 @@ public class CameraJsonController {
 		condition = new CameraSelectCondition(camId);
 		condition.setHasStreamMeta(true);
 		Camera camera = camServ.getCamera(condition);
-//		try {
-//			condition.setCamId(camId);
-//			camera = camServ.getCamera(condition);
-//			resultCode = CommonResult.Success;
-//		} catch (Exception ex) {
-//			resultCode = CommonResult.SystemError;
-//		}
+
 		
 		try {
 			String baseUrl = null;
@@ -521,15 +507,13 @@ public class CameraJsonController {
 			applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 			streamName = camera.getStreamMetaItems().get(0).getStreamName();
 			streamName = streamName.replace(".stream", ""); 
-//			streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 			streamServer = camera.getStreamMetaItems().get(0).getStreamServer().getName();
-//			applicationCode = (String) request.getParameter("applicationName");
-//			streamName = (String) request.getParameter("streamName");
-//			streamServer = (String) request.getParameter("serverName");
+
 
 			baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 			baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
 
+			
 			switch (applicationCode) {
 			case "Dlive":
 				applicationCode = "Dlive";
@@ -551,12 +535,8 @@ public class CameraJsonController {
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
-//			Enumeration params = request.getParameterNames();
-//			while (params.hasMoreElements()) {
-//				String name = (String) params.nextElement();
-//				System.out.print(name + " : " + request.getParameter(name) + "     ");
-//			}
-			System.out.println();
+
+			
 		} finally {
 			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("applicationName", applicationCode);
@@ -799,8 +779,11 @@ public class CameraJsonController {
 		String streamNameBefore = camera.getStreamMetaItems().get(0).getStreamNameBefore(); 
 		String applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 		String streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
-		String filePath = "Y:\\content\\"+streamNameBefore;// 파일 형식이 .stream임 ( 텍스트는 .txt )
-		File deleteFile = new File(filePath);
+//		String filePath = "Y:\\content\\"+streamNameBefore;// 파일 형식이 .stream임 ( 텍스트는 .txt )
+//		File deleteFile = new File(filePath);
+		File contentRoot = StoragePathProperties.getDiretory("WOWZACONTENT");
+		File deleteFile = new File(contentRoot, streamNameBefore);
+	      
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String ErrorCode = "";
 		String finalUrl = "";
