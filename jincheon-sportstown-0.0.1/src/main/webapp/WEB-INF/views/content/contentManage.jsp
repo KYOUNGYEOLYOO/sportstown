@@ -692,16 +692,7 @@ function clear_cameraDetail()
 </div>
 <!-- //skip navi -->
 
-<<<<<<< HEAD
-<div id="wrapper">	
-	<!-- header -->
-	<jsp:include page="/include/top">
-		<jsp:param value="search" name="mainMenu"/>
-		<jsp:param value="contentManage" name="subMenu"/>
-	</jsp:include>
-	<!-- //header -->
-	<div title="승인요청" class="bcs_dialog_hide" data-ctrl-view="content_auth" >
-=======
+
 <div id="wrappers">	
 <!-- header -->
 <jsp:include page="/include/top">
@@ -713,27 +704,7 @@ function clear_cameraDetail()
 </div>
 <!-- container -->
 <div id="container">
-	<div class="titleWrap">
-		<h2>영상검색</h2>
-		<div class="selectWrap">
-			<!-- 	위치이동 -->
-			<c:choose>					
-				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-					<select class="selectyze" name="sportsEventCode" id="sportsEventCodeSelect">
-							<option value="">운동종목</option>
-							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
-								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
-							</c:forEach>
-					</select>
-				</c:when>					
-				<c:otherwise>
-					<input type="hidden" name="sportsEventCode" value="${loginUser.sportsEventCode}"/>
-				</c:otherwise>
-			</c:choose>	
-			<!-- 	//위치이동 -->
-		</div>
->>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
-	</div>
+	
 	<!-- container -->
 	<div id="container">
 		<div class="titleWrap">
