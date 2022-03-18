@@ -31,8 +31,8 @@ public class WowzaLogScheduler
 //	@Value("${com.bluecapsystem.cms.jincheon.sportstown.scheduler.WowzaLogScheduler.enable}")
 //	private final boolean enableTask = true;
 	
-	//매월 마지막날 저녁 10시 실행
-	@Scheduled(cron = "0 0 0 1 * *")
+	//매월 마지막날 1시 실행
+	@Scheduled(cron = "0 0 1 L * *")
 //	@Scheduled(cron = "10 * * * * *")
 	public void wowzaLogCheck()
 	{
@@ -40,29 +40,29 @@ public class WowzaLogScheduler
 //			return;
 //		}
 		
-//		List<File> logFiles = fileServ.getFiles("WOWZALOG1");
-//
-//		if (logFiles == null) {
-//			return;
-//		}
-//		
-//		
-//		
-//		for (File file : logFiles) {
-//			
-//			
-//			
-//			
-//			boolean fileInfo = file.delete();
-//			
-//			if(fileInfo != true) {
-//				logger.error("Wowza Log File delete error [fileName = {}]", file.getPath());
-//			}
-//		}
-//		
-//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSS-z");
-//		
-//		logger.info("Wowza Log File delete info [scheduler run info = {}]", dateFormat);
+		List<File> logFiles = fileServ.getFiles("WOWZALOG1");
+
+		if (logFiles == null) {
+			return;
+		}
+		
+		
+		
+		for (File file : logFiles) {
+			
+			
+			
+			
+			boolean fileInfo = file.delete();
+			
+			if(fileInfo != true) {
+				logger.error("Wowza Log File delete error [fileName = {}]", file.getPath());
+			}
+		}
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSS-z");
+		
+		logger.info("Wowza Log File delete info [scheduler run info = {}]", dateFormat);
 		
 		
 //		List<File> logFiles2 = fileServ.getFiles("WOWZALOG2");
