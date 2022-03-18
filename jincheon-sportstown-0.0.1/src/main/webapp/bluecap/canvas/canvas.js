@@ -70,6 +70,57 @@ function resizeCanvas(canvas){
 	ctxChange.strokeStyle = "#ff0000";
 }
 
+function resizeCanvas2(canvas){
+	//canvas.width = window.innerWidth;
+	console.log("111뭐야 도대체 : ", window.document.getElementById("wrappers").clientWidth);
+	console.log("222뭐야 도대체 : ", window.document.getElementById("wrappers").clientHeight);
+	//canvas.height = window.innerHeight;
+	canvas.width = window.document.getElementById("wrappers").clientWidth;
+	canvas.height = window.document.getElementById("wrappers").clientHeight;
+	ctx.strokeStyle = "#ff0000";
+	ctxChange.strokeStyle = "#ff0000";
+	console.log("ctx.strokeStyle112 : ",ctx.strokeStyle);
+}
+
+function addCanvas2(){
+	console.log("시작이 된거 같은데??1111111111");
+	
+	const canvasChange = document.createElement("canvas");
+	canvasChange.setAttribute("id","canvasChange");
+//	document.body.appendChild(canvasChange);
+	document.getElementById("canvasWrap").appendChild(canvasChange);
+	canvasChange.setAttribute("style","position: absolute; top: 0px; left: 0px;"+
+	"z-index: 1; background-color: transparent;");
+	
+	
+	const canvas = document.createElement("canvas");
+	canvas.setAttribute("id", "canvas");
+//	document.body.appendChild(canvas);
+	document.getElementById("canvasWrap").appendChild(canvas);
+	canvas.setAttribute("background-color","transparent");
+	canvas.setAttribute("style","position: absolute; top: 0px; left: 0px;"+
+	"z-index: 2; ");
+	
+		
+	ctx = canvas.getContext("2d");
+	ctxChange = canvasChange.getContext("2d");
+	
+	// default 색상 빨강으로 설정
+	ctx.strokeStyle = "#ff0000";
+	ctxChange.strokeStyle = "#ff0000";
+	console.log("ctx.strokeStyle111 : ",ctx.strokeStyle);
+	
+	resizeCanvas2(canvas); 
+	// 이유는 모르겠는데 실행 안됨 이 내용들을 setAttribute에서 바로 실행
+	// 사실 실행되는거였는데 이거 코드 자체가 수정이 적용이 안되고 있었음.. >> 인터넷 캐시 삭제후 적용..  
+	window.addEventListener("resize",resizeCanvas2(canvas), false);	
+	canvas.addEventListener("mousemove",onMouseMove);
+	canvas.addEventListener("mousedown",startPainting);
+	canvas.addEventListener("mouseup",stopPainting);
+	canvas.addEventListener("mouseleave",stopPainting);
+	
+}
+
 function addCanvas(){
 	
 	const canvasChange = document.createElement("canvas");

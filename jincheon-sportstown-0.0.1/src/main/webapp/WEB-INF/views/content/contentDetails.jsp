@@ -21,6 +21,48 @@
 <%-- <c:set var="contentRootUri" value=""/> --%>
 
 <script type="text/javascript">
+
+$(document).on('click', '.canvasMenuWrap > ul > li > p', function() {	        
+	$(this).toggleClass("open");
+});		
+$(document).on('click', '.canvasMenuWrap > ul a', function() {	
+	$(".canvasMenuWrap .eraser").removeClass("on");
+	$(this).parent().siblings().removeClass("on");
+	$(this).parent().addClass("on");
+});
+$(document).on('click', '.canvasMenuWrap .width a', function() {
+// 	alert($(this).context.innerHTML);
+	changeWidth($(this).context.innerHTML);
+});
+$(document).on('click', '.canvasMenuWrap .figure a', function() {
+	drawShape($(this).context.innerHTML);
+});
+$(document).on('click', '.canvasMenuWrap .color a', function() {
+	changeColor($(this).context.innerHTML);
+});
+$(document).on('click', '.canvasMenuWrap .eraser a', function() {	        
+	$(".canvasMenuWrap").find("li").removeClass("on");
+	eraseCanvas();
+	$(this).parent().addClass("on");
+});	
+$(document).on('click', '.canvasMenuWrap .reset p', function() {	        
+	$(".canvasMenuWrap").find("li").removeClass("on");
+	clrCanvas($("#canvas"));
+});		
+$(document).on('click', '.canvasMenuWrap > p.close', function() {	        
+	$("#wrapper").removeClass("canvasopen");
+	$(".canvasMenuWrap").find("li").removeClass("on");
+	delCanvas($("#canvas"),$("#canvasChange"));
+	
+	$("#player").attr('style','width:560;height:315;');
+	$("#videoview").attr('style','height: 335px;padding: 20px 20px 0; position: relative;');
+	
+	
+	
+	document.webkitExitFullscreen();
+});	
+
+
 var videoTag;
 var currentRate = 1;
 var eventSender = new bcs_ctrl_event($("[data-ctrl-view=content_details]"));
@@ -231,14 +273,107 @@ function callback_selectedUsers(sender, users)
 	return true;
 }
 
+function startCanvas(){
 
+	$("#wrapper").addClass("canvasopen");
+	
+	
+
+	var container = document.getElementById("wrapper");
+
+	if (!document.fullscreenElement) {
+		
+		addCanvas2();
+		
+		$("#player").attr('style','width:100%;height:100%;');
+		$("#videoview").attr('style','height: 100%;padding: 20px 20px 0; position: relative;');
+		container.webkitRequestFullscreen();
+	} else {
+		$("#player").attr('style','width:560;height:315;');
+		$("#videoview").attr('style','height: 335px;padding: 20px 20px 0; position: relative;');
+		
+		
+		
+		document.webkitExitFullscreen();
+	}
+	
+	
+}
+
+
+document.addEventListener('fullscreenchange', exitHandler);
+document.addEventListener('webkitfullscreenchange', exitHandler);
+document.addEventListener('mozfullscreenchange', exitHandler);
+document.addEventListener('MSFullscreenChange', exitHandler);
+
+function exitHandler() {
+    if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
+    	$("#player").attr('style','width:560;height:315;');
+		$("#videoview").attr('style','height: 335px;padding: 20px 20px 0; position: relative;');
+		document.webkitExitFullscreen();
+    }
+}  
 </script>
 
+<<<<<<< HEAD
 	<div class="videobox">
 		<div class="videoview">
 			<div id="player" style="background:#fafafa"></div>
 <!-- 			<button class="player cannvas"></button> -->
 		</div>
+=======
+	<div id="wrapper">
+<!-- 		<div id="container2" style="width:100%;height:100%;"> -->
+			<div class="videoview" id="videoview" >
+				<div id="player" style="background:#fafafa"></div>	
+			</div>
+			
+			<!-- 	canvas -->
+			<div class="canvasContainer">
+				<div class="canvasWrap" id="canvasWrap">
+					<div class="canvasMenuWrap" >
+						<ul>
+							<li class="figure">
+								<p>도형</p>
+								<ul>
+									<li class="quadrangle"><a href="#">네모</a></li>
+									<li class="circle"><a href="#">원</a></li>
+									<li class="line"><a href="#">자유선</a></li>
+								</ul>
+							</li>
+							<li class="color">
+								<p>색깔</p>
+								<ul>
+									<li class="blue"><a href="#">파랑</a></li>
+									<li class="red"><a href="#">빨강</a></li>
+									<li class="green"><a href="#">초록</a></li>
+									<li class="black"><a href="#">검정</a></li>
+									<li class="skiblue"><a href="#">하늘색</a></li>				
+								</ul>
+							</li>
+							<li class="width">
+								<p>두께</p>
+								<ul>
+									<li class="thin"><a href="#">얇은 거</a></li>
+									<li class="normal"><a href="#">보통</a></li>
+									<li class="bold"><a href="#">두꺼운 거</a></li>
+								</ul>
+							</li>
+							<li class="eraser">
+								<a href="#">지우개</a>
+							</li>		
+							<li class="reset">
+								<p>초기화</p>
+							</li>				
+						</ul>
+						<p class="close">닫기</p>
+					</div>			
+				</div>
+<!-- 			</div> -->
+		</div>		
+		<!-- 	//canvas -->
+			
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 	</div>
 	
 	<div title="사용자조회" class="bcs_dialog_hide" data-ctrl-view="user_select" data-event-selected="callback_selectedUsers" data-param-selectedUserId="frmSelectedUsers">
