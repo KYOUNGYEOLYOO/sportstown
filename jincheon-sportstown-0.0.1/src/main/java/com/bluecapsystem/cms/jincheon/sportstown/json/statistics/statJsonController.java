@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bcs.util.DateUtil;
 import com.bcs.util.EmptyChecker;
 import com.bluecapsystem.cms.core.data.condition.CodeSelectCondition;
 import com.bluecapsystem.cms.core.data.condition.Paging;
@@ -122,6 +123,31 @@ public class statJsonController {
 		
 		return mnv;
 		
+	}
+	
+	@RequestMapping("/download")
+	public void download(HttpServletRequest request,
+			@RequestParam(value="year", required=false, defaultValue="") String year,
+			@RequestParam(value="month", required=false, defaultValue="") String month) {
+
+		
+		List<DashboardData> sportsDatas = null;
+		List<DashboardData> countDatas = null;
+		try {
+			
+			sportsDatas = dashboardDataDao.statSportsCode(year+""+month);
+			countDatas = dashboardDataDao.typeCount(year+""+month);
+			
+		} catch (Exception ex) {
+			logger.error("엑셀 데이터 조회 오류 [year={},month={}] \n{}", year,month, ExceptionUtils.getFullStackTrace(ex));
+		} 
+		
+//		DateUtil dUtil = new DateUtil();
+//		Workbook workbook = new XSSFWorkbook();
+//		Sheet sheet = workbook.createSheet();
+//		
+//		
+//		String [] columns = new String[]{"카테고리 1차","카테고리 2차","Top5","검색 횟수"};
 	}
 	
 }

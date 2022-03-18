@@ -114,7 +114,7 @@ var statList = new Array();
 function monthClick(value){
 	
 	$('#monthTitle').html(value+" 월 통계");
-	
+	$('#selectMonnth').val(value);
 	statList = new Array();
 	var year = $('#selectYear').val();
 	
@@ -146,8 +146,19 @@ function monthClick(value){
 	
 }
 
+function onClick_download(){
+	if($('#selectMonnth').val() == ""){
+		new bcs_messagebox().open("통계 다운도르", "월을 선택해주세요.", null);
+		return false;
+	}
+	$('#year').val($('#selectYear').val());
+	$('#month').val($('#selectMonnth').val());
+	
+	$("#downloadFrm").submit();
+}
+
 function typeCount(value){
-var year = $('#selectYear').val();
+	var year = $('#selectYear').val();
 	
 	$.ajax({
 		url : "<c:url value="/service/statistics/typeCount"/>/"+year+"/"+value,
@@ -246,7 +257,12 @@ function goList(){
 
 
 <div id="container" class="dashboard">
-	
+	<form id="downloadFrm" method="post" action='<c:url value="/service/statistics/download"/>'>
+		<input type="hidden" name="year" id="year" value=""/>
+		<input type="hidden" name="month" id="month" value=""/>
+
+	</form>
+	<input type="hidden" id="selectMonnth" value="" />
 	<div class="titleWrap">
 		<h2>통계</h2>		
 		<dl>
@@ -305,7 +321,14 @@ function goList(){
 			
 			<div class="tableContainer" style="height: 636px;overflow: auto;">
 				<div style="padding: 10px 20px;">
-					<h4 style="font-weight: bold;line-height: 40px;" id="monthTitle">월 통계</h4>
+					<div style="display: flex;justify-content: space-between;">
+						<h4 style="font-weight: bold;line-height: 40px;" id="monthTitle">월 통계</h4>
+<!-- 						<div class="btnWrap"> -->
+<!-- 							<a class="btn download" href="javascript:onClick_download();">다운로드</a>	 -->
+											
+<!-- 						</div> -->
+					</div>
+					
 				</div>
 				
 				<table>

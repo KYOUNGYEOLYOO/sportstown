@@ -31,8 +31,8 @@ public class WowzaLogScheduler
 //	@Value("${com.bluecapsystem.cms.jincheon.sportstown.scheduler.WowzaLogScheduler.enable}")
 //	private final boolean enableTask = true;
 	
-	//매월 마지막날 1시 실행
-	@Scheduled(cron = "0 0 1 L * *")
+	//매달 15일 1시 실행
+	@Scheduled(cron = "0 0 1 15 * *")
 //	@Scheduled(cron = "10 * * * * *")
 	public void wowzaLogCheck()
 	{
