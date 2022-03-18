@@ -648,6 +648,10 @@ function clear_cameraDetail()
 </div>
 <!-- //skip navi -->
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 <div id="wrappers">	
 <!-- header -->
 <jsp:include page="/include/top">
@@ -659,6 +663,7 @@ function clear_cameraDetail()
 </div>
 <!-- container -->
 <div id="container">
+<<<<<<< HEAD
 	<div class="titleWrap">
 		<h2>영상검색</h2>
 		<div class="selectWrap">
@@ -684,6 +689,14 @@ function clear_cameraDetail()
 		<div id="lnbWrapT" class="searchContainer">
 			<form id="frmSearch" onSubmit="return false;">
 				<input type="hidden" name="hasNotUsed" value="true" />		
+=======
+	
+	<!-- container -->
+	<div id="container">
+		<div class="titleWrap">
+			<h2>영상검색</h2>
+			<div class="selectWrap">
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 				<!-- 	위치이동 -->
 				<div style="display:none">							
 					<c:choose>					
