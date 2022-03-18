@@ -427,7 +427,7 @@ function onClick_connectAll()
 	console.log("sportsEventCode ", $("#sportsEvent").val());
 	var sportsEventCode = $("#sportsEvent").val();
 	$.ajax({
-		url : "<c:url value="/service/camera/connectStreamW/{sportsEventCode}"/>",
+		url : "<c:url value="/service/camera/connectStreamW/all"/>/" + sportsEventCode,
 		async : false,
 		dataType : "json",
 		data : null, 
@@ -435,28 +435,39 @@ function onClick_connectAll()
 		beforeSend : function(xhr, settings ){},
 		error : function (xhr, status, error){},
 		success : function (ajaxData) {
-			location.reload();
+// 			location.reload();
 				
 		}
 	});
 }
+// var staticCameras;
+// var camera;
+// var camera1;
 
 function onClick_disConnectAll()
 {
-	console.log("connectAll");
+	console.log("disconnectAll");
 	console.log("sportsEventCode ", $("#sportsEvent").val());
 	var sportsEventCode = $("#sportsEvent").val();
 	$.ajax({
-		url : "<c:url value="/service/camera/connectStreamW/{sportsEventCode}"/>",
+		url : "<c:url value="/service/camera/disconnectStreamW/all"/>/" + sportsEventCode,
 		async : false,
 		dataType : "json",
 		data : null, 
 		method : "post",
 		beforeSend : function(xhr, settings ){},
-		error : function (xhr, status, error){},
+		error : function (xhr, status, error){
+			alert("disConnectAll Error");
+		},
 		success : function (ajaxData) {
-			location.reload();
-				
+// 			location.reload();
+			alert("123");
+// 			console.log("staticCameras",ajaxData.staticCameras);
+// 			console.log("camera",ajaxData.camera);
+// 			console.log("camera1",ajaxData.camera1);
+// 			staticCameras = ajaxData.staticCameras;
+// 			camera = ajaxData.camera;
+// 			camera1 = ajaxData.camera1;
 		}
 	});
 }

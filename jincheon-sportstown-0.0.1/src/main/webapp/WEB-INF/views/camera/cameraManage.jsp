@@ -143,11 +143,11 @@ function onClick_disconnect(){
 			if(ajaxData.resultCode == "Success"){
 				console.log("success");
 				alert("연결해제 성공");
-				location.reload();
+// 				location.reload();
 			}else{
 				console.log("fail이다...");
 				alert("연결해제 실패");
-// 				new bcs_messagebox().openError("카메라관리", "카메라 연결해제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
+				new bcs_messagebox().openError("카메라관리", "카메라 연결해제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 			}
 		}
 	});
@@ -253,102 +253,99 @@ function clear_cameraDetail()
 <!-- //skip navi -->
 
 <div id="wrapper">	
-<!-- header -->
-<jsp:include page="/include/top">
-	<jsp:param value="manage" name="mainMenu"/>
-	<jsp:param value="cameraManage" name="subMenu"/>
-</jsp:include>
-<!-- //header -->
+	<!-- header -->
+	<jsp:include page="/include/top">
+		<jsp:param value="manage" name="mainMenu"/>
+		<jsp:param value="cameraManage" name="subMenu"/>
+	</jsp:include>
+	<!-- //header -->
 
 
-<div title="카메라등록" class="bcs_dialog_hide" data-ctrl-view="camera_regist" data-event-regist="callback_regist">
-</div>
-
-
-<div title="카메라수정" class="bcs_dialog_hide" data-ctrl-view="camera_modify" data-event-modify="callback_modify">
-</div>
-
-<!-- container -->
-<div id="container">
-	<div class="titleWrap">
-		<h2>관리자기능 - 카메라 등록</h2>
+	<div title="카메라등록" class="bcs_dialog_hide" data-ctrl-view="camera_regist" data-event-regist="callback_regist">
 	</div>
-	<div id="contentsWrap">
-	
-		<!-- lnbWrap -->
-		<div id="lnbWrap" class="searchContainer">
-			<form id="frmSearch" onSubmit="return false;">
-				<input type="hidden" name="hasNotUsed" value="true" />
-				<input type="hidden" name="stateString" value="All" />
-				<ul>				
-					<li>
-						<label for="search_keyword">카메라명</label> 
-						<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
-					</li>
-					<li>
-						<select class="selectyze" name="cameraType">
-							<option value="">카메라유형</option>
-							<option value="Static">고정</option>
-							<option value="Shift">유동</option>
-						</select>
-					</li>
-					<li>
-						<select class="selectyze" name="locationCode">
-							<option value="">카메라위치</option>
-							<c:forEach items="${locations}" var="location">
-								<option value="${location.codeId}">${location.name}</option>
-							</c:forEach>
-						</select>
-					</li>
-					<li>
-						<select class="selectyze" name="sportsEventCode">
-							<option value="">스포츠종목</option>
-							<c:forEach items="${sprotsEvents}" var="sprotsEvent">
-								<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
-							</c:forEach>
-						</select>
-					</li>
-				</ul>
-				
-				
-			</form>
-			<div class="btnWrap">
-				<a class="btn reset" href="javascript:onClick_searchInit();">초기화</a>
-				<a class="btn search" href="javascript:onClick_search();">검색</a>				
-			</div>
-			
-			
-		</div>
-		<!-- //lnbWrap -->
 
-		<!-- contents -->
-		<div id="contents" class="cameraScroll">
-			<div class="vodlistBox">
-				<jsp:include page="/camera/list">
-					<jsp:param value="cameraList" name="listId"/>
-					<jsp:param value="p_cameraList" name="pagerId"/>
-				</jsp:include>
-				<table id="cameraList" class="list_type1" data-ctrl-view="camera_list" data-event-selectedRow="onSelected_cameraListItem"></table>
-<!-- 				<div id="p_cameraList" data-ctrl-view="camera_list_pager"></div> -->
-<!-- 				<div id="NoData"></div> -->
-				<div class="paginate" id="p_cameraList" data-ctrl-view="camera_list_pager" style="text-align: center;"></div>
-				
-			</div>
+
+	<div title="카메라수정" class="bcs_dialog_hide" data-ctrl-view="camera_modify" data-event-modify="callback_modify">
+	</div>
+
+	<!-- container -->
+	<div id="container">
+		<div class="titleWrap">
+			<h2>관리자기능 - 카메라 등록</h2>
 		</div>
-		<div class="detailContainer camera">
-			<form id="frmCameraDetail">
-			</form>
-			<div class="btnWrap cameraSearch">
-				<a class="btn" href="javascript:onClick_connect();">연결</a>
-				<a class="btn" href="javascript:onClick_disconnect();">연결해제</a>
-				<div class="btnWrap">				
-					<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
-					<a class="btn edit" href="javascript:onClick_modify();">수정</a>				
-					<a class="btn write" href="javascript:onClick_regist();">등록</a>			
+		<div id="contentsWrap">
+		
+			<!-- lnbWrap -->
+			<div id="lnbWrap" class="searchContainer">
+				<form id="frmSearch" onSubmit="return false;">
+					<input type="hidden" name="hasNotUsed" value="true" />
+					<input type="hidden" name="stateString" value="All" />
+					<ul>				
+						<li>
+							<label for="search_keyword">카메라명</label> 
+							<input type="text" class="inputTxt" id="search_keyword" name="keyword" />
+						</li>
+						<li>
+							<select class="selectyze" name="cameraType">
+								<option value="">카메라유형</option>
+								<option value="Static">고정</option>
+								<option value="Shift">유동</option>
+							</select>
+						</li>
+						<li>
+							<select class="selectyze" name="locationCode">
+								<option value="">카메라위치</option>
+								<c:forEach items="${locations}" var="location">
+									<option value="${location.codeId}">${location.name}</option>
+								</c:forEach>
+							</select>
+						</li>
+						<li>
+							<select class="selectyze" name="sportsEventCode">
+								<option value="">스포츠종목</option>
+								<c:forEach items="${sprotsEvents}" var="sprotsEvent">
+									<option value="${sprotsEvent.codeId}">${sprotsEvent.name}</option>
+								</c:forEach>
+							</select>
+						</li>
+					</ul>
+					
+					
+				</form>
+				<div class="btnWrap">
+					<a class="btn reset" href="javascript:onClick_searchInit();">초기화</a>
+					<a class="btn search" href="javascript:onClick_search();">검색</a>				
 				</div>
 				
+				
 			</div>
-		</div>
+			<!-- //lnbWrap -->
+
+			<!-- contents -->
+			<div id="contents" class="cameraScroll">
+				<div class="vodlistBox">
+					<jsp:include page="/camera/list">
+						<jsp:param value="cameraList" name="listId"/>
+						<jsp:param value="p_cameraList" name="pagerId"/>
+					</jsp:include>
+					<table id="cameraList" class="list_type1" data-ctrl-view="camera_list" data-event-selectedRow="onSelected_cameraListItem"></table>
+					<div class="paginate" id="p_cameraList" data-ctrl-view="camera_list_pager" style="text-align: center;"></div>
+					
+				</div>
+			</div>
+			<div class="detailContainer camera">
+				<form id="frmCameraDetail">
+				</form>
+				<div class="btnWrap cameraSearch">
+					<a class="btn" href="javascript:onClick_connect();">연결</a>
+					<a class="btn" href="javascript:onClick_disconnect();">연결해제</a>
+					<div class="btnWrap">				
+						<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
+						<a class="btn edit" href="javascript:onClick_modify();">수정</a>				
+						<a class="btn write" href="javascript:onClick_regist();">등록</a>			
+					</div>
+				</div>
+			</div>
 
 		<!-- //contents -->
 
@@ -357,9 +354,9 @@ function clear_cameraDetail()
 <!-- //container -->
 
 
-<!-- footer -->
-<jsp:include page="/include/footer" />
-<!-- //footer -->
+	<!-- footer -->
+	<jsp:include page="/include/footer" />
+	<!-- //footer -->
 </div>
 
 </body>

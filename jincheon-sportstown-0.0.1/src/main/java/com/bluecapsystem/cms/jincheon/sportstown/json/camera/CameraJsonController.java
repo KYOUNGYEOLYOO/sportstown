@@ -339,24 +339,26 @@ public class CameraJsonController {
 	 * streamName); mnv.addObject("streamServer", streamServer);
 	 * mnv.addObject("streamSourceUrl", streamSourceUrl); } return mnv; }
 	 */
-	public void function1(Camera camera){
+	public void function1(Camera camera1){
+		String camId = camera1.getCamId();
+		
 		String baseUrl = null;
 		
 		String applicationCode = "";
 		String streamName = "";
 		String streamServer = "";
-
+		
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
+		
+		CameraSelectCondition condition = new CameraSelectCondition(camId);
+		condition.setHasStreamMeta(true);
+		Camera camera = camServ.getCamera(condition);
+		
 		applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 		streamName = camera.getStreamMetaItems().get(0).getStreamName();
-		streamName = streamName.replace(".stream", ""); 
-//		streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 		streamServer = camera.getStreamMetaItems().get(0).getStreamServer().getName();
-//		applicationCode = (String) request.getParameter("applicationName");
-//		streamName = (String) request.getParameter("streamName");
-//		streamServer = (String) request.getParameter("serverName");
 
 		baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 		baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
@@ -381,8 +383,9 @@ public class CameraJsonController {
 		}
 	}
 	
-	public void function2(Camera camera){
+	public void function2(Camera camera1){
 		
+		String camId = camera1.getCamId();
 		
 		String baseUrl = null;
 		
@@ -393,6 +396,10 @@ public class CameraJsonController {
 		WowzaCURLApi wowzaApi = new WowzaCURLApi();
 		String finalUrl = "";
 
+		
+		CameraSelectCondition condition = new CameraSelectCondition(camId);
+		condition.setHasStreamMeta(true);
+		Camera camera = camServ.getCamera(condition);
 		
 		applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 		streamName = camera.getStreamMetaItems().get(0).getStreamName();
@@ -422,12 +429,12 @@ public class CameraJsonController {
 		}
 	}
 	
-	@RequestMapping(value = "/connectStreamW/{sportsEventCode}")
+	@RequestMapping(value = "/connectStreamW/all/{sportsEventCode}")
 	public ModelAndView connectStreamW(@PathVariable("sportsEventCode") String sportsEventCode) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 
 		List<Camera> staticCameras ;
-		List<Camera> shiftCameras ;
+//		List<Camera> shiftCameras ;
 
 
 		try {
@@ -436,17 +443,17 @@ public class CameraJsonController {
 			staticCameras = camServ.getCameras(camCondition);
 			mnv.addObject("staticCameras", staticCameras);
 
-			System.out.println("/////////////////static camera : " + staticCameras);
-			camCondition = new CameraSelectCondition();
-			camCondition.setCameraType(CameraType.Shift);
+//			System.out.println("/////////////////static camera : " + staticCameras);
+//			camCondition = new CameraSelectCondition();
+//			camCondition.setCameraType(CameraType.Shift);
 
-			shiftCameras = Collections.emptyList();
-			if (staticCameras.size() > 0 && EmptyChecker.isNotEmpty(staticCameras.get(0).getLocationCode())) {
-				camCondition.setLocationCode(staticCameras.get(0).getLocationCode());
-				shiftCameras = camServ.getCameras(camCondition);
-			}
-			mnv.addObject("shiftCameras", shiftCameras);
-			System.out.println("shift camera : " + shiftCameras);
+//			shiftCameras = Collections.emptyList();
+//			if (staticCameras.size() > 0 && EmptyChecker.isNotEmpty(staticCameras.get(0).getLocationCode())) {
+//				camCondition.setLocationCode(staticCameras.get(0).getLocationCode());
+//				shiftCameras = camServ.getCameras(camCondition);
+//			}
+//			mnv.addObject("shiftCameras", shiftCameras);
+//			System.out.println("shift camera : " + shiftCameras);
 			
 			staticCameras.forEach(camera -> function1(camera));
 
@@ -457,12 +464,12 @@ public class CameraJsonController {
 		return mnv;
 	}
 	
-	@RequestMapping(value = "/disconnectStreamW/{sportsEventCode}")
+	@RequestMapping(value = "/disconnectStreamW/all/{sportsEventCode}")
 	public ModelAndView disconnectStreamW(@PathVariable("sportsEventCode") String sportsEventCode) {
 		ModelAndView mnv = new ModelAndView("jsonView");
 
 		List<Camera> staticCameras ;
-		List<Camera> shiftCameras ;
+//		List<Camera> shiftCameras ;
 
 
 		try {
@@ -471,20 +478,11 @@ public class CameraJsonController {
 			staticCameras = camServ.getCameras(camCondition);
 			mnv.addObject("staticCameras", staticCameras);
 
-			System.out.println("/////////////////static camera : " + staticCameras);
-			camCondition = new CameraSelectCondition();
-			camCondition.setCameraType(CameraType.Shift);
-
-			shiftCameras = Collections.emptyList();
-			if (staticCameras.size() > 0 && EmptyChecker.isNotEmpty(staticCameras.get(0).getLocationCode())) {
-				camCondition.setLocationCode(staticCameras.get(0).getLocationCode());
-				shiftCameras = camServ.getCameras(camCondition);
-			}
-			mnv.addObject("shiftCameras", shiftCameras);
-			System.out.println("shift camera : " + shiftCameras);
+			
+//			staticCameras.forEach(camera -> function2(camera));
+//			staticCameras.forEach(camera -> mnv.addObject("camera",camera));
 			
 			staticCameras.forEach(camera -> function2(camera));
-
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -604,15 +602,18 @@ public class CameraJsonController {
 			
 			applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 			streamName = camera.getStreamMetaItems().get(0).getStreamName();
+			logger.warn("1111111111111111",streamName);
 //			streamName = streamName.replace(".stream", ""); disconnect 는 stream이 들어가야됨
 //			streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 			streamServer = camera.getStreamMetaItems().get(0).getStreamServer().getName();
+			logger.warn("222222222222222",streamServer);
 //			applicationCode = (String) request.getParameter("applicationName");
 //			streamName = (String) request.getParameter("streamName");
 //			streamServer = (String) request.getParameter("serverName");
 
 			baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
 			baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+			logger.warn("33333333333333333",baseUrl);
 
 			switch (applicationCode) {
 			case "Dlive":
@@ -646,7 +647,7 @@ public class CameraJsonController {
 			mnv.addObject("resultCode", resultCode);
 			mnv.addObject("applicationName", applicationCode);
 			mnv.addObject("streamName", streamName);
-			mnv.addObject("serverName", streamServer);
+			mnv.addObject("streamServer", streamServer);
 			mnv.addObject("finalUrl", finalUrl);
 		}
 
@@ -811,37 +812,37 @@ public class CameraJsonController {
 				_resultCode = resultCode.getResult();
 				em = resultCode.getEm();
 				
-				Code code = em.find(Code.class, streamServer);
-				streamServer = code.getName();
-				
-				code = em.find(Code.class, applicationCode);
-				applicationCode = code.getName();
-				
-				String baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
-				baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
-				
-				switch (applicationCode) {
-				case "Dlive":
-					applicationCode = "Dlive";
-					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
-					break;
-				case "live":
-					applicationCode = "live";
-					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
-					break;
-				case "vod":
-					applicationCode = "vod";
-					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
-					break;
-				default:
-					applicationCode = "Dlive";
-					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
-					break;
-				}
-				
-				if(_resultCode != CommonResult.Success) {
-					break _TRANS;
-				}
+//				Code code = em.find(Code.class, streamServer);
+//				streamServer = code.getName();
+//				
+//				code = em.find(Code.class, applicationCode);
+//				applicationCode = code.getName();
+//				
+//				String baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+//				baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+//				
+//				switch (applicationCode) {
+//				case "Dlive":
+//					applicationCode = "Dlive";
+//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
+//					break;
+//				case "live":
+//					applicationCode = "live";
+//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
+//					break;
+//				case "vod":
+//					applicationCode = "vod";
+//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
+//					break;
+//				default:
+//					applicationCode = "Dlive";
+//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
+//					break;
+//				}
+//				
+//				if(_resultCode != CommonResult.Success) {
+//					break _TRANS;
+//				}
 				
 				
 				if(deleteFile.exists()) {
@@ -866,7 +867,7 @@ public class CameraJsonController {
 					streamServer = null;
 					
 					
-					baseUrl = null;
+					String baseUrl = null;
 					String application = null;
 					String streamFile = null;
 					
@@ -878,7 +879,7 @@ public class CameraJsonController {
 					streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 					streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
 
-					code = em.find(Code.class, applicationCode);
+					Code code = em.find(Code.class, applicationCode);
 					applicationCode = code.getName();
 
 					code = em.find(Code.class, streamServer);
@@ -1048,38 +1049,38 @@ public class CameraJsonController {
 				_resultCode = resultCode.getResult();
 				em = resultCode.getEm();
 				
-				Code code = em.find(Code.class, streamServer);
-				streamServer = code.getName();
+//				Code code = em.find(Code.class, streamServer);
+//				streamServer = code.getName();
+//				
+//				code = em.find(Code.class, applicationCode);
+//				applicationCode = code.getName();
+//				
+//				System.out.println(">>>>>>>>>>>>>>>>");
+//				System.out.println(applicationCode);
+//				System.out.println(streamServer);
 				
-				code = em.find(Code.class, applicationCode);
-				applicationCode = code.getName();
+//				String baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+//				baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
 				
-				System.out.println(">>>>>>>>>>>>>>>>");
-				System.out.println(applicationCode);
-				System.out.println(streamServer);
-				
-				String baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
-				baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
-				
-				switch (applicationCode) {
-				case "Dlive":
-					applicationCode = "Dlive";
-					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
-					break;
-				case "live":
-					applicationCode = "live";
-					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
-					break;
-				case "vod":
-					applicationCode = "vod";
-					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
-					break;
-				default:
-					applicationCode = "Dlive";
-					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
-					break;
-				}
-				
+//				switch (applicationCode) {
+//				case "Dlive":
+//					applicationCode = "Dlive";
+//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+//					break;
+//				case "live":
+//					applicationCode = "live";
+//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+//					break;
+//				case "vod":
+//					applicationCode = "vod";
+//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+//					break;
+//				default:
+//					applicationCode = "Dlive";
+//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamName);
+//					break;
+//				}
+//				
 				
 				if(_resultCode != CommonResult.Success) {
 					break _TRANS;
