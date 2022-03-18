@@ -198,7 +198,7 @@ document.addEventListener('MSFullscreenChange', exitHandler);
 
 function exitHandler() {
     if (!document.fullscreenElement && !document.webkitIsFullScreen && !document.mozFullScreen && !document.msFullscreenElement) {
-//     	$("#player").attr('style','width:100%;height:65%;');
+    	$("#player").attr('style','width:100%;height:65%;');
 // 		$("#videoview").attr('style','height: 335px;padding: 20px 20px 0; position: relative;');
 // 		document.webkitExitFullscreen();
     	$('.canvasMenuWrap > p.close').trigger("click");
