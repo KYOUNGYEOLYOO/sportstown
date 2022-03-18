@@ -315,6 +315,13 @@ function exitHandler() {
 }  
 </script>
 
+<<<<<<< HEAD
+	<div class="videobox">
+		<div class="videoview">
+			<div id="player" style="background:#fafafa"></div>
+<!-- 			<button class="player cannvas"></button> -->
+		</div>
+=======
 	<div id="wrapper">
 <!-- 		<div id="container2" style="width:100%;height:100%;"> -->
 			<div class="videoview" id="videoview" >
@@ -366,6 +373,7 @@ function exitHandler() {
 		</div>		
 		<!-- 	//canvas -->
 			
+>>>>>>> branch 'master' of https://github.com/KYOUNGYEOLYOO/sportstown.git
 	</div>
 	
 	<div title="사용자조회" class="bcs_dialog_hide" data-ctrl-view="user_select" data-event-selected="callback_selectedUsers" data-param-selectedUserId="frmSelectedUsers">

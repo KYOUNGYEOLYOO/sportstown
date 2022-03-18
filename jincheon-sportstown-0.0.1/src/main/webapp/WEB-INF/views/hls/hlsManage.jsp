@@ -95,6 +95,8 @@ $(document).ready(function(){
 	//	220214 add
 	$(document).on('click', '#lnbWrap.video > p.toggle', function() {	        
 		$(this).parent().toggleClass("menuopen");
+	
+	
 });	
 	
 	
@@ -149,7 +151,12 @@ function callback_removePlayer(sender, camId)
 function change_player_layout()
 {
 	var cntPlayer = $("#playerList > li").length;
-
+// 	var h = $(".cameraBox").height();
+// 	var w = $(".cameraBox").width();
+	
+// 	console.log("h, w :", h,w);
+	
+	
 	if(cntPlayer == 1)
 	{
 		$("#playerList").attr("class", "");
@@ -162,11 +169,24 @@ function change_player_layout()
 	{
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera3pt");
+	}else if(cntPlayer <=6){
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera4pt");		
 	}else
 	{
+// 		$("#playerList").attr("class", "");
+// 		$("#playerList").addClass("camera4pt");
 		$("#playerList").attr("class", "");
-		$("#playerList").addClass("camera4pt");
+		$("#playerList").addClass("camera5pt");
 	}
+	
+// 	$(".camera1pt").children('li').css({height:h, width:w});// 카메라 1개
+// 	$(".camera2pt").children('li').css({width: 'calc(w/2)-5'});// 카메라 2개
+// 	$(".camera3pt").children('li').css({height:h, width:w});// 카메라 3~4개
+// 	$(".camera4pt").children('li').css({height:h, width:w});// 카메라 5~6개
+// 	$(".camera5pt").children('li').css({height:h, width:w});// 카메라 7~개
+	
+	
 }
 
 </script>
@@ -332,6 +352,7 @@ function onClick_record(sender, camId)
 	return true;
 }
 
+
 function onClick_liveRecord(sender, camId)
 {
 	var playerId = $playerLi.find("[data-ctrl-view=live_player]").attr("id");
@@ -400,16 +421,55 @@ function onClick_liveRecordAll()
 	});
 }
 
-function canvasTest()
+function onClick_connectAll()
 {
-	$("#canvas").empty();
-	$("#canvas").jqUtils_bcs_loadHTML(
-			"<c:url value="/canvas/canvasPop"/>" ,
-			false, "get", null, null
-		);
-	console.log('canvas_pop');
-	
-	$(".ui-front").appendTo("#container");
+	console.log("connectAll");
+	console.log("sportsEventCode ", $("#sportsEvent").val());
+	var sportsEventCode = $("#sportsEvent").val();
+	$.ajax({
+		url : "<c:url value="/service/camera/connectStreamW/all"/>/" + sportsEventCode,
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){},
+		success : function (ajaxData) {
+// 			location.reload();
+				
+		}
+	});
+}
+// var staticCameras;
+// var camera;
+// var camera1;
+
+function onClick_disConnectAll()
+{
+	console.log("disconnectAll");
+	console.log("sportsEventCode ", $("#sportsEvent").val());
+	var sportsEventCode = $("#sportsEvent").val();
+	$.ajax({
+		url : "<c:url value="/service/camera/disconnectStreamW/all"/>/" + sportsEventCode,
+		async : false,
+		dataType : "json",
+		data : null, 
+		method : "post",
+		beforeSend : function(xhr, settings ){},
+		error : function (xhr, status, error){
+			alert("disConnectAll Error");
+		},
+		success : function (ajaxData) {
+// 			location.reload();
+			alert("123");
+// 			console.log("staticCameras",ajaxData.staticCameras);
+// 			console.log("camera",ajaxData.camera);
+// 			console.log("camera1",ajaxData.camera1);
+// 			staticCameras = ajaxData.staticCameras;
+// 			camera = ajaxData.camera;
+// 			camera1 = ajaxData.camera1;
+		}
+	});
 }
 
 </script>
@@ -448,7 +508,6 @@ function canvasTest()
 		<h2>영상녹화</h2>				
 	</div>
 	<div id="contentsWrap">
-	<form id="canvas"></form>
 	
 		<!-- lnbWrap -->
 		<div id="lnbWrap" class="video">
@@ -457,25 +516,8 @@ function canvasTest()
 				<div class="btnWrap player">
 					<a class="btn rec" href="javascript:onClick_recordAll();">Rec</a>
 					<a class="btn stop" href="javascript:onClick_stopRecordAll();">Stop</a>
-					<a class="btn back" href="javascript:onClick_backRecordAll();">Back</a>
-					<a class="btn live" href="javascript:onClick_liveRecordAll();">Live</a>
-					<!-- 
-					<a class="btn" href="javascript:onClick_recordAll();">전체녹화</a>
-					<a class="btn" href="javascript:onClick_stopRecordAll();">전체스톱</a>
-					<a class="btn" href="javascript:onClick_backRecordAll();">전체뒤로</a>
-					<a class="btn" href="javascript:onClick_liveRecordAll();">전체라이브</a>		
-					 -->
-<!-- 					<div class="canvasBtnWrap"> -->
-<!-- 						<div id="canvasTest" onclick="canvasTest()">캔버스테스트</div> -->
-<!-- 						<div id="canvasBtn" onclick="addCanvas();">캔버스</div> -->
-<!-- 						<button id="drawing" onclick="drawCanvas()">draw</button> -->
-<!-- 						<button id="shape" onclick="drawShape()">shape</button> -->
-<!-- 						<button id="eraser" onclick="eraseCanvas()">eraser</button> -->
-<!-- 						<button id="clear" onclick="clrCanvas(document.getElementById('canvas'))">clear</button> -->
-<!-- 						<button id="color" onclick="changeColor('blue')">color</button> -->
-<!-- 						<button id="thickness" onclick="changeWidth(10)">thickness</button> -->
-<!-- 						<button id="close" onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>				 -->
-<!-- 					</div> -->
+					<a class="btn back" href="javascript:onClick_connectAll();">연결</a>
+					<a class="btn live" href="javascript:onClick_disConnectAll();">해제</a>
 					 	
 				</div> 	
 			</div>		
@@ -554,27 +596,5 @@ function canvasTest()
 <jsp:include page="/include/footer" />
 <!-- //footer -->
 </div>
-<%--20211215 --%>
-<!-- 
-<div id="styleBtn" style="display: flex; position:absolute; 
-	top: 60px; right: 0px; z-index: 4;">
-	<button style="margin-right:10px" id="fullscreen"
-	onclick="fullScreen()">screen</button>
-	<button style="margin-right:10px" id="drawing"
-	onclick="drawCanvas()">draw</button>
-	<button style="margin-right:10px" id="shape"
-	onclick="drawShape()">shape</button>
-	<button style="margin-right:10px" id="eraser"
-	onclick="eraseCanvas()">eraser</button>
-	<button style="margin-right:10px" id="clear"
-	onclick="clrCanvas(document.getElementById('canvas'))">clear</button>
-	<button style="margin-right:10px" id="color"
-	onclick="changeColor('blue')">color</button>
-	<button style="margin-right:10px" id="thickness"
-	onclick="changeWidth(10)">thickness</button>
-	<button style="margin-right:10px" id="close"
-	onclick="delCanvas($('#canvas'),$('#canvasChange'))">close</button>
-</div>
- -->
 </body>
 </html>

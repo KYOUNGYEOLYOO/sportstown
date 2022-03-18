@@ -63,13 +63,11 @@ function onMouseMove(event){
 
 function resizeCanvas(canvas){
 	//canvas.width = window.innerWidth;
-	console.log("뭐야 도대체 : ", window.document.getElementById("container").clientWidth);
 	//canvas.height = window.innerHeight;
 	canvas.width = window.document.getElementById("container").clientWidth;
 	canvas.height = window.document.getElementById("container").clientHeight;
 	ctx.strokeStyle = "#ff0000";
 	ctxChange.strokeStyle = "#ff0000";
-	console.log("ctx.strokeStyle112 : ",ctx.strokeStyle);
 }
 
 function resizeCanvas2(canvas){
@@ -124,7 +122,6 @@ function addCanvas2(){
 }
 
 function addCanvas(){
-	console.log("시작이 된거 같은데??1111111111");
 	
 	const canvasChange = document.createElement("canvas");
 	canvasChange.setAttribute("id","canvasChange");
