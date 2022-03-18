@@ -648,7 +648,7 @@ function clear_cameraDetail()
 </div>
 <!-- //skip navi -->
 
-<div id="wrapper">	
+<div id="wrappers">	
 <!-- header -->
 <jsp:include page="/include/top">
 	<jsp:param value="search" name="mainMenu"/>
