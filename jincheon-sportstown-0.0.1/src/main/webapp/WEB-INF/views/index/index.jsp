@@ -166,6 +166,8 @@ function selectBestCode(year){
 		}
 	});
 }
+var codes= "";
+var tempName = "";
 
 function selectCode(code){
 	$.ajax({
@@ -180,12 +182,14 @@ function selectCode(code){
 			if(ajaxData.resultCode == "Success"){
 				console.log(ajaxData.codes);
 				
-				var codes=ajaxData.codes;
+				codes ="";
+				codes=ajaxData.codes;
 				
 				var html="";
 				for(var i = 0 ; i < codes.length ; i++){
 					if(code == codes[i].codeId){
 						html += '<option value="'+codes[i].codeId+'" selected>'+codes[i].name+'</option>';
+						
 					}else{
 						html += '<option value="'+codes[i].codeId+'">'+codes[i].name+'</option>';
 					}
@@ -342,6 +346,14 @@ function drawChart() {
 	var year = $('#selectYear').val();
 	var code = $('#selectCode').val();
 	
+	for(var i =0 ; i < codes.length ; i++){
+		
+		if(code == codes[i].codeId){
+			tempName = codes[i].name;
+		}
+	}
+	
+		
 	$('#columnchart').remove(); // this is my <canvas> element
 	$('#graph-container').append('<canvas id="columnchart"><canvas>');
 	
@@ -398,7 +410,7 @@ function drawChart() {
 	                    ],
 	                    datasets: [
 	                        { //데이터
-	                            label: '종목별 영상 등록 현황', //차트 제목
+	                            label: tempName, //차트 제목
 	                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 	                            data: datas,	                            
 	                            borderWidth: 1 //경계선 굵기

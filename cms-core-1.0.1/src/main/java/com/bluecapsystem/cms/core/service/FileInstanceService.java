@@ -226,6 +226,41 @@ public class FileInstanceService {
 		logger.debug("파일 삭제 결과 [fileId = {}] => {}", fileId, result);
 		return result;
 	}
+	
+	
+	/**
+	 * 파일을 삭제한다
+	 *
+	 * @param em
+	 * @param fileId
+	 * @return
+	 */
+	public IResult updateFile(EntityManager em, FileInstance file) {
+		IResult result = CommonResult.UnknownError;
+
+		_TRANSACTION: {
+			try {
+				FileInstance orgFile = this.getFileinstance(em, file.getFileId());
+				if (orgFile == null) {
+					result = CommonResult.NotFoundInstanceError;
+					break _TRANSACTION;
+				}
+				orgFile.setFileName(file.getFileName());
+				orgFile.setExtension(file.getExtension());
+
+				fileDao.updateFile(em, orgFile);
+
+				result = CommonResult.Success;
+			} catch (Exception ex) {
+				logger.error("파일 수정 중 오류 발생 [fileId = {}] \n{}", file.getFileId(), ExceptionUtils.getFullStackTrace(ex));
+				result = CommonResult.DAOError;
+			} finally {
+			}
+
+		}
+		logger.debug("파일 삭제 결과 [fileId = {}] => {}", file.getFileId(), result);
+		return result;
+	}
 
 	/**
 	 * 경로 안의 파일 목록을 가져온다

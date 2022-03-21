@@ -192,10 +192,10 @@ public class FileInstance
 	public String toString()
 	{
 		return String.format("%s["
-				+ "fileId=%s, fileTypeCode=%s, isDeleted=%s, fileName=%s, orignFileName=%s, extension=%s, locationRootCode=%s, filePath=%s, thumbnailId=%s"
+				+ "fileId=%s, fileName=%s, extension=%s, fileTypeCode=%s, isDeleted=%s, fileName=%s, orignFileName=%s, extension=%s, locationRootCode=%s, filePath=%s, thumbnailId=%s"
 				+ "]",
 				this.getClass().getSimpleName(),
-				fileId, fileTypeCode,
+				fileId, fileName, extension, fileTypeCode,
 				isDeleted, thumbnailId,
 				fileName, getOrignFileName(), extension, locationRootCode, filePath);
 	}
