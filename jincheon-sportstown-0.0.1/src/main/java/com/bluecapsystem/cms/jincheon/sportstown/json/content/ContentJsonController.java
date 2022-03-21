@@ -222,7 +222,7 @@ public class ContentJsonController {
 				TcJob tcjob = new TcJob();
 				
 				
-				
+				tcjob.setFileId(fileTemp.getFileId());
 				tcjob.setContentId(contentId);
 				tcjob.setFileName(fileTemp.getFileName());
 				tcjob.setFilePath(fileTemp.getFilePath());
