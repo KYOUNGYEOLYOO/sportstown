@@ -62,9 +62,18 @@ public class TcJob
 	@Column(nullable = true)
 	private String contentId;
 
+	@Column(nullable = true)
+	private String fileId;
 	
 	
+	public String getFileId() {
+		return fileId;
+	}
 
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
 	
 	public String getTcId() {
 		return tcId;

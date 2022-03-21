@@ -214,19 +214,26 @@ public class ContentJsonController {
 			e.printStackTrace();
 		}
 		
+		String fileInfo[] = fileTemp.getFileName().split("\\.");
+		String fileExt = fileInfo[1];
 		
-		TcJob tcjob = new TcJob();
-		
-		
-		
-		tcjob.setContentId(contentId);
-		tcjob.setFileName(fileTemp.getFileName());
-		tcjob.setFilePath(fileTemp.getFilePath());
-		tcjob.setState("W");
-		
-		
+		if(!fileExt.equals("mp4")) {
+			if(!fileExt.equals("avi")) {
+				TcJob tcjob = new TcJob();
+				
+				
+				
+				tcjob.setContentId(contentId);
+				tcjob.setFileName(fileTemp.getFileName());
+				tcjob.setFilePath(fileTemp.getFilePath());
+				tcjob.setState("W");
+				
+				
 
-		tcJobService.registTcJob(tcjob);
+				tcJobService.registTcJob(tcjob);
+			}
+		}
+		
 	}
 
 	@RequestMapping("/registContent")

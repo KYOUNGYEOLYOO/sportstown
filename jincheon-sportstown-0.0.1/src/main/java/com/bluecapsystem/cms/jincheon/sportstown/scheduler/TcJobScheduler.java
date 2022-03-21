@@ -58,7 +58,7 @@ public class TcJobScheduler {
 	private UserManageService userServ;
 
 	@Autowired
-	private CameraManageService camServ;
+	private FileInstanceService fileServ;
 
 	@Autowired
 	private CodeService codeServ;
@@ -87,6 +87,9 @@ public class TcJobScheduler {
 				
 				jobs = tcServ.getTcJobs(new TcJobSelectCondition(null,"I"));
 				
+					
+				
+				
 				if(jobs.size()>1) {
 					break _TRANS;
 				}
@@ -112,7 +115,8 @@ public class TcJobScheduler {
 					File contentDir = StoragePathProperties.getDiretory("CONTENT");
 										
 					File input = new File(contentDir , filePath+fileName);
-					File output = new File(contentDir , filePath+temp[0]+"_0."+temp[1]);
+					File input2 = new File(contentDir , filePath+temp[0]+".mp4");
+					File output = new File(contentDir , filePath+temp[0]+"_0.mp4");
 					
 					FFMpegProcess ffProc = new  FFMpegProcess(FFMpegProperties.getFFfmpeg(), input, "",  output);
 					
@@ -136,6 +140,8 @@ public class TcJobScheduler {
 						
 					}
 					
+					
+					
 					retValue = p.exitValue();
 					
 					
@@ -150,10 +156,36 @@ public class TcJobScheduler {
 						logger.debug("tc 변환 완료 [tcId={}] => ", jobs.get(i).getTcId());
 						
 						if(input.delete()) {
-							boolean result = output.renameTo(input);
+							boolean result = output.renameTo(input2);
 
 							output = null;
+							
+							
+							EntityManager em = emf.createEntityManager();
+							em.getTransaction().begin();
+							
+							FileInstance fileInstance = fileServ.getFileinstance(em, jobs.get(i).getFileId());
+							
+							fileInstance.setExtension("mp4");
+							fileInstance.setFileName(temp[0]+".mp4");
+							
+							IResult resultCode = fileServ.updateFile(em, fileInstance);
+							
+							if (resultCode != CommonResult.Success) {
+								em.getTransaction().rollback();
+								logger.error("tc 변환 파일 정보 수정 오류 [fileId={}] => ", jobs.get(i).getFileId());
+							}else {
+								logger.debug("tc 변환 파일 정보 수정 완료 [fileId={}] => ", jobs.get(i).getFileId());
+								em.getTransaction().commit();
+							}
+								
+							
+							
+							em.close();
 						}
+						
+						
+					
 					}
 
 					
