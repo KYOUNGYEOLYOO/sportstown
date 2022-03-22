@@ -792,7 +792,15 @@ public class CameraJsonController {
 			_TRANS:{
 				
 				resultCode = camServ.modifyCamera(camera);
+				
+				
+				
 				_resultCode = resultCode.getResult();
+				
+				if (_resultCode != CommonResult.Success) {
+					break _TRANS;
+				}
+				
 				em = resultCode.getEm();
 				
 				
@@ -806,12 +814,15 @@ public class CameraJsonController {
 					_resultCode = CommonResult.UnknownError;
 					
 					ErrorCode = "delete error";
+//					break _TRANS; // 이거를 막는 이유가 파일이 없고 디비에만 있는거 수정할때 막으면 안됨
 				}
 				// 여기까지가 삭제
 				
-				
+				System.out.println(">>>>>>>>>>>>>>>>");
+				System.out.println("ErrorCode :" + ErrorCode);
+				System.out.println(">>>>>>>>>>>>>>>>");
 				// Wowza 등록해야됨...
-				if (ErrorCode == "success") {
+//				if (ErrorCode.equals("success")) { // 여기도 파일이 지워졌을때만 실행..하는 부분이라 위에 파일지우고 error 났을때 break _TRANS 하면 여기서 if문 안타도 됨.
 					try {
 						applicationCode = null;
 						streamName = null;
@@ -872,14 +883,16 @@ public class CameraJsonController {
 						ErrorCode = "add success";
 						if (isSuccess != true) {
 							_resultCode = CommonResult.UnknownError;
-							ErrorCode = "add fail";
+							ErrorCode = "add_fail";
 							break _TRANS;
 						}
 					}catch(Exception e) {
 						_resultCode = CommonResult.UnknownError;
-						ErrorCode = "add fail exception";
+						ErrorCode = "add_fail";
+						break _TRANS;
+
 					}
-				}
+//				}
 			}
 		}catch(Exception e){
 			_resultCode = CommonResult.SystemError;
@@ -887,7 +900,7 @@ public class CameraJsonController {
 		}finally {
 			if (_resultCode != CommonResult.Success) {
 				em.getTransaction().rollback();
-				if (_resultCode == CommonResult.UnknownError) {
+				if (ErrorCode.equals("add_fail")) { // 아무때나 다시 추가하는게 아니라 파일은 지워졌는데 와우자서버에 등록이 되는 부분에서 에러나는 경우에만 다시 추가하는 거.
 					// Wowza에 롤백된 값을 등록해야됨...
 					
 					try {
@@ -904,6 +917,7 @@ public class CameraJsonController {
 						
 						applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
 						streamName = camera.getStreamMetaItems().get(0).getStreamName();
+						streamName = streamName.replace(".stream", ""); // 추가
 						streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
 						streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
 
