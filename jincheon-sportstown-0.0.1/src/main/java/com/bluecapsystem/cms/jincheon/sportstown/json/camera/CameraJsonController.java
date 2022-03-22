@@ -795,37 +795,6 @@ public class CameraJsonController {
 				_resultCode = resultCode.getResult();
 				em = resultCode.getEm();
 				
-//				Code code = em.find(Code.class, streamServer);
-//				streamServer = code.getName();
-//				
-//				code = em.find(Code.class, applicationCode);
-//				applicationCode = code.getName();
-//				
-//				String baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
-//				baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
-//				
-//				switch (applicationCode) {
-//				case "Dlive":
-//					applicationCode = "Dlive";
-//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
-//					break;
-//				case "live":
-//					applicationCode = "live";
-//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
-//					break;
-//				case "vod":
-//					applicationCode = "vod";
-//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
-//					break;
-//				default:
-//					applicationCode = "Dlive";
-//					finalUrl = wowzaApi.disconnectStream(baseUrl, applicationCode, streamNameBefore);
-//					break;
-//				}
-//				
-//				if(_resultCode != CommonResult.Success) {
-//					break _TRANS;
-//				}
 				
 				
 				if(deleteFile.exists()) {
@@ -842,75 +811,75 @@ public class CameraJsonController {
 				
 				
 				// Wowza 등록해야됨...
-				
-				try {
-					applicationCode = null;
-					streamName = null;
-					String streamSourceUrl = null;
-					streamServer = null;
-					
-					
-					String baseUrl = null;
-					String application = null;
-					String streamFile = null;
-					
-					String result = "";
-					
-					applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
-					streamName = camera.getStreamMetaItems().get(0).getStreamName(); // 0308 이후로 .stream 붙어서 들어옴.
-					streamName = streamName.replace(".stream", ""); // 추가
-					streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
-					streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
-
-					Code code = em.find(Code.class, applicationCode);
-					applicationCode = code.getName();
-
-					code = em.find(Code.class, streamServer);
-					streamServer = code.getName();
-					
-					baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
-					baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
-					
-					switch (applicationCode) {
-					case "Dlive":
-						applicationCode = "Dlive";
-						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
-						finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
-						break;
-					case "live":
-						applicationCode = "live";
-						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
-						finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
-						break;
-					case "vod":
-						applicationCode = "vod";
-						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
-						finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
-						break;
-					default:
-						applicationCode = "Dlive";
-						result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
-						finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
-						break;
-					}
-					
-					Map stopResultMap = new Gson().fromJson(result, Map.class);
-
-					Boolean isSuccess = false;
-
-					isSuccess = (Boolean) stopResultMap.get("success");
-
-					ErrorCode = "add success";
-					if (isSuccess != true) {
+				if (ErrorCode == "success") {
+					try {
+						applicationCode = null;
+						streamName = null;
+						String streamSourceUrl = null;
+						streamServer = null;
+						
+						
+						String baseUrl = null;
+						String application = null;
+						String streamFile = null;
+						
+						String result = "";
+						
+						applicationCode = camera.getStreamMetaItems().get(0).getApplicationCode();
+						streamName = camera.getStreamMetaItems().get(0).getStreamName(); // 0308 이후로 .stream 붙어서 들어옴.
+						streamName = streamName.replace(".stream", ""); // 추가
+						streamServer = camera.getStreamMetaItems().get(0).getStreamServerCode();
+						streamSourceUrl = camera.getStreamMetaItems().get(0).getStreamSourceUrl();
+	
+						Code code = em.find(Code.class, applicationCode);
+						applicationCode = code.getName();
+	
+						code = em.find(Code.class, streamServer);
+						streamServer = code.getName();
+						
+						baseUrl = propServ.getProperty("WOWZA_PROPERTIES", "BASE_REST_URL").valueToString();
+						baseUrl = baseUrl.replace(MARKUP_STREAM_SERVER, streamServer);
+						
+						switch (applicationCode) {
+							case "Dlive":
+								applicationCode = "Dlive";
+								result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+								finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
+								break;
+							case "live":
+								applicationCode = "live";
+								result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+								finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
+								break;
+							case "vod":
+								applicationCode = "vod";
+								result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+								finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
+								break;
+							default:
+								applicationCode = "Dlive";
+								result = wowzaApi.addStream(baseUrl, applicationCode, streamName, streamSourceUrl);
+								finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
+								break;
+							}
+						
+						Map stopResultMap = new Gson().fromJson(result, Map.class);
+	
+						Boolean isSuccess = false;
+	
+						isSuccess = (Boolean) stopResultMap.get("success");
+	
+						ErrorCode = "add success";
+						if (isSuccess != true) {
+							_resultCode = CommonResult.UnknownError;
+							ErrorCode = "add fail";
+							break _TRANS;
+						}
+					}catch(Exception e) {
 						_resultCode = CommonResult.UnknownError;
-						ErrorCode = "add fail";
-						break _TRANS;
+						ErrorCode = "add fail exception";
 					}
-				}catch(Exception e) {
-					_resultCode = CommonResult.UnknownError;
-					ErrorCode = "add fail exception";
 				}
-				
 			}
 		}catch(Exception e){
 			_resultCode = CommonResult.SystemError;
@@ -1000,6 +969,7 @@ public class CameraJsonController {
 		mnv.addObject("stream", ErrorCode+deleteFile);
 		mnv.addObject("camera", camera);
 		mnv.addObject("resultCode", _resultCode);
+		mnv.addObject("streamNameBefore",streamNameBefore);
 		return mnv;
 	}
 
@@ -1019,13 +989,16 @@ public class CameraJsonController {
 		String streamName = camera.getStreamMetaItems().get(0).getStreamName();
 		String finalUrl = "";
 		
-		System.out.println(">>>>>>>>>>>>>>>>");
-		System.out.println(applicationCode);
-		System.out.println(streamServer);
-		System.out.println(streamName);
+//		System.out.println(">>>>>>>>>>>>>>>>");
+//		System.out.println(applicationCode);
+//		System.out.println(streamServer);
+//		System.out.println(streamName);
 		
-		String filePath = "Y:\\content\\"+streamName; // 파일 형식이 .stream임 ( 텍스트는 .txt )
-		File deleteFile = new File(filePath);
+//		String filePath = "Y:\\content\\"+streamName; // 파일 형식이 .stream임 ( 텍스트는 .txt )
+//		File deleteFile = new File(filePath);
+		
+		File contentRoot = StoragePathProperties.getDiretory("WOWZACONTENT");
+		File deleteFile = new File(contentRoot, streamName);
 		try {
 			_TRANS:{
 				resultCode = camServ.deleteCamera(camId);
