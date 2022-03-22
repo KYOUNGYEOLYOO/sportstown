@@ -176,7 +176,7 @@ function onClick_stopRecord()
 <!-- 		<div class="vodregistBox"> -->
 
 	<div class="videoview">
-		<video id="player" style="background:#fafafa"></div>	
+		<video id="player" style="background:#000000"></div>	
 	</div>
 <!-- 			<div class="vodregist "> -->
 <!-- 				<div class="videoview mgb30"> -->

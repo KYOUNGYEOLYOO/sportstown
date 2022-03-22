@@ -925,7 +925,7 @@ function callback_selectedUsers(sender, users)
 <!-- 							<source src="../../mp4/sample.mp4" type="video/mp4"> -->
 <!-- 						</video> -->
 <!-- 						<video id="player_small" style="background:#fafafa"></video>	 -->
-						<video id="player_small"></video>	
+						<video id="player_small" style="background:#000000;width:100%;height:100%;"></video>	
 					</div>
 				<div class="detailWrap">					
 					<form id="frmContent">
