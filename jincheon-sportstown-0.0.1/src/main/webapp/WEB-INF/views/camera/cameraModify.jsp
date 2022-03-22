@@ -59,8 +59,9 @@ $(document).ready(function(){
 						if(ajaxData.resultCode == "Success"){
 							eventSender.send("data-event-modify", ajaxData.camera);
 							jpPopup.dialog("close");
-							
-							location.reload(); // 수정 완료하고나서 화면 재실행 한번 더 해주기
+							console.log("streamNameBefore", ajaxData.streamNameBefore);
+							//location.reload(); // 수정 완료하고나서 화면 재실행 한번 더 해주기
+							$("#cameraList").trigger("reloadGrid");
 						}
 						else{
 							console.log(" ajaxData.stream : ", ajaxData.stream );
