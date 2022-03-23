@@ -327,6 +327,7 @@ function exitHandler() {
 							<li class="figure">
 								<p>도형</p>
 								<ul>
+									<li class="grid"><a href="#">격자</a></li>
 									<li class="quadrangle"><a href="#">네모</a></li>
 									<li class="circle"><a href="#">원</a></li>
 									<li class="line"><a href="#">자유선</a></li>
