@@ -132,7 +132,8 @@ $(document).ready(function(){
         },
         liveTracker: {
         	trackingThreshold: 3,
-        	liveTolerance: 15,
+        	liveTolerance: 2,
+//         	liveTolerance: 15,
         },
         userActions: {
             doubleClick: false,
@@ -188,8 +189,6 @@ $(document).ready(function(){
 
 		
 		liveCheck();
-		return;
-		
 		console.log('isDisable 체크 off, isDisable : ' + isDisable);
 		console.log( 'seekableStart : ' + videoObj.liveTracker.seekableStart());
 		console.log( 'seekableEnd : ' + videoObj.liveTracker.seekableEnd());
@@ -204,6 +203,8 @@ $(document).ready(function(){
 		console.log('liveWindow : ' + videoObj.liveTracker.liveWindow());
 		console.log('trackingThreshold : ' + videoObj.liveTracker.options_.trackingThreshold);
 		console.log('liveui : ' + videoObj.options_.liveui);
+		return;
+		
 		
 		videoObj.liveTracker.seekableStart(0);
 		if(videoObj.liveTracker.liveCurrentTime() > 0){
@@ -289,7 +290,6 @@ $(document).ready(function(){
 			$dvrBtn.addClass("on");
 			$(".speedWrap").attr("style","display:block;");
 		}else{
-			
 			videoObj.liveTracker.handleDurationchange();
 			
 			videoObj.liveTracker.seekableStart(0);
@@ -309,6 +309,20 @@ $(document).ready(function(){
 	};
 
 	function dvrTimeChange(){
+		
+		
+		console.log( 'seekableStart : ' + videoObj.liveTracker.seekableStart());
+		console.log( 'seekableEnd : ' + videoObj.liveTracker.seekableEnd());
+		console.log('liveCurrentTime : ' + videoObj.liveTracker.liveCurrentTime());
+		console.log('currentTime : ' + videoObj.currentTime());
+		
+		
+		
+		//videoObj.addClass('vjs-liveui');
+		console.log('duration : ' + videoObj.duration());
+		console.log('liveWindow : ' + videoObj.liveTracker.liveWindow());
+		console.log('trackingThreshold : ' + videoObj.liveTracker.options_.trackingThreshold);
+		console.log('liveui : ' + videoObj.options_.liveui);
 		
 		var delayTime = parseInt($playerLi.find("#time").val());
 		

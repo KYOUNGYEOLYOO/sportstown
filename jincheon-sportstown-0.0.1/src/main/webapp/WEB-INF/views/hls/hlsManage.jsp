@@ -172,12 +172,35 @@ function change_player_layout()
 	}else if(cntPlayer <=6){
 		$("#playerList").attr("class", "");
 		$("#playerList").addClass("camera4pt");		
+	}else if(cntPlayer <=9){
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera5pt");		
+	}else if(cntPlayer <=12){
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera5pt");		
+		$("#playerList").addClass("camera12");		
+	}else if(cntPlayer <=15){
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera5pt");		
+		$("#playerList").addClass("camera15");			
+	}else if(cntPlayer <=18){
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera5pt");		
+		$("#playerList").addClass("camera18");			
+	}else if(cntPlayer <=21){
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera5pt");		
+		$("#playerList").addClass("camera21");			
+	}else if(cntPlayer <=24){
+		$("#playerList").attr("class", "");
+		$("#playerList").addClass("camera5pt");		
+		$("#playerList").addClass("camera24");			
 	}else
 	{
 // 		$("#playerList").attr("class", "");
 // 		$("#playerList").addClass("camera4pt");
 		$("#playerList").attr("class", "");
-		$("#playerList").addClass("camera5pt");
+		$("#playerList").addClass("camera10pt"); // 카메라 최대 24개 넘으면 수정 필요
 	}
 	
 // 	$(".camera1pt").children('li').css({height:h, width:w});// 카메라 1개

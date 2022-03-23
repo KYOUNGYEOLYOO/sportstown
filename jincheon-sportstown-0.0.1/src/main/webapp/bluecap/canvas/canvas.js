@@ -344,18 +344,13 @@ function drawShape(cShape){
 					for (var i = 0; i < 6; i++){
 					    for (var j = 0; j < 6; j++){
 
-					      ctxChange.strokeRect(sX+j*(cX-sX+25),sY+i*(cY-sY+25),cX-sX+25,cY-sY+25);
+					      ctxChange.strokeRect(sX+j*(cX-sX),sY+i*(cY-sY),cX-sX,cY-sY);
 					    }
 					  }
 					break;
 				case "네모":
 					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
 					ctxChange.strokeRect(sX,sY,cX-sX,cY-sY);
-					
-					
-					
-					
-					
 					break;
 				case "원":
 					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
@@ -413,7 +408,7 @@ function drawShape(cShape){
 				for (var i = 0; i < 6; i++){
 				    for (var j = 0; j < 6; j++){
 
-				      ctx.strokeRect(sX+j*(cX-sX+25),sY+i*(cY-sY+25),cX-sX+25,cY-sY+25);
+				      ctx.strokeRect(sX+j*(cX-sX),sY+i*(cY-sY),cX-sX,cY-sY);
 				    }
 				  }
 				

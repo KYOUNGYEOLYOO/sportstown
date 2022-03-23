@@ -82,7 +82,8 @@ function test()
         },
         liveTracker: {
         	trackingThreshold: 3,
-        	liveTolerance: 15,
+        	liveTolerance: 2,
+//         	liveTolerance: 15,
         },
         userActions: {
             doubleClick: false,

@@ -14,11 +14,16 @@ input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
 .cameraBox { /*width:100%;*/ height:100%; display:flex;justify-content:center;/*align-items:center;*/padding:10px;}
 .cameraBox > p	{font-size:18px; line-height:1.8; text-align:center; margin:auto;}
 .cameraBox > ul	{display:flex; flex-wrap:wrap; justify-content:center; align-content:center;}
-.cameraBox > ul.camera1pt	{width: 100%;}
-.cameraBox > ul.camera2pt	{width: 100%;}
-.cameraBox > ul.camera3pt	{width: 100%;}
-.cameraBox > ul.camera4pt	{width: 100%;}
-.cameraBox > ul.camera5pt	{width: 100%;}
+.cameraBox > ul.camera1pt	{width: 100%;} /* 1개 */
+.cameraBox > ul.camera2pt	{width: 100%;} /* 2개 */
+.cameraBox > ul.camera3pt	{width: 100%;} /* 3~4개 */
+.cameraBox > ul.camera4pt	{width: 100%;} /* 5~6개 */
+.cameraBox > ul.camera5pt	{width: 100%;} /* 7~9개 */
+.cameraBox > ul.camera12	{width: 100%; height: 100%; position: absolute; top:155px} /* 10~12개 */
+.cameraBox > ul.camera15	{width: 100%; height: 100%; position: absolute; top:295px} /* 13~15개 */
+.cameraBox > ul.camera18	{width: 100%; height: 100%; position: absolute; top:435px} /* 16~18개 */
+.cameraBox > ul.camera21	{width: 100%; height: 100%; position: absolute; top:575px} /* 19~21개 */
+.cameraBox > ul.camera24	{width: 100%; height: 100%; position: absolute; top:715px} /* 22~24개 */
 
 .cameraBox > ul > li	{display:flex;}
 .cameraBox > ul > li .videocontents	{position:relative; background:#000; color:#ffffff;}
@@ -27,8 +32,8 @@ input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
 .cameraBox > ul.camera1pt li	{width:1488px;}
 .cameraBox > ul.camera2pt li	{width:calc(50% + -5px); height:532px}
 .cameraBox > ul.camera3pt li	{width:calc(39% + -5px); height:calc(50% + -5px)}
-.cameraBox > ul.camera4pt li	{width:calc(33% + -5px); height:calc(42% + -5px)}
-.cameraBox > ul.camera5pt li	{width:calc(27% + -5px); height:calc(33% + -5px)}
+.cameraBox > ul.camera4pt li	{width:calc(33% + -12px); height:calc(42% + -5px)}
+.cameraBox > ul.camera5pt li	{width:calc(27% + -31px); height:calc(33% + -5px)}
 /* .cameraBox > ul.camera1pt li	{width:1561px;} */
 /* .cameraBox > ul.camera2pt li	{width:945px;} */
 /* .cameraBox > ul.camera3pt li	{width:772px;} */
@@ -43,10 +48,11 @@ input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
 .camera4pt {align-content: flex-start;}
 .camera4pt > li	{margin: 0px 0px 10px 10px !important;}
 .camera4pt > li:nth-of-type(3n+1)	{margin-left:0px !important;}
-.camera5pt li .videocontents {height:calc(100%);}
 .camera5pt {align-content: flex-start;}
 .camera5pt > li	{margin: 0px 0px 10px 10px !important;}
 .camera5pt > li:nth-of-type(3n+1)	{margin-left:0px !important;}
+.camera5pt li .videocontents {height:calc(100%);}
+
 /* .camera4pt > li:nth-of-type(3n+2)	{margin-bottom:0px !important;} */
 /* .camera4pt > li:nth-of-type(n+4)	{margin-top:0px !important;} */
 /* .camera3pt li .videocontents {height:434px;} */
@@ -75,6 +81,12 @@ input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
 	.camera3pt li .videocontents {height:calc(100%);}	
 	.camera4pt li .videocontents {height:calc(100%);}
 	.camera5pt li .videocontents {height:calc(100%);}
+	
+	.cameraBox > ul.camera12	{width: 100%; height: 100%; position: absolute; top:179px} /* 10~12개 */
+	.cameraBox > ul.camera15	{width: 100%; height: 100%; position: absolute; top:361px} /* 13~15개 */
+	.cameraBox > ul.camera18	{width: 100%; height: 100%; position: absolute; top:543px} /* 16~18개 */
+	.cameraBox > ul.camera21	{width: 100%; height: 100%; position: absolute; top:725px} /* 19~21개 */
+	.cameraBox > ul.camera24	{width: 100%; height: 100%; position: absolute; top:907px} /* 22~24개 */
 		
 /* 	.camera1pt li .videocontents {height:1080px;} */
 /* 	.camera2pt li .videocontents {height:537px;} */
