@@ -144,17 +144,21 @@ $(document).ready(function(){
 		// this << 버튼이야
 		// $playerLi << id가 정해져있는 player
 		var time = $playerLi.find("#time");
-		if(time.val() != '0'){
-			time.attr("value", parseInt(time.val()) + 1);
-		}
+// 		if(time.val() != '0'){
+		time.val(parseInt(time.val()) + 1);
+// 		}
 // 		console.log("12131321",time.val());
 // 		console.log("playerLI??? : ",$playerLi);
 // 		console.log("this??? : ",$(this));
-	})
+		dvrTimeChange();
+	});
 	
 	$playerLi.find('.down').click(function(){
 		var time = $playerLi.find("#time");
-		time.attr("value", parseInt(time.val()) -1);
+		if(time.val() != '0'){
+			time.val(parseInt(time.val()) -1);
+		}
+		dvrTimeChange();
 	})
 	
 	
@@ -224,6 +228,8 @@ $(document).ready(function(){
 	$playerLi.find("button.player-btn.player-btn-dvr").click(function(){
 		var $liveBtn = $playerLi.find("button.player-btn.player-btn-live");
 		var delayTime = 2;
+// 		var delayTime = parseInt($playerLi.find("#time").val());
+	
 		
 		console.log($liveBtn);
 		
@@ -271,7 +277,8 @@ $(document).ready(function(){
 				
 		var isDvr = $dvrBtn.hasClass("on");
 		var isLive = $liveBtn.hasClass("on");
-		var delayTime = 2;
+// 		var delayTime = 2;
+		var delayTime = parseInt($playerLi.find("#time").val());
 		
 		if(isLive){
 			if(videoObj.liveTracker.liveCurrentTime() > 0){
@@ -280,6 +287,7 @@ $(document).ready(function(){
 			
 			$liveBtn.removeClass("on");
 			$dvrBtn.addClass("on");
+			$(".speedWrap").attr("style","display:block;");
 		}else{
 			
 			videoObj.liveTracker.handleDurationchange();
@@ -291,16 +299,40 @@ $(document).ready(function(){
 			
 			}
 			
+			$(".speedWrap").attr("style","display:none;");
 			$dvrBtn.removeClass("on");
 			$liveBtn.addClass("on");
 		}
 		
 		
 		
+	};
+
+	function dvrTimeChange(){
 		
+		var delayTime = parseInt($playerLi.find("#time").val());
+		
+		if(videoObj.liveTracker.liveCurrentTime() > 0){
+			videoObj.currentTime(videoObj.liveTracker.liveCurrentTime() -delayTime);
+		}	
 		
 	};
 	
+	var number = document.getElementById('time');
+
+	number.onkeydown = function(e) {
+	    if(!((e.keyCode > 95 && e.keyCode < 106)
+	      || (e.keyCode > 47 && e.keyCode < 58) 
+	      || e.keyCode == 8)) {
+	        return false;
+	    }
+	}
+
+	
+	$("#time").on("propertychange chnage paste input", function (){
+		dvrTimeChange();
+	});
+
 	
 </c:if>
 
@@ -322,9 +354,9 @@ $(document).ready(function(){
 			</div>
 			
 			<div class="videoicons">
-				<div class="speedWrap">
+				<div class="speedWrap" style="display:none;">
 					<button class="down" />
-					<input type="text" id="time" value="-4" />
+					<input type="number" id="time" value="4" min="0" style="width: 40px;height: 32px;text-align: Center;border: none;"/>
 					<button class="up" />
 				</div>
 				<c:if test="${camera.isLiveOnly != true}">

@@ -257,6 +257,8 @@ public class CameraJsonController {
 
 				Boolean isSuccess = false;
 
+				String camId = camera.getCamId();
+				camServ.changeStateCamera(camId, CameraState.Wait);
 				isSuccess = (Boolean) stopResultMap.get("success");
 
 				if (isSuccess != true) {
@@ -385,6 +387,8 @@ public class CameraJsonController {
 			finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 			break;
 		}
+		
+		camServ.changeStateCamera(camId, CameraState.Wait);
 	}
 	
 	public void function2(Camera camera1){
@@ -431,6 +435,7 @@ public class CameraJsonController {
 			break;
 		
 		}
+		camServ.changeStateCamera(camId, CameraState.DisCon);
 	}
 	
 	@RequestMapping(value = "/connectStreamW/all/{sportsEventCode}")
@@ -532,6 +537,7 @@ public class CameraJsonController {
 				finalUrl = wowzaApi.connectStream(baseUrl, applicationCode, streamName);
 				break;
 			}
+			camServ.changeStateCamera(camId, CameraState.Wait);
 			resultCode = CommonResult.Success;
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
@@ -818,9 +824,9 @@ public class CameraJsonController {
 				}
 				// 여기까지가 삭제
 				
-				System.out.println(">>>>>>>>>>>>>>>>");
-				System.out.println("ErrorCode :" + ErrorCode);
-				System.out.println(">>>>>>>>>>>>>>>>");
+//				System.out.println(">>>>>>>>>>>>>>>>");
+//				System.out.println("ErrorCode :" + ErrorCode);
+//				System.out.println(">>>>>>>>>>>>>>>>");
 				// Wowza 등록해야됨...
 //				if (ErrorCode.equals("success")) { // 여기도 파일이 지워졌을때만 실행..하는 부분이라 위에 파일지우고 error 났을때 break _TRANS 하면 여기서 if문 안타도 됨.
 					try {
@@ -878,6 +884,8 @@ public class CameraJsonController {
 	
 						Boolean isSuccess = false;
 	
+						String camId = camera.getCamId();
+						camServ.changeStateCamera(camId, CameraState.Wait);
 						isSuccess = (Boolean) stopResultMap.get("success");
 	
 						ErrorCode = "add success";
@@ -957,6 +965,8 @@ public class CameraJsonController {
 
 						Boolean isSuccess = false;
 
+						String camId = camera.getCamId();
+						camServ.changeStateCamera(camId, CameraState.Wait);
 						isSuccess = (Boolean) stopResultMap.get("success");
 
 						if (isSuccess != true) {

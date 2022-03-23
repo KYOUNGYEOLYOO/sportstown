@@ -4,6 +4,12 @@
 #container.full > .titleWrap	{display:none;}
 #container.full #contentsWrap	{padding:0; height: calc(100vh - 81px);}
 
+
+/* 카메라에 input number 그거 화살표 없애기 */
+input[type="number"]::-webkit-outer-spin-button
+input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
+
+
 /* �����ȭ */
 .cameraBox { /*width:100%;*/ height:100%; display:flex;justify-content:center;/*align-items:center;*/padding:10px;}
 .cameraBox > p	{font-size:18px; line-height:1.8; text-align:center; margin:auto;}
