@@ -338,9 +338,24 @@ function drawShape(cShape){
 			
 			
 			switch(shape){
+				case "격자":
+					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
+
+					for (var i = 0; i < 6; i++){
+					    for (var j = 0; j < 6; j++){
+
+					      ctxChange.strokeRect(sX+j*(cX-sX+25),sY+i*(cY-sY+25),cX-sX+25,cY-sY+25);
+					    }
+					  }
+					break;
 				case "네모":
 					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
 					ctxChange.strokeRect(sX,sY,cX-sX,cY-sY);
+					
+					
+					
+					
+					
 					break;
 				case "원":
 					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
@@ -393,8 +408,21 @@ function drawShape(cShape){
 
 		console.log("aaaa:",shape);
 		switch(shape){
+			case "격자":
+
+				for (var i = 0; i < 6; i++){
+				    for (var j = 0; j < 6; j++){
+
+				      ctx.strokeRect(sX+j*(cX-sX+25),sY+i*(cY-sY+25),cX-sX+25,cY-sY+25);
+				    }
+				  }
+				
+				shape ="격자";
+				break;
 			case "네모":
 				ctx.strokeRect(sX,sY,cX-sX,cY-sY);
+				
+				
 				shape ="네모";
 				break;
 			case "원":

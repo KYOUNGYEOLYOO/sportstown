@@ -163,7 +163,7 @@ input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
 .canvasContainer .canvasMenuWrap ul	{display:flex;}
 .canvasContainer .canvasMenuWrap > ul > li + li	{margin-left:10px;}
 
-.canvasContainer .canvasMenuWrap ul li ul	{display:none; margin-top:-240px;}
+.canvasContainer .canvasMenuWrap ul li ul	{display:none; margin-top:-295px;}
 .canvasContainer .canvasMenuWrap ul li.color ul 	{display:none; margin-top:-353px;}
 .canvasContainer .canvasMenuWrap ul li ul li + li	{margin-top:5px;}
 .canvasContainer .canvasMenuWrap ul li p.open + ul	{display:block;}
@@ -175,6 +175,7 @@ input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
 .canvasContainer .canvasMenuWrap .figure > p	{background-position:0 0;}
 .canvasContainer .canvasMenuWrap .figure > p:hover	{background-position:-100px -100px;}
 
+.canvasContainer .canvasMenuWrap .figure .grid a	{background-position:-150px -100px;}
 .canvasContainer .canvasMenuWrap .figure .quadrangle a	{background-position:-50px 0;}
 .canvasContainer .canvasMenuWrap .figure .circle a	{background-position:-100px 0;}
 .canvasContainer .canvasMenuWrap .figure .line a	{background-position:-150px 0;}
