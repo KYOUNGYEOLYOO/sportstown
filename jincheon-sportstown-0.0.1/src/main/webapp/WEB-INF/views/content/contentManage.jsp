@@ -118,14 +118,14 @@ function init_contentList()
 			{name:"sportsEvent.name",index:"sportsEventName", width:80, align:"left", hidden:true},
 			{name:"sportsEvent2",index:"sportsEvent2", width:80, align:"left",
 				formatter: function (cellvalue, options, rowObject) {
-					return rowObject.sportsEvent.name + "\n" + rowObject.recordUser.userName;
+					return rowObject.sportsEvent.name + "\n\n" + rowObject.recordUser.userName;
 				}
 			},
 			{name:"title",index:"title", width:180, align:"left"},
 			{name:"recordUser.userName", index:"recordUserName", width:100, align:"center", hidden:true},
 			{name:"formatedRecordDate2", index:"formatedRecordDate2", width:200, align:"center",
 				formatter: function (cellvalue, options, rowObject) {
-						return rowObject.formatedRecordDate + "\n" + rowObject.content.registDate;
+						return rowObject.formatedRecordDate + "\n\n" + rowObject.content.registDate;
 					}
 				},
 			{name:"formatedRecordDate", index:"formatedRecordDate", width:200, align:"center",hidden:true},
