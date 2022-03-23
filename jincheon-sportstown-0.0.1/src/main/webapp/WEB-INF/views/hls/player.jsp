@@ -132,7 +132,8 @@ $(document).ready(function(){
         },
         liveTracker: {
         	trackingThreshold: 3,
-        	liveTolerance: 15,
+        	liveTolerance: 2,
+//         	liveTolerance: 15,
         },
         userActions: {
             doubleClick: false,
@@ -289,7 +290,6 @@ $(document).ready(function(){
 			$dvrBtn.addClass("on");
 			$(".speedWrap").attr("style","display:block;");
 		}else{
-			
 			videoObj.liveTracker.handleDurationchange();
 			
 			videoObj.liveTracker.seekableStart(0);

@@ -109,7 +109,8 @@ function initPalyer()
         },
         liveTracker: {
         	trackingThreshold: 3,
-        	liveTolerance: 15,
+//         	liveTolerance: 15,
+        	liveTolerance: 2,
         },
         userActions: {
             doubleClick: false,
