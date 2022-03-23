@@ -340,7 +340,13 @@ function drawShape(cShape){
 			switch(shape){
 				case "네모":
 					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
-					ctxChange.strokeRect(sX,sY,cX-sX,cY-sY);
+//					ctxChange.strokeRect(sX,sY,cX-sX,cY-sY);
+					for (var i = 0; i < 6; i++){
+                   		for (var j = 0; j < 6; j++){
+							ctxChange.strokeRect(j*(cX-sX+25),i*(cY-sY+25),cX-sX+25,cY-sY+25);
+//                     		ctxChange.strokeRect(j*(cX-sX),i*(cY-sY),(cX+sX),(cY+sY));
+                   }
+                 }
 					break;
 				case "원":
 					ctxChange.clearRect(0,0,canvasShape.width,canvasShape.height);
