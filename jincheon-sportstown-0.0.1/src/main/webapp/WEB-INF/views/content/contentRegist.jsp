@@ -22,6 +22,7 @@
 <script type="text/javascript">
 var abc111;
 
+
 $(document).ready(function(){
 	
 	var params = $("#frmSearch").serialize();
@@ -89,9 +90,9 @@ $(document).ready(function(){
 	
 });
 
+
 // $(document).ready(function(){
-// 	var originFileName = "";
-// 	var originFileNameSplit = "";
+	
 // 	var params = $("#frmSearch").serialize();
 	
 // 	$("#fileList").jqGrid({
@@ -104,15 +105,16 @@ $(document).ready(function(){
 // 	   	key: true,
 // 		// height: "auto",
 // 		height: 640,
-// 		rowNum: 12, // 없었음,
 // 		autowidth: true,
+// 		rowNum: 12, // 없었음,
 // 		viewrecords: true,
 // 		viewsortcols: [false,'vertical',false],
-// 		rownumbers: 10, // false,
+// 		rownumbers: false, // false,
 // 	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
-// // 	   	colNames:["파일명", "fileId", "filePath", "fileName"],
-// 	   	colNames:["카메라","녹화자","날짜","fileId", "filePath", "fileName"],
+// 	   	colNames:["파일명","카메라","녹화자","날짜","fileId", "filePath", "fileName"],
 // 	   	colModel:[
+// 	   		{name:"orignFileName",index:"orignFileName",hidden:true},
+// // 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
 // 	   		{name:"sports",index:"sports", width:70,align:"center", 
 // 				formatter: function (cellvalue, options, rowObject) {
 // 					originFileName = rowObject.orignFileName;
@@ -133,24 +135,17 @@ $(document).ready(function(){
 // 					return originFileNameSplit[2];
 // 				}
 // 			},
-// // 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
 // 	   		{name:"fileId", index:"fileId", hidden:true},
 // 	   		{name:"filePath", index:"filePath", hidden:true},
 // 	   		{name:"fileName", index:"fileName", hidden:true}
 // 	   	],
-// 	   	// pager: $("#p_fileList"), 이거 풀어야됨
-// 		loadComplete : function(data){  
-		    
-// 		    // 그리드 데이터 총 갯수
-// 		    var allRowsInGrid = jQuery('#fileList').jqGrid('getGridParam','records');
-// 		    initPage("fileList",allRowsInGrid,"");
-		   
-// 		},
+// 	   	// pager: $("#p_fileList"),
 // 	   	jsonReader : {
 // 	   		root : "files",
 // 	   		id : "fileId"
 // 	   	},
 // 	   	onSelectRow : function(id, status){
+// 	   		abc111 = $(this);
 // 	   		var file = $(this).getRowData(id);
 // 	   		onSelected_fileList(file);
 // 	   	}
@@ -160,6 +155,79 @@ $(document).ready(function(){
 // 	init_searchCtrls();
 	
 // });
+
+$(document).ready(function(){
+	var originFileName = "";
+	var originFileNameSplit = "";
+	var params = $("#frmSearch").serialize();
+	
+	$("#fileList").jqGrid({
+		// data: params,
+		// datatype: "local",
+		url: "<c:url value="/service/file/getFileList"/>?"+params,
+		datatype: "json",
+		mtype: "get",
+	   	width: "auto",
+	   	key: true,
+		// height: "auto",
+		height: 640,
+		rowNum: 12, // 없었음,
+		autowidth: true,
+		viewrecords: true,
+		viewsortcols: [false,'vertical',false],
+		rownumbers: false, // false,
+	   	// colNames:["사용자ID", "사용자명", "종목", "등록일자", "userId"],
+// 	   	colNames:["파일명", "fileId", "filePath", "fileName"],
+	   	colNames:["카메라","녹화자","날짜","fileId", "filePath", "fileName"],
+	   	colModel:[
+	   		{name:"sports",index:"sports", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					originFileName = rowObject.orignFileName;
+					originFileName = originFileName.replace('.mp4','');
+					originFileNameSplit = originFileName.split("_");
+					console.log(originFileName);
+					console.log(originFileNameSplit);
+					return originFileNameSplit[0];
+				}
+			},
+			{name:"user",index:"user", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					return originFileNameSplit[1];
+				}
+			},
+			{name:"date",index:"date", width:70,align:"center", 
+				formatter: function (cellvalue, options, rowObject) {
+					return originFileNameSplit[2];
+				}
+			},
+// 	   		{name:"orignFileName",index:"orignFileName",align:"left"},
+	   		{name:"fileId", index:"fileId", hidden:true},
+	   		{name:"filePath", index:"filePath", hidden:true},
+	   		{name:"fileName", index:"fileName", hidden:true}
+	   	],
+	   	// pager: $("#p_fileList"), 이거 풀어야됨
+		loadComplete : function(data){  
+		    
+			console.log("data ::::::::::::",data);
+		    // 그리드 데이터 총 갯수
+		    var allRowsInGrid = jQuery('#fileList').jqGrid('getGridParam','records');
+		    initPage("fileList",allRowsInGrid,"");
+		   
+		},
+	   	jsonReader : {
+	   		root : "files",
+	   		id : "fileId"
+	   	},
+	   	onSelectRow : function(id, status){
+	   		var file = $(this).getRowData(id);
+	   		onSelected_fileList(file);
+	   	}
+	});
+	
+	
+	init_searchCtrls();
+	
+});
 
 //그리드 페이징
 function initPage(gridId,totalSize,currentPage){
@@ -250,7 +318,7 @@ function initPage(gridId,totalSize,currentPage){
 //그리드 첫페이지로 이동
 function firstPage(){
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#fileList").jqGrid('setGridParam', {
                             page:1
                         }).trigger("reloadGrid");
        
@@ -258,16 +326,16 @@ function firstPage(){
 // 그리드 이전페이지 이동
 function prePage(totalSize){
        
-        var currentPage = $('#contentList').getGridParam('page');
+        var currentPage = $('#fileList').getGridParam('page');
         var pageCount = 10;
        
         currentPage-=pageCount;
         pageList=Math.ceil(currentPage/pageCount);
         currentPage=(pageList-1)*pageCount+pageCount;
        
-        initPage("contentList",totalSize,currentPage);
+        initPage("fileList",totalSize,currentPage);
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#fileList").jqGrid('setGridParam', {
                             page:currentPage
                         }).trigger("reloadGrid");
        
@@ -277,179 +345,34 @@ function prePage(totalSize){
 // 그리드 다음페이지 이동    
 function nextPage(totalSize){
        
-        var currentPage = $('#contentList').getGridParam('page');
+        var currentPage = $('#fileList').getGridParam('page');
         var pageCount = 10;
        
         currentPage+=pageCount;
         pageList=Math.ceil(currentPage/pageCount);
         currentPage=(pageList-1)*pageCount+1;
        
-        initPage("contentList",totalSize,currentPage);
+        initPage("fileList",totalSize,currentPage);
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#fileList").jqGrid('setGridParam', {
                             page:currentPage
                         }).trigger("reloadGrid");
 }
 // 그리드 마지막페이지 이동
 function lastPage(totalSize){
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#fileList").jqGrid('setGridParam', {
                             page:totalSize
                         }).trigger("reloadGrid");
 }
 // 그리드 페이지 이동
 function goPage(num){
        
-        $("#contentList").jqGrid('setGridParam', {
+        $("#fileList").jqGrid('setGridParam', {
                             page:num
                         }).trigger("reloadGrid");
        
 }
-
-// //그리드 페이징
-//   function initPage(gridId,totalSize,currentPage){
-     
-//       // 변수로 그리드아이디, 총 데이터 수, 현재 페이지를 받는다
-//       if(currentPage==""){
-//           var currentPage = $('#'+gridId).getGridParam('page');
-//       }
-//       // 한 페이지에 보여줄 페이지 수 (ex:1 2 3 4 5)
-//       var pageCount = 10;
-//       // 그리드 데이터 전체의 페이지 수
-//       var totalPage = Math.ceil(totalSize/$('#'+gridId).getGridParam('rowNum'));
-//       // 전체 페이지 수를 한화면에 보여줄 페이지로 나눈다.
-//       var totalPageList = Math.ceil(totalPage/pageCount);
-//       // 페이지 리스트가 몇번째 리스트인지
-//       var pageList=Math.ceil(currentPage/pageCount);
-     
-//       //alert("currentPage="+currentPage+"/ totalPage="+totalSize);
-//       //alert("pageCount="+pageCount+"/ pageList="+pageList);
-     
-//       // 페이지 리스트가 1보다 작으면 1로 초기화
-//       if(pageList<1) pageList=1;
-//       // 페이지 리스트가 총 페이지 리스트보다 커지면 총 페이지 리스트로 설정
-//       if(pageList>totalPageList) pageList = totalPageList;
-//       // 시작 페이지
-//       var startPageList=((pageList-1)*pageCount)+1;
-//       // 끝 페이지
-//       var endPageList=startPageList+pageCount-1;
-     
-//       //alert("startPageList="+startPageList+"/ endPageList="+endPageList);
-     
-//       // 시작 페이지와 끝페이지가 1보다 작으면 1로 설정
-//       // 끝 페이지가 마지막 페이지보다 클 경우 마지막 페이지값으로 설정
-//       if(startPageList<1) startPageList=1;
-//       if(endPageList>totalPage) endPageList=totalPage;
-//       if(endPageList<1) endPageList=1;
-     
-//       // 페이징 DIV에 넣어줄 태그 생성변수
-//       var pageInner="";
-     
-//       // 페이지 리스트가 1이나 데이터가 없을 경우 (링크 빼고 흐린 이미지로 변경)
-//       if(pageList<2){
-         
-// // 		pageInner+="<img src='firstPage2.gif'>";
-//         pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
-//         pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
-       
-//     }
-//     // 이전 페이지 리스트가 있을 경우 (링크넣고 뚜렷한 이미지로 변경)
-//     if(pageList>1){
-       
-//         pageInner+="<a class='first' href='javascript:firstPage()'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
-//         pageInner+="<a class='pre' href='javascript:prePage("+totalSize+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
-       
-//     }
-//     // 페이지 숫자를 찍으며 태그생성 (현재페이지는 강조태그)
-//     for(var i=startPageList; i<=endPageList; i++){
-//         if(i==currentPage){
-//             pageInner = pageInner +"<a href='javascript:goPage("+(i)+")' id='"+(i)+"'><strong>"+(i)+"</strong></a> ";
-//         }else{
-//             pageInner = pageInner +"<a href='javascript:goPage("+(i)+")' id='"+(i)+"'>"+(i)+"</a> ";
-//         }
-       
-//     }
-//     //alert("총페이지 갯수"+totalPageList);
-//     //alert("현재페이지리스트 번호"+pageList);
-   
-//     // 다음 페이지 리스트가 있을 경우
-//     if(totalPageList>pageList){
-       
-//         pageInner+="<a class='next' href='javascript:nextPage("+totalSize+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
-//         pageInner+="<a class='last' href='javascript:lastPage("+totalPage+")'><img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'></a>";
-//     }
-//     // 현재 페이지리스트가 마지막 페이지 리스트일 경우
-//     if(totalPageList==pageList){
-       
-//         pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
-//         pageInner+="<img src='<c:url value="/resources"/>/images/common/bul_arrow.gif'>";
-//     }  
-//     //alert(pageInner);
-//     // 페이징할 DIV태그에 우선 내용을 비우고 페이징 태그삽입
-//     //$("#paginate").html("");	//220222 test
-//     //$("#paginate").append(pageInner);	//220222 test
-   
-// }
-
-
-// //그리드 첫페이지로 이동
-// function firstPage(){
-       
-//         $("#contentList").jqGrid('setGridParam', {
-//                             page:1
-//                         }).trigger("reloadGrid");
-       
-// }
-// // 그리드 이전페이지 이동
-// function prePage(totalSize){
-       
-//         var currentPage = $('#contentList').getGridParam('page');
-//         var pageCount = 10;
-       
-//         currentPage-=pageCount;
-//         pageList=Math.ceil(currentPage/pageCount);
-//         currentPage=(pageList-1)*pageCount+pageCount;
-       
-//         initPage("contentList",totalSize,currentPage);
-       
-//         $("#contentList").jqGrid('setGridParam', {
-//                             page:currentPage
-//                         }).trigger("reloadGrid");
-       
-// }
-
-
-// // 그리드 다음페이지 이동    
-// function nextPage(totalSize){
-       
-//         var currentPage = $('#contentList').getGridParam('page');
-//         var pageCount = 10;
-       
-//         currentPage+=pageCount;
-//         pageList=Math.ceil(currentPage/pageCount);
-//         currentPage=(pageList-1)*pageCount+1;
-       
-//         initPage("contentList",totalSize,currentPage);
-       
-//         $("#contentList").jqGrid('setGridParam', {
-//                             page:currentPage
-//                         }).trigger("reloadGrid");
-// }
-// // 그리드 마지막페이지 이동
-// function lastPage(totalSize){
-       
-//         $("#contentList").jqGrid('setGridParam', {
-//                             page:totalSize
-//                         }).trigger("reloadGrid");
-// }
-// // 그리드 페이지 이동
-// function goPage(num){
-       
-//         $("#contentList").jqGrid('setGridParam', {
-//                             page:num
-//                         }).trigger("reloadGrid");
-       
-// }
 
 
 </script>
@@ -518,26 +441,36 @@ function onSelected_fileList(file)
 function onClick_regist() {
 	
 	var param = $("#frmContent").serialize();
-	console.log(param);
+// 	console.log(param);
+	var ContentsportEventCode = $("#frmContent").find("[name=sportsEventCode]").val();
+// 	console.log(">>>>>>>>>>>",ContentsportEventCode);
+	if(ContentsportEventCode == ""){
+		console.log("종목이 선택되지 않았습니다.");	
+// 		alert("종목이 선택되지 않았습니다.");
+		new bcs_messagebox().openError("영상등록", "영상등록 오류 발생 [종목 선택]", null);
+	}else{
+		$.ajax({
+			url : "<c:url value="/service/content/registContent"/>",
+			async : false,
+			dataType : "json",
+			data : param, 
+			method : "post",
+			beforeSend : function(xhr, settings ){},
+			error : function (xhr, status, error){},
+			success : function (ajaxData) {
+				
+				if(ajaxData.resultCode == "Success"){
+					location.reload();
+				}
+				else{
+					new bcs_messagebox().openError("컨텐츠등록", "컨텐츠등록 오류 발생 [code="+ajaxData.resultCode+"]", null);
+				}
+			}
+		});
+// 		console.log("Boolean>>>>>>>>>>> F");			
+	}
 	
-	$.ajax({
-		url : "<c:url value="/service/content/registContent"/>",
-		async : false,
-		dataType : "json",
-		data : param, 
-		method : "post",
-		beforeSend : function(xhr, settings ){},
-		error : function (xhr, status, error){},
-		success : function (ajaxData) {
-			
-			if(ajaxData.resultCode == "Success"){
-				location.reload();
-			}
-			else{
-				new bcs_messagebox().openError("컨텐츠등록", "컨텐츠등록 오류 발생 [code="+ajaxData.resultCode+"]", null);
-			}
-		}
-	});
+// 	return;
 
 }
 

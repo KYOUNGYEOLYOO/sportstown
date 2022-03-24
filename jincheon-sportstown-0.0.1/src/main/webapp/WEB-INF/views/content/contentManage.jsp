@@ -121,7 +121,14 @@ function init_contentList()
 					return rowObject.sportsEvent.name + "\n\n" + rowObject.recordUser.userName;
 				}
 			},
-			{name:"title",index:"title", width:180, align:"left"},
+			{name:"title",index:"title", width:180, align:"left",
+				formatter: function (cellvalue, options, rowObject) {
+					
+					var tag = rowObject.tagInfo==null?"":rowObject.tagInfo
+					
+					return rowObject.title + "\n\n" + tag;
+				}
+			},
 			{name:"recordUser.userName", index:"recordUserName", width:100, align:"center", hidden:true},
 			{name:"formatedRecordDate2", index:"formatedRecordDate2", width:200, align:"center",
 				formatter: function (cellvalue, options, rowObject) {

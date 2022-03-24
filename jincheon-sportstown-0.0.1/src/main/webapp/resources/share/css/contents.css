@@ -4,6 +4,9 @@
 #container.full > .titleWrap	{display:none;}
 #container.full #contentsWrap	{padding:0; height: calc(100vh - 81px);}
 
+/* 0323 영상검색 */
+#contentList > tbody > tr > td:nth-child(4) {font-weight: bold; }
+
 
 /* 카메라에 input number 그거 화살표 없애기 */
 input[type="number"]::-webkit-outer-spin-button
