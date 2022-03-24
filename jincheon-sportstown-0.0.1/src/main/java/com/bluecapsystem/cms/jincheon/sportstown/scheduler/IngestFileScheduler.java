@@ -10,6 +10,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.bluecapsystem.cms.core.result.CommonResult;
+import com.bluecapsystem.cms.core.result.IResult;
 import com.bluecapsystem.cms.core.service.FileInstanceService;
 import com.bluecapsystem.cms.jincheon.sportstown.json.wowza.WowzaCURLApi;
 
@@ -25,6 +30,9 @@ public class IngestFileScheduler
 {
 	private static final Logger logger = LoggerFactory.getLogger(IngestFileScheduler.class);
 			
+	@Autowired
+	private EntityManagerFactory emf;
+	
 	@Autowired
 	private FileInstanceService fileServ;
 	
@@ -73,11 +81,30 @@ public class IngestFileScheduler
 			    
 			    
 			    if(Integer.parseInt(temp) > Integer.parseInt(formatted)){
-					boolean fileInfo = file.delete();
-					
-					if(fileInfo != true) {
-						logger.error("ingest  File delete error [fileName = {}]", file.getPath());
+			    	
+			    	EntityManager em = emf.createEntityManager();
+            		IResult resultCode = CommonResult.UnknownError;
+            		
+            		
+        			em.getTransaction().begin();
+            		
+        			String fileId[] = file.getName().split("\\.");
+			    	
+        			
+        			resultCode = fileServ.deleteFile(em, fileId[0]);
+            		
+            		if(resultCode ==  CommonResult.Success ) {
+            			boolean fileInfo = file.delete();
+    					
+    					if(fileInfo != true) {
+    						logger.error("ingest  File delete error [fileName = {}]", file.getPath());
+    					}else {
+    						em.getTransaction().commit();
+    					}
+            			
 					}
+			    	
+					
 			    }
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

@@ -11,6 +11,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.bluecapsystem.cms.core.data.entity.FileInstance;
 import com.bluecapsystem.cms.core.properties.StoragePathProperties;
+import com.bluecapsystem.cms.core.result.CommonResult;
+import com.bluecapsystem.cms.core.result.IResult;
 import com.bluecapsystem.cms.core.service.FileInstanceService;
 import com.bluecapsystem.cms.jincheon.sportstown.json.wowza.WowzaCURLApi;
 
@@ -27,6 +33,9 @@ public class UploadFileScheduler
 {
 	private static final Logger logger = LoggerFactory.getLogger(UploadFileScheduler.class);
 			
+	@Autowired
+	private EntityManagerFactory emf;
+	
 	@Autowired
 	private FileInstanceService fileServ;
 	
@@ -55,25 +64,25 @@ public class UploadFileScheduler
 
 
 		File root = new File(StoragePathProperties.getDiretory("UPLOAD"), year+"\\"+month);	
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSS-z");
+		
 		if(root.exists()) {
 			
-			logger.info("upload File delete info [scheduler run info = {}]", dateFormat);
+			logger.info("upload File delete info [scheduler run info ]");
 			
 			
 			deleteFolder(root.toString());
-			boolean deleteInfo = root.delete();
-			
-			if(deleteInfo != true) {
-				logger.error("upload  File delete error [path = {}]", root);
-			}
+//			boolean deleteInfo = root.delete();
+//			
+//			if(deleteInfo != true) {
+//				logger.error("upload  File delete error [path = {}]", root);
+//			}
         }else {
-        	logger.info("upload File delete 폴더 없음 [scheduler run info = {},path = {}]", dateFormat,root);
+        	logger.info("upload File delete 폴더 없음 [scheduler run info path = {}]", root);
         }
 	}
 	
 
-	public static void deleteFolder(String path) {
+	public void deleteFolder(String path) {
 		
 	    File folder = new File(path);
 	    try {
@@ -82,8 +91,24 @@ public class UploadFileScheduler
 				
                 for (int i = 0; i < folder_list.length; i++) {
                 	if(folder_list[i].isFile()) {
-                		folder_list[i].delete();
-			
+                		
+                		EntityManager em = emf.createEntityManager();
+                		IResult resultCode = CommonResult.UnknownError;
+                		
+                		
+            			em.getTransaction().begin();
+                		
+            			String fileId[] = folder_list[i].getName().split("\\.");
+                		
+                		
+                		resultCode = fileServ.deleteFile(em, fileId[0]);
+                		
+                		if(resultCode ==  CommonResult.Success ) {
+                			folder_list[i].delete();
+                			em.getTransaction().commit();
+						}
+                		
+                		
                 	}else {
                 		deleteFolder(folder_list[i].getPath()); //재귀함수호출
 			
