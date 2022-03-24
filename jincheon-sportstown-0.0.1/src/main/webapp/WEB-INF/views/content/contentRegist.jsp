@@ -377,7 +377,8 @@ function onClick_regist() {
 // 	console.log(">>>>>>>>>>>",ContentsportEventCode);
 	if(ContentsportEventCode == ""){
 		console.log("종목이 선택되지 않았습니다.");	
-		alert("종목이 선택되지 않았습니다.");	
+// 		alert("종목이 선택되지 않았습니다.");
+		new bcs_messagebox().openError("영상등록", "영상등록 오류 발생 [종목 선택]", null);
 	}else{
 		$.ajax({
 			url : "<c:url value="/service/content/registContent"/>",

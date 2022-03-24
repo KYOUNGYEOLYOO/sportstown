@@ -59,44 +59,51 @@ function onClick_reload()
 
 function onClick_regist()
 {
-	
-	$("#frmContent").ajaxSubmit({
-		dataType : "json",
-		beforeSubmit : function(arrData, jqForm, options){
-			$("[data-regist-input]").attr("disabled","disabled");
-		},
-		uploadProgress : function(event, position, total, percentComplete){
-			console.log("upload == ");
-			console.log(event);
-			console.log(position);
-			console.log(total);
-			console.log(percentComplete);
-			
-			$("[data-regist-fileProgress]").text("파일 업로드 " + percentComplete + "% ( " + position + " / " + total + " )" );
-		},
-		success : function(data, statusText, xhr, jqForm){
-			console.log(data);
-			
-			if(data.resultCode == "Success"){
-				var msgBox = new bcs_messagebox().open("파일등록", "파일 컨텐츠 등록 성공", false, { 
-					"확인" : function(){
-						location.reload();
-					}
-				});
+	var FilesportEventCode = $("#frmContent").find("[name=sportsEventCode]").val();
+// 	console.log(">>>>>>>>>>>",ContentsportEventCode);
+	if(FilesportEventCode == ""){
+		console.log("종목이 선택되지 않았습니다.");	
+// 		alert("종목이 선택되지 않았습니다.");
+		new bcs_messagebox().openError("파일등록", "파일등록 오류 발생 [종목 선택]", null);
+	}else{
+		$("#frmContent").ajaxSubmit({
+			dataType : "json",
+			beforeSubmit : function(arrData, jqForm, options){
+				$("[data-regist-input]").attr("disabled","disabled");
+			},
+			uploadProgress : function(event, position, total, percentComplete){
+				console.log("upload == ");
+				console.log(event);
+				console.log(position);
+				console.log(total);
+				console.log(percentComplete);
+				
+				$("[data-regist-fileProgress]").text("파일 업로드 " + percentComplete + "% ( " + position + " / " + total + " )" );
+			},
+			success : function(data, statusText, xhr, jqForm){
+				console.log(data);
+				
+				if(data.resultCode == "Success"){
+					var msgBox = new bcs_messagebox().open("파일등록", "파일 컨텐츠 등록 성공", false, { 
+						"확인" : function(){
+							location.reload();
+						}
+					});
+				}
+				else{
+					new bcs_messagebox().openError("파일등록", "파일등록 오류 발생 [code="+data.resultCode+"]", null);
+				}
+				$("[data-regist-input]").removeAttr("disabled");
+				$("[data-regist-fileProgress]").text("");
+			},
+			error: function(err){
+				new bcs_messagebox().openError("파일등록", "파일등록 오류 발생 [AJAX Error]", null);
+				
+				$("[data-regist-input]").removeAttr("disabled");
+				$("[data-regist-fileProgress]").text("");
 			}
-			else{
-				new bcs_messagebox().openError("파일등록", "파일등록 오류 발생 [code="+data.resultCode+"]", null);
-			}
-			$("[data-regist-input]").removeAttr("disabled");
-			$("[data-regist-fileProgress]").text("");
-		},
-		error: function(err){
-			new bcs_messagebox().openError("파일등록", "파일등록 오류 발생 [AJAX Error]", null);
-			
-			$("[data-regist-input]").removeAttr("disabled");
-			$("[data-regist-fileProgress]").text("");
-		}
-	})
+		})
+	}
 	
 }
 
