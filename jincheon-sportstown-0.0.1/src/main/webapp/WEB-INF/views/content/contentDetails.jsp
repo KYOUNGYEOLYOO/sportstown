@@ -438,6 +438,10 @@ function exitHandler() {
 <!-- 					<input type="text" name="instances[0].orignFileName" value="" data-ctrl-contentMeta="orignFileName" class="inputTxt" readonly> -->
 <!-- 					<input type="hidden" name="instances[0].fileId" value="" data-ctrl-contentMeta="fileId">						 -->
 <!-- 				</dd>						 -->
+				<dt>태그</dt>
+				<dd class="full">
+					<input name="tagInfo" type="text" value="${contentMeta.tagInfo}" title="태그" class="inputTxt" >
+				</dd>
 			</dl>
 		</form>
 		<div class="btnWrap">

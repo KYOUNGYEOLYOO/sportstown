@@ -119,7 +119,7 @@ li.on .depth2Wrap { display:block; }
 
 
 
-.detailContainer .btnWrap	{border-top:1px solid #eaeaea; padding:30px 20px;}
+.detailContainer .btnWrap	{border-top:1px solid #eaeaea; padding:13px 20px;}
 .detailContainer .btnWrap a	{width:95px;}
 .detailContainer .btnWrap .btnWrap	{padding:0; border:none; margin:0; justify-content: flex-end; flex:1;}
 .detailContainer .btnWrap a + a	{margin-left:10px;}
