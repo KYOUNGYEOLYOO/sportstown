@@ -60,9 +60,9 @@ public class WowzaLogScheduler
 			}
 		}
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSS-z");
 		
-		logger.info("Wowza Log File delete info [scheduler run info = {}]", dateFormat);
+		
+		logger.info("Wowza Log File delete info [scheduler run info ]");
 		
 		
 //		List<File> logFiles2 = fileServ.getFiles("WOWZALOG2");

@@ -88,9 +88,9 @@ public class IngestFileScheduler
 
 		}
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSS-z");
+	
 		
-		logger.info("ingest File delete info [scheduler run info = {}]", dateFormat);
+		logger.info("ingest File delete info [scheduler run info ]");
 		
 		
 		

@@ -122,9 +122,7 @@ public class StorageInfoScheduler
 		}
 		
 		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSS-z");
-		
-		logger.info("Storage info [scheduler run info = {}]", dateFormat);
+		logger.info("Storage info [scheduler run info]");
 		
 		
 		
