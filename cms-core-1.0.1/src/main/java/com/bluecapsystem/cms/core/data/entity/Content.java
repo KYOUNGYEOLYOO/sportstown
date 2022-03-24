@@ -39,7 +39,7 @@ public class Content {
 
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "Asia/Seoul")
 	private Date registDate;
 
 	@Column(nullable = true)

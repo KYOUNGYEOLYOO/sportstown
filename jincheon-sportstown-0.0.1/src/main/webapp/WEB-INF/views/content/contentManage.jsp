@@ -125,7 +125,9 @@ function init_contentList()
 			{name:"recordUser.userName", index:"recordUserName", width:100, align:"center", hidden:true},
 			{name:"formatedRecordDate2", index:"formatedRecordDate2", width:200, align:"center",
 				formatter: function (cellvalue, options, rowObject) {
-						return rowObject.formatedRecordDate + "\n\n" + rowObject.content.registDate;
+					
+						var registDate = rowObject.content.registDate.substring(0,19);
+						return rowObject.formatedRecordDate + "\n\n" + registDate;
 					}
 				},
 			{name:"formatedRecordDate", index:"formatedRecordDate", width:200, align:"center",hidden:true},

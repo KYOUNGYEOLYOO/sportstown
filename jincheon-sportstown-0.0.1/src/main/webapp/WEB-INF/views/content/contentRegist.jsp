@@ -63,7 +63,9 @@ $(document).ready(function(){
 			},
 			{name:"date",index:"date", width:70,align:"center", 
 				formatter: function (cellvalue, options, rowObject) {
-					return originFileNameSplit[2];
+					
+					var date = originFileNameSplit[2].substring(0,19);
+					return date;
 				}
 			},
 	   		{name:"fileId", index:"fileId", hidden:true},
