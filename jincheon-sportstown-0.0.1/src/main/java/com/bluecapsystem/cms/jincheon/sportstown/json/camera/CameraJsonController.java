@@ -1,6 +1,7 @@
 package com.bluecapsystem.cms.jincheon.sportstown.json.camera;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -436,6 +438,7 @@ public class CameraJsonController {
 		
 		}
 		camServ.changeStateCamera(camId, CameraState.DisCon);
+//		testFolderDelete(camId);
 	}
 	
 	@RequestMapping(value = "/connectStreamW/all/{sportsEventCode}")
@@ -486,6 +489,7 @@ public class CameraJsonController {
 
 		return mnv;
 	}
+	
 	
 	@RequestMapping(value = "/connectStreamW/{camId}")
 	public ModelAndView connectStreamW(@PathVariable("camId") String camId,
@@ -621,6 +625,7 @@ public class CameraJsonController {
 			}
 			camServ.changeStateCamera(camId, CameraState.DisCon);
 			resultCode = CommonResult.Success;
+//			testFolderDelete(camId);
 		} catch (Exception ex) {
 			logger.error(ExceptionUtils.getFullStackTrace(ex));
 //			Enumeration params = request.getParameterNames();
