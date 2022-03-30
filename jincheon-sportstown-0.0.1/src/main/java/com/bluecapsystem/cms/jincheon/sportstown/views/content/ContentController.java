@@ -132,7 +132,7 @@ public class ContentController {
 	}
 	
 	@RequestMapping("/detail/{contentId}"+"/video")
-	public ModelAndView detail_video(final HttpSession session, @PathVariable("contentId") final String contentId,
+	public ModelAndView detailVideo(final HttpSession session, @PathVariable("contentId") final String contentId,
 			@ModelAttribute DashboardData dashboardData) {
 		ModelAndView mnv = new ModelAndView("/content/contentDetails");
 		String resultCode = "false";
