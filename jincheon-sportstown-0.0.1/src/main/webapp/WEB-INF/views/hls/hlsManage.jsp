@@ -487,6 +487,15 @@ function onClick_disConnectAll()
 	}
 }
 
+function fullScreen(){
+	if (!document.fullscreenElement) {
+		container.webkitRequestFullscreen();
+	  } else {
+		document.webkitExitFullscreen();
+	  }
+}
+</script>
+
 </script>
 
 
