@@ -43,6 +43,12 @@ public class IndexViewController {
 		
 		ModelAndView mnv = new ModelAndView("/index/index");
 				
+		
+//		String test="20191023 국방뉴스 육군기계화학교, 기갑/기계화부대 전투발전 세미나";
+//		
+//		test.replace("/", "^").replaceAll("\\\\", "^");
+//		
+//		System.out.println(">>>>>>>"+test);
 		return mnv;
 		
 	}
