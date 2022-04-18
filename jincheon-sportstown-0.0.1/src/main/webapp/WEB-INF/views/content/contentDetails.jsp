@@ -442,16 +442,18 @@ function exitHandler() {
 				<dd class="full">
 					<input name="tagInfo" type="text" value="${contentMeta.tagInfo}" title="태그" class="inputTxt" >
 				</dd>
-				<c:choose>
-					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
-						<dt>조회수</dt>
-						<dd class="full">
-							<input name="hits" type="text" value="${contentMeta.tagInfo}" title="조회수" class="inputTxt" readonly>
-						</dd>
-					</c:when>
-				</c:choose>
 			</dl>
 		</form>
+		<dl style="padding-top: 0px;">
+			<c:choose>
+				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+					<dt>조회수</dt>
+					<dd class="full">
+						<input name="viewCount" type="text" value="${viewCount}" title="조회수" class="inputTxt" readonly>
+					</dd>
+				</c:when>
+			</c:choose>
+		</dl>
 		<div class="btnWrap">
 <!-- 			<a class="btn download">다운로드</a>		 -->
 			<a class="btn download" href="javascript:onClick_download();">다운로드</a>		
