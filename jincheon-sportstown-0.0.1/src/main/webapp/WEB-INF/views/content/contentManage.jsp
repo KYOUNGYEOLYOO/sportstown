@@ -190,9 +190,6 @@ function initPage(gridId,totalSize,currentPage){
     console.log("PageList :",pageList);
     
    
-    //alert("currentPage="+currentPage+"/ totalPage="+totalSize);
-    //alert("pageCount="+pageCount+"/ pageList="+pageList);
-   
     // 페이지 리스트가 1보다 작으면 1로 초기화
     if(pageList<1) pageList=1;
     // 페이지 리스트가 총 페이지 리스트보다 커지면 총 페이지 리스트로 설정
@@ -202,7 +199,6 @@ function initPage(gridId,totalSize,currentPage){
     // 끝 페이지
     var endPageList=startPageList+pageCount-1;
    
-    //alert("startPageList="+startPageList+"/ endPageList="+endPageList);
    
     // 시작 페이지와 끝페이지가 1보다 작으면 1로 설정
     // 끝 페이지가 마지막 페이지보다 클 경우 마지막 페이지값으로 설정
@@ -216,8 +212,6 @@ function initPage(gridId,totalSize,currentPage){
     // 페이지 리스트가 1이나 데이터가 없을 경우 (링크 빼고 흐린 이미지로 변경)
     if(pageList<2){
        
-//         pageInner+="<a class='btn first' href='javascript:firstPage()'>111</a>";
-//         pageInner+="<a class='btn pre' href='javascript:prePage()'>222</a>";
        
     }
     // 이전 페이지 리스트가 있을 경우 (링크넣고 뚜렷한 이미지로 변경)
@@ -235,8 +229,6 @@ function initPage(gridId,totalSize,currentPage){
         }
        
     }
-    //alert("총페이지 갯수"+totalPageList);
-    //alert("현재페이지리스트 번호"+pageList);
    
     // 다음 페이지 리스트가 있을 경우
     if(totalPageList>pageList){
@@ -247,10 +239,7 @@ function initPage(gridId,totalSize,currentPage){
     // 현재 페이지리스트가 마지막 페이지 리스트일 경우
     if(totalPageList==pageList){
        
-//         pageInner+="<a class='btn first' href='javascript:firstPage()'>777</a>";
-//         pageInner+="<a class='btn pre' href='javascript:prePage()'>888</a>";
     }  
-    //alert(pageInner);
     // 페이징할 DIV태그에 우선 내용을 비우고 페이징 태그삽입
     $("#paginate").html("");	//220222 test
     $("#paginate").append(pageInner);	//220222 test

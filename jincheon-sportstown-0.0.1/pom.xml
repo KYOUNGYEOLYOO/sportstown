@@ -56,6 +56,14 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-logging</artifactId>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.11.0</version>
+		</dependency>
+				
 	
 
 		<!-- https://mvnrepository.com/artifact/com.mchange/mchange-commons-java -->
@@ -132,11 +140,11 @@
 			<version>2.4</version>
 		</dependency>
 
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.4</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>commons-io</groupId> -->
+<!-- 			<artifactId>commons-io</artifactId> -->
+<!-- 			<version>1.4</version> -->
+<!-- 		</dependency> -->
 
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

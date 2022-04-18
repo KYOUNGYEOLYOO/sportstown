@@ -4,6 +4,9 @@
 #container.full > .titleWrap	{display:none;}
 #container.full #contentsWrap	{padding:0; height: calc(100vh - 81px);}
 
+/* 0328 카메라 리스트 연결 상태에 따른 변화 */
+[con="DisCon"] {opacity: 0.6; cursor: not-allowed !important; pointer-events: none !important; background: #aaa !important;}
+
 /* 0323 영상검색 */
 #contentList > tbody > tr > td:nth-child(4) {font-weight: bold; }
 

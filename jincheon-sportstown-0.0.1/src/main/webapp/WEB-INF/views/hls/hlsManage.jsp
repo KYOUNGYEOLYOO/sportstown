@@ -50,27 +50,6 @@ function changeContainer(){
 }
 </script>
 
-<script type="text/javascript">
-
-window.screen.orientation.onchange = function() {
-
-	console.log("여기는 들어와지나??");
-    if (this.type.startsWith('landscape')) {
-      document.getElementById("container").webkitRequestFullscreen();
-    } else {
-      document.webkitExitFullscreen();
-    }
-
-};
-
-function fullScreen(){
-	if (!document.fullscreenElement) {
-		container.webkitRequestFullscreen();
-	  } else {
-		document.webkitExitFullscreen();
-	  }
-}
-</script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -402,18 +381,23 @@ function onClick_backRecord(sender, camId)
 function onClick_recordAll()
 {	
 	//$("[data-ctrl-view=live_player_list]").find("li").each(function(idx, playerLi){
-	$("[data-ctrl-view=live_player_list]").find("li[data-camera-camid]").each(function(idx, playerLi){
-		var $player = $(playerLi).find("div.jwplayer");
-		var playerId = $player.attr("id");
-		var camId = $(playerLi).attr("data-camera-camId");
-		
-		console.log('onclickrecordAll')
-		console.log(playerLi);
-		console.log('idx : ' + idx + 'camId : ' + camId);
-		
-		onClick_record($("[data-ctrl-view=live_player_list]"), camId);
-		
-	});
+	console.log("data-ctrl-view=live_player_list", $("[data-ctrl-view=live_player_list]").find("li[data-camera-camid]").length);
+	if($("[data-ctrl-view=live_player_list]").find("li[data-camera-camid]").length == 0){
+		alert(" 녹화할 카메라가 선택되지 않았습니다. ");
+	}else{
+		$("[data-ctrl-view=live_player_list]").find("li[data-camera-camid]").each(function(idx, playerLi){
+			var $player = $(playerLi).find("div.jwplayer");
+			var playerId = $player.attr("id");
+			var camId = $(playerLi).attr("data-camera-camId");
+			
+			console.log('onclickrecordAll')
+			console.log(playerLi);
+			console.log('idx : ' + idx + 'camId : ' + camId);
+			
+			onClick_record($("[data-ctrl-view=live_player_list]"), camId);
+			
+		});
+	}
 }
 
 function onClick_stopRecordAll()
@@ -421,12 +405,17 @@ function onClick_stopRecordAll()
 	console.log('onClick_stopRecordAll');
 	
 	//$("[data-ctrl-view=live_player_list]").find("li").each(function(idx, playerLi){
-	$("[data-ctrl-view=live_player_list]").find("li[data-camera-camid]").each(function(idx, playerLi){
-		var $player = $(playerLi).find("div.jwplayer");
-		var playerId = $player.attr("id");
-		var camId = $(playerLi).attr("data-camera-camId");
-		onClick_stopRecord($("[data-ctrl-view=live_player_list]"), camId);
-	});
+	console.log("data-ctrl-view=live_player_list", $("[data-ctrl-view=live_player_list]").find("li[data-camera-camid]").length);
+	if($("[data-ctrl-view=live_player_list]").find("li[data-camera-camid]").length == 0){
+		alert(" 녹화중인 카메라가 없습니다. ");
+	}else{
+		$("[data-ctrl-view=live_player_list]").find("li[data-camera-camid]").each(function(idx, playerLi){
+			var $player = $(playerLi).find("div.jwplayer");
+			var playerId = $player.attr("id");
+			var camId = $(playerLi).attr("data-camera-camId");
+			onClick_stopRecord($("[data-ctrl-view=live_player_list]"), camId);
+		});
+	}
 	
 }
 
@@ -449,19 +438,24 @@ function onClick_connectAll()
 	console.log("connectAll");
 	console.log("sportsEventCode ", $("#sportsEvent").val());
 	var sportsEventCode = $("#sportsEvent").val();
-	$.ajax({
-		url : "<c:url value="/service/camera/connectStreamW/all"/>/" + sportsEventCode,
-		async : false,
-		dataType : "json",
-		data : null, 
-		method : "post",
-		beforeSend : function(xhr, settings ){},
-		error : function (xhr, status, error){},
-		success : function (ajaxData) {
-			location.reload();
-			alert("연결 성공");
-		}
-	});
+	if(!sportsEventCode){
+		alert(" 스포츠 종목을 선택해주세요. ");
+	}else{
+		$.ajax({
+			url : "<c:url value="/service/camera/connectStreamW/all"/>/" + sportsEventCode,
+			async : false,
+			dataType : "json",
+			data : null, 
+			method : "post",
+			beforeSend : function(xhr, settings ){},
+			error : function (xhr, status, error){},
+			success : function (ajaxData) {
+				location.reload();
+				alert("연결 성공");
+			}
+		});		
+	}
+		
 }
 // var staticCameras;
 // var camera;
@@ -472,22 +466,35 @@ function onClick_disConnectAll()
 	console.log("disconnectAll");
 	console.log("sportsEventCode ", $("#sportsEvent").val());
 	var sportsEventCode = $("#sportsEvent").val();
-	$.ajax({
-		url : "<c:url value="/service/camera/disconnectStreamW/all"/>/" + sportsEventCode,
-		async : false,
-		dataType : "json",
-		data : null, 
-		method : "post",
-		beforeSend : function(xhr, settings ){},
-		error : function (xhr, status, error){
-			alert("disConnectAll Error");
-		},
-		success : function (ajaxData) {
-			location.reload();
-			alert("연결 해제 성공");
-		}
-	});
+	if(!sportsEventCode){
+		alert(" 스포츠 종목을 선택해주세요. ");
+	}else{
+		$.ajax({
+			url : "<c:url value="/service/camera/disconnectStreamW/all"/>/" + sportsEventCode,
+			async : false,
+			dataType : "json",
+			data : null, 
+			method : "post",
+			beforeSend : function(xhr, settings ){},
+			error : function (xhr, status, error){
+				alert("disConnectAll Error");
+			},
+			success : function (ajaxData) {
+				location.reload();
+				alert("연결 해제 성공");
+			}
+		});
+	}
 }
+
+function fullScreen(){
+	if (!document.fullscreenElement) {
+		container.webkitRequestFullscreen();
+	  } else {
+		document.webkitExitFullscreen();
+	  }
+}
+</script>
 
 </script>
 

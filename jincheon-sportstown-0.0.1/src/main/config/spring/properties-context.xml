@@ -16,8 +16,11 @@
 				<entry key="CONTENT" value="D:/sport_cms_storage/files"/>
 				
 <!-- 				<entry key="WOWZALOG1" value="D:/sport_cms_storage/logs"/>  y드라이브 넣어서 지움-->
-				<entry key="WOWZACONTENT" value="Y:/content"/>
-                <entry key="WOWZALOG1" value="Y:/logs"/>
+				<entry key="WOWZACONTENTTEMP" value="X:/locanDVR/Dlive/_definst_"/>
+				<entry key="WOWZACONTENT" value="X:/usr/local/WowzaStreamingEngine-4.7.0/content"/>
+<!-- 				<entry key="WOWZACONTENT" value="Y:/content"/> -->
+                <entry key="WOWZALOG1" value="X:/usr/local/WowzaStreamingEngine-4.7.0/logs"/>
+<!--                 <entry key="WOWZALOG1" value="Y:/logs"/> -->
 				
 				<!-- 
 				<entry key="INGEST" value="Z:/cms_storage/ingest"/>

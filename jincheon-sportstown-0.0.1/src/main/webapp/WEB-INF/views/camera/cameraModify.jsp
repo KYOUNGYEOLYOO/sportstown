@@ -61,7 +61,7 @@ $(document).ready(function(){
 							jpPopup.dialog("close");
 							console.log("streamNameBefore", ajaxData.streamNameBefore);
 							//location.reload(); // 수정 완료하고나서 화면 재실행 한번 더 해주기
-							$("#cameraList").trigger("reloadGrid");
+// 							$("#cameraList").trigger("reloadGrid");
 						}
 						else{
 							console.log(" ajaxData.stream : ", ajaxData.stream );

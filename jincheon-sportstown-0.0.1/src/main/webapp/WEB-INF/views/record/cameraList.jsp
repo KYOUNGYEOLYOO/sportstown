@@ -13,7 +13,8 @@ $(document).ready(function(){
 	$("ul.btnbox li").click(function(){
 		var eventSender = new bcs_ctrl_event($("[data-ctrl-view=camera_list]"));
 		var camId = $(this).attr("data-camera-camId");
-		
+		console.log("this",$(this));
+		console.log("camId :", camId);
 		if($(this).hasClass("on"))
 		{
 			if(eventSender.send("data-event-disableCamera", camId))
@@ -30,7 +31,8 @@ $(document).ready(function(){
 
 <ul class="btnbox">
 <c:forEach items="${staticCameras}"  var="camera" varStatus="status">
-		<li class="btn_typeA t3 ex mgt5" data-camera-camId="${camera.camId}" title="${camera.name}" >${camera.name}</li>
+		<li class="btn_typeA t3 ex mgt5" data-camera-camId="${camera.camId}" title="${camera.name}"	con="${camera.state}">${camera.name}</li>
+<%-- 		<li class="btn_typeA t3 ex mgt5" data-camera-camId="${camera.camId}" title="${camera.name}"	<c:if test="${camera.state eq 'disCon'}">con="${camera.state}"</c:if>>${camera.name}</li> --%>
 </c:forEach>
 </ul>
 

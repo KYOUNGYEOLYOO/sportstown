@@ -110,13 +110,10 @@ function onClick_connect(){
 			if(ajaxData.resultCode == "Success"){
 				console.log("success");
 				alert("연결 성공");
-// 				location.reload();
-				$("#cameraList").trigger("reloadGrid");
 			}else{
 				console.log("fail이다...");
 				alert("연결 실패");
 // 				new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
-				$("#cameraList").trigger("reloadGrid");
 			}
 		}
 	});
@@ -145,12 +142,9 @@ function onClick_disconnect(){
 			if(ajaxData.resultCode == "Success"){
 				console.log("success");
 				alert("연결해제 성공");
-// 				location.reload();
-				$("#cameraList").trigger("reloadGrid");
 			}else{
 				console.log("fail이다...");
 				alert("연결해제 실패");
-				$("#cameraList").trigger("reloadGrid");
 				new bcs_messagebox().openError("카메라관리", "카메라 연결해제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
 			}
 		}
@@ -183,7 +177,6 @@ function onClick_delete()
 						$("#cameraList").jqGrid("delRowData", ajaxData.camId);
 						clear_cameraDetail();
 						mb.close();
-						location.reload();
 					}else{
 						console.log("finalurl",ajaxData.finalUrl);
 						new bcs_messagebox().openError("카메라관리", "카메라 삭제중 오류 발생 [code="+ajaxData.resultCode+"]", null);
