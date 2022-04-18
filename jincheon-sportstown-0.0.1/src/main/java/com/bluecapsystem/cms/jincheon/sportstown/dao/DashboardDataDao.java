@@ -57,4 +57,8 @@ public interface DashboardDataDao extends JpaRepository<DashboardData, String>
 	@Query(value = "SELECT dd.sportsEventCode, dd.dataType FROM DashboardData dd where to_char(dd.registDate, 'yyyymm') = :today")
 	List<DashboardData> typeCount( @Param("today") String today);
 	
+	
+	@Query(value = "SELECT dd.dataId FROM DashboardData dd where dd.contentId = :contentId and dd.dataType= :dataType")
+	List<DashboardData> contentViewCount( @Param("contentId") String contentId, @Param("dataType") DataType dataType);
+	
 }

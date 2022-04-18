@@ -28,6 +28,7 @@ import com.bluecapsystem.cms.core.service.ContentService;
 import com.bluecapsystem.cms.core.service.PropertyService;
 import com.bluecapsystem.cms.core.service.ThumbnailInstanceService;
 import com.bluecapsystem.cms.jincheon.sportstown.common.define.UserSessionDefine;
+import com.bluecapsystem.cms.jincheon.sportstown.dao.DashboardDataDao;
 import com.bluecapsystem.cms.jincheon.sportstown.data.conditions.UserSelectCondition;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.DashboardData;
 import com.bluecapsystem.cms.jincheon.sportstown.data.entity.SportstownContentMeta;
@@ -59,6 +60,9 @@ public class ContentController {
 	
 	@Autowired
 	private DashboardDataManageService dashboardDataManageServ;
+	
+	@Autowired
+	private DashboardDataDao dashboardDataDao;
 
 	@RequestMapping("/search")
 	public ModelAndView search() {
@@ -146,10 +150,15 @@ public class ContentController {
 //					|| loginUser.getIsDeveloper() || loginUser.getIsAdmin() || loginUser.getUserType() == UserType.Admin) {
 //				mnv.setViewName("/content/contentModify");
 //			}
+			
+			
+			
+			
 			resultCode = "Success";
 			mnv.addObject("contentId", contentId);
 			mnv.addObject("contentMeta", meta);
 			mnv.addObject("resultCode", resultCode);
+
 
 			loadCodes(mnv);
 			
@@ -160,6 +169,9 @@ public class ContentController {
 			dashboardData.setContentId(meta.getContentId());
 			
 			dashboardDataManageServ.registDashboardData(dashboardData);
+			
+			List<DashboardData> viewCountLists = dashboardDataDao.contentViewCount(contentId, DataType.View);
+			mnv.addObject("viewCount", viewCountLists.size());
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
