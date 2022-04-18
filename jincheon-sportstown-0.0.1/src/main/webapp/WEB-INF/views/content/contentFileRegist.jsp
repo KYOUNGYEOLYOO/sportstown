@@ -77,12 +77,12 @@ function onClick_regist()
 				console.log(position);
 				console.log(total);
 				console.log(percentComplete);
-				
+				$(".loading").show();
 				$("[data-regist-fileProgress]").text("파일 업로드 " + percentComplete + "% ( " + position + " / " + total + " )" );
 			},
 			success : function(data, statusText, xhr, jqForm){
 				console.log(data);
-				
+				$(".loading").hide();
 				if(data.resultCode == "Success"){
 					var msgBox = new bcs_messagebox().open("파일등록", "파일 컨텐츠 등록 성공", false, { 
 						"확인" : function(){
