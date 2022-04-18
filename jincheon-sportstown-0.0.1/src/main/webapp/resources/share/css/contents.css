@@ -100,7 +100,7 @@ input[type="number"]::-webkit-inner-spin-button {-webkit-appearance: none;}
 /* 	.camera4pt li .videocontents {height:352px;} */
 /* 	.camera5pt li .videocontents {height:352px;} */
 	
-	#headerWrap,#footerWrap	{display:none;}
+/* 	#headerWrap,#footerWrap	{display:none;} */
 	#container.full #contentsWrap	{height:100vh !important; }
 	#container.full #contentsWrap #contents.video	{/*background:#111;*/}
 	button.fullScreen	{bottom:74px; background-image:url(../../images/common/btn_fullscreen_off.png)}
