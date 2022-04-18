@@ -378,7 +378,7 @@ function exitHandler() {
 	</form>
 	
 	
-	<div class="detailWrap">
+	<div class="detailWrap_hits">
 		<form id="frmContent">
 			<dl>
 				<input type="hidden" name="contentId" value="${contentMeta.contentId}" />
