@@ -487,6 +487,15 @@ function onClick_disConnectAll()
 	}
 }
 
+//F11키 이벤트 체크
+$(document).keydown(function(event) {
+    if(event.keyCode == 122) {
+        event.preventDefault();
+        fullScreen();
+    }
+});
+
+
 function fullScreen(){
 	if (!document.fullscreenElement) {
 		container.webkitRequestFullscreen();

@@ -378,7 +378,7 @@ function exitHandler() {
 	</form>
 	
 	
-	<div class="detailWrap">
+	<div class="detailWrap_hits">
 		<form id="frmContent">
 			<dl>
 				<input type="hidden" name="contentId" value="${contentMeta.contentId}" />
@@ -442,6 +442,14 @@ function exitHandler() {
 				<dd class="full">
 					<input name="tagInfo" type="text" value="${contentMeta.tagInfo}" title="태그" class="inputTxt" >
 				</dd>
+				<c:choose>
+					<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+						<dt>조회수</dt>
+						<dd class="full">
+							<input name="hits" type="text" value="${contentMeta.tagInfo}" title="조회수" class="inputTxt" readonly>
+						</dd>
+					</c:when>
+				</c:choose>
 			</dl>
 		</form>
 		<div class="btnWrap">
@@ -449,8 +457,15 @@ function exitHandler() {
 			<a class="btn download" href="javascript:onClick_download();">다운로드</a>		
 <!-- 			<a class="btn write" href="javascript:onClick_auth();">승인요청</a>		 -->
 			<div class="btnWrap">
-				<a class="btn delete" href="javascript:onClick_delete();">삭제</a> 
-				<a class="btn edit" href="javascript:onClick_modify();">수정</a>					
+			<c:choose>
+				<c:when test="${loginUser.isAdmin == true or loaginUser.isDeveloper == true or loginUser.userType == 'Admin'}">
+					<a class="btn delete" href="javascript:onClick_delete();">삭제</a>
+					<a class="btn edit" href="javascript:onClick_modify();">수정</a>
+				</c:when>
+				<c:otherwise>
+					<a class="btn edit" href="javascript:onClick_modify();">수정</a>
+				</c:otherwise>
+			</c:choose>			
 			</div>
 		</div>
 	</div>
